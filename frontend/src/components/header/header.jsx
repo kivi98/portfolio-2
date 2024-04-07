@@ -7,30 +7,6 @@ import logo from '../../assets/images/logo.png';
 import { useEffect, useState } from 'react';
 
 const Header = () => {
-  const [isHeaderVisible, setIsHeaderVisible] = useState(true);
-  const [lastScrollTop, setLastScrollTop] = useState(0);
-  useEffect(() => {
-    const handleScroll = () => {
-      const currentScrollTop =
-        window.pageYOffset || document.documentElement.scrollTop;
-      if (currentScrollTop > lastScrollTop) {
-        setIsHeaderVisible(false);
-      } else {
-        setIsHeaderVisible(true);
-      }
-      setLastScrollTop(currentScrollTop <= 0 ? 0 : currentScrollTop);
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, [lastScrollTop]);
-
-  const toggleHeaderVisibility = () => {
-    setIsHeaderVisible(!isHeaderVisible);
-  };
-
   return (
     <Box
       className={'nav'}
@@ -46,10 +22,7 @@ const Header = () => {
         left: 0,
         right: 0,
         zIndex: 1000,
-        transform: isHeaderVisible ? 'translateY(0)' : 'translateY(-100%)',
-        transition: 'transform 0.3s ease-in-out',
       }}
-      onClick={toggleHeaderVisibility}
     >
       <Stack
         direction={'row'}
@@ -118,35 +91,6 @@ const Header = () => {
           </Tooltip>
         </Box>
       </Stack>
-      <Box
-        sx={{
-          display: 'flex',
-          justifyContent: 'flex-end',
-          width: '100%',
-          zIndex: 1001,
-          mr: 0,
-          cursor: 'pointer',
-        }}
-      >
-        <Box
-          sx={{
-            backgroundColor: 'primary.main',
-            width: 100,
-            height: 50,
-            borderBottomRightRadius: 10,
-            borderBottomLeftRadius: 10,
-            top: 80,
-            position: 'fixed',
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            borderBottom: 5,
-            borderBottomColor: 'secondary.light',
-          }}
-        >
-          Drop
-        </Box>
-      </Box>
     </Box>
   );
 };

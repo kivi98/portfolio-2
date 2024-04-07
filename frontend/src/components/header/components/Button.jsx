@@ -15,6 +15,8 @@ const KButton = ({ label, onClick, active }) => {
       sx={{
         color: 'text.main',
         fontWeight: 200,
+        height: '3rem',
+        px: 2,
         '&:hover': {
           backgroundColor: 'rgba(227,0,0,0.18)',
         },
