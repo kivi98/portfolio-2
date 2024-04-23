@@ -1,7 +1,7 @@
 import { Divider, Box } from '@mui/material';
 import PropTypes from 'prop-types';
 
-const KDivider = ({ height }) => {
+const KDivider = ({ height, orientation, width }) => {
   return (
     <Box
       sx={{
@@ -11,13 +11,14 @@ const KDivider = ({ height }) => {
       }}
     >
       <Divider
-        orientation={'vertical'}
+        orientation={orientation}
         flexItem
         sx={{
           mx: '3rem',
           backgroundColor: 'primary.lighter',
           borderRadius: 10,
           height: { height },
+          width: { width },
           my: 'auto',
         }}
       />
@@ -26,7 +27,9 @@ const KDivider = ({ height }) => {
 };
 
 KDivider.propTypes = {
-  height: PropTypes.string.isRequired,
+  height: PropTypes.string,
+  width: PropTypes.string,
+  orientation: PropTypes.string.isRequired,
 };
 
 export default KDivider;

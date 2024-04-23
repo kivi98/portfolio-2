@@ -13,6 +13,7 @@ const Layout = ({ children }) => {
           maxHeight: 'fit-content',
           display: 'flex',
           pt: '150px',
+          color: 'text.main',
         }}
       >
         {children}

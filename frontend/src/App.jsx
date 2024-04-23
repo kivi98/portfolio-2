@@ -5,6 +5,7 @@ import theme from './theme/theme.jsx';
 import Home from './pages/home/home.jsx';
 import About from './pages/about-me/about-me.jsx';
 import ContactMe from './pages/contact-me/contact-me.jsx';
+import Blog from './pages/blog/blog.jsx';
 
 function App() {
   return (
@@ -32,6 +33,14 @@ function App() {
             element={
               <Layout>
                 <ContactMe />
+              </Layout>
+            }
+          />
+          <Route
+            path={'blog'}
+            element={
+              <Layout>
+                <Blog />
               </Layout>
             }
           />

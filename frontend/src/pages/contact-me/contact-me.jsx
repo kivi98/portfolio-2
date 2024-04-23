@@ -23,7 +23,7 @@ const ContactMe = () => {
         <Box>
           <img src={test} alt={'test'} style={{ height: 400 }} />
         </Box>
-        <KDivider height={'80%'} />
+        <KDivider height={'80%'} orientation={'vertical'} />
         <Box
           sx={{
             alignSelf: 'center',
