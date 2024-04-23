@@ -1,10 +1,8 @@
 import { Box, Divider, Stack, Tooltip } from '@mui/material';
-import './header.css';
-import KButton from './components/Button.jsx';
+import KNavButton from './components/nav-button.jsx';
 import github from '../../assets/images/github.png';
 import linkedin from '../../assets/images/linkedin.png';
 import logo from '../../assets/images/logo.png';
-import { useEffect, useState } from 'react';
 
 const Header = () => {
   return (
@@ -62,11 +60,13 @@ const Header = () => {
               borderRadius: 10,
             }}
           />
-          <KButton label={'Home'} active={false}></KButton>
-          <KButton label={'About Me'} active={true}></KButton>
-          <KButton label={'Blog'} active={false}></KButton>
-          <KButton label={'Projects'} active={false}></KButton>
-          <KButton label={'Contact Me'} active={false}></KButton>
+          <Box sx={{ display: 'flex', gap: 2 }}>
+            <KNavButton label={'Home'} active={false}></KNavButton>
+            <KNavButton label={'About Me'} active={true}></KNavButton>
+            <KNavButton label={'Blog'} active={false}></KNavButton>
+            <KNavButton label={'Projects'} active={false}></KNavButton>
+            <KNavButton label={'Contact Me'} active={false}></KNavButton>
+          </Box>
         </Stack>
         <Box
           sx={{

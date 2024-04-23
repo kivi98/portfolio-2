@@ -16,7 +16,8 @@ const Home = () => {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        height: '100vh',
+        flexDirection: 'column',
+        height: '100%',
       }}
     >
       <Stack

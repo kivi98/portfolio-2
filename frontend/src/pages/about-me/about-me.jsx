@@ -1,19 +1,16 @@
 import { Box, Container, Typography } from '@mui/material';
-import SectionTitle from '../../components/common/section-title.jsx';
+import SectionTitle from '../../components/Layouts/section-title.jsx';
 import aboutImage from '../../assets/images/about-me.png';
-import TwoColumnSection from '../../components/common/section-body-type-1.jsx';
-import OneColumnSection from '../../components/common/section-body-type-2.jsx';
-import SkillIcon from '../../components/common/skill-icon.jsx';
+import TwoColumnSection from '../../components/Layouts/section-body-type-2.jsx';
+import OneColumnSection from '../../components/Layouts/section-body-type-1.jsx';
+import SkillIcon from '../../components/Layouts/skill-icon.jsx';
+import SkillCard from '../../components/Layouts/skill-card.jsx';
 
 const About = () => {
   return (
-    <Container
-      sx={{
-        pt: 16,
-      }}
-    >
-      <SectionTitle title={'Who Am I'} />
+    <Container>
       <TwoColumnSection
+        title={'Who Am I'}
         rightComponent={
           <img src={aboutImage} alt={'body-image'} style={{ height: 400 }} />
         }
@@ -33,8 +30,8 @@ const About = () => {
         }
       />
 
-      <SectionTitle title={'Education'} />
       <TwoColumnSection
+        title={'Education'}
         rightComponent={
           <Typography variant={'body1'} fontSize={20}>
             <span>
@@ -53,8 +50,8 @@ const About = () => {
         }
       />
 
-      <SectionTitle title={'Skills'} />
       <OneColumnSection
+        title={'Skills'}
         sectionDescription={
           <Typography variant={'caption'} fontSize={20}>
             <span>
@@ -87,6 +84,20 @@ const About = () => {
             <SkillIcon image={aboutImage} placeholderText={'test'} />
             <SkillIcon image={aboutImage} placeholderText={'test'} />
           </Box>
+        }
+      />
+
+      <TwoColumnSection
+        title={'Certifications'}
+        rightComponent={
+          <img src={aboutImage} alt={'body-image'} style={{ height: 400 }} />
+        }
+        leftComponent={
+          <SkillCard
+            title={'Certified Cyber-Security'}
+            date={'20/12/2023'}
+            description={'ISC2 Certifications'}
+          />
         }
       />
     </Container>

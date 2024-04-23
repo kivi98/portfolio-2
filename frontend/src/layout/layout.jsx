@@ -9,8 +9,10 @@ const Layout = ({ children }) => {
       <Box
         sx={{
           backgroundColor: 'primary.light',
-          minHeight: '100vh',
+          minHeight: 'calc(100vh - 150px)',
           maxHeight: 'fit-content',
+          display: 'flex',
+          pt: '150px',
         }}
       >
         {children}

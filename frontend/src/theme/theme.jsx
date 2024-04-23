@@ -7,6 +7,7 @@ const theme = createTheme({
       main: '#292929',
       light: '#303030',
       light2: '#404040',
+      light3: '#505050',
       lighter: '#8C8C8C',
     },
     secondary: {
@@ -17,6 +18,7 @@ const theme = createTheme({
     },
     text: {
       main: '#F5F5F5',
+      dark: '#b6b6b6',
       light: '#FFFFFF',
     },
     common: {
