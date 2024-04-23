@@ -100,6 +100,45 @@ const About = () => {
           />
         }
       />
+
+      <TwoColumnSection
+        title={'Volunteering'}
+        rightComponent={
+          <SkillCard
+            title={'Volunteer at XYZ'}
+            date={'20/12/2023'}
+            description={'XYZ'}
+          />
+        }
+        leftComponent={
+          <img src={aboutImage} alt={'body-image'} style={{ height: 400 }} />
+        }
+      />
+
+      <TwoColumnSection
+        title={'Achievements'}
+        rightComponent={
+          <img src={aboutImage} alt={'body-image'} style={{ height: 400 }} />
+        }
+        leftComponent={
+          <SkillCard title={'XYZ'} date={'20/12/2023'} description={'XYZ'} />
+        }
+      />
+
+      <OneColumnSection
+        title={'Experience'}
+        sectionDescription={
+          <Box
+            sx={{
+              display: 'flex',
+              justifyContent: 'center',
+              width: '100%',
+            }}
+          >
+            <SkillCard title={'XYZ'} date={'20/12/2023'} description={'XYZ'} />
+          </Box>
+        }
+      />
     </Container>
   );
 };

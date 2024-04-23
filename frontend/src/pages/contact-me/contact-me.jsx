@@ -8,6 +8,7 @@ import instagram from '../../assets/images/instagram.svg';
 import linkedin from '../../assets/images/linkedin.svg';
 import github from '../../assets/images/github.svg';
 import medium from '../../assets/images/medium.svg';
+import x from '../../assets/images/x.svg';
 
 const ContactMe = () => {
   return (
@@ -83,6 +84,7 @@ const ContactMe = () => {
           <img src={linkedin} alt={'linkedin'} style={{ height: 55 }} />
           <img src={github} alt={'github'} style={{ height: 55 }} />
           <img src={medium} alt={'medium'} style={{ height: 55 }} />
+          <img src={x} alt={'x'} style={{ height: 55 }} />
         </Stack>
       </Box>
     </Container>

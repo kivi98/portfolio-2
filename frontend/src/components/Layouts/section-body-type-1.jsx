@@ -44,12 +44,15 @@ const OneColumnSection = ({ sectionDescription, sectionBody, title }) => {
           color: 'text.main',
           alignItems: 'center',
           justifyContent: 'center',
+          width: '100%',
         }}
       >
-        <Stack direction={'column'}>
+        <Stack direction={'column'} sx={{ width: '100%' }}>
           <Box
             sx={{
               mb: 5,
+              display: 'flex',
+              width: '100%',
             }}
           >
             {sectionDescription}
