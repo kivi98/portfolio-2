@@ -1,9 +1,15 @@
-import { Box, Divider, Stack, Typography } from '@mui/material';
-import PropTypes, { string } from 'prop-types';
+import { Box, Stack, Typography } from '@mui/material';
+import PropTypes from 'prop-types';
 import KButton from '../../../components/common/button.jsx';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 
-const BlogCard = ({ title, blogPostImage, description, keywords, hearts }) => {
+const ProjectCard = ({
+  title,
+  projectPostImage,
+  description,
+  keywords,
+  hearts,
+}) => {
   return (
     <Box
       sx={{
@@ -21,7 +27,7 @@ const BlogCard = ({ title, blogPostImage, description, keywords, hearts }) => {
       <Stack direction={'row'} sx={{ width: '100%' }}>
         <Box>
           <img
-            src={blogPostImage}
+            src={projectPostImage}
             alt={title}
             style={{
               width: 200,
@@ -93,12 +99,12 @@ const BlogCard = ({ title, blogPostImage, description, keywords, hearts }) => {
   );
 };
 
-BlogCard.propTypes = {
+ProjectCard.propTypes = {
   title: PropTypes.string.isRequired,
-  blogPostImage: PropTypes.string.isRequired,
+  projectPostImage: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
   hearts: PropTypes.number,
   // keywords: PropTypes.arrayOf(string).isRequired
 };
 
-export default BlogCard;
+export default ProjectCard;

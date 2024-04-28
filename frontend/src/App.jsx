@@ -6,6 +6,7 @@ import Home from './pages/home/home.jsx';
 import About from './pages/about-me/about-me.jsx';
 import ContactMe from './pages/contact-me/contact-me.jsx';
 import Blog from './pages/blog/blog.jsx';
+import Projects from './pages/projects/projects.jsx';
 
 function App() {
   return (
@@ -41,6 +42,14 @@ function App() {
             element={
               <Layout>
                 <Blog />
+              </Layout>
+            }
+          />
+          <Route
+            path={'projects'}
+            element={
+              <Layout>
+                <Projects />
               </Layout>
             }
           />

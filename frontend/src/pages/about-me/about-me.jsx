@@ -17,14 +17,15 @@ const About = () => {
         leftComponent={
           <Typography variant={'body1'} fontSize={20}>
             <span>
-              I’m just an ordinary student trying to be an expert in Software
-              Engineering field. Eager to explore the dynamic world of
-              technology, I am committed to honing my programming skills and
-              embracing innovative solutions to real-world challenges. I’m just
-              an ordinary student trying to be an expert in Software Engineering
+              <span style={{ fontSize: 36, fontWeight: 500 }}>I'</span>m just an
+              ordinary student trying to be an expert in Software Engineering
               field. Eager to explore the dynamic world of technology, I am
               committed to honing my programming skills and embracing innovative
-              solutions to real-world challenges.
+              solutions to real-world challenges. I’m just an ordinary student
+              trying to be an expert in Software Engineering field. Eager to
+              explore the dynamic world of technology, I am committed to honing
+              my programming skills and embracing innovative solutions to
+              real-world challenges.
             </span>
           </Typography>
         }

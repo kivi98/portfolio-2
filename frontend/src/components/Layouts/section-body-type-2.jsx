@@ -53,7 +53,7 @@ const TwoColumnSection = ({ leftComponent, rightComponent, title }) => {
           flexItem
           sx={{
             mx: '3rem',
-            backgroundColor: 'primary.lighter',
+            backgroundColor: 'transparentLevelsWhite.2',
             borderRadius: 10,
           }}
         />

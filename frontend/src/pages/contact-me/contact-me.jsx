@@ -13,6 +13,14 @@ import x from '../../assets/images/x.svg';
 const ContactMe = () => {
   return (
     <Container>
+      <style>
+        {`
+          .social-icon {
+            height: 55px;
+            cursor: pointer;
+          }
+        `}
+      </style>
       <Stack
         direction="row"
         sx={{
@@ -34,18 +42,34 @@ const ContactMe = () => {
             <Stack
               direction="column"
               sx={{
-                gap: 2,
+                gap: 1,
                 minWidth: '100%',
               }}
             >
-              <KTextField placeholder={'Email'} name={'email'} required />
-              <KTextField name={'name'} placeholder={'Name'} required />
-              <KTextField name={'subject'} placeholder={'Subject'} required />
+              <KTextField
+                placeholder={'Email'}
+                name={'email'}
+                size={'small'}
+                required
+              />
+              <KTextField
+                name={'name'}
+                placeholder={'Name'}
+                size={'small'}
+                required
+              />
+              <KTextField
+                name={'subject'}
+                placeholder={'Subject'}
+                size={'small'}
+                required
+              />
               <KTextField
                 multiline
                 rows={4}
                 name={'message'}
                 placeholder={'Message'}
+                size={'small'}
                 required
               />
               <Box
@@ -68,7 +92,7 @@ const ContactMe = () => {
       >
         <Box sx={{ py: 3 }}>
           <Typography variant={'h6'} sx={{ color: 'text.dark' }}>
-            Get in touch...
+            Get in touch with me...
           </Typography>
         </Box>
         <Stack
@@ -79,12 +103,12 @@ const ContactMe = () => {
             gap: 2,
           }}
         >
-          <img src={facebook} alt={'facebook'} style={{ height: 55 }} />
-          <img src={instagram} alt={'instagram'} style={{ height: 55 }} />
-          <img src={linkedin} alt={'linkedin'} style={{ height: 55 }} />
-          <img src={github} alt={'github'} style={{ height: 55 }} />
-          <img src={medium} alt={'medium'} style={{ height: 55 }} />
-          <img src={x} alt={'x'} style={{ height: 55 }} />
+          <img src={facebook} alt={'facebook'} className="social-icon" />
+          <img src={instagram} alt={'instagram'} className="social-icon" />
+          <img src={linkedin} alt={'linkedin'} className="social-icon" />
+          <img src={github} alt={'github'} className="social-icon" />
+          <img src={medium} alt={'medium'} className="social-icon" />
+          <img src={x} alt={'x'} className="social-icon" />
         </Stack>
       </Box>
     </Container>

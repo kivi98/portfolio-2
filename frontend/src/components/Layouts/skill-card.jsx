@@ -6,6 +6,9 @@ const SkillCard = ({ title, description, date }) => {
       direction={'column'}
       sx={{
         backgroundColor: 'primary.light2',
+        border: 'solid 1px',
+        borderColor: 'transparentLevelsWhite.2',
+        boxShadow: '0px 15px 52px -4px rgba(0,0,0,0.20)',
         borderRadius: 2,
         p: 1,
         width: '80%',
@@ -23,7 +26,7 @@ const SkillCard = ({ title, description, date }) => {
       </Box>
       <Divider
         sx={{
-          backgroundColor: 'primary.lighter',
+          backgroundColor: 'transparentLevelsWhite.2',
           borderRadius: 10,
         }}
       />

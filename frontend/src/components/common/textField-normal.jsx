@@ -1,7 +1,14 @@
 import { Box, TextField } from '@mui/material';
 import PropTypes from 'prop-types';
 
-const KTextField = ({ placeholder, name, multiline, rows, required }) => {
+const KTextField = ({
+  placeholder,
+  name,
+  multiline,
+  rows,
+  required,
+  ...props
+}) => {
   return (
     <Box>
       <TextField
@@ -10,6 +17,7 @@ const KTextField = ({ placeholder, name, multiline, rows, required }) => {
         placeholder={placeholder}
         name={name}
         required={required}
+        {...props}
         sx={{
           backgroundColor: 'primary.light2',
           borderRadius: 1,

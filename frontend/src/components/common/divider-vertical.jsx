@@ -15,7 +15,7 @@ const KDivider = ({ height, orientation, width }) => {
         flexItem
         sx={{
           mx: '3rem',
-          backgroundColor: 'primary.lighter',
+          backgroundColor: 'transparentLevelsWhite.1',
           borderRadius: 10,
           height: { height },
           width: { width },

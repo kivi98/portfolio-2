@@ -1,20 +1,11 @@
-import { Box, Container, Stack, InputAdornment } from '@mui/material';
+import { Box, Container, InputAdornment, Stack } from '@mui/material';
 import blogImage from '../../assets/images/blogImage.png';
-import BlogCard from './components/blog-card.jsx';
-import test from '../../assets/images/test.png';
 import KTextField from '../../components/common/textField-normal.jsx';
 import SearchIcon from '@mui/icons-material/Search';
+import ProjectCard from '../blog/components/blog-card.jsx';
+import test from '../../assets/images/test.png';
 
-const Blog = () => {
-  const options = [
-    { id: 1, option: 'React' },
-    { id: 2, option: 'React' },
-    { id: 3, option: 'React' },
-    { id: 4, option: 'React' },
-    { id: 5, option: 'React' },
-    { id: 6, option: 'React' },
-    { id: 7, option: 'React' },
-  ];
+const Projects = () => {
   return (
     <Container>
       <Box>
@@ -40,8 +31,8 @@ const Blog = () => {
           }}
         >
           <KTextField
-            name={'blogSearch'}
-            placeholder={'Search Blogs'}
+            name={'projectSearch'}
+            placeholder={'Search Projects'}
             size={'small'}
             type={'search'}
             fullWidth
@@ -55,6 +46,7 @@ const Blog = () => {
           />
         </Stack>
       </Box>
+
       <Box
         sx={{
           mt: 3,
@@ -64,28 +56,28 @@ const Blog = () => {
           mb: 5,
         }}
       >
-        <BlogCard
+        <ProjectCard
           blogPostImage={test}
           description={'testing'}
-          title={'This is a Testing Blog Post'}
+          title={'This is a Testing Project Post'}
           hearts={30}
         />
-        <BlogCard
+        <ProjectCard
           blogPostImage={test}
           description={'testing'}
-          title={'This is a Testing Blog Post'}
+          title={'This is a Testing Project Post'}
           hearts={30}
         />
-        <BlogCard
+        <ProjectCard
           blogPostImage={test}
           description={'testing'}
-          title={'This is a Testing Blog Post'}
+          title={'This is a Testing Project Post'}
           hearts={30}
         />
-        <BlogCard
+        <ProjectCard
           blogPostImage={test}
           description={'testing'}
-          title={'This is a Testing Blog Post'}
+          title={'This is a Testing Project Post'}
           hearts={30}
         />
       </Box>
@@ -93,4 +85,4 @@ const Blog = () => {
   );
 };
 
-export default Blog;
+export default Projects;

@@ -15,15 +15,16 @@ const KNavButton = ({ label, onClick, active }) => {
       sx={{
         color: 'text.main',
         fontWeight: 200,
+        fontSize: 16,
         height: '3rem',
         px: 2,
+        textTransform: 'none',
         border: '1px solid transparent',
         transition:
           'background-color 0.3s ease-in-out, border 0.3s ease-in-out',
         '&:hover': {
           backgroundColor: 'rgba(227,0,0,0.18)',
           border: '1px solid rgb(227,0,0)',
-          // set transition time
         },
         ...(active ? activeStyle : {}),
       }}
