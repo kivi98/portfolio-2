@@ -17,24 +17,36 @@ const Home = () => {
         alignItems: 'center',
         justifyContent: 'center',
         flexDirection: 'column',
-        height: '100%',
+        height: { xs: 'calc(100vh - 140px)', md: '100%' },
+        padding: { xs: 2, sm: 4, md: 8 },
       }}
     >
       <Stack
         direction={{ xs: 'column', md: 'row' }}
         sx={{
           gap: 2,
+          height: { xs: 'auto', md: '100%' },
           width: '100%',
+          display: 'flex',
         }}
       >
-        <Box>
-          <img src={test} alt={'test'} style={{ height: 400 }} />
-        </Box>
+        <Box // landing page image
+          component={'img'}
+          src={test}
+          alt={'testImage'}
+          sx={{
+            height: { xs: 300, md: '100%' },
+            width: 'auto',
+            mt: 0,
+            objectFit: 'cover',
+            borderRadius: 2,
+          }}
+        ></Box>
         <Box
           sx={{
             backgroundColor: 'secondary.other',
-            height: '2.5rem',
-            width: '8rem',
+            height: { xs: '2rem', md: '2.5rem' },
+            width: { xs: '2rem', md: '11rem' },
             mt: 1,
             borderRadius: 1,
           }}
@@ -42,7 +54,10 @@ const Home = () => {
         <Box>
           <Typography
             variant="h1"
-            sx={{ color: 'text.main', fontSize: '3rem' }}
+            sx={{
+              color: 'text.main',
+              fontSize: { xs: '2rem', sm: '2.5rem', md: '3rem' },
+            }}
           >
             <span>
               Hi there, <br />
@@ -52,7 +67,7 @@ const Home = () => {
           <Divider
             sx={{
               backgroundColor: 'secondary.light',
-              width: '50%',
+              width: { xs: '100%', md: '50%' },
               height: 2,
               my: 2,
               boxShadow: '0px 0px 12px #E30000',
@@ -77,8 +92,8 @@ const Home = () => {
               sx={{
                 backgroundColor: 'secondary.main',
                 color: 'text.light',
-                width: '10rem',
-                height: '3rem',
+                width: { xs: '100%', md: '10rem' },
+                height: { xs: '2.5rem', md: '3rem' },
                 fontWeight: 700,
                 '&:hover': {
                   backgroundColor: 'secondary.light',

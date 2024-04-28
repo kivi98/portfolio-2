@@ -18,6 +18,7 @@ const KNavButton = ({ label, onClick, active }) => {
         fontSize: 16,
         height: '3rem',
         px: 2,
+        width: { xs: '100%', md: 'fit-content' },
         textTransform: 'none',
         border: '1px solid transparent',
         transition:

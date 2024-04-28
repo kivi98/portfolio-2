@@ -4,6 +4,7 @@ const TwoColumnSection = ({ leftComponent, rightComponent, title }) => {
   return (
     <Box
       sx={{
+        mt: { xs: 3, md: 0 },
         height: 'fit-content',
         pb: 10,
       }}
@@ -38,7 +39,7 @@ const TwoColumnSection = ({ leftComponent, rightComponent, title }) => {
         </Box>
       </Box>
       <Stack
-        direction={'row'}
+        direction={{ xs: 'column', md: 'row' }}
         sx={{
           display: 'flex',
           alignItems: 'center',

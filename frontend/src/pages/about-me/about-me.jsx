@@ -1,10 +1,10 @@
 import { Box, Container, Typography } from '@mui/material';
-import SectionTitle from '../../components/Layouts/section-title.jsx';
 import aboutImage from '../../assets/images/about-me.png';
 import TwoColumnSection from '../../components/Layouts/section-body-type-2.jsx';
 import OneColumnSection from '../../components/Layouts/section-body-type-1.jsx';
 import SkillIcon from '../../components/Layouts/skill-icon.jsx';
 import SkillCard from '../../components/Layouts/skill-card.jsx';
+import KImageBox from '../../components/common/imageBox-standard.jsx';
 
 const About = () => {
   return (
@@ -12,7 +12,11 @@ const About = () => {
       <TwoColumnSection
         title={'Who Am I'}
         rightComponent={
-          <img src={aboutImage} alt={'body-image'} style={{ height: 400 }} />
+          <KImageBox
+            src={aboutImage}
+            alt={'body-image'}
+            height={{ xs: 300, md: 400 }}
+          />
         }
         leftComponent={
           <Typography variant={'body1'} fontSize={20}>
@@ -47,7 +51,11 @@ const About = () => {
           </Typography>
         }
         leftComponent={
-          <img src={aboutImage} alt={'body-image'} style={{ height: 400 }} />
+          <KImageBox
+            src={aboutImage}
+            alt={'body-image'}
+            height={{ xs: 300, md: 400 }}
+          />
         }
       />
 
@@ -91,7 +99,11 @@ const About = () => {
       <TwoColumnSection
         title={'Certifications'}
         rightComponent={
-          <img src={aboutImage} alt={'body-image'} style={{ height: 400 }} />
+          <KImageBox
+            src={aboutImage}
+            alt={'body-image'}
+            height={{ xs: 300, md: 400 }}
+          />
         }
         leftComponent={
           <SkillCard
@@ -112,14 +124,22 @@ const About = () => {
           />
         }
         leftComponent={
-          <img src={aboutImage} alt={'body-image'} style={{ height: 400 }} />
+          <KImageBox
+            src={aboutImage}
+            alt={'body-image'}
+            height={{ xs: 300, md: 400 }}
+          />
         }
       />
 
       <TwoColumnSection
         title={'Achievements'}
         rightComponent={
-          <img src={aboutImage} alt={'body-image'} style={{ height: 400 }} />
+          <KImageBox
+            src={aboutImage}
+            alt={'body-image'}
+            height={{ xs: 300, md: 400 }}
+          />
         }
         leftComponent={
           <SkillCard title={'XYZ'} date={'20/12/2023'} description={'XYZ'} />

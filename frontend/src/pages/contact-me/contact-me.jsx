@@ -9,6 +9,7 @@ import linkedin from '../../assets/images/linkedin.svg';
 import github from '../../assets/images/github.svg';
 import medium from '../../assets/images/medium.svg';
 import x from '../../assets/images/x.svg';
+import KImageBox from '../../components/common/imageBox-standard.jsx';
 
 const ContactMe = () => {
   return (
@@ -22,14 +23,15 @@ const ContactMe = () => {
         `}
       </style>
       <Stack
-        direction="row"
+        direction={{ xs: 'column', md: 'row' }}
         sx={{
           gap: 2,
+          mt: { xs: 3, md: 0 },
           width: '100%',
         }}
       >
         <Box>
-          <img src={test} alt={'test'} style={{ height: 400 }} />
+          <KImageBox src={test} alt={'test'} height={400} width={'100%'} />
         </Box>
         <KDivider height={'80%'} orientation={'vertical'} />
         <Box
