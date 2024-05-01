@@ -1,35 +1,81 @@
-import { Box, Container, Stack, InputAdornment } from '@mui/material';
+import {
+  Box,
+  Container,
+  Stack,
+  InputAdornment,
+  Typography,
+  Divider,
+} from '@mui/material';
 import blogImage from '../../assets/images/blogImage.png';
 import BlogCard from './components/blog-card.jsx';
 import test from '../../assets/images/test.png';
 import KTextField from '../../components/common/textField-normal.jsx';
 import SearchIcon from '@mui/icons-material/Search';
+import KDivider from '../../components/common/divider-vertical.jsx';
 
 const Blog = () => {
-  const options = [
-    { id: 1, option: 'React' },
-    { id: 2, option: 'React' },
-    { id: 3, option: 'React' },
-    { id: 4, option: 'React' },
-    { id: 5, option: 'React' },
-    { id: 6, option: 'React' },
-    { id: 7, option: 'React' },
-  ];
   return (
     <Container>
-      <Box>
-        <img
-          src={blogImage}
-          alt={'blogImage'}
-          style={{
-            height: 300,
-            borderRadius: 5,
-            width: '100%',
-            objectFit: 'cover',
-          }}
-        />
+      <Stack
+        direction={{ xs: 'column', md: 'row' }}
+        sx={{ gap: 2, width: '100%', display: 'flex' }}
+      >
+        <Box>
+          <img
+            src={blogImage}
+            alt={'blogImage'}
+            style={{
+              height: 300,
+              borderRadius: 5,
+              width: '100%',
+              objectFit: 'cover',
+            }}
+          />
+        </Box>
+        <Box
+          sx={{ mb: 2, width: { xs: '100%', md: '60%' }, px: { xs: 0, md: 2 } }}
+        >
+          <Stack
+            direction={'column'}
+            sx={{
+              display: 'flex',
+              justifyContent: 'flex-end',
+              alignItems: 'center',
+              width: '100%',
+            }}
+          >
+            <Typography
+              variant={'h4'}
+              sx={{
+                color: 'text.main',
+                fontWeight: 800,
+                mb: 1,
+                width: '100%',
+                fontSize: 50,
+              }}
+            >
+              Blogs
+            </Typography>
+            <Divider
+              sx={{
+                backgroundColor: 'secondary.light',
+                height: 1,
+                width: '100%',
+              }}
+            />
+            <Typography
+              variant={'subtitle1'}
+              sx={{ color: 'text.main', mt: 2 }}
+            >
+              A collection of blogs I have worked on in the past
+            </Typography>
+          </Stack>
+        </Box>
+      </Stack>
+      <Box sx={{ py: 2 }}>
+        <KDivider orientation={'horizontal'} width={'100%'} />
       </Box>
-      <Box sx={{ my: 2 }}>
+      <Box sx={{ mb: 2 }}>
         <Stack
           direction={'row'}
           sx={{
@@ -44,7 +90,6 @@ const Blog = () => {
             placeholder={'Search Blogs'}
             size={'small'}
             type={'search'}
-            fullWidth
             InputProps={{
               startAdornment: (
                 <InputAdornment position={'start'}>
@@ -52,6 +97,7 @@ const Blog = () => {
                 </InputAdornment>
               ),
             }}
+            sx={{ width: { xs: '100%', md: 300 } }}
           />
         </Stack>
       </Box>

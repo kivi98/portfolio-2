@@ -1,7 +1,7 @@
 import { Button as MuiButton } from '@mui/material';
 import PropTypes from 'prop-types';
 
-const KNavButton = ({ label, onClick, active }) => {
+const KNavButton = ({ label, onClick, active, size }) => {
   const activeStyle = {
     backgroundColor: 'secondary.main',
     fontWeight: 700,
@@ -30,6 +30,7 @@ const KNavButton = ({ label, onClick, active }) => {
         ...(active ? activeStyle : {}),
       }}
       onClick={onClick}
+      size={size}
     >
       {label}
     </MuiButton>
@@ -40,6 +41,7 @@ KNavButton.propTypes = {
   label: PropTypes.string.isRequired,
   onClick: PropTypes.func,
   active: PropTypes.bool.isRequired,
+  size: PropTypes.string,
 };
 
 export default KNavButton;

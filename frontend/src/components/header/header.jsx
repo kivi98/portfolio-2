@@ -1,5 +1,6 @@
 import {
   Box,
+  Button,
   Divider,
   IconButton,
   Stack,
@@ -11,32 +12,35 @@ import github from '../../assets/images/github.png';
 import linkedin from '../../assets/images/linkedin.png';
 import logo from '../../assets/images/logo.png';
 import { Link, useLocation } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import MenuIcon from '@mui/icons-material/Menu';
+import useOnClickOutside from './hooks/useOnClickOutside.js';
+import LinkedInIcon from '@mui/icons-material/LinkedIn';
+import GitHubIcon from '@mui/icons-material/GitHub';
 
 const Header = () => {
   const location = useLocation();
   const [activeButton, setActiveButton] = useState('/');
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const mobileMenuRef = useRef();
+
   const isMobile = useMediaQuery('(max-width:600px)');
 
   useEffect(() => {
     setActiveButton(location.pathname);
   }, [location]);
-
   const activeBtnHandler = (path) => {
     setActiveButton(path);
+    toggleMobileMenu();
   };
-
   const toggleMobileMenu = () => {
-    setMobileMenuOpen(!mobileMenuOpen);
+    setMobileMenuOpen((prevState) => !prevState);
   };
-
-  console.log('toggleMobileMenu', mobileMenuOpen);
-  console.log('isMobile ', isMobile);
+  useOnClickOutside(mobileMenuRef, () => setMobileMenuOpen(false));
 
   return (
     <Box
+      ref={mobileMenuRef}
       className={'nav'}
       sx={{
         boxSizing: 'border-box',
@@ -141,6 +145,28 @@ const Header = () => {
               onClick={() => activeBtnHandler('/contact-me')}
             ></KNavButton>
           </Link>
+          <Stack direction={'column'} gap={0.5}>
+            <Button
+              startIcon={<GitHubIcon />}
+              sx={{
+                textTransform: 'none',
+                backgroundColor: 'primary.light',
+                color: 'text.main',
+              }}
+            >
+              GitHUb
+            </Button>
+            <Button
+              startIcon={<LinkedInIcon />}
+              sx={{
+                textTransform: 'none',
+                backgroundColor: 'primary.light',
+                color: 'text.main',
+              }}
+            >
+              LinkedIn
+            </Button>
+          </Stack>
         </Stack>
       )}
       {!isMobile && (
@@ -227,7 +253,7 @@ const Header = () => {
               sx={{
                 display: 'flex',
                 alignItems: 'center',
-                gap: 1.5,
+                gap: 2,
               }}
             >
               <Tooltip title="GitHub">

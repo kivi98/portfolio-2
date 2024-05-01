@@ -11,21 +11,11 @@ import test from '../../assets/images/test.png';
 
 const Home = () => {
   return (
-    <Container
-      sx={{
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        flexDirection: 'column',
-        height: { xs: 'calc(100vh - 140px)', md: '100%' },
-        padding: { xs: 2, sm: 4, md: 8 },
-      }}
-    >
+    <Container>
       <Stack
         direction={{ xs: 'column', md: 'row' }}
         sx={{
           gap: 2,
-          height: { xs: 'auto', md: '100%' },
           width: '100%',
           display: 'flex',
         }}

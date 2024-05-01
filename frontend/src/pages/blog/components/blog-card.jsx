@@ -2,6 +2,7 @@ import { Box, Divider, Stack, Typography } from '@mui/material';
 import PropTypes, { string } from 'prop-types';
 import KButton from '../../../components/common/button.jsx';
 import FavoriteIcon from '@mui/icons-material/Favorite';
+import KDivider from '../../../components/common/divider-vertical.jsx';
 
 const BlogCard = ({ title, blogPostImage, description, keywords, hearts }) => {
   return (
@@ -19,15 +20,22 @@ const BlogCard = ({ title, blogPostImage, description, keywords, hearts }) => {
       }}
     >
       <Stack direction={'row'} sx={{ width: '100%' }}>
-        <Box>
+        <Box
+          sx={{
+            p: 0,
+            width: { xs: 200, md: 220 },
+            height: { xs: '100%', md: 140 },
+          }}
+        >
           <img
             src={blogPostImage}
             alt={title}
             style={{
-              width: 200,
-              height: 130,
+              width: '100%',
+              height: '100%',
               objectFit: 'cover',
               borderRadius: 5,
+              p: 0,
             }}
           />
         </Box>
@@ -37,7 +45,7 @@ const BlogCard = ({ title, blogPostImage, description, keywords, hearts }) => {
             width: '100%',
             display: 'flex',
             justifyContent: 'space-between',
-            py: 1,
+            pl: 1,
           }}
         >
           <Stack
@@ -45,10 +53,19 @@ const BlogCard = ({ title, blogPostImage, description, keywords, hearts }) => {
             sx={{
               display: 'flex',
               justifyContent: 'space-between',
-              px: 1,
+              pl: 1,
             }}
           >
-            <Typography variant={'subtitle1'}>{title}</Typography>
+            <Typography
+              variant={'subtitle1'}
+              sx={{
+                display: 'flex',
+                alignItems: 'center',
+                fontWeight: 800,
+              }}
+            >
+              {title}
+            </Typography>
             <Stack
               direction={'row'}
               gap={1}
@@ -56,8 +73,8 @@ const BlogCard = ({ title, blogPostImage, description, keywords, hearts }) => {
                 backgroundColor: 'primary.light2',
                 px: 2,
                 py: 0.5,
+                height: 'fit-content',
                 borderRadius: 2,
-                mt: -1,
                 cursor: 'pointer',
               }}
             >
@@ -67,25 +84,38 @@ const BlogCard = ({ title, blogPostImage, description, keywords, hearts }) => {
               />
             </Stack>
           </Stack>
-          <Box sx={{ display: 'flex', justifyContent: 'space-between', p: 1 }}>
-            <Typography variant={'caption'} sx={{ color: 'primary.lighter' }}>
-              {description}
-            </Typography>
+          <Box sx={{ py: 1 }}>
+            <KDivider orientation={'horizontal'} width={'100%'} />
           </Box>
           <Box
             sx={{
               display: 'flex',
               justifyContent: 'space-between',
               px: 1,
+              height: '100%',
+            }}
+          >
+            <Typography variant={'caption'} sx={{ color: 'primary.lighter' }}>
+              {description}
+            </Typography>
+          </Box>
+          <Box sx={{ py: 1 }}>
+            <KDivider orientation={'horizontal'} width={'100%'} />
+          </Box>
+          <Box
+            sx={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              pl: 1,
             }}
           >
             <Typography
               variant={'caption'}
-              sx={{ height: '100%', display: 'flex', alignItems: 'flex-end' }}
+              sx={{ height: '100%', display: 'flex', alignItems: 'center' }}
             >
               <strong>Keywords: {keywords}</strong>{' '}
             </Typography>
-            <KButton btnLabel={'Read'} />
+            <KButton btnLabel={'Read'} size={'small'} />
           </Box>
         </Stack>
       </Stack>

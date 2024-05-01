@@ -10,14 +10,14 @@ const KTextField = ({
   ...props
 }) => {
   return (
-    <Box>
+    <Box {...props}>
       <TextField
+        {...props}
         multiline={multiline}
         rows={rows}
         placeholder={placeholder}
         name={name}
         required={required}
-        {...props}
         sx={{
           backgroundColor: 'primary.light2',
           borderRadius: 1,

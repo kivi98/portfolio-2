@@ -1,26 +1,81 @@
-import { Box, Container, InputAdornment, Stack } from '@mui/material';
+import {
+  Box,
+  Container,
+  Divider,
+  InputAdornment,
+  Stack,
+  Typography,
+} from '@mui/material';
 import blogImage from '../../assets/images/blogImage.png';
 import KTextField from '../../components/common/textField-normal.jsx';
 import SearchIcon from '@mui/icons-material/Search';
 import ProjectCard from '../blog/components/blog-card.jsx';
 import test from '../../assets/images/test.png';
+import KDivider from '../../components/common/divider-vertical.jsx';
 
 const Projects = () => {
   return (
     <Container>
-      <Box>
-        <img
-          src={blogImage}
-          alt={'blogImage'}
-          style={{
-            height: 300,
-            borderRadius: 5,
-            width: '100%',
-            objectFit: 'cover',
-          }}
-        />
+      <Stack
+        direction={{ xs: 'column', md: 'row' }}
+        sx={{ gap: 2, width: '100%', display: 'flex' }}
+      >
+        <Box sx={{ width: { xs: '100%', md: '40%' } }}>
+          <img
+            src={blogImage}
+            alt={'blogImage'}
+            style={{
+              height: 300,
+              borderRadius: 5,
+              width: '100%',
+              objectFit: 'cover',
+            }}
+          />
+        </Box>
+        <Box
+          sx={{ mb: 2, width: { xs: '100%', md: '60%' }, px: { xs: 0, md: 2 } }}
+        >
+          <Stack
+            direction={'column'}
+            sx={{
+              display: 'flex',
+              justifyContent: 'flex-start',
+              alignItems: 'right',
+              width: '100%',
+            }}
+          >
+            <Typography
+              variant={'h4'}
+              sx={{
+                color: 'text.main',
+                fontWeight: 800,
+                mb: 1,
+                width: '100%',
+                fontSize: 50,
+              }}
+            >
+              Projects
+            </Typography>
+            <Divider
+              sx={{
+                backgroundColor: 'secondary.light',
+                height: 1,
+                width: '100%',
+              }}
+            />
+            <Typography
+              variant={'subtitle1'}
+              sx={{ color: 'text.main', mt: 2 }}
+            >
+              A collection of projects I have worked on in the past
+            </Typography>
+          </Stack>
+        </Box>
+      </Stack>
+      <Box sx={{ py: 2 }}>
+        <KDivider orientation={'horizontal'} width={'100%'} />
       </Box>
-      <Box sx={{ my: 2 }}>
+      <Box sx={{ mb: 2 }}>
         <Stack
           direction={'row'}
           sx={{
@@ -35,7 +90,6 @@ const Projects = () => {
             placeholder={'Search Projects'}
             size={'small'}
             type={'search'}
-            fullWidth
             InputProps={{
               startAdornment: (
                 <InputAdornment position={'start'}>
@@ -43,10 +97,10 @@ const Projects = () => {
                 </InputAdornment>
               ),
             }}
+            sx={{ width: { xs: '100%', md: 300 } }}
           />
         </Stack>
       </Box>
-
       <Box
         sx={{
           mt: 3,

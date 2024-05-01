@@ -26,7 +26,6 @@ const ContactMe = () => {
         direction={{ xs: 'column', md: 'row' }}
         sx={{
           gap: 2,
-          mt: { xs: 3, md: 0 },
           width: '100%',
         }}
       >
@@ -48,18 +47,29 @@ const ContactMe = () => {
                 minWidth: '100%',
               }}
             >
-              <KTextField
-                placeholder={'Email'}
-                name={'email'}
-                size={'small'}
-                required
-              />
-              <KTextField
-                name={'name'}
-                placeholder={'Name'}
-                size={'small'}
-                required
-              />
+              <Stack
+                direction={{ xs: 'column', md: 'row' }}
+                sx={{
+                  display: 'flex',
+                  width: '100%',
+                  gap: 1,
+                }}
+              >
+                <KTextField
+                  placeholder={'Email'}
+                  name={'email'}
+                  size={'small'}
+                  sx={{ width: '100%' }}
+                  required
+                />
+                <KTextField
+                  name={'name'}
+                  placeholder={'Name'}
+                  size={'small'}
+                  sx={{ width: '100%' }}
+                  required
+                />
+              </Stack>
               <KTextField
                 name={'subject'}
                 placeholder={'Subject'}

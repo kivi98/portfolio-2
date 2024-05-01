@@ -12,7 +12,7 @@ const Layout = ({ children }) => {
           minHeight: 'calc(100vh - 150px)',
           maxHeight: 'fit-content',
           display: 'flex',
-          pt: { xs: '80px', md: '150px' },
+          pt: { xs: '100px', md: '150px' },
           color: 'text.main',
           pb: { xs: 8, md: 0 },
         }}
