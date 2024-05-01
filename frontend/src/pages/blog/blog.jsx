@@ -39,8 +39,8 @@ const Blog = () => {
             direction={'column'}
             sx={{
               display: 'flex',
-              justifyContent: 'flex-end',
-              alignItems: 'center',
+              justifyContent: 'flex-start',
+              alignItems: 'right',
               width: '100%',
             }}
           >

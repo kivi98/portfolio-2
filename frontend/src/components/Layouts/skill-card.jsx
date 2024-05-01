@@ -11,7 +11,7 @@ const SkillCard = ({ title, description, date }) => {
         boxShadow: '0px 15px 52px -4px rgba(0,0,0,0.20)',
         borderRadius: 2,
         p: 1,
-        width: '80%',
+        width: { xs: 'calc(100% - 10px)', md: '80%' },
       }}
     >
       <Box

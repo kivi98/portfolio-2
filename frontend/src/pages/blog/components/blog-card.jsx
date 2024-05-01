@@ -15,7 +15,7 @@ const BlogCard = ({ title, blogPostImage, description, keywords, hearts }) => {
         border: 'solid 2px',
         borderColor: 'primary.light2',
         flexGrow: 1,
-        mb: 2,
+        mb: { xs: 0, md: 2 },
         boxShadow: '1px 4px 16px 0px rgba(21, 21, 21, 0.75)',
       }}
     >

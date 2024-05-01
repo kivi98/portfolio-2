@@ -1,4 +1,4 @@
-import { Box, Container, Typography } from '@mui/material';
+import { Box, Container, Stack, Typography } from '@mui/material';
 import aboutImage from '../../assets/images/about-me.png';
 import TwoColumnSection from '../../components/Layouts/section-body-type-2.jsx';
 import OneColumnSection from '../../components/Layouts/section-body-type-1.jsx';
@@ -19,7 +19,14 @@ const About = () => {
           />
         }
         leftComponent={
-          <Typography variant={'body1'} fontSize={20}>
+          <Typography
+            variant={'body1'}
+            fontSize={20}
+            sx={{
+              fontSize: { xs: 14, md: 20 },
+              textAlign: 'justify',
+            }}
+          >
             <span>
               <span style={{ fontSize: 36, fontWeight: 500 }}>I'</span>m just an
               ordinary student trying to be an expert in Software Engineering
@@ -38,7 +45,7 @@ const About = () => {
       <TwoColumnSection
         title={'Education'}
         rightComponent={
-          <Typography variant={'body1'} fontSize={20}>
+          <Typography variant={'body1'} sx={{ xs: 14, md: 20 }}>
             <span>
               <b>University of Colombo School of Computing</b>
               <br />
@@ -62,7 +69,10 @@ const About = () => {
       <OneColumnSection
         title={'Skills'}
         sectionDescription={
-          <Typography variant={'caption'} fontSize={20}>
+          <Typography
+            variant={'caption'}
+            sx={{ fontSize: { xs: 14, md: 20 }, textAlign: 'justify' }}
+          >
             <span>
               C, HTML, Java, CSS, JavaScript, React, Node.js, Express.js,
               MongoDB, SQL, Git, GitHub, Linux, Windows, Visual Studio Code,
@@ -106,11 +116,23 @@ const About = () => {
           />
         }
         leftComponent={
-          <SkillCard
-            title={'Certified Cyber-Security'}
-            date={'20/12/2023'}
-            description={'ISC2 Certifications'}
-          />
+          <Stack direction={'column'} sx={{ width: '100%', gap: 1 }}>
+            <SkillCard
+              title={'Certified Cyber-Security'}
+              date={'20/12/2023'}
+              description={'ISC2 Certifications'}
+            />
+            <SkillCard
+              title={'Certified Cyber-Security'}
+              date={'20/12/2023'}
+              description={'ISC2 Certifications'}
+            />
+            <SkillCard
+              title={'Certified Cyber-Security'}
+              date={'20/12/2023'}
+              description={'ISC2 Certifications'}
+            />
+          </Stack>
         }
       />
 

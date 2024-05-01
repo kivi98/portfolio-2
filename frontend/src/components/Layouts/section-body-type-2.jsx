@@ -6,7 +6,7 @@ const TwoColumnSection = ({ leftComponent, rightComponent, title }) => {
       sx={{
         mt: { xs: 3, md: 0 },
         height: 'fit-content',
-        pb: 10,
+        pb: { xs: 3, md: 10 },
       }}
     >
       <Box
@@ -16,7 +16,7 @@ const TwoColumnSection = ({ leftComponent, rightComponent, title }) => {
           flexDirection: 'column',
           justifyContent: 'center',
           textAlign: 'center',
-          mb: 10,
+          mb: { xs: 0, md: 10 },
         }}
       >
         <Typography variant="h1">{title}</Typography>
@@ -48,7 +48,17 @@ const TwoColumnSection = ({ leftComponent, rightComponent, title }) => {
           flexDirection: 'row',
         }}
       >
-        <Box sx={{ flex: 1 }}>{leftComponent}</Box>
+        <Box
+          sx={{
+            flex: 1,
+            mb: { xs: 3, md: 0 },
+            width: '100%',
+            display: 'flex',
+            justifyContent: 'center',
+          }}
+        >
+          {leftComponent}
+        </Box>
         <Divider
           orientation={'vertical'}
           flexItem
@@ -56,9 +66,19 @@ const TwoColumnSection = ({ leftComponent, rightComponent, title }) => {
             mx: '3rem',
             backgroundColor: 'transparentLevelsWhite.2',
             borderRadius: 10,
+            display: { xs: 'hidden', md: 'block' },
           }}
         />
-        <Box sx={{ flex: 1 }}>{rightComponent}</Box>
+        <Box
+          sx={{
+            flex: 1,
+            width: '100%',
+            display: 'flex',
+            justifyContent: 'center',
+          }}
+        >
+          {rightComponent}
+        </Box>
       </Stack>
     </Box>
   );

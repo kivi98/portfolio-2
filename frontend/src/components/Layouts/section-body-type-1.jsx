@@ -5,7 +5,8 @@ const OneColumnSection = ({ sectionDescription, sectionBody, title }) => {
     <Box
       sx={{
         height: 'fit-content',
-        pb: 10,
+        mt: { xs: 3, md: 0 },
+        pb: { xs: 3, md: 10 },
       }}
     >
       <Box
@@ -15,7 +16,7 @@ const OneColumnSection = ({ sectionDescription, sectionBody, title }) => {
           flexDirection: 'column',
           justifyContent: 'center',
           textAlign: 'center',
-          mb: 10,
+          mb: { xs: 0, md: 10 },
         }}
       >
         <Typography variant="h1">{title}</Typography>
