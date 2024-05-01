@@ -17,6 +17,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import useOnClickOutside from './hooks/useOnClickOutside.js';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import GitHubIcon from '@mui/icons-material/GitHub';
+import KDivider from '../common/divider-vertical.jsx';
 
 const Header = () => {
   const location = useLocation();
@@ -145,6 +146,9 @@ const Header = () => {
               onClick={() => activeBtnHandler('/contact-me')}
             ></KNavButton>
           </Link>
+          <Box sx={{ py: 0.5 }}>
+            <KDivider orientation={'horizontal'} width={'90%'} />
+          </Box>
           <Stack direction={'column'} gap={0.5}>
             <Button
               startIcon={<GitHubIcon />}

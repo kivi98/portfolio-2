@@ -3,11 +3,11 @@ import {
   Button,
   Container,
   Divider,
-  Link,
   Stack,
   Typography,
 } from '@mui/material';
 import test from '../../assets/images/test.png';
+import { Link } from 'react-router-dom';
 
 const Home = () => {
   return (
@@ -77,7 +77,7 @@ const Home = () => {
             <br />
             <span>Let's create, innovate, and inspire together!</span>
           </Typography>
-          <Link>
+          <Link to={'/about-me'}>
             <Button
               sx={{
                 backgroundColor: 'secondary.main',
