@@ -45,7 +45,7 @@ const BlogCard = ({ title, blogPostImage, description, keywords, hearts }) => {
             width: '100%',
             display: 'flex',
             justifyContent: 'space-between',
-            pl: 1,
+            pl: 0,
           }}
         >
           <Stack
@@ -61,7 +61,8 @@ const BlogCard = ({ title, blogPostImage, description, keywords, hearts }) => {
               sx={{
                 display: 'flex',
                 alignItems: 'center',
-                fontWeight: 800,
+                fontWeight: { xs: 600, md: 800 },
+                fontSize: { xs: 14, md: 18 },
               }}
             >
               {title}

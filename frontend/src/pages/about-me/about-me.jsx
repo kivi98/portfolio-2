@@ -116,7 +116,14 @@ const About = () => {
           />
         }
         leftComponent={
-          <Stack direction={'column'} sx={{ width: '100%', gap: 1 }}>
+          <Stack
+            direction={'column'}
+            sx={{
+              width: '100%',
+              gap: 1,
+              alignItems: 'center',
+            }}
+          >
             <SkillCard
               title={'Certified Cyber-Security'}
               date={'20/12/2023'}

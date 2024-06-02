@@ -54,7 +54,17 @@ const ProjectCard = ({
               px: 1,
             }}
           >
-            <Typography variant={'subtitle1'}>{title}</Typography>
+            <Typography
+              variant={'subtitle1'}
+              sx={{
+                display: 'flex',
+                alignItems: 'center',
+                fontWeight: { xs: 600, md: 800 },
+                fontSize: { xs: 14, md: 18 },
+              }}
+            >
+              {title}
+            </Typography>
             <Stack
               direction={'row'}
               gap={1}

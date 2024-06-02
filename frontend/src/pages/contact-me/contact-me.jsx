@@ -29,8 +29,17 @@ const ContactMe = () => {
           width: '100%',
         }}
       >
-        <Box>
-          <KImageBox src={test} alt={'test'} height={400} width={'100%'} />
+        <Box
+          sx={{
+            minWidth: { xs: '100%', md: 'fit-content' },
+          }}
+        >
+          <KImageBox
+            src={test}
+            alt={'test'}
+            height={{ xs: 200, md: 400 }}
+            width={'100%'}
+          />
         </Box>
         <KDivider height={'80%'} orientation={'vertical'} />
         <Box
@@ -98,7 +107,7 @@ const ContactMe = () => {
       </Stack>
       <Box
         sx={{
-          mt: 10,
+          mt: { xs: 4, md: 10 },
           textAlign: 'center',
         }}
       >
