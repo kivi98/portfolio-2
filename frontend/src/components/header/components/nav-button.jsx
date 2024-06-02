@@ -27,7 +27,7 @@ const KNavButton = ({ label, onClick, active, size }) => {
           backgroundColor: 'rgba(227,0,0,0.18)',
           border: '1px solid rgb(227,0,0)',
         },
-        ...(active ? activeStyle : {}),
+        ...(active && activeStyle),
       }}
       onClick={onClick}
       size={size}

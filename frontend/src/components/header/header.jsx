@@ -11,7 +11,7 @@ import KNavButton from './components/nav-button.jsx';
 import github from '../../assets/images/github.png';
 import linkedin from '../../assets/images/linkedin.png';
 import logo from '../../assets/images/logo.png';
-import { Link, useLocation } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import { useEffect, useState, useRef } from 'react';
 import MenuIcon from '@mui/icons-material/Menu';
 import useOnClickOutside from './hooks/useOnClickOutside.js';
@@ -111,41 +111,41 @@ const Header = () => {
             gap: 0.5,
           }}
         >
-          <Link to={'/'}>
+          <NavLink to={'/'}>
             <KNavButton
               label={'Home'}
               active={activeButton === '/'}
               onClick={() => activeBtnHandler('/')}
             ></KNavButton>
-          </Link>
-          <Link to={'/about-me'}>
+          </NavLink>
+          <NavLink to={'/about-me'}>
             <KNavButton
               label={'About Me'}
               active={activeButton === '/about-me'}
               onClick={() => activeBtnHandler('/about-me')}
             ></KNavButton>
-          </Link>
-          <Link to={'/blog'}>
+          </NavLink>
+          <NavLink to={'/blog'}>
             <KNavButton
               label={'Blog'}
               active={activeButton === '/blog'}
               onClick={() => activeBtnHandler('/blog')}
             ></KNavButton>
-          </Link>
-          <Link to={'/projects'}>
+          </NavLink>
+          <NavLink to={'/projects'}>
             <KNavButton
               label={'Projects'}
               active={activeButton === '/projects'}
               onClick={() => activeBtnHandler('/projects')}
             ></KNavButton>
-          </Link>
-          <Link to={'/contact-me'}>
+          </NavLink>
+          <NavLink to={'/contact-me'}>
             <KNavButton
               label={'Contact Me'}
               active={activeButton === '/contact-me'}
               onClick={() => activeBtnHandler('/contact-me')}
             ></KNavButton>
-          </Link>
+          </NavLink>
           <Box sx={{ py: 0.5 }}>
             <KDivider orientation={'horizontal'} width={'90%'} />
           </Box>
@@ -216,41 +216,41 @@ const Header = () => {
                 }}
               />
               <Box sx={{ display: 'flex', gap: 2 }}>
-                <Link to={'/'}>
+                <NavLink to={'/'}>
                   <KNavButton
                     label={'Home'}
                     active={activeButton === '/'}
                     onClick={() => activeBtnHandler('/')}
                   ></KNavButton>
-                </Link>
-                <Link to={'/about-me'}>
+                </NavLink>
+                <NavLink to={'/about-me'}>
                   <KNavButton
                     label={'About Me'}
                     active={activeButton === '/about-me'}
                     onClick={() => activeBtnHandler('/about-me')}
                   ></KNavButton>
-                </Link>
-                <Link to={'/blog'}>
+                </NavLink>
+                <NavLink to={'/blog'}>
                   <KNavButton
                     label={'Blog'}
                     active={activeButton === '/blog'}
                     onClick={() => activeBtnHandler('/blog')}
                   ></KNavButton>
-                </Link>
-                <Link to={'/projects'}>
+                </NavLink>
+                <NavLink to={'/projects'}>
                   <KNavButton
                     label={'Projects'}
                     active={activeButton === '/projects'}
                     onClick={() => activeBtnHandler('/projects')}
                   ></KNavButton>
-                </Link>
-                <Link to={'/contact-me'}>
+                </NavLink>
+                <NavLink to={'/contact-me'}>
                   <KNavButton
                     label={'Contact Me'}
                     active={activeButton === '/contact-me'}
                     onClick={() => activeBtnHandler('/contact-me')}
                   ></KNavButton>
-                </Link>
+                </NavLink>
               </Box>
             </Stack>
             <Box

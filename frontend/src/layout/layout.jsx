@@ -1,8 +1,9 @@
 import PropTypes from 'prop-types';
 import { Box } from '@mui/material';
+import { Outlet } from 'react-router-dom';
 import Header from '../components/header/header.jsx';
 
-const Layout = ({ children }) => {
+const Layout = () => {
   return (
     <>
       <Header />
@@ -17,14 +18,10 @@ const Layout = ({ children }) => {
           pb: { xs: 8, md: 0 },
         }}
       >
-        {children}
+        <Outlet />
       </Box>
     </>
   );
-};
-
-Layout.propTypes = {
-  children: PropTypes.element.isRequired,
 };
 
 export default Layout;
