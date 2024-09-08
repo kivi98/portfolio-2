@@ -1,4 +1,5 @@
 import { Box, Divider, Stack, Typography } from '@mui/material';
+import PropTypes from 'prop-types';
 
 const SkillCard = ({ title, description, date }) => {
   return (
@@ -11,7 +12,7 @@ const SkillCard = ({ title, description, date }) => {
         boxShadow: '0px 15px 52px -4px rgba(0,0,0,0.20)',
         borderRadius: 2,
         p: 1,
-        width: { xs: 'calc(100% - 10px)', md: '80%' },
+        width: { xs: 'calc(100% - 10px)', md: '90%' },
       }}
     >
       <Box
@@ -44,6 +45,12 @@ const SkillCard = ({ title, description, date }) => {
       </Stack>
     </Stack>
   );
+};
+
+SkillCard.propTypes = {
+  title: PropTypes.string.isRequired,
+  description: PropTypes.any,
+  date: PropTypes.string.isRequired,
 };
 
 export default SkillCard;

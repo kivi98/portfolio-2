@@ -1,19 +1,39 @@
-import { Box, Container, Stack, Typography } from '@mui/material';
+import {
+  Box,
+  Container,
+  List,
+  ListItem,
+  Menu,
+  Stack,
+  Typography,
+} from '@mui/material';
 import aboutImage from '../../assets/images/about-me.png';
 import TwoColumnSection from '../../components/Layouts/section-body-type-2.jsx';
 import OneColumnSection from '../../components/Layouts/section-body-type-1.jsx';
 import SkillIcon from '../../components/Layouts/skill-icon.jsx';
 import SkillCard from '../../components/Layouts/skill-card.jsx';
 import KImageBox from '../../components/common/imageBox-standard.jsx';
+import { MyImageArray } from './image-arrays/my-image-array.js';
+import GenerateChipArt from '../../utils/generate-chip-art.jsx';
+import {
+  cloudSkills,
+  databaseSkills,
+  frameworkSkills,
+  languageSkills,
+  osSkills,
+  toolSkills,
+  webSkills,
+} from './Data/skill-data.js';
 
 const About = () => {
+  console.log('array', MyImageArray);
   return (
     <Container>
       <TwoColumnSection
         title={'Who Am I'}
         rightComponent={
           <KImageBox
-            src={aboutImage}
+            imageArray={MyImageArray}
             alt={'body-image'}
             height={{ xs: 300, md: 400 }}
           />
@@ -45,17 +65,20 @@ const About = () => {
       <TwoColumnSection
         title={'Education'}
         rightComponent={
-          <Typography variant={'body1'} sx={{ xs: 14, md: 20 }}>
-            <span>
-              <b>University of Colombo School of Computing</b>
-              <br />
-              <br />
-              <b>Degree:</b> BSc in Information Systems
-              <br />
-              <b>Year:</b> 2021 - Present
-              <br />
-            </span>
-          </Typography>
+          <Stack
+            direction={'column'}
+            sx={{
+              width: '100%',
+              gap: 1,
+              alignItems: 'center',
+            }}
+          >
+            <SkillCard
+              date={'2021 - 2024'}
+              title={'BSc. Information Systems'}
+              description={'University of Colombo School of Computing'}
+            />
+          </Stack>
         }
         leftComponent={
           <KImageBox
@@ -66,20 +89,59 @@ const About = () => {
         }
       />
 
-      <OneColumnSection
+      <TwoColumnSection
         title={'Skills'}
-        sectionDescription={
-          <Typography
-            variant={'caption'}
-            sx={{ fontSize: { xs: 14, md: 20 }, textAlign: 'justify' }}
-          >
-            <span>
-              C, HTML, Java, CSS, JavaScript, React, Node.js, Express.js,
-              MongoDB, SQL, Git, GitHub, Linux, Windows, Visual Studio Code,
-              Figma, Microsoft Office, Google Suite, WordPress, Canva, and more.
-            </span>
-          </Typography>
+        leftComponent={
+          <List>
+            <ListItem>
+              <GenerateChipArt
+                itemList={languageSkills}
+                skillType={'Programming Languages'}
+              />
+            </ListItem>
+            <ListItem>
+              <GenerateChipArt
+                itemList={webSkills}
+                skillType={'Web Development'}
+              />
+            </ListItem>
+            <ListItem>
+              <GenerateChipArt
+                itemList={databaseSkills}
+                skillType={'Databases'}
+              />
+            </ListItem>
+            <ListItem>
+              <GenerateChipArt itemList={cloudSkills} skillType={'Cloud'} />
+            </ListItem>
+          </List>
         }
+        rightComponent={
+          <List>
+            <ListItem>
+              <GenerateChipArt itemList={toolSkills} skillType={'Tools'} />
+            </ListItem>
+            <ListItem>
+              <GenerateChipArt
+                itemList={osSkills}
+                skillType={'Operating Systems'}
+              />
+            </ListItem>
+            <ListItem>
+              <GenerateChipArt
+                itemList={frameworkSkills}
+                skillType={'Frameworks'}
+              />
+            </ListItem>
+          </List>
+        }
+      />
+
+      <OneColumnSection
+        // title={'Skills'}
+        // sectionDescription={
+        //
+        // }
         sectionBody={
           <Box
             sx={{

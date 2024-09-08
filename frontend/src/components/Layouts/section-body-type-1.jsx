@@ -1,4 +1,5 @@
 import { Box, Divider, Stack, Typography } from '@mui/material';
+import PropTypes from 'prop-types';
 
 const OneColumnSection = ({ sectionDescription, sectionBody, title }) => {
   return (
@@ -16,27 +17,31 @@ const OneColumnSection = ({ sectionDescription, sectionBody, title }) => {
           flexDirection: 'column',
           justifyContent: 'center',
           textAlign: 'center',
-          mb: { xs: 0, md: 10 },
+          mb: title && { xs: 0, md: 10 },
         }}
       >
-        <Typography variant="h1">{title}</Typography>
-        <Box
-          sx={{
-            display: 'flex',
-            justifyContent: 'center',
-          }}
-        >
-          <Divider
-            sx={{
-              backgroundColor: 'secondary.light',
-              width: '50%',
-              height: 2,
-              my: 2,
-              boxShadow: '0px 0px 12px #E30000',
-              borderRadius: 10,
-            }}
-          />
-        </Box>
+        {title && (
+          <>
+            <Typography variant="h1">{title}</Typography>
+            <Box
+              sx={{
+                display: 'flex',
+                justifyContent: 'center',
+              }}
+            >
+              <Divider
+                sx={{
+                  backgroundColor: 'secondary.light',
+                  width: '50%',
+                  height: 2,
+                  my: 2,
+                  boxShadow: '0px 0px 12px #E30000',
+                  borderRadius: 10,
+                }}
+              />
+            </Box>
+          </>
+        )}
       </Box>
       <Box
         direction={'column'}
@@ -63,6 +68,12 @@ const OneColumnSection = ({ sectionDescription, sectionBody, title }) => {
       </Box>
     </Box>
   );
+};
+
+OneColumnSection.propTypes = {
+  sectionDescription: PropTypes.any,
+  sectionBody: PropTypes.any,
+  title: PropTypes.string,
 };
 
 export default OneColumnSection;

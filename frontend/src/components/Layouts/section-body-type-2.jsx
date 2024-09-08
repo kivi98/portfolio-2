@@ -1,4 +1,5 @@
 import { Box, Divider, Stack, Typography } from '@mui/material';
+import PropTypes from 'prop-types';
 
 const TwoColumnSection = ({ leftComponent, rightComponent, title }) => {
   return (
@@ -6,38 +7,40 @@ const TwoColumnSection = ({ leftComponent, rightComponent, title }) => {
       sx={{
         mt: { xs: 3, md: 0 },
         height: 'fit-content',
-        pb: { xs: 3, md: 10 },
+        pb: title && { xs: 3, md: 10 },
       }}
     >
-      <Box
-        sx={{
-          color: 'text.main',
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'center',
-          textAlign: 'center',
-          mb: { xs: 0, md: 10 },
-        }}
-      >
-        <Typography variant="h1">{title}</Typography>
+      {title && (
         <Box
           sx={{
+            color: 'text.main',
             display: 'flex',
+            flexDirection: 'column',
             justifyContent: 'center',
+            textAlign: 'center',
+            mb: { xs: 0, md: 10 },
           }}
         >
-          <Divider
+          <Typography variant="h1">{title}</Typography>
+          <Box
             sx={{
-              backgroundColor: 'secondary.light',
-              width: '50%',
-              height: 2,
-              my: 2,
-              boxShadow: '0px 0px 12px #E30000',
-              borderRadius: 10,
+              display: 'flex',
+              justifyContent: 'center',
             }}
-          />
+          >
+            <Divider
+              sx={{
+                backgroundColor: 'secondary.light',
+                width: '50%',
+                height: 2,
+                my: 2,
+                boxShadow: '0px 0px 12px #E30000',
+                borderRadius: 10,
+              }}
+            />
+          </Box>
         </Box>
-      </Box>
+      )}
       <Stack
         direction={{ xs: 'column', md: 'row' }}
         sx={{
@@ -82,6 +85,12 @@ const TwoColumnSection = ({ leftComponent, rightComponent, title }) => {
       </Stack>
     </Box>
   );
+};
+
+TwoColumnSection.propTypes = {
+  leftComponent: PropTypes.element.isRequired,
+  rightComponent: PropTypes.element.isRequired,
+  title: PropTypes.string,
 };
 
 export default TwoColumnSection;
