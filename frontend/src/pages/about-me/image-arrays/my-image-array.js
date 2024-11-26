@@ -1,8 +1,8 @@
-import image1 from '../../../assets/my-images/Software-Engineer.jpg';
-import image2 from '../../../assets/my-images/se-2.webp';
-import image3 from '../../../assets/my-images/se-3.webp';
-import image4 from '../../../assets/my-images/se-4.webp';
-import image5 from '../../../assets/my-images/se-5.webp';
+import image1 from '../../../assets/images/my-images/Software-Engineer.jpg';
+import image2 from '../../../assets/images/my-images/se-2.webp';
+import image3 from '../../../assets/images/my-images/se-3.webp';
+import image4 from '../../../assets/images/my-images/se-4.webp';
+import image5 from '../../../assets/images/my-images/se-5.webp';
 
 export const MyImageArray = [
   {

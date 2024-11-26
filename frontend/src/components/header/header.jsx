@@ -118,28 +118,28 @@ const Header = () => {
               onClick={() => activeBtnHandler('/')}
             ></KNavButton>
           </NavLink>
-          <NavLink to={'/about-me'}>
+          <NavLink to="/about-me">
             <KNavButton
               label={'About Me'}
               active={activeButton === '/about-me'}
               onClick={() => activeBtnHandler('/about-me')}
             ></KNavButton>
           </NavLink>
-          <NavLink to={'/blog'}>
+          <NavLink to="/blog">
             <KNavButton
               label={'Blog'}
               active={activeButton === '/blog'}
               onClick={() => activeBtnHandler('/blog')}
             ></KNavButton>
           </NavLink>
-          <NavLink to={'/projects'}>
+          <NavLink to="/projects">
             <KNavButton
               label={'Projects'}
               active={activeButton === '/projects'}
               onClick={() => activeBtnHandler('/projects')}
             ></KNavButton>
           </NavLink>
-          <NavLink to={'/contact-me'}>
+          <NavLink to="/contact-me">
             <KNavButton
               label={'Contact Me'}
               active={activeButton === '/contact-me'}
@@ -223,28 +223,28 @@ const Header = () => {
                     onClick={() => activeBtnHandler('/')}
                   ></KNavButton>
                 </NavLink>
-                <NavLink to={'/about-me'}>
+                <NavLink to="/about-me">
                   <KNavButton
                     label={'About Me'}
                     active={activeButton === '/about-me'}
                     onClick={() => activeBtnHandler('/about-me')}
                   ></KNavButton>
                 </NavLink>
-                <NavLink to={'/blog'}>
+                <NavLink to="/blog">
                   <KNavButton
                     label={'Blog'}
                     active={activeButton === '/blog'}
                     onClick={() => activeBtnHandler('/blog')}
                   ></KNavButton>
                 </NavLink>
-                <NavLink to={'/projects'}>
+                <NavLink to="/projects">
                   <KNavButton
                     label={'Projects'}
                     active={activeButton === '/projects'}
                     onClick={() => activeBtnHandler('/projects')}
                   ></KNavButton>
                 </NavLink>
-                <NavLink to={'/contact-me'}>
+                <NavLink to="/contact-me">
                   <KNavButton
                     label={'Contact Me'}
                     active={activeButton === '/contact-me'}

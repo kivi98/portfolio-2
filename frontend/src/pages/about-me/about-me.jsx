@@ -1,6 +1,7 @@
 import {
   Box,
   Container,
+  IconButton,
   List,
   ListItem,
   Menu,
@@ -24,6 +25,7 @@ import {
   toolSkills,
   webSkills,
 } from './Data/skill-data.js';
+import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 
 const About = () => {
   console.log('array', MyImageArray);
@@ -77,6 +79,11 @@ const About = () => {
               date={'2021 - 2024'}
               title={'BSc. Information Systems'}
               description={'University of Colombo School of Computing'}
+            />
+            <SkillCard
+              date={'2024 - Present'}
+              title={'MSc. Computer Science'}
+              description={'University of Sri Jayawardenapura'}
             />
           </Stack>
         }
@@ -178,30 +185,88 @@ const About = () => {
           />
         }
         leftComponent={
-          <Stack
-            direction={'column'}
+          <Box
             sx={{
               width: '100%',
-              gap: 1,
-              alignItems: 'center',
             }}
           >
-            <SkillCard
-              title={'Certified Cyber-Security'}
-              date={'20/12/2023'}
-              description={'ISC2 Certifications'}
-            />
-            <SkillCard
-              title={'Certified Cyber-Security'}
-              date={'20/12/2023'}
-              description={'ISC2 Certifications'}
-            />
-            <SkillCard
-              title={'Certified Cyber-Security'}
-              date={'20/12/2023'}
-              description={'ISC2 Certifications'}
-            />
-          </Stack>
+            <Stack
+              direction={'column'}
+              sx={{
+                width: '100%',
+                gap: 1,
+                alignItems: 'center',
+                maxHeight: '60vh',
+                overflowY: 'scroll',
+                '&::-webkit-scrollbar': {
+                  display: 'none',
+                },
+                msOverflowStyle: 'none',
+                scrollbarWidth: 'none',
+              }}
+            >
+              <SkillCard
+                title={'Postman API Fundamentals Student Expert'}
+                date={'20/12/2023'}
+                description={'Postman'}
+              />
+              <SkillCard
+                title={'Certified Cyber-Security'}
+                date={'20/12/2023'}
+                description={'ISC2 Certifications'}
+              />
+              <SkillCard
+                title={'Cyber-security Essentials'}
+                date={'20/12/2023'}
+                description={'Cisco'}
+              />
+              <SkillCard
+                title={'Introduction to Cyber-security'}
+                date={'20/12/2023'}
+                description={'Cisco'}
+              />
+              <SkillCard
+                title={'Agile Foundation'}
+                date={'20/12/2023'}
+                description={'PMIS'}
+              />
+              <SkillCard
+                title={'Scrum: The Basics'}
+                date={'20/12/2023'}
+                description={'PMIS'}
+              />
+              <SkillCard
+                title={'Agile Software Development: Scrum for Developers'}
+                date={'20/12/2023'}
+                description={'PMIS'}
+              />
+              <SkillCard
+                title={'Scrum: Advanced'}
+                date={'20/12/2023'}
+                description={'PMIS'}
+              />
+              <SkillCard
+                title={'Creating API Documentation'}
+                date={'20/12/2023'}
+                description={'LinkedIn Learning'}
+              />
+            </Stack>
+
+            <Box
+              sx={{
+                height: 50,
+                width: '100%',
+                display: 'flex',
+                justifyContent: 'center',
+                position: 'relative',
+                backgroundColor: 'transparent',
+              }}
+            >
+              <IconButton>
+                <KeyboardArrowUpIcon color={'text'} />
+              </IconButton>
+            </Box>
+          </Box>
         }
       />
 

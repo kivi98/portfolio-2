@@ -88,7 +88,7 @@ const Home = () => {
               <br />
               <span>Let's create, innovate, and inspire together!</span>
             </Typography>
-            <Link to={'/about-me'}>
+            <Link to="/about-me">
               <Button
                 sx={{
                   backgroundColor: 'secondary.main',
