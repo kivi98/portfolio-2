@@ -6,6 +6,7 @@ import {
   Stack,
   Typography,
 } from '@mui/material';
+import DoubleArrowIcon from '@mui/icons-material/DoubleArrow';
 import test from '../../assets/images/test.png';
 import { Link } from 'react-router-dom';
 
@@ -100,6 +101,7 @@ const Home = () => {
                     backgroundColor: 'secondary.light',
                   },
                 }}
+                endIcon={<DoubleArrowIcon />}
               >
                 About Me
               </Button>

@@ -1,5 +1,9 @@
 import { createTheme } from '@mui/material';
 
+import '@fontsource/ubuntu/400.css';
+import '@fontsource/roboto/300.css';
+import '@fontsource/open-sans/500.css';
+
 const theme = createTheme({
   palette: {
     primary: {
@@ -63,7 +67,7 @@ const theme = createTheme({
     },
   },
   typography: {
-    fontFamily: 'Roboto, Arial, sans-serif',
+    fontFamily: 'Ubuntu, Roboto sans, Open Sans',
     h1: {
       fontSize: '2rem',
       fontWeight: 700,
@@ -72,9 +76,25 @@ const theme = createTheme({
       fontSize: '1.5rem',
       fontWeight: 600,
     },
+    h3: {
+      fontSize: '1.25rem',
+      fontWeight: 500,
+    },
+    h4: {
+      fontSize: '1rem',
+      fontWeight: 400,
+    },
     body1: {
       fontSize: '1rem',
       fontWeight: 400,
+    },
+    subtitle1: {
+      fontSize: '1rem',
+      fontWeight: 600,
+    },
+    subtitle2: {
+      fontSize: '1rem',
+      fontWeight: 300,
     },
   },
   spacing: 8,

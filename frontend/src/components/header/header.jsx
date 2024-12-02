@@ -5,6 +5,7 @@ import {
   IconButton,
   Stack,
   Tooltip,
+  Typography,
   useMediaQuery,
 } from '@mui/material';
 import KNavButton from './components/nav-button.jsx';
@@ -24,20 +25,68 @@ const Header = () => {
   const [activeButton, setActiveButton] = useState('/');
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const mobileMenuRef = useRef();
-
   const isMobile = useMediaQuery('(max-width:600px)');
 
   useEffect(() => {
     setActiveButton(location.pathname);
   }, [location]);
+
   const activeBtnHandler = (path) => {
     setActiveButton(path);
     toggleMobileMenu();
   };
+
   const toggleMobileMenu = () => {
     setMobileMenuOpen((prevState) => !prevState);
   };
+
   useOnClickOutside(mobileMenuRef, () => setMobileMenuOpen(false));
+
+  const navButtonStyles = {
+    textTransform: 'none',
+    backgroundColor: 'primary.light',
+    color: 'text.main',
+  };
+
+  const renderNavButtons = () => (
+    <>
+      <NavLink to={'/'}>
+        <KNavButton
+          label={'Home'}
+          active={activeButton === '/'}
+          onClick={() => activeBtnHandler('/')}
+        />
+      </NavLink>
+      <NavLink to="/about-me">
+        <KNavButton
+          label={'About Me'}
+          active={activeButton === '/about-me'}
+          onClick={() => activeBtnHandler('/about-me')}
+        />
+      </NavLink>
+      <NavLink to="/blog">
+        <KNavButton
+          label={'Blog'}
+          active={activeButton === '/blog'}
+          onClick={() => activeBtnHandler('/blog')}
+        />
+      </NavLink>
+      <NavLink to="/projects">
+        <KNavButton
+          label={'Projects'}
+          active={activeButton === '/projects'}
+          onClick={() => activeBtnHandler('/projects')}
+        />
+      </NavLink>
+      <NavLink to="/contact-me">
+        <KNavButton
+          label={'Contact Me'}
+          active={activeButton === '/contact-me'}
+          onClick={() => activeBtnHandler('/contact-me')}
+        />
+      </NavLink>
+    </>
+  );
 
   return (
     <Box
@@ -57,140 +106,16 @@ const Header = () => {
         zIndex: 1000,
       }}
     >
-      {isMobile && (
-        <Stack
-          direction={'row'}
-          sx={{
-            display: 'flex',
-            justifyContent: 'space-between',
-          }}
-        >
-          <Stack direction={'row'}>
-            <Box
-              sx={{
-                backgroundColor: 'text.main',
-                display: 'flex',
-                alignItems: 'center',
-                borderRadius: '50%',
-                p: 0.25,
-              }}
-            >
-              <img src={logo} alt={'logo'} style={{ height: 40 }} />
-            </Box>
-            <Box
-              sx={{
-                fontWeight: 700,
-                fontSize: 18,
-                mr: 2,
-                ml: 1,
-                display: 'flex',
-                alignItems: 'center',
-              }}
-            >
-              Kivi Amarakoon
-            </Box>
-          </Stack>
-          <Box
-            sx={{
-              display: 'flex',
-              alignItems: 'center',
-              cursor: 'pointer',
-            }}
-          >
-            <IconButton onClick={toggleMobileMenu}>
-              <MenuIcon sx={{ color: 'text.main' }} />
-            </IconButton>
-          </Box>
-        </Stack>
-      )}
-      {isMobile && mobileMenuOpen && (
-        <Stack
-          direction={'column'}
-          sx={{
-            pt: 3,
-            gap: 0.5,
-          }}
-        >
-          <NavLink to={'/'}>
-            <KNavButton
-              label={'Home'}
-              active={activeButton === '/'}
-              onClick={() => activeBtnHandler('/')}
-            ></KNavButton>
-          </NavLink>
-          <NavLink to="/about-me">
-            <KNavButton
-              label={'About Me'}
-              active={activeButton === '/about-me'}
-              onClick={() => activeBtnHandler('/about-me')}
-            ></KNavButton>
-          </NavLink>
-          <NavLink to="/blog">
-            <KNavButton
-              label={'Blog'}
-              active={activeButton === '/blog'}
-              onClick={() => activeBtnHandler('/blog')}
-            ></KNavButton>
-          </NavLink>
-          <NavLink to="/projects">
-            <KNavButton
-              label={'Projects'}
-              active={activeButton === '/projects'}
-              onClick={() => activeBtnHandler('/projects')}
-            ></KNavButton>
-          </NavLink>
-          <NavLink to="/contact-me">
-            <KNavButton
-              label={'Contact Me'}
-              active={activeButton === '/contact-me'}
-              onClick={() => activeBtnHandler('/contact-me')}
-            ></KNavButton>
-          </NavLink>
-          <Box sx={{ py: 0.5 }}>
-            <KDivider orientation={'horizontal'} width={'90%'} />
-          </Box>
-          <Stack direction={'column'} gap={0.5}>
-            <Button
-              startIcon={<GitHubIcon />}
-              sx={{
-                textTransform: 'none',
-                backgroundColor: 'primary.light',
-                color: 'text.main',
-              }}
-            >
-              GitHUb
-            </Button>
-            <Button
-              startIcon={<LinkedInIcon />}
-              sx={{
-                textTransform: 'none',
-                backgroundColor: 'primary.light',
-                color: 'text.main',
-              }}
-            >
-              LinkedIn
-            </Button>
-          </Stack>
-        </Stack>
-      )}
-      {!isMobile && (
+      {isMobile ? (
         <>
           <Stack
             direction={'row'}
             sx={{
               display: 'flex',
               justifyContent: 'space-between',
-              zIndex: 1005,
             }}
           >
-            <Stack
-              direction={'row'}
-              gap={'1rem'}
-              sx={{
-                display: 'flex',
-                alignItems: 'center',
-              }}
-            >
+            <Stack direction={'row'}>
               <Box
                 sx={{
                   backgroundColor: 'text.main',
@@ -202,81 +127,129 @@ const Header = () => {
               >
                 <img src={logo} alt={'logo'} style={{ height: 40 }} />
               </Box>
-              <Box sx={{ fontWeight: 700, fontSize: 18, mr: 2, ml: 1 }}>
-                Kivi Amarakoon
-              </Box>
-              <Divider
-                orientation="vertical"
-                flexItem
+              <Box
                 sx={{
-                  backgroundColor: 'transparentLevelsWhite.2',
-                  width: '1px',
-                  height: 50,
-                  borderRadius: 10,
+                  fontWeight: 700,
+                  fontSize: 18,
+                  mr: 2,
+                  ml: 1,
+                  display: 'flex',
+                  alignItems: 'center',
                 }}
-              />
-              <Box sx={{ display: 'flex', gap: 2 }}>
-                <NavLink to={'/'}>
-                  <KNavButton
-                    label={'Home'}
-                    active={activeButton === '/'}
-                    onClick={() => activeBtnHandler('/')}
-                  ></KNavButton>
-                </NavLink>
-                <NavLink to="/about-me">
-                  <KNavButton
-                    label={'About Me'}
-                    active={activeButton === '/about-me'}
-                    onClick={() => activeBtnHandler('/about-me')}
-                  ></KNavButton>
-                </NavLink>
-                <NavLink to="/blog">
-                  <KNavButton
-                    label={'Blog'}
-                    active={activeButton === '/blog'}
-                    onClick={() => activeBtnHandler('/blog')}
-                  ></KNavButton>
-                </NavLink>
-                <NavLink to="/projects">
-                  <KNavButton
-                    label={'Projects'}
-                    active={activeButton === '/projects'}
-                    onClick={() => activeBtnHandler('/projects')}
-                  ></KNavButton>
-                </NavLink>
-                <NavLink to="/contact-me">
-                  <KNavButton
-                    label={'Contact Me'}
-                    active={activeButton === '/contact-me'}
-                    onClick={() => activeBtnHandler('/contact-me')}
-                  ></KNavButton>
-                </NavLink>
+              >
+                Kivi Amarakoon
               </Box>
             </Stack>
             <Box
               sx={{
                 display: 'flex',
                 alignItems: 'center',
-                gap: 2,
+                cursor: 'pointer',
               }}
             >
-              <Tooltip title="GitHub">
-                <img
-                  src={github}
-                  alt={'github'}
-                  style={{ height: 30, cursor: 'pointer' }}
-                />
-              </Tooltip>
-              <Tooltip title={'LinkedIn'}>
-                <img
-                  src={linkedin}
-                  alt={'linked-in'}
-                  style={{ height: 30, cursor: 'pointer' }}
-                />
-              </Tooltip>
+              <IconButton onClick={toggleMobileMenu}>
+                <MenuIcon sx={{ color: 'text.main' }} />
+              </IconButton>
             </Box>
           </Stack>
+          {mobileMenuOpen && (
+            <Stack
+              direction={'column'}
+              sx={{
+                pt: 3,
+                gap: 0.5,
+              }}
+            >
+              {renderNavButtons()}
+              <Box sx={{ py: 0.5 }}>
+                <KDivider orientation={'horizontal'} width={'90%'} />
+              </Box>
+              <Stack direction={'column'} gap={0.5}>
+                <Button startIcon={<GitHubIcon />} sx={navButtonStyles}>
+                  GitHub
+                </Button>
+                <Button startIcon={<LinkedInIcon />} sx={navButtonStyles}>
+                  LinkedIn
+                </Button>
+              </Stack>
+            </Stack>
+          )}
         </>
+      ) : (
+        <Stack
+          direction={'row'}
+          sx={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            zIndex: 1005,
+          }}
+        >
+          <Stack
+            direction={'row'}
+            gap={'1rem'}
+            sx={{
+              display: 'flex',
+              alignItems: 'center',
+            }}
+          >
+            <Box
+              sx={{
+                backgroundColor: 'text.main',
+                display: 'flex',
+                alignItems: 'center',
+                borderRadius: '50%',
+                p: 0.25,
+              }}
+            >
+              <img src={logo} alt={'logo'} style={{ height: 40 }} />
+            </Box>
+            <Box sx={{ fontWeight: 700, fontSize: 18, mr: 2, ml: 1 }}>
+              <Typography
+                variant={'h2'}
+                sx={{
+                  fontFamily: 'Roboto sans',
+                  fontWeight: 700,
+                  textTransform: 'uppercase',
+                }}
+              >
+                Kivi Amarakoon
+              </Typography>
+            </Box>
+            <Divider
+              orientation="vertical"
+              flexItem
+              sx={{
+                backgroundColor: 'transparentLevelsWhite.2',
+                width: '1px',
+                height: 50,
+                borderRadius: 10,
+              }}
+            />
+            <Box sx={{ display: 'flex', gap: 2 }}>{renderNavButtons()}</Box>
+          </Stack>
+          <Box
+            sx={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 2,
+            }}
+          >
+            <Tooltip title="GitHub">
+              <img
+                src={github}
+                alt={'github'}
+                style={{ height: 30, cursor: 'pointer' }}
+              />
+            </Tooltip>
+            <Tooltip title={'LinkedIn'}>
+              <img
+                src={linkedin}
+                alt={'linked-in'}
+                style={{ height: 30, cursor: 'pointer' }}
+              />
+            </Tooltip>
+          </Box>
+        </Stack>
       )}
     </Box>
   );

@@ -1,4 +1,4 @@
-import { Button as MuiButton } from '@mui/material';
+import { Button as MuiButton, Typography } from '@mui/material';
 import PropTypes from 'prop-types';
 
 const KNavButton = ({ label, onClick, active, size }) => {
@@ -32,7 +32,10 @@ const KNavButton = ({ label, onClick, active, size }) => {
       onClick={onClick}
       size={size}
     >
-      {label}
+      <Typography variant={active ? 'subtitle1' : 'subtitle2'}>
+        {label}
+      </Typography>
+      {/*{label}*/}
     </MuiButton>
   );
 };
