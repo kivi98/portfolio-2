@@ -23,7 +23,7 @@ const SkillCard = ({ title, description, date }) => {
           py: 0.5,
         }}
       >
-        {title}
+        <Typography variant={'h4'}>{title}</Typography>
       </Box>
       <Divider
         sx={{

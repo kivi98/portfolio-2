@@ -205,14 +205,14 @@ const Header = () => {
             </Box>
             <Box sx={{ fontWeight: 700, fontSize: 18, mr: 2, ml: 1 }}>
               <Typography
-                variant={'h2'}
+                variant={'h3'}
                 sx={{
                   fontFamily: 'Roboto sans',
                   fontWeight: 700,
                   textTransform: 'uppercase',
                 }}
               >
-                Kivi Amarakoon
+                K i v i &nbsp; A m a r a k o o n
               </Typography>
             </Box>
             <Divider

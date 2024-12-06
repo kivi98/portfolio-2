@@ -96,6 +96,14 @@ const theme = createTheme({
       fontSize: '1rem',
       fontWeight: 300,
     },
+    subtitle3: {
+      fontSize: '0.75rem',
+      fontWeight: 300,
+    },
+    caption: {
+      fontSize: '0.75rem',
+      fontWeight: 300,
+    },
   },
   spacing: 8,
 });

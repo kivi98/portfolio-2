@@ -9,10 +9,10 @@ import {
   Typography,
 } from '@mui/material';
 import aboutImage from '../../assets/images/about-me.png';
-import TwoColumnSection from '../../components/Layouts/section-body-type-2.jsx';
-import OneColumnSection from '../../components/Layouts/section-body-type-1.jsx';
-import SkillIcon from '../../components/Layouts/skill-icon.jsx';
-import SkillCard from '../../components/Layouts/skill-card.jsx';
+import TwoColumnSection from '../../components/common/section-body-type-2.jsx';
+import OneColumnSection from '../../components/common/section-body-type-1.jsx';
+import SkillIcon from '../../components/common/skill-icon.jsx';
+import SkillCard from '../../components/common/skill-card.jsx';
 import KImageBox from '../../components/common/imageBox-standard.jsx';
 import { MyImageArray } from './image-arrays/my-image-array.js';
 import GenerateChipArt from '../../utils/generate-chip-art.jsx';
@@ -50,15 +50,11 @@ const About = () => {
             }}
           >
             <span>
-              <span style={{ fontSize: 36, fontWeight: 500 }}>I'</span>m just an
+              <span style={{ fontSize: 36, fontWeight: 500 }}>I&#39;</span>m just an
               ordinary student trying to be an expert in Software Engineering
               field. Eager to explore the dynamic world of technology, I am
               committed to honing my programming skills and embracing innovative
-              solutions to real-world challenges. I’m just an ordinary student
-              trying to be an expert in Software Engineering field. Eager to
-              explore the dynamic world of technology, I am committed to honing
-              my programming skills and embracing innovative solutions to
-              real-world challenges.
+              solutions to real-world challenges.
             </span>
           </Typography>
         }
