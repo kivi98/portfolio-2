@@ -1,4 +1,5 @@
 import { Box } from '@mui/material';
+import PropTypes from 'prop-types';
 
 const SkillIcon = ({ image, placeholderText }) => {
   return (
@@ -17,6 +18,11 @@ const SkillIcon = ({ image, placeholderText }) => {
       />
     </Box>
   );
+};
+
+SkillIcon.propTypes = {
+  image: PropTypes.string.isRequired,
+  placeholderText: PropTypes.string.isRequired,
 };
 
 export default SkillIcon;

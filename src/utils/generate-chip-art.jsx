@@ -1,4 +1,4 @@
-import { Box, Chip, Divider, Typography } from '@mui/material';
+import { Box, Chip, Typography } from '@mui/material';
 import PropTypes from 'prop-types';
 
 const GenerateChipArt = ({ itemList, skillType }) => {
