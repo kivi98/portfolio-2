@@ -9,6 +9,7 @@ import linkedin from '../../assets/images/linkedin.svg';
 import github from '../../assets/images/github.svg';
 import medium from '../../assets/images/medium.svg';
 import x from '../../assets/images/x.svg';
+import SendIcon from '@mui/icons-material/Send';
 import KImageBox from '../../components/common/imageBox-standard.jsx';
 
 const ContactMe = () => {
@@ -99,7 +100,7 @@ const ContactMe = () => {
                   justifyContent: 'flex-end',
                 }}
               >
-                <KButton btnLabel={'Send'} />
+                <KButton endIcon={<SendIcon/>} btnLabel={'Send'}/>
               </Box>
             </Stack>
           </form>
