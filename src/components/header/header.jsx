@@ -129,15 +129,23 @@ const Header = () => {
               </Box>
               <Box
                 sx={{
-                  fontWeight: 700,
-                  fontSize: 18,
                   mr: 2,
-                  ml: 1,
+                  ml: 2,
                   display: 'flex',
                   alignItems: 'center',
                 }}
               >
-                Kivi Amarakoon
+                <Typography
+                  variant={'h3'}
+                  sx={{
+                    fontFamily: 'Roboto sans',
+                    fontWeight: 700,
+                    fontSize: 18,
+                    textTransform: 'uppercase',
+                  }}
+                >
+                  K i v i &nbsp; A m a r a k o o n
+                </Typography>
               </Box>
             </Stack>
             <Box

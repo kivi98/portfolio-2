@@ -26,15 +26,8 @@ const Volunteering = () => {
             title={'IEEE Innovation Nation Sri Lanka 2023'}
             subtitle={'Vice Chairperson'}
             date={'2023 - 2024'}
-            node={
-              <ul
-                style={{
-                  paddingTop: 0,
-                  margin: 0,
-                  paddingLeft: '1rem',
-                  color: '#b6b6b6',
-                }}
-              >
+            listDescription={
+              <>
                 <li style={{ color: 'text.dark' }}>
                   <Typography
                     variant={'caption'}
@@ -54,22 +47,15 @@ const Volunteering = () => {
                     initiatives.
                   </Typography>
                 </li>
-              </ul>
+              </>
             }
           />
           <SkillCard
             title={'IEEE Student branch - UCSC'}
             subtitle={'Vice Chairperson'}
             date={'2023 - 2024'}
-            node={
-              <ul
-                style={{
-                  paddingTop: 0,
-                  margin: 0,
-                  paddingLeft: '1rem',
-                  color: '#b6b6b6',
-                }}
-              >
+            listDescription={
+              <>
                 <li style={{ color: 'text.dark' }}>
                   <Typography
                     variant={'caption'}
@@ -96,92 +82,65 @@ const Volunteering = () => {
                     learners.
                   </Typography>
                 </li>
-              </ul>
+              </>
             }
           />
           <SkillCard
             title={'Charter Rotaract Club - UCSC'}
             subtitle={'Co-Director, Community Service'}
             date={'2022 - 2023'}
-            node={
-              <ul
-                style={{
-                  paddingTop: 0,
-                  margin: 0,
-                  paddingLeft: '1rem',
-                  color: '#b6b6b6',
-                }}
-              >
-                <li style={{ color: 'text.dark' }}>
-                  <Typography
-                    variant={'caption'}
-                    color={'text.dark'}
-                    sx={{ p: 0 }}
-                  >
-                    As the Community Services Director of the Charter Rotaract
-                    Club at the University of Colombo School of Computing, I
-                    played a pivotal role in advancing the club's mission to
-                    serve the community and make a positive impact.
-                  </Typography>
-                </li>
-              </ul>
+            listDescription={
+              <li style={{ color: 'text.dark' }}>
+                <Typography
+                  variant={'caption'}
+                  color={'text.dark'}
+                  sx={{ p: 0 }}
+                >
+                  As the Community Services Director of the Charter Rotaract
+                  Club at the University of Colombo School of Computing, I
+                  played a pivotal role in advancing the club's mission to serve
+                  the community and make a positive impact.
+                </Typography>
+              </li>
             }
           />
           <SkillCard
             title={'"Phasara" - Official Media Unit - UCSC'}
             subtitle={'Executives Committee Member'}
             date={'2022 - 2023'}
-            node={
-              <ul
-                style={{
-                  paddingTop: 0,
-                  margin: 0,
-                  paddingLeft: '1rem',
-                  color: '#b6b6b6',
-                }}
-              >
-                <li style={{ color: 'text.dark' }}>
-                  <Typography
-                    variant={'caption'}
-                    color={'text.dark'}
-                    sx={{ p: 0 }}
-                  >
-                    Serving as an Executive Committee Member for the "Phasara"
-                    Official Media Unit at the University of Colombo School of
-                    Computing, I played a vital role in the organization's
-                    mission to capture and disseminate the essence of campus
-                    life and events.
-                  </Typography>
-                </li>
-              </ul>
+            listDescription={
+              <li style={{ color: 'text.dark' }}>
+                <Typography
+                  variant={'caption'}
+                  color={'text.dark'}
+                  sx={{ p: 0 }}
+                >
+                  Serving as an Executive Committee Member for the "Phasara"
+                  Official Media Unit at the University of Colombo School of
+                  Computing, I played a vital role in the organization's mission
+                  to capture and disseminate the essence of campus life and
+                  events.
+                </Typography>
+              </li>
             }
           />
           <SkillCard
             title={'Student Union - UCSC'}
             subtitle={'Union Committee Member/Batch Representative'}
             date={'2021 - 2022'}
-            node={
-              <ul
-                style={{
-                  paddingTop: 0,
-                  margin: 0,
-                  paddingLeft: '1rem',
-                  color: '#b6b6b6',
-                }}
-              >
-                <li style={{ color: 'text.dark' }}>
-                  <Typography
-                    variant={'caption'}
-                    color={'text.dark'}
-                    sx={{ p: 0 }}
-                  >
-                    Acted as an active member and batch representative within
-                    the student union, advocating for the interests and concerns
-                    of my peers, organizing events, and fostering a sense of
-                    community within the batch.
-                  </Typography>
-                </li>
-              </ul>
+            listDescription={
+              <li style={{ color: 'text.dark' }}>
+                <Typography
+                  variant={'caption'}
+                  color={'text.dark'}
+                  sx={{ p: 0 }}
+                >
+                  Acted as an active member and batch representative within the
+                  student union, advocating for the interests and concerns of my
+                  peers, organizing events, and fostering a sense of community
+                  within the batch.
+                </Typography>
+              </li>
             }
           />
         </Stack>

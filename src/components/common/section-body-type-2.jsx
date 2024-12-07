@@ -55,6 +55,7 @@ const TwoColumnSection = ({ leftComponent, rightComponent, title }) => {
           sx={{
             flex: 1,
             mb: { xs: 3, md: 0 },
+            paddingLeft: { xs: 0, md: 2 },
             width: '100%',
             display: 'flex',
             justifyContent: 'center',
@@ -78,6 +79,7 @@ const TwoColumnSection = ({ leftComponent, rightComponent, title }) => {
             width: '100%',
             display: 'flex',
             justifyContent: 'center',
+            paddingRight: { xs: 0, md: 2 },
           }}
         >
           {rightComponent}

@@ -31,15 +31,8 @@ const Experience = () => {
               title={'Associate Software Engineer'}
               subtitle={'ITX360 (Pvt) Ltd | Colombo, Sri Lanka'}
               date={'2023 - Present'}
-              node={
-                <ul
-                  style={{
-                    paddingTop: 0,
-                    margin: 0,
-                    paddingLeft: '1rem',
-                    color: '#b6b6b6',
-                  }}
-                >
+              listDescription={
+                <>
                   <li style={{ color: 'text.dark' }}>
                     <Typography
                       variant={'caption'}
@@ -72,22 +65,15 @@ const Experience = () => {
                       .net Identity
                     </Typography>
                   </li>
-                </ul>
+                </>
               }
             />
             <SkillCard
               title={'Software Engineering - Intern'}
               subtitle={'ITX360 (Pvt) Ltd | Colombo, Sri Lanka'}
               date={'2023 - 2024'}
-              node={
-                <ul
-                  style={{
-                    paddingTop: 0,
-                    margin: 0,
-                    paddingLeft: '1rem',
-                    color: '#b6b6b6',
-                  }}
-                >
+              listDescription={
+                <>
                   <li style={{ color: 'text.dark' }}>
                     <Typography
                       variant={'caption'}
@@ -107,7 +93,7 @@ const Experience = () => {
                   <li>
                     <Typography variant={'caption'} sx={{ p: 0 }}>
                       Proactively identified and resolved bugs, contributing to
-                      a 95\% bug resolution rate.
+                      a 95% bug resolution rate.
                     </Typography>
                   </li>
                   <li>
@@ -121,7 +107,7 @@ const Experience = () => {
                       Technologies practiced: .Net, C\#, React, Postgres
                     </Typography>
                   </li>
-                </ul>
+                </>
               }
             />
           </Stack>

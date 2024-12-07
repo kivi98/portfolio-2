@@ -18,7 +18,7 @@ const About = () => {
       <SkillBadges />
       <Certifications />
       <Volunteering />
-      <Achievements />
+      {/*<Achievements />*/}
       <Experience />
     </Container>
   );

@@ -1,7 +1,7 @@
 import { Box, Divider, Stack, Typography } from '@mui/material';
 import PropTypes from 'prop-types';
 
-const SkillCard = ({ title, subtitle, description, date, node }) => {
+const SkillCard = ({ title, subtitle, description, date, listDescription }) => {
   return (
     <Stack
       direction={'column'}
@@ -9,10 +9,9 @@ const SkillCard = ({ title, subtitle, description, date, node }) => {
         backgroundColor: 'primary.light2',
         border: 'solid 1px',
         borderColor: 'transparentLevelsWhite.2',
-        boxShadow: '0px 15px 52px -4px rgba(0,0,0,0.20)',
         borderRadius: 2,
         p: 1,
-        width: { xs: 'calc(100% - 10px)', md: '90%' },
+        width: { xs: 'calc(100% - 20px)', md: '96%' },
       }}
     >
       <Box
@@ -43,7 +42,7 @@ const SkillCard = ({ title, subtitle, description, date, node }) => {
         <Typography variant={'caption'}>{subtitle}</Typography>
         <Typography variant={'caption'}>{date}</Typography>
       </Stack>
-      {(description || node) && (
+      {(description || listDescription) && (
         <Divider
           sx={{
             backgroundColor: 'transparentLevelsWhite.2',
@@ -66,7 +65,21 @@ const SkillCard = ({ title, subtitle, description, date, node }) => {
           </Typography>
         </Box>
       )}
-      {node && <Box sx={{ p: 0 }}>{node}</Box>}
+      {listDescription && (
+        <Box sx={{ p: 0, pt: '0.3rem' }}>
+          <ul
+            style={{
+              paddingTop: 0,
+              margin: 0,
+              lineHeight: '1rem',
+              paddingLeft: '1rem',
+              color: '#b6b6b6',
+            }}
+          >
+            {listDescription}
+          </ul>
+        </Box>
+      )}
     </Stack>
   );
 };
@@ -76,7 +89,7 @@ SkillCard.propTypes = {
   subtitle: PropTypes.string,
   description: PropTypes.any,
   date: PropTypes.string.isRequired,
-  node: PropTypes.any,
+  listDescription: PropTypes.any,
 };
 
 export default SkillCard;

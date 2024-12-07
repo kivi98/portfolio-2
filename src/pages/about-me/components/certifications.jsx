@@ -126,21 +126,6 @@ const Certifications = () => {
               }
             />
           </Stack>
-
-          {/*<Box*/}
-          {/*  sx={{*/}
-          {/*    height: 50,*/}
-          {/*    width: '100%',*/}
-          {/*    display: 'flex',*/}
-          {/*    justifyContent: 'center',*/}
-          {/*    position: 'relative',*/}
-          {/*    backgroundColor: 'transparent',*/}
-          {/*  }}*/}
-          {/*>*/}
-          {/*  <IconButton>*/}
-          {/*    <KeyboardArrowUpIcon color={'text'} />*/}
-          {/*  </IconButton>*/}
-          {/*</Box>*/}
         </Box>
       }
     />
