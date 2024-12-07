@@ -111,17 +111,17 @@ const Blog = () => {
           display: 'flex',
           flexWrap: 'wrap',
           mb: 5,
+          justifyContent: 'space-between',
         }}
       >
         {blogs.map((blog) => (
           <BlogCard
             key={blog.id}
-            blogPostImage={test}
+            blog={blog}
             open={open}
             openDialog={handleOpen}
             closeDialog={handleClose}
             viewArticle={handleBlogClick}
-            blog={blog}
           />
         ))}
       </Box>

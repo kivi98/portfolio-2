@@ -6,14 +6,7 @@ import KDivider from '../../../components/common/divider-vertical.jsx';
 import PopupDialog from '../../../components/common/popup-dialog.jsx';
 import DialogFullScreen from '../../../components/common/dialog-full-screen.jsx';
 
-const BlogCard = ({
-  blog,
-  blogPostImage,
-  openDialog,
-  open,
-  closeDialog,
-  viewArticle,
-}) => {
+const BlogCard = ({ blog, openDialog, open, closeDialog, viewArticle }) => {
   console.log('blog', blog);
   return (
     <Box
@@ -149,7 +142,6 @@ const BlogCard = ({
 
 BlogCard.propTypes = {
   blog: PropTypes.object.isRequired,
-  blogPostImage: PropTypes.string.isRequired,
   open: PropTypes.bool,
   openDialog: PropTypes.func,
   closeDialog: PropTypes.func,
