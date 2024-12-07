@@ -22,6 +22,7 @@ const PopupDialog = ({ open, onClose, title, content }) => {
       onClose={onClose}
       TransitionComponent={Transition}
       scroll={'paper'}
+      maxWidth={'md'}
       color={'primary.light2'}
       aria-labelledby="scroll-dialog-title"
       aria-describedby="scroll-dialog-description"
@@ -31,6 +32,7 @@ const PopupDialog = ({ open, onClose, title, content }) => {
           color: 'text.light',
           borderRadius: 2,
           border: 'solid 1px',
+          width: { xs: 'calc(100% - 20px)', md: '50%' },
           borderColor: 'transparentLevelsWhite.2',
         },
       }}

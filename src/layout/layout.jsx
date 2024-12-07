@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import { Box } from '@mui/material';
 import { Outlet } from 'react-router-dom';
 import Header from '../components/header/header.jsx';

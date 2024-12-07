@@ -8,6 +8,8 @@ import Projects from '../pages/projects/projects.jsx';
 // exceptions
 import NotFound from './exceptions/not-found.jsx';
 import Layout from '../layout/layout.jsx';
+import BlogView from '../pages/blog/blog-view.jsx';
+import BlogsLayout from '../layout/blogs-layout.jsx';
 
 const browserRouter = createBrowserRouter([
   {
@@ -28,8 +30,20 @@ const browserRouter = createBrowserRouter([
       },
       {
         path: '/blog',
-        element: <Blog />,
+        element: <BlogsLayout />,
         errorElement: <NotFound />,
+        children: [
+          {
+            index: true,
+            element: <Blog />,
+            errorElement: <NotFound />,
+          },
+          {
+            path: ':id',
+            element: <BlogView />,
+            errorElement: <NotFound />,
+          },
+        ],
       },
       {
         path: '/projects',

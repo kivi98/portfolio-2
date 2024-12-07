@@ -7,19 +7,14 @@ import PopupDialog from '../../../components/common/popup-dialog.jsx';
 import DialogFullScreen from '../../../components/common/dialog-full-screen.jsx';
 
 const BlogCard = ({
-  title,
+  blog,
   blogPostImage,
-  description,
-  content,
-  keywords,
-  hearts,
   openDialog,
   open,
   closeDialog,
-  fullScreen,
-  openFullScreen,
-  closeFullScreen,
+  viewArticle,
 }) => {
+  console.log('blog', blog);
   return (
     <Box
       sx={{
@@ -45,8 +40,8 @@ const BlogCard = ({
           onClick={openDialog}
         >
           <img
-            src={blogPostImage}
-            alt={title}
+            src={blog.image}
+            alt={blog.title}
             style={{
               width: '100%',
               height: '100%',
@@ -82,7 +77,7 @@ const BlogCard = ({
                 fontSize: { xs: 14, md: 18 },
               }}
             >
-              {title}
+              {blog.title}
             </Typography>
             <Stack
               direction={'row'}
@@ -96,7 +91,7 @@ const BlogCard = ({
                 cursor: 'pointer',
               }}
             >
-              <Typography variant={'subtitle1'}>{hearts}</Typography>
+              <Typography variant={'subtitle1'}>{blog.likes}</Typography>
               <FavoriteIcon
                 sx={{ color: 'secondary.light', mt: 0.25, ml: 0.5 }}
               />
@@ -114,7 +109,7 @@ const BlogCard = ({
             }}
           >
             <Typography variant={'caption'} sx={{ color: 'primary.lighter' }}>
-              {description}
+              {blog.content}
             </Typography>
           </Box>
           <Box sx={{ py: 1 }}>
@@ -131,13 +126,13 @@ const BlogCard = ({
               variant={'caption'}
               sx={{ height: '100%', display: 'flex', alignItems: 'center' }}
             >
-              <strong>Keywords: {keywords}</strong>{' '}
+              <strong>Tags: {blog.tags}</strong>{' '}
             </Typography>
             <KButton
               btnLabel={'Read'}
               size={'small'}
               sx={{ px: '1.83rem' }}
-              onClick={openFullScreen}
+              onClick={viewArticle.bind(this, blog.id)}
             />
           </Box>
         </Stack>
@@ -145,32 +140,20 @@ const BlogCard = ({
       <PopupDialog
         open={open}
         onClose={closeDialog}
-        title={title}
-        content={content}
-      />
-      <DialogFullScreen
-        open={fullScreen}
-        onClose={closeFullScreen}
-        title={title}
-        content={content}
+        title={blog.title}
+        content={blog.content}
       />
     </Box>
   );
 };
 
 BlogCard.propTypes = {
-  title: PropTypes.string.isRequired,
+  blog: PropTypes.object.isRequired,
   blogPostImage: PropTypes.string.isRequired,
-  description: PropTypes.string.isRequired,
-  hearts: PropTypes.number,
-  keywords: PropTypes.arrayOf(string),
   open: PropTypes.bool,
   openDialog: PropTypes.func,
   closeDialog: PropTypes.func,
-  content: PropTypes.string,
-  fullScreen: PropTypes.bool,
-  openFullScreen: PropTypes.func,
-  closeFullScreen: PropTypes.func,
+  viewArticle: PropTypes.func,
 };
 
 export default BlogCard;

@@ -4,6 +4,7 @@ import {
   AppBar,
   Button,
   Dialog,
+  DialogActions,
   DialogContent,
   DialogTitle,
   IconButton,
@@ -12,12 +13,13 @@ import {
   Typography,
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
+import KButton from './button.jsx';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-const DialogFullScreen = ({ open, onClose, children, content, title }) => {
+const DialogFullScreen = ({ open, onClose, content, title }) => {
   return (
     <Dialog
       open={open}
@@ -37,6 +39,9 @@ const DialogFullScreen = ({ open, onClose, children, content, title }) => {
     >
       <AppBar sx={{ position: 'relative' }}>
         <Toolbar>
+          <Typography sx={{ ml: 1, flex: 1 }} variant="h6" component="div">
+            {title}
+          </Typography>
           <IconButton
             edge="start"
             color="inherit"
@@ -45,16 +50,16 @@ const DialogFullScreen = ({ open, onClose, children, content, title }) => {
           >
             <CloseIcon />
           </IconButton>
-          <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
-            Sound
-          </Typography>
-          <Button autoFocus color="inherit" onClick={onClose}>
-            save
-          </Button>
         </Toolbar>
       </AppBar>
-      <DialogTitle>{title}</DialogTitle>
-      <DialogContent>{content}</DialogContent>
+      <DialogContent>
+        <Typography variant={'subtitle2'} color={'text.dark'}>
+          {content}
+        </Typography>
+      </DialogContent>
+      <DialogActions>
+        <KButton btnLabel={'Read'} />
+      </DialogActions>
     </Dialog>
   );
 };
@@ -68,7 +73,6 @@ DialogFullScreen.defaultProps = {
 DialogFullScreen.propTypes = {
   open: PropTypes.bool,
   onClose: PropTypes.func,
-  children: PropTypes.node,
   title: PropTypes.string.isRequired,
   content: PropTypes.node,
 };

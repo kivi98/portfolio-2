@@ -1,20 +1,15 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const useBlogLogic = () => {
+  const navigate = useNavigate();
   const [open, setOpen] = useState(false);
-  const [fullScreen, setFullScreen] = useState(false);
 
-  const handleFullScreen = () => {
-    console.log('handleFullScreen');
-    setFullScreen(true);
-  };
-
-  const handleCloseFullScreen = () => {
-    setFullScreen(false);
+  const handleBlogClick = (id) => {
+    navigate(`/blog/${id}`);
   };
 
   const handleOpen = () => {
-    console.log('handleOpen');
     setOpen(true);
   };
 
@@ -26,9 +21,7 @@ const useBlogLogic = () => {
     open,
     handleOpen,
     handleClose,
-    fullScreen,
-    handleFullScreen,
-    handleCloseFullScreen,
+    handleBlogClick,
   };
 };
 

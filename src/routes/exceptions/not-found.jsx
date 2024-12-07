@@ -1,4 +1,4 @@
-import { Box, Button, Stack } from '@mui/material';
+import { Box, Button, Stack, Typography } from '@mui/material';
 import { useEffect } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import KButton from '../../components/common/button.jsx';
@@ -13,22 +13,27 @@ const NotFound = () => {
   return (
     <Stack
       sx={{
+        width: '100%',
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        height: '100vh',
+        height: '50vh',
+        px: 3,
         color: 'text.main',
       }}
     >
-      <h1>404: Page Not Found</h1>
+      <Typography variant={'h1'} sx={{ mb: 2 }}>
+        404: Page Not Found
+      </Typography>
       <Box>
-        <p>
+        <Typography variant={'subtitle2'} sx={{ textAlign: 'center' }}>
           The page you are looking for might have been removed, had its name
           changed, or is temporarily unavailable.
-        </p>
+        </Typography>
       </Box>
       <Box
         sx={{
+          width: '100%',
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
@@ -36,16 +41,7 @@ const NotFound = () => {
         }}
       >
         <NavLink to={'/'}>
-          <KButton
-            sx={{
-              color: 'text.main',
-              backgroundColor: 'primary.main',
-              '&:hover': {
-                backgroundColor: 'primary.light',
-              },
-            }}
-            btnLabel={'Go to Home'}
-          />
+          <KButton btnLabel={'Go to Home'} />
         </NavLink>
       </Box>
     </Stack>
