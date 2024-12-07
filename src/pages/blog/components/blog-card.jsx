@@ -1,10 +1,25 @@
-import { Box, Divider, Stack, Typography } from '@mui/material';
+import { Box, Stack, Typography } from '@mui/material';
 import PropTypes, { string } from 'prop-types';
 import KButton from '../../../components/common/button.jsx';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import KDivider from '../../../components/common/divider-vertical.jsx';
+import PopupDialog from '../../../components/common/popup-dialog.jsx';
+import DialogFullScreen from '../../../components/common/dialog-full-screen.jsx';
 
-const BlogCard = ({ title, blogPostImage, description, keywords, hearts }) => {
+const BlogCard = ({
+  title,
+  blogPostImage,
+  description,
+  content,
+  keywords,
+  hearts,
+  openDialog,
+  open,
+  closeDialog,
+  fullScreen,
+  openFullScreen,
+  closeFullScreen,
+}) => {
   return (
     <Box
       sx={{
@@ -25,7 +40,9 @@ const BlogCard = ({ title, blogPostImage, description, keywords, hearts }) => {
             p: 0,
             width: { xs: 200, md: 220 },
             height: { xs: '100%', md: 140 },
+            cursor: 'pointer',
           }}
+          onClick={openDialog}
         >
           <img
             src={blogPostImage}
@@ -116,10 +133,27 @@ const BlogCard = ({ title, blogPostImage, description, keywords, hearts }) => {
             >
               <strong>Keywords: {keywords}</strong>{' '}
             </Typography>
-            <KButton btnLabel={'Read'} size={'small'} />
+            <KButton
+              btnLabel={'Read'}
+              size={'small'}
+              sx={{ px: '1.83rem' }}
+              onClick={openFullScreen}
+            />
           </Box>
         </Stack>
       </Stack>
+      <PopupDialog
+        open={open}
+        onClose={closeDialog}
+        title={title}
+        content={content}
+      />
+      <DialogFullScreen
+        open={fullScreen}
+        onClose={closeFullScreen}
+        title={title}
+        content={content}
+      />
     </Box>
   );
 };
@@ -129,7 +163,14 @@ BlogCard.propTypes = {
   blogPostImage: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
   hearts: PropTypes.number,
-  // keywords: PropTypes.arrayOf(string).isRequired
+  keywords: PropTypes.arrayOf(string),
+  open: PropTypes.bool,
+  openDialog: PropTypes.func,
+  closeDialog: PropTypes.func,
+  content: PropTypes.string,
+  fullScreen: PropTypes.bool,
+  openFullScreen: PropTypes.func,
+  closeFullScreen: PropTypes.func,
 };
 
 export default BlogCard;

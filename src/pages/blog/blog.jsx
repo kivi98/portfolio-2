@@ -12,8 +12,18 @@ import test from '../../assets/images/test.png';
 import KTextField from '../../components/common/textField-normal.jsx';
 import SearchIcon from '@mui/icons-material/Search';
 import KDivider from '../../components/common/divider-vertical.jsx';
+import PopupDialog from '../../components/common/popup-dialog.jsx';
+import useBlogLogic from './hooks/use-blog-logic.js';
 
 const Blog = () => {
+  const {
+    open,
+    handleClose,
+    handleOpen,
+    fullScreen,
+    handleCloseFullScreen,
+    handleFullScreen,
+  } = useBlogLogic();
   return (
     <Container>
       <Stack
@@ -112,7 +122,19 @@ const Blog = () => {
       >
         <BlogCard
           blogPostImage={test}
+          open={open}
+          openDialog={handleOpen}
+          closeDialog={handleClose}
+          fullScreen={fullScreen}
+          openFullScreen={handleFullScreen}
+          closeFullScreen={handleCloseFullScreen}
           description={'testing'}
+          content={
+            'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.' +
+            'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.' +
+            'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.' +
+            'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
+          }
           title={'This is a Testing Blog Post'}
           hearts={30}
         />

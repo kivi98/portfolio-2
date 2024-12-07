@@ -100,7 +100,11 @@ const ContactMe = () => {
                   justifyContent: 'flex-end',
                 }}
               >
-                <KButton endIcon={<SendIcon/>} btnLabel={'Send'}/>
+                <KButton
+                  endIcon={<SendIcon />}
+                  btnLabel={'Send'}
+                  sx={{ width: 'fit-content', px: 3, height: 40 }}
+                />
               </Box>
             </Stack>
           </form>
