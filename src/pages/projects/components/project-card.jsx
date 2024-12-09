@@ -1,39 +1,56 @@
-import { Box, Stack, Typography } from '@mui/material';
+import { Avatar, Box, Stack, Typography } from '@mui/material';
 import PropTypes from 'prop-types';
 import KButton from '../../../components/common/button.jsx';
 import FavoriteIcon from '@mui/icons-material/Favorite';
+import KDivider from '../../../components/common/divider-vertical.jsx';
+import getTruncatedText from '../../../utils/truncate-string.js';
+import PopupDialog from '../../../components/common/popup-dialog.jsx';
+import { useState } from 'react';
 
-const ProjectCard = ({
-  title,
-  projectPostImage,
-  description,
-  keywords,
-  hearts,
-}) => {
+const ProjectCard = ({ project, viewArticle }) => {
+  const [open, setOpen] = useState(false);
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+  console.log('ProjectCard', project);
   return (
     <Box
       sx={{
         display: 'flex',
+        width: { xs: '100%', md: '40%' },
         p: 1,
         backgroundColor: 'primary.main',
         borderRadius: 2,
-        border: 'solid 2px',
+        border: 'solid 1px',
         borderColor: 'primary.light2',
         flexGrow: 1,
-        mb: 2,
-        boxShadow: '1px 4px 16px 0px rgba(21, 21, 21, 0.75)',
       }}
     >
-      <Stack direction={'row'} sx={{ width: '100%' }}>
-        <Box>
+      <Stack direction={'column'} sx={{ width: '100%' }}>
+        <Box
+          sx={{
+            p: 0,
+            width: { xs: 'auto', md: '100%' },
+            height: { xs: 220, md: 220 },
+            cursor: 'pointer',
+            mb: '0.5rem',
+          }}
+          onClick={handleOpen}
+        >
           <img
-            src={projectPostImage}
-            alt={title}
+            src={project.image}
+            alt={project.title}
             style={{
-              width: 200,
-              height: 130,
+              width: '100%',
+              height: '100%',
               objectFit: 'cover',
               borderRadius: 5,
+              p: 0,
             }}
           />
         </Box>
@@ -43,7 +60,7 @@ const ProjectCard = ({
             width: '100%',
             display: 'flex',
             justifyContent: 'space-between',
-            py: 1,
+            pl: 0,
           }}
         >
           <Stack
@@ -51,7 +68,7 @@ const ProjectCard = ({
             sx={{
               display: 'flex',
               justifyContent: 'space-between',
-              px: 1,
+              pl: 1,
             }}
           >
             <Typography
@@ -63,58 +80,90 @@ const ProjectCard = ({
                 fontSize: { xs: 14, md: 18 },
               }}
             >
-              {title}
+              {project.title}
             </Typography>
             <Stack
               direction={'row'}
               gap={1}
               sx={{
-                backgroundColor: 'primary.light2',
-                px: 2,
+                backgroundColor: 'transparentLevels.4',
+                pl: 2,
+                pr: 1.5,
+                mr: 0.6,
+                mt: -28,
                 py: 0.5,
+                height: 'fit-content',
                 borderRadius: 2,
-                mt: -1,
                 cursor: 'pointer',
               }}
             >
-              <Typography variant={'subtitle1'}>{hearts}</Typography>
+              <Typography variant={'subtitle1'}>{project.likes}</Typography>
               <FavoriteIcon
                 sx={{ color: 'secondary.light', mt: 0.25, ml: 0.5 }}
               />
             </Stack>
           </Stack>
-          <Box sx={{ display: 'flex', justifyContent: 'space-between', p: 1 }}>
-            <Typography variant={'caption'} sx={{ color: 'primary.lighter' }}>
-              {description}
-            </Typography>
+          <Box sx={{ py: 1 }}>
+            <KDivider orientation={'horizontal'} width={'100%'} />
           </Box>
           <Box
             sx={{
               display: 'flex',
               justifyContent: 'space-between',
               px: 1,
+              height: '100%',
             }}
           >
-            <Typography
-              variant={'caption'}
-              sx={{ height: '100%', display: 'flex', alignItems: 'flex-end' }}
-            >
-              <strong>Keywords: {keywords}</strong>{' '}
+            <Typography variant={'caption'} sx={{ color: 'primary.lighter' }}>
+              {getTruncatedText(project.description, 200)}
             </Typography>
-            <KButton btnLabel={'Read'} />
+          </Box>
+          <Box sx={{ py: 1 }}>
+            <KDivider orientation={'horizontal'} width={'100%'} />
+          </Box>
+          <Box
+            sx={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              pl: 1,
+            }}
+          >
+            <Stack direction={'row'}>
+              <Avatar sx={{ width: '28px', height: '28px', mt: '0.1rem' }} />
+              <Typography
+                variant={'caption'}
+                sx={{
+                  height: '100%',
+                  display: 'flex',
+                  alignItems: 'center',
+                  ml: 1,
+                }}
+              >
+                Tags:
+              </Typography>
+            </Stack>
+            <KButton
+              btnLabel={'Read'}
+              size={'small'}
+              sx={{ px: '1.83rem' }}
+              onClick={viewArticle.bind(this, project.id)}
+            />
           </Box>
         </Stack>
       </Stack>
+      <PopupDialog
+        open={open}
+        onClose={handleClose}
+        title={project.title}
+        content={project.description}
+      />
     </Box>
   );
 };
 
 ProjectCard.propTypes = {
-  title: PropTypes.string.isRequired,
-  projectPostImage: PropTypes.string.isRequired,
-  description: PropTypes.string.isRequired,
-  hearts: PropTypes.number,
-  // keywords: PropTypes.arrayOf(string).isRequired
+  project: PropTypes.object.isRequired,
+  viewArticle: PropTypes.func,
 };
 
 export default ProjectCard;

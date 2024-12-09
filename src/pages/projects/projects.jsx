@@ -1,17 +1,9 @@
-import {
-  Box,
-  Container,
-  Divider,
-  InputAdornment,
-  Stack,
-  Typography,
-} from '@mui/material';
+import { Box, Container, Divider, Stack, Typography } from '@mui/material';
 import blogImage from '../../assets/images/blogImage.png';
-import KTextField from '../../components/common/textField-normal.jsx';
-import SearchIcon from '@mui/icons-material/Search';
-import ProjectCard from '../blog/components/blog-card.jsx';
-import test from '../../assets/images/test.png';
+import ProjectCard from './components/project-card.jsx';
 import KDivider from '../../components/common/divider-vertical.jsx';
+import data from './dummy-data/projects.json';
+import SearchTextField from '../../components/common/search-text-field.jsx';
 
 const Projects = () => {
   return (
@@ -85,19 +77,9 @@ const Projects = () => {
             width: '100%',
           }}
         >
-          <KTextField
+          <SearchTextField
             name={'projectSearch'}
             placeholder={'Search Projects'}
-            size={'small'}
-            type={'search'}
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position={'start'}>
-                  <SearchIcon sx={{ color: 'primary.lighter' }} />
-                </InputAdornment>
-              ),
-            }}
-            sx={{ width: { xs: '100%', md: 300 } }}
           />
         </Stack>
       </Box>
@@ -110,30 +92,13 @@ const Projects = () => {
           mb: 5,
         }}
       >
-        <ProjectCard
-          blogPostImage={test}
-          description={'testing'}
-          title={'This is a Testing Project Post'}
-          hearts={30}
-        />
-        <ProjectCard
-          blogPostImage={test}
-          description={'testing'}
-          title={'This is a Testing Project Post'}
-          hearts={30}
-        />
-        <ProjectCard
-          blogPostImage={test}
-          description={'testing'}
-          title={'This is a Testing Project Post'}
-          hearts={30}
-        />
-        <ProjectCard
-          blogPostImage={test}
-          description={'testing'}
-          title={'This is a Testing Project Post'}
-          hearts={30}
-        />
+        {data.map((project) => (
+          <ProjectCard
+            key={project.id}
+            project={project}
+            viewArticle={() => {}}
+          />
+        ))}
       </Box>
     </Container>
   );
