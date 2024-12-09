@@ -1,3 +1,5 @@
+import { useParams } from 'react-router-dom';
+import { useState } from 'react';
 import {
   AppBar,
   Box,
@@ -8,16 +10,14 @@ import {
 } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import MenuIcon from '@mui/icons-material/Menu';
-import { useState } from 'react';
-import { useParams } from 'react-router-dom';
-import blogs from '../dummy-blog-data/blogs.json';
+import projects from '../dummy-data/projects.json';
 import KDivider from '../../../components/common/divider-vertical.jsx';
 
-const BlogView = () => {
-  const blogId = Number(useParams().id);
+const ProjectView = () => {
+  const projectId = Number(useParams().id);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  const selectedBlog = blogs.find((blog) => blog.id === blogId);
+  const selectedProject = projects.find((project) => project.id === projectId);
 
   const toggleMobileMenu = () => {
     setMobileMenuOpen((prevState) => !prevState);
@@ -63,7 +63,7 @@ const BlogView = () => {
       </AppBar>
       <Container>
         <Box sx={{ mt: 3, px: 2 }}>
-          <Typography variant={'h1'}>{selectedBlog.title}</Typography>
+          <Typography variant={'h1'}>{selectedProject.title}</Typography>
           <KDivider
             orientation={'horizontal'}
             width={'100%'}
@@ -80,14 +80,14 @@ const BlogView = () => {
               color={'transparentLevelsWhite.6'}
               sx={{ fontSize: 14 }}
             >
-              {selectedBlog.author}
+              {selectedProject.likes}
             </Typography>
             <Typography
               variant={'subtitle2'}
               color={'transparentLevelsWhite.6'}
               sx={{ fontSize: 14 }}
             >
-              {selectedBlog.date}
+              {selectedProject.likes}
             </Typography>
           </Stack>
           <KDivider
@@ -96,7 +96,7 @@ const BlogView = () => {
             sx={{ mb: 2, mt: '0.1rem' }}
           />
           <Typography variant={'subtitle2'} color={'transparentLevelsWhite.9'}>
-            {selectedBlog.content}
+            {selectedProject.description}
           </Typography>
         </Box>
       </Container>
@@ -104,4 +104,4 @@ const BlogView = () => {
   );
 };
 
-export default BlogView;
+export default ProjectView;

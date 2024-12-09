@@ -4,8 +4,10 @@ import ProjectCard from './components/project-card.jsx';
 import KDivider from '../../components/common/divider-vertical.jsx';
 import data from './dummy-data/projects.json';
 import SearchTextField from '../../components/common/search-text-field.jsx';
+import useProjectsLogic from './hooks/use-projects-logic.js';
 
 const Projects = () => {
+  const { handleProjectClick } = useProjectsLogic();
   return (
     <Container>
       <Stack
@@ -96,7 +98,7 @@ const Projects = () => {
           <ProjectCard
             key={project.id}
             project={project}
-            viewArticle={() => {}}
+            viewProject={handleProjectClick}
           />
         ))}
       </Box>

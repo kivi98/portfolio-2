@@ -7,7 +7,7 @@ import getTruncatedText from '../../../utils/truncate-string.js';
 import PopupDialog from '../../../components/common/popup-dialog.jsx';
 import { useState } from 'react';
 
-const ProjectCard = ({ project, viewArticle }) => {
+const ProjectCard = ({ project, viewProject }) => {
   const [open, setOpen] = useState(false);
 
   const handleOpen = () => {
@@ -146,7 +146,7 @@ const ProjectCard = ({ project, viewArticle }) => {
               btnLabel={'Read'}
               size={'small'}
               sx={{ px: '1.83rem' }}
-              onClick={viewArticle.bind(this, project.id)}
+              onClick={viewProject.bind(this, project.id)}
             />
           </Box>
         </Stack>
@@ -163,7 +163,7 @@ const ProjectCard = ({ project, viewArticle }) => {
 
 ProjectCard.propTypes = {
   project: PropTypes.object.isRequired,
-  viewArticle: PropTypes.func,
+  viewProject: PropTypes.func,
 };
 
 export default ProjectCard;
