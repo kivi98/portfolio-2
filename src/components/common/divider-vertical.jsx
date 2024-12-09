@@ -1,7 +1,7 @@
 import { Divider, Box } from '@mui/material';
 import PropTypes from 'prop-types';
 
-const KDivider = ({ height, orientation, width }) => {
+const KDivider = ({ height, orientation, width, sx }) => {
   return (
     <Box
       sx={{
@@ -20,6 +20,7 @@ const KDivider = ({ height, orientation, width }) => {
           height: { height },
           width: { width },
           my: 'auto',
+          ...sx,
         }}
       />
     </Box>

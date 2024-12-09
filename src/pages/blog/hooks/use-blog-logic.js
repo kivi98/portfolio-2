@@ -6,10 +6,10 @@ const useBlogLogic = () => {
   const [open, setOpen] = useState(false);
 
   const handleBlogClick = (id) => {
-    navigate(`/blog/${id}`);
+    navigate(`/blogs/${id}`);
   };
 
-  const handleOpen = () => {
+  const handleOpen = (id) => {
     setOpen(true);
   };
 

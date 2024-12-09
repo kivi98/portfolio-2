@@ -18,31 +18,40 @@ const NotFound = () => {
         justifyContent: 'center',
         alignItems: 'center',
         height: '50vh',
-        px: 3,
         color: 'text.main',
       }}
     >
-      <Typography variant={'h1'} sx={{ mb: 2 }}>
-        404: Page Not Found
-      </Typography>
-      <Box>
-        <Typography variant={'subtitle2'} sx={{ textAlign: 'center' }}>
-          The page you are looking for might have been removed, had its name
-          changed, or is temporarily unavailable.
-        </Typography>
-      </Box>
       <Box
         sx={{
-          width: '100%',
+          px: 3,
           display: 'flex',
+          flexDirection: 'column',
           justifyContent: 'center',
           alignItems: 'center',
-          mt: 2,
         }}
       >
-        <NavLink to={'/'}>
-          <KButton btnLabel={'Go to Home'} />
-        </NavLink>
+        <Typography variant={'h1'} sx={{ mb: 2 }}>
+          404: Page Not Found
+        </Typography>
+        <Box>
+          <Typography variant={'subtitle2'} sx={{ textAlign: 'center' }}>
+            The page you are looking for might have been removed, had its name
+            changed, or is temporarily unavailable.
+          </Typography>
+        </Box>
+        <Box
+          sx={{
+            width: '100%',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            mt: 2,
+          }}
+        >
+          <NavLink to={'/'}>
+            <KButton btnLabel={'Go to Home'} />
+          </NavLink>
+        </Box>
       </Box>
     </Stack>
   );

@@ -1,36 +1,46 @@
-import { Box, Stack, Typography } from '@mui/material';
-import PropTypes, { string } from 'prop-types';
+import { useState } from 'react';
+import { Avatar, Box, Stack, Typography } from '@mui/material';
+import PropTypes from 'prop-types';
 import KButton from '../../../components/common/button.jsx';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import KDivider from '../../../components/common/divider-vertical.jsx';
 import PopupDialog from '../../../components/common/popup-dialog.jsx';
-import DialogFullScreen from '../../../components/common/dialog-full-screen.jsx';
+import getTruncatedText from '../../../utils/truncate-string.js';
 
-const BlogCard = ({ blog, openDialog, open, closeDialog, viewArticle }) => {
-  console.log('blog', blog);
+const BlogCard = ({ blog, viewArticle }) => {
+  const [open, setOpen] = useState(false);
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   return (
     <Box
       sx={{
         display: 'flex',
+        width: { xs: '100%', md: '40%' },
         p: 1,
         backgroundColor: 'primary.main',
         borderRadius: 2,
-        border: 'solid 2px',
+        border: 'solid 1px',
         borderColor: 'primary.light2',
         flexGrow: 1,
-        mb: { xs: 0, md: 2 },
-        boxShadow: '1px 4px 16px 0px rgba(21, 21, 21, 0.75)',
       }}
     >
-      <Stack direction={'row'} sx={{ width: '100%' }}>
+      <Stack direction={'column'} sx={{ width: '100%' }}>
         <Box
           sx={{
             p: 0,
-            width: { xs: 200, md: 220 },
-            height: { xs: '100%', md: 140 },
+            width: { xs: 'auto', md: '100%' },
+            height: { xs: 220, md: 220 },
             cursor: 'pointer',
+            mb: '0.5rem',
           }}
-          onClick={openDialog}
+          onClick={handleOpen}
         >
           <img
             src={blog.image}
@@ -76,8 +86,11 @@ const BlogCard = ({ blog, openDialog, open, closeDialog, viewArticle }) => {
               direction={'row'}
               gap={1}
               sx={{
-                backgroundColor: 'primary.light2',
-                px: 2,
+                backgroundColor: 'transparentLevels.4',
+                pl: 2,
+                pr: 1.5,
+                mr: 0.6,
+                mt: -28,
                 py: 0.5,
                 height: 'fit-content',
                 borderRadius: 2,
@@ -102,7 +115,7 @@ const BlogCard = ({ blog, openDialog, open, closeDialog, viewArticle }) => {
             }}
           >
             <Typography variant={'caption'} sx={{ color: 'primary.lighter' }}>
-              {blog.content}
+              {getTruncatedText(blog.content, 200)}
             </Typography>
           </Box>
           <Box sx={{ py: 1 }}>
@@ -115,12 +128,20 @@ const BlogCard = ({ blog, openDialog, open, closeDialog, viewArticle }) => {
               pl: 1,
             }}
           >
-            <Typography
-              variant={'caption'}
-              sx={{ height: '100%', display: 'flex', alignItems: 'center' }}
-            >
-              <strong>Tags: {blog.tags}</strong>{' '}
-            </Typography>
+            <Stack direction={'row'}>
+              <Avatar sx={{ width: '28px', height: '28px', mt: '0.1rem' }} />
+              <Typography
+                variant={'caption'}
+                sx={{
+                  height: '100%',
+                  display: 'flex',
+                  alignItems: 'center',
+                  ml: 1,
+                }}
+              >
+                Tags: {blog.tags}
+              </Typography>
+            </Stack>
             <KButton
               btnLabel={'Read'}
               size={'small'}
@@ -132,7 +153,7 @@ const BlogCard = ({ blog, openDialog, open, closeDialog, viewArticle }) => {
       </Stack>
       <PopupDialog
         open={open}
-        onClose={closeDialog}
+        onClose={handleClose}
         title={blog.title}
         content={blog.content}
       />
@@ -142,9 +163,6 @@ const BlogCard = ({ blog, openDialog, open, closeDialog, viewArticle }) => {
 
 BlogCard.propTypes = {
   blog: PropTypes.object.isRequired,
-  open: PropTypes.bool,
-  openDialog: PropTypes.func,
-  closeDialog: PropTypes.func,
   viewArticle: PropTypes.func,
 };
 

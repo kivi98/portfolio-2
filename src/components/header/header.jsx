@@ -64,11 +64,11 @@ const Header = () => {
           onClick={() => activeBtnHandler('/about-me')}
         />
       </NavLink>
-      <NavLink to="/blog">
+      <NavLink to="/blogs">
         <KNavButton
           label={'Blog'}
-          active={activeButton === '/blog'}
-          onClick={() => activeBtnHandler('/blog')}
+          active={activeButton === '/blogs'}
+          onClick={() => activeBtnHandler('/blogs')}
         />
       </NavLink>
       <NavLink to="/projects">

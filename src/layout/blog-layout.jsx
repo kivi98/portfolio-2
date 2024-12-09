@@ -1,7 +1,7 @@
 import { Box } from '@mui/material';
 import { Outlet } from 'react-router-dom';
 
-const BlogsLayout = () => {
+const BlogLayout = () => {
   return (
     <Box
       sx={{
@@ -13,4 +13,4 @@ const BlogsLayout = () => {
   );
 };
 
-export default BlogsLayout;
+export default BlogLayout;
