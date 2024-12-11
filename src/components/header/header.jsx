@@ -19,6 +19,7 @@ import useOnClickOutside from './hooks/useOnClickOutside.js';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import KDivider from '../common/divider-vertical.jsx';
+import navigateToTopOfTheScreen from '../../utils/navigate-to-top-of-the-screen.js';
 
 const Header = () => {
   const location = useLocation();
@@ -34,6 +35,7 @@ const Header = () => {
   const activeBtnHandler = (path) => {
     setActiveButton(path);
     toggleMobileMenu();
+    navigateToTopOfTheScreen();
   };
 
   const toggleMobileMenu = () => {

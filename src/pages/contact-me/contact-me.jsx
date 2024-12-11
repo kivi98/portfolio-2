@@ -1,4 +1,4 @@
-import { Box, Stack, Container, Typography } from '@mui/material';
+import { Box, Stack, Container, Typography, styled } from '@mui/material';
 import test from '../../assets/images/test.png';
 import KButton from '../../components/common/button.jsx';
 import KTextField from '../../components/common/textField-normal.jsx';
@@ -11,18 +11,30 @@ import medium from '../../assets/images/medium.svg';
 import x from '../../assets/images/x.svg';
 import SendIcon from '@mui/icons-material/Send';
 import KImageBox from '../../components/common/imageBox-standard.jsx';
+import { iconBounce } from '../../utils/icon-bounce.js';
+import { keyframes } from '@emotion/react';
+
+// make a styled Box for Images
+const StyledImageBox = styled(Box)`
+  height: 40px;
+  &:hover {
+    animation: ${iconBounce} 1.5s infinite;
+    cursor: pointer;
+  }
+  @media (min-width: 600px) {
+    height: 40px;
+  }
+  @media (min-width: 960px) {
+    height: 50px;
+  }
+  @media (min-width: 1280px) {
+    height: 50px;
+  }
+`;
 
 const ContactMe = () => {
   return (
     <Container>
-      <style>
-        {`
-          .social-icon {
-            height: 55px;
-            cursor: pointer;
-          }
-        `}
-      </style>
       <Stack
         direction={{ xs: 'column', md: 'row' }}
         sx={{
@@ -102,7 +114,7 @@ const ContactMe = () => {
               >
                 <KButton
                   endIcon={<SendIcon />}
-                  btnLabel={'Send'}
+                  btnLabel={'SEND'}
                   sx={{ width: 'fit-content', px: 3, height: 40 }}
                 />
               </Box>
@@ -129,12 +141,12 @@ const ContactMe = () => {
             gap: 2,
           }}
         >
-          <img src={facebook} alt={'facebook'} className="social-icon" />
-          <img src={instagram} alt={'instagram'} className="social-icon" />
-          <img src={linkedin} alt={'linkedin'} className="social-icon" />
-          <img src={github} alt={'github'} className="social-icon" />
-          <img src={medium} alt={'medium'} className="social-icon" />
-          <img src={x} alt={'x'} className="social-icon" />
+          <StyledImageBox component={'img'} src={facebook} alt={'facebook'} />
+          <StyledImageBox component={'img'} src={instagram} alt={'instagram'} />
+          <StyledImageBox component={'img'} src={linkedin} alt={'linkedin'} />
+          <StyledImageBox component={'img'} src={github} alt={'github'} />
+          <StyledImageBox component={'img'} src={medium} alt={'medium'} />
+          <StyledImageBox component={'img'} src={x} alt={'x'} />
         </Stack>
       </Box>
     </Container>
