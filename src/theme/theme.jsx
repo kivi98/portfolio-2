@@ -79,6 +79,11 @@ const theme = createTheme({
     h3: {
       fontSize: '1.25rem',
       fontWeight: 500,
+      '@media (max-width: 600px)': { fontSize: 14 },
+      '@media (min-width: 600px)': { fontSize: 16 },
+      '@media (min-width: 960px)': { fontSize: 18 },
+      '@media (min-width: 1280px)': { fontSize: 20 },
+      '@media (min-width: 1920px)': { fontSize: 22 },
     },
     h4: {
       fontSize: '1rem',
@@ -91,10 +96,20 @@ const theme = createTheme({
     subtitle1: {
       fontSize: '1rem',
       fontWeight: 600,
+      '@media (max-width: 600px)': { fontSize: 12 },
+      '@media (min-width: 600px)': { fontSize: 12 },
+      '@media (min-width: 960px)': { fontSize: 14 },
+      '@media (min-width: 1280px)': { fontSize: 16 },
+      '@media (min-width: 1920px)': { fontSize: 16 },
     },
     subtitle2: {
       fontSize: '1rem',
       fontWeight: 300,
+      '@media (max-width: 600px)': { fontSize: 12 },
+      '@media (min-width: 600px)': { fontSize: 12 },
+      '@media (min-width: 960px)': { fontSize: 14 },
+      '@media (min-width: 1280px)': { fontSize: 16 },
+      '@media (min-width: 1920px)': { fontSize: 16 },
     },
     subtitle3: {
       fontSize: '0.75rem',

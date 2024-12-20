@@ -9,6 +9,7 @@ import {
 import DoubleArrowIcon from '@mui/icons-material/DoubleArrow';
 import test from '../../assets/images/test.png';
 import { Link } from 'react-router-dom';
+import Avatar from '../../components/avatar/avatar.jsx';
 
 const Home = () => {
   return (
@@ -29,19 +30,20 @@ const Home = () => {
             alignItems: 'center',
           }}
         >
-          <Box // landing page image
-            component={'img'}
-            src={test}
-            alt={'testImage'}
-            sx={{
-              height: { xs: 350, md: 'calc(100vh - 450px)' },
-              width: 'auto',
-              mt: 0,
-              objectFit: 'cover',
-              borderRadius: 2,
-              mb: { xs: 2, md: 0 },
-            }}
-          />
+          {/*<Box // landing page image*/}
+          {/*  component={'img'}*/}
+          {/*  src={test}*/}
+          {/*  alt={'testImage'}*/}
+          {/*  sx={{*/}
+          {/*    height: { xs: 350, md: 'calc(100vh - 450px)' },*/}
+          {/*    width: 'auto',*/}
+          {/*    mt: 0,*/}
+          {/*    objectFit: 'cover',*/}
+          {/*    borderRadius: 2,*/}
+          {/*    mb: { xs: 2, md: 0 },*/}
+          {/*  }}*/}
+          {/*/>*/}
+          <Avatar />
           <Box
             sx={{
               backgroundColor: 'secondary.other',
