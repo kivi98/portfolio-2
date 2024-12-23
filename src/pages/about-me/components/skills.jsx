@@ -42,7 +42,7 @@ const Skills = () => {
         </List>
       }
       rightComponent={
-        <List>
+        <List sx={{ mt: { xs: -4, md: 0 } }}>
           <ListItem>
             <GenerateChipArt itemList={toolSkills} skillType={'Tools'} />
           </ListItem>
