@@ -9,7 +9,15 @@ import {
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import React from 'react';
 
-const NavigationButton = ({ text, isActive, onClick }) => {
+import PersonIcon from '@mui/icons-material/Person';
+import SchoolIcon from '@mui/icons-material/School';
+import CodeIcon from '@mui/icons-material/Code';
+import AppsIcon from '@mui/icons-material/Apps';
+import VerifiedIcon from '@mui/icons-material/Verified';
+import VolunteerActivismIcon from '@mui/icons-material/VolunteerActivism';
+import WorkHistoryIcon from '@mui/icons-material/WorkHistory';
+
+const NavigationButton = ({ text, icon, isActive, onClick }) => {
   return (
     <ListItem
       component={'button'}
@@ -24,8 +32,32 @@ const NavigationButton = ({ text, isActive, onClick }) => {
         mb: '0.2rem',
         borderRadius: 2,
         border: 'solid 1px transparent',
+        '&:hover': {
+          backgroundColor: isActive ? 'secondary.main' : 'transparentLevels.3',
+        },
       }}
     >
+      <ListItemIcon>
+        <Box
+          sx={{
+            color: isActive ? 'white' : 'text.dark',
+            display: 'flex',
+            width: '100%',
+            justifyContent: 'flex-start',
+            alignItems: 'center',
+            p: 0,
+            m: 0,
+          }}
+        >
+          {icon === 'PersonIcon' && <PersonIcon />}
+          {icon === 'SchoolIcon' && <SchoolIcon />}
+          {icon === 'CodeIcon' && <CodeIcon />}
+          {icon === 'AppsIcon' && <AppsIcon />}
+          {icon === 'VerifiedIcon' && <VerifiedIcon />}
+          {icon === 'VolunteerActivismIcon' && <VolunteerActivismIcon />}
+          {icon === 'WorkHistoryIcon' && <WorkHistoryIcon />}
+        </Box>
+      </ListItemIcon>
       <ListItemText primary={text} />
       <ListItemIcon>
         <Box
@@ -56,19 +88,21 @@ export const Navigations = ({
       sx={{
         p: 2,
         minWidth: 200,
-        backgroundColor: 'transparentLevels.2',
+        backgroundColor: 'transparent',
         display: { xs: 'none', md: 'block' },
         flexDirection: 'column',
         justifyContent: 'flex-start',
         alignItems: 'center',
         borderRadius: 2,
+        boxShadow: 'none',
       }}
     >
       <List>
-        {sectionRefs.map(({ id, text, ref }) => (
+        {sectionRefs.map(({ id, text, ref, icon }) => (
           <NavigationButton
             key={id}
             text={text}
+            icon={icon}
             isActive={activeSection === id}
             onClick={() => scrollToSection(ref, 145)}
           />

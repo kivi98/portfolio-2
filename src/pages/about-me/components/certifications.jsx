@@ -1,8 +1,7 @@
 import KImageBox from '../../../components/common/imageBox-standard.jsx';
 import aboutImage from '../../../assets/images/about-me.png';
-import { Box, IconButton, Stack } from '@mui/material';
+import { Box, Stack } from '@mui/material';
 import SkillCard from '../../../components/common/skill-card.jsx';
-import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import TwoColumnSection from '../../../components/common/section-body-type-2.jsx';
 
 const Certifications = () => {
@@ -20,21 +19,32 @@ const Certifications = () => {
         <Box
           sx={{
             width: '100%',
+            height: '65vh',
+            position: 'relative',
+            overflowY: 'auto',
+            '&::-webkit-scrollbar': {
+              width: '8px',
+            },
+            '&::-webkit-scrollbar-track': {
+              background: '#f1f1f1',
+              borderRadius: '4px',
+            },
+            '&::-webkit-scrollbar-thumb': {
+              background: '#888',
+              borderRadius: '4px',
+            },
+            '&::-webkit-scrollbar-thumb:hover': {
+              background: '#555',
+            },
           }}
         >
           <Stack
             direction={'column'}
+            spacing={2}
             sx={{
-              width: '100%',
-              gap: 1,
-              alignItems: 'center',
-              maxHeight: '45vh',
-              overflowY: 'scroll',
-              '&::-webkit-scrollbar': {
-                display: 'none',
-              },
-              msOverflowStyle: 'none',
-              scrollbarWidth: 'none',
+              width: 'calc(100% - 52px)',
+              padding: '16px',
+              alignItems: 'stretch',
             }}
           >
             <SkillCard

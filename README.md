@@ -1,4 +1,5 @@
 # Kivi Amarakoon - (portfolio-2)
+
 > My Portfolio template version 2
 
 > Below is the project guide.
@@ -28,6 +29,7 @@ npm run dev
 ```angular2html
 npm install --save-dev prettier
 ```
+
 - To configure Prettier, you can create a .prettierrc file in the root of your project.
 - Add following code
 
@@ -43,6 +45,7 @@ npm install --save-dev prettier
 
 - Add Prettier to Your npm Scripts
 - Add below to the [package.json]
+
 ```
 "scripts": {
  "format": "prettier --write .",
@@ -51,11 +54,13 @@ npm install --save-dev prettier
 ```
 
 - Run Prettier
+
 ```angular2html
 npm run format
 ```
 
 - To check if your files are formatted correctly, run
+
 ```
 npm run format:check
 ```

@@ -8,22 +8,22 @@
     "contributors": ["Kivi", "Rash"],
     "likes": 100
   },
-    {
-        "id": 2,
-        "title": "Project 2",
-        "description": "This is project 2",
-        "image": "https://picsum.photos/200/300",
-        "link": "https://www.google.com",
-        "contributors": ["Kivi", "Rash"],
-        "likes": 200
-    },
-    {
-        "id": 3,
-        "title": "Project 3",
-        "description": "This is project 3",
-        "image": "https://picsum.photos/200/300",
-        "link": "https://www.google.com",
-        "contributors": ["Kivi", "Rash"],
-        "likes": 300
-    }
+  {
+    "id": 2,
+    "title": "Project 2",
+    "description": "This is project 2",
+    "image": "https://picsum.photos/200/300",
+    "link": "https://www.google.com",
+    "contributors": ["Kivi", "Rash"],
+    "likes": 200
+  },
+  {
+    "id": 3,
+    "title": "Project 3",
+    "description": "This is project 3",
+    "image": "https://picsum.photos/200/300",
+    "link": "https://www.google.com",
+    "contributors": ["Kivi", "Rash"],
+    "likes": 300
+  }
 ]

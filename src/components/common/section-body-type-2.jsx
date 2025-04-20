@@ -1,4 +1,4 @@
-import { Box, Divider, Stack, Typography } from '@mui/material';
+import { Box, Divider, Grid, Stack, Typography } from '@mui/material';
 import PropTypes from 'prop-types';
 
 const TwoColumnSection = ({ leftComponent, rightComponent, title }) => {
@@ -18,7 +18,8 @@ const TwoColumnSection = ({ leftComponent, rightComponent, title }) => {
             flexDirection: 'column',
             justifyContent: 'center',
             textAlign: 'center',
-            mb: { xs: 0, md: 10 },
+            mb: { xs: 4, md: 8 },
+            mt: { xs: 2, md: 4 },
           }}
         >
           <Typography variant="h1">{title}</Typography>
@@ -26,12 +27,13 @@ const TwoColumnSection = ({ leftComponent, rightComponent, title }) => {
             sx={{
               display: 'flex',
               justifyContent: 'center',
+              width: '100%',
             }}
           >
             <Divider
               sx={{
                 backgroundColor: 'secondary.light',
-                width: '50%',
+                width: { xs: '70%', md: '50%' },
                 height: 2,
                 my: 2,
                 boxShadow: '0px 0px 12px #E30000',
@@ -41,50 +43,32 @@ const TwoColumnSection = ({ leftComponent, rightComponent, title }) => {
           </Box>
         </Box>
       )}
-      <Stack
-        direction={{ xs: 'column', md: 'row' }}
-        sx={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          color: 'text.main',
-          flexDirection: 'row',
-        }}
-      >
-        <Box
-          sx={{
-            flex: 1,
-            mb: { xs: 3, md: 0 },
-            paddingLeft: { xs: 0, md: 2 },
-            width: '100%',
-            display: 'flex',
-            justifyContent: 'center',
-          }}
+      <Grid container spacing={2} alignItems="stretch">
+        <Grid item xs={12} md={5.5}>
+          <Box sx={{ height: '100%' }}>{leftComponent}</Box>
+        </Grid>
+        <Grid
+          item
+          xs={12}
+          md={1}
+          sx={{ display: 'flex', justifyContent: 'center' }}
         >
-          {leftComponent}
-        </Box>
-        <Divider
-          orientation={'vertical'}
-          flexItem
-          sx={{
-            mx: '3rem',
-            backgroundColor: 'transparentLevelsWhite.2',
-            borderRadius: 10,
-            display: { xs: 'hidden', md: 'block' },
-          }}
-        />
-        <Box
-          sx={{
-            flex: 1,
-            width: '100%',
-            display: 'flex',
-            justifyContent: 'center',
-            paddingRight: { xs: 0, md: 2 },
-          }}
-        >
-          {rightComponent}
-        </Box>
-      </Stack>
+          <Divider
+            orientation="vertical"
+            sx={{
+              height: '100%',
+              mx: { xs: 0, md: 'auto' },
+              backgroundColor: 'transparentLevelsWhite.2',
+              borderRadius: 10,
+              display: { xs: 'none', md: 'block' },
+              minHeight: '200px',
+            }}
+          />
+        </Grid>
+        <Grid item xs={12} md={5.5}>
+          <Box sx={{ height: '100%' }}>{rightComponent}</Box>
+        </Grid>
+      </Grid>
     </Box>
   );
 };

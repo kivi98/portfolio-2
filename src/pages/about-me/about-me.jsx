@@ -22,13 +22,23 @@ const About = () => {
   const experienceRef = useRef(null);
 
   const sectionRefs = [
-    { id: 1, text: 'Who Am I', ref: whoAmIRef },
-    { id: 2, text: 'Education', ref: educationRef },
-    { id: 3, text: 'Skills', ref: skillsRef },
-    { id: 4, text: 'Skill Badges', ref: skillBadgesRef },
-    { id: 5, text: 'Certifications', ref: certificationsRef },
-    { id: 6, text: 'Volunteering', ref: volunteeringRef },
-    { id: 7, text: 'Experience', ref: experienceRef },
+    { id: 1, text: 'Who Am I', ref: whoAmIRef, icon: 'PersonIcon' },
+    { id: 2, text: 'Education', ref: educationRef, icon: 'SchoolIcon' },
+    { id: 3, text: 'Skills', ref: skillsRef, icon: 'CodeIcon' },
+    { id: 4, text: 'Skill Badges', ref: skillBadgesRef, icon: 'AppsIcon' },
+    {
+      id: 5,
+      text: 'Certifications',
+      ref: certificationsRef,
+      icon: 'VerifiedIcon',
+    },
+    {
+      id: 6,
+      text: 'Volunteering',
+      ref: volunteeringRef,
+      icon: 'VolunteerActivismIcon',
+    },
+    { id: 7, text: 'Experience', ref: experienceRef, icon: 'WorkHistoryIcon' },
   ];
 
   const scrollToSection = (ref, offset = 0) => {

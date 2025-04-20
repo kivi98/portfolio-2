@@ -41,8 +41,8 @@ const KImageBox = ({ src, alt, height, width, imageArray }) => {
       component="img"
       src={src}
       alt={alt}
-      height={height}
-      width={width}
+      height={height ?? 'auto'}
+      width={width ?? '100%'}
       sx={{
         objectFit: 'cover',
         borderRadius: 2,

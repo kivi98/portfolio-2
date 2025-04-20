@@ -1,4 +1,5 @@
 import { Box, Typography } from '@mui/material';
+import { useRef, useEffect, useState } from 'react';
 import TwoColumnSection from '../../../components/common/section-body-type-2';
 import KImageBox from '../../../components/common/imageBox-standard';
 import { MyImageArray } from '../image-arrays/my-image-array.js';
@@ -8,27 +9,62 @@ const WhoAmI = () => {
     <TwoColumnSection
       title={'Who Am I'}
       rightComponent={
-        <KImageBox
-          imageArray={MyImageArray}
-          alt={'body-image'}
-          height={{ xs: 300, md: 400 }}
-        />
+        <Box
+          sx={{
+            position: 'relative',
+            height: 'fit-content',
+            '&::before': {
+              content: '""',
+              position: 'absolute',
+              top: -15,
+              right: -15,
+              bottom: -15,
+              left: -15,
+              border: '2px solid',
+              borderColor: 'secondary.main',
+              borderRadius: 2,
+              opacity: 0.5,
+              zIndex: -1,
+            },
+          }}
+        >
+          <KImageBox
+            imageArray={MyImageArray}
+            alt={'body-image'}
+            height={{ xs: 300, md: 540 }}
+            sx={{
+              borderRadius: 2,
+              overflow: 'hidden',
+              boxShadow: '0 8px 16px rgba(0,0,0,0.2)',
+            }}
+          />
+        </Box>
       }
       leftComponent={
         <Typography
           variant={'body1'}
           sx={{
             '&::first-letter': {
-              fontSize: '1.5rem',
+              fontSize: '3rem',
               fontWeight: 'bold',
-              margin: 0,
-              padding: 0,
-              lineHeight: 1,
+              color: 'secondary.main',
+              float: 'left',
+              lineHeight: '1',
+              padding: '0.2rem',
+              marginRight: '0.2rem',
+              textShadow: '2px 2px 4px rgba(0,0,0,0.3)',
             },
-            m: 0,
-            p: 0,
-            fontSize: { xs: 14, md: 16 },
-            width: { xs: '95%', md: '100%' },
+            fontSize: { xs: 15, md: 17 },
+            lineHeight: 1.8,
+            color: 'text.light',
+            textAlign: 'justify',
+            p: 3,
+            borderRadius: 2,
+            backgroundColor: 'primary.light',
+            boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
+            position: 'relative',
+            border: '1px solid',
+            borderColor: 'transparentLevelsWhite.1',
           }}
         >
           I&#39; m an aspiring software engineer with a passion for crafting

@@ -1,4 +1,4 @@
-import { Box, Divider, Stack, Typography } from '@mui/material';
+import { Box, Stack, Typography } from '@mui/material';
 import PropTypes from 'prop-types';
 
 const SkillCard = ({ title, subtitle, description, date, listDescription }) => {
@@ -6,78 +6,103 @@ const SkillCard = ({ title, subtitle, description, date, listDescription }) => {
     <Stack
       direction={'column'}
       sx={{
-        backgroundColor: 'primary.light2',
-        border: 'solid 1px',
-        borderColor: 'transparentLevelsWhite.2',
+        backgroundColor: 'primary.light',
+        border: '1px solid',
+        borderColor: 'rgba(78, 78, 78, 0.2)',
+        position: 'relative',
         borderRadius: 2,
-        p: 1,
+        p: 2.5,
         width: { xs: 'calc(100% - 20px)', md: '96%' },
+        transition: 'transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out',
+        height: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+        '&:hover': {
+          transform: 'translateY(-5px)',
+          boxShadow: '0 8px 16px rgba(0,0,0,0.2)',
+          '&::before': {
+            opacity: 1,
+          },
+          border: '1px solid',
+          borderColor: 'rgba(78, 78, 78, 0.2)',
+        },
+        '&::before': {
+          content: '""',
+          position: 'absolute',
+          left: 0,
+          top: 0,
+          width: '4px',
+          height: '100%',
+          backgroundColor: 'secondary.main',
+          opacity: 0,
+          transition: 'opacity 0.3s ease-in-out',
+        },
       }}
     >
-      <Box
+      <Typography
+        variant={'h3'}
         sx={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          py: 0.5,
+          color: 'text.light',
+          mb: 1,
+          fontWeight: 'bold',
         }}
       >
-        <Typography variant={'h4'}>{title}</Typography>
-      </Box>
-      <Divider
-        sx={{
-          backgroundColor: 'transparentLevelsWhite.2',
-          borderRadius: 10,
-        }}
-      />
+        {title}
+      </Typography>
       <Stack
         direction={'row'}
         sx={{
-          display: 'flex',
           justifyContent: 'space-between',
           alignItems: 'center',
-          py: 0.5,
+          mb: 2,
         }}
       >
-        <Typography variant={'caption'}>{subtitle}</Typography>
-        <Typography variant={'caption'}>{date}</Typography>
+        <Typography variant={'subtitle1'} sx={{ color: 'secondary.light' }}>
+          {subtitle}
+        </Typography>
+        <Typography variant={'subtitle2'} sx={{ color: 'text.dark' }}>
+          {date}
+        </Typography>
       </Stack>
-      {(description || listDescription) && (
-        <Divider
-          sx={{
-            backgroundColor: 'transparentLevelsWhite.2',
-            borderRadius: 10,
-          }}
-        />
-      )}
+
       {description && (
-        <Box>
-          <Typography
-            variant={'caption'}
-            color={'text.dark'}
-            sx={{
-              pt: 1,
-              lineHeight: '1.15rem',
-              display: 'inline-block',
-            }}
-          >
-            {description}
-          </Typography>
-        </Box>
+        <Typography
+          variant={'body1'}
+          sx={{
+            color: 'text.dark',
+            lineHeight: 1.6,
+          }}
+        >
+          {description}
+        </Typography>
       )}
+
       {listDescription && (
-        <Box sx={{ p: 0, pt: '0.3rem' }}>
-          <ul
-            style={{
-              paddingTop: 0,
-              margin: 0,
-              lineHeight: '1rem',
-              paddingLeft: '1rem',
-              color: '#b6b6b6',
-            }}
-          >
-            {listDescription}
-          </ul>
+        <Box
+          component="ul"
+          sx={{
+            m: 0,
+            mt: 1,
+            pl: 2,
+            listStyle: 'disc',
+            flexGrow: 1,
+            overflowY: 'auto',
+            maxHeight: description ? 'calc(100% - 120px)' : 'calc(100% - 80px)',
+            '& li': {
+              color: 'text.dark',
+              mb: 1.5,
+              paddingRight: 1,
+              '&:last-child': {
+                mb: 0,
+              },
+              '& p': {
+                margin: 0,
+                lineHeight: 1.6,
+              },
+            },
+          }}
+        >
+          {listDescription}
         </Box>
       )}
     </Stack>
