@@ -1,17 +1,21 @@
-import { Box, Stack, Typography } from '@mui/material';
+import { Box, Stack, Typography, IconButton } from '@mui/material';
 import PropTypes from 'prop-types';
+import OpenInNewIcon from '@mui/icons-material/OpenInNew';
+import { Link } from 'react-router-dom';
 
 const SkillCard = ({ title, subtitle, description, date, listDescription }) => {
   return (
     <Stack
       direction={'column'}
       sx={{
-        backgroundColor: 'primary.light',
+        backgroundColor: 'rgba(78, 78, 78, 0.2)',
         border: '1px solid',
-        borderColor: 'rgba(78, 78, 78, 0.2)',
+        borderColor: 'rgba(119, 119, 119, 0.2)',
         position: 'relative',
         borderRadius: 2,
-        p: 2.5,
+        pt: 2,
+        px: 2.5,
+        pb: 2.5,
         width: { xs: 'calc(100% - 20px)', md: '96%' },
         transition: 'transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out',
         height: '100%',
@@ -25,6 +29,7 @@ const SkillCard = ({ title, subtitle, description, date, listDescription }) => {
           },
           border: '1px solid',
           borderColor: 'rgba(78, 78, 78, 0.2)',
+          backgroundColor: 'rgba(99, 99, 99, 0.2)',
         },
         '&::before': {
           content: '""',
@@ -35,20 +40,34 @@ const SkillCard = ({ title, subtitle, description, date, listDescription }) => {
           height: '100%',
           backgroundColor: 'secondary.main',
           opacity: 0,
+          borderTopLeftRadius: '10px',
+          borderBottomLeftRadius: '10px',
           transition: 'opacity 0.3s ease-in-out',
         },
       }}
     >
-      <Typography
-        variant={'h3'}
-        sx={{
-          color: 'text.light',
-          mb: 1,
-          fontWeight: 'bold',
-        }}
+      <Stack
+        direction={'row'}
+        sx={{ justifyContent: 'space-between', alignItems: 'center' }}
       >
-        {title}
-      </Typography>
+        <Typography
+          variant={'h3'}
+          sx={{
+            color: 'text.light',
+            mb: 1,
+            fontWeight: 'bold',
+          }}
+        >
+          {title}
+        </Typography>
+        <Box>
+          <IconButton>
+            <Link href={`https://www.google.com`} target="_blank">
+              <OpenInNewIcon sx={{ color: 'text.main' }} />
+            </Link>
+          </IconButton>
+        </Box>
+      </Stack>
       <Stack
         direction={'row'}
         sx={{

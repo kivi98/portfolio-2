@@ -6,7 +6,7 @@ const OneColumnSection = ({ sectionDescription, sectionBody, title }) => {
     <Box
       sx={{
         height: 'fit-content',
-        mt: { xs: 3, md: -7 },
+        mt: { xs: 3, md: 0 },
         pb: { xs: 3, md: 10 },
       }}
     >

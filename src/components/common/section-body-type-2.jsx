@@ -43,9 +43,16 @@ const TwoColumnSection = ({ leftComponent, rightComponent, title }) => {
           </Box>
         </Box>
       )}
-      <Grid container spacing={2} alignItems="stretch">
+      <Grid container spacing={2} alignItems="center">
         <Grid item xs={12} md={5.5}>
-          <Box sx={{ height: '100%' }}>{leftComponent}</Box>
+          <Box sx={{ 
+            height: '100%',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center'
+          }}>
+            {leftComponent}
+          </Box>
         </Grid>
         <Grid
           item
@@ -66,7 +73,14 @@ const TwoColumnSection = ({ leftComponent, rightComponent, title }) => {
           />
         </Grid>
         <Grid item xs={12} md={5.5}>
-          <Box sx={{ height: '100%' }}>{rightComponent}</Box>
+          <Box sx={{ 
+            height: '100%',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center'
+          }}>
+            {rightComponent}
+          </Box>
         </Grid>
       </Grid>
     </Box>

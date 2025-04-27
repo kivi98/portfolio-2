@@ -1,4 +1,4 @@
-import { Stack, Typography } from '@mui/material';
+import { Stack } from '@mui/material';
 import TwoColumnSection from '../../../components/common/section-body-type-2';
 import KImageBox from '../../../components/common/imageBox-standard';
 import SkillCard from '../../../components/common/skill-card.jsx';
@@ -13,7 +13,7 @@ const Education = () => {
           direction={'column'}
           sx={{
             width: '100%',
-            gap: 1,
+            gap: 2,
             alignItems: 'center',
           }}
         >

@@ -17,7 +17,7 @@ const Experience = () => {
         >
           <Stack
             sx={{
-              gap: 1,
+              gap: 2,
               width: '100%',
               alignItems: 'center',
               overflowY: 'scroll',

@@ -8,6 +8,7 @@ import {
   IconButton,
   Tooltip,
   styled,
+  Divider,
 } from '@mui/material';
 import { GitHub, LinkedIn, Code } from '@mui/icons-material';
 import me from '../../assets/images/profiles/me-new.jpeg';
@@ -123,8 +124,8 @@ const StyledCard = styled(Card)({
 });
 
 const ProfileAvatar = styled(Avatar)({
-  width: 100,
-  height: 100,
+  width: 150,
+  height: 150,
   border: '1px solid',
   margin: 'auto',
   transition: 'transform 0.3s ease-in-out',
@@ -139,7 +140,7 @@ const SocialLinks = styled(Box)(({ theme }) => ({
   display: 'flex',
   justifyContent: 'center',
   gap: theme.spacing(1),
-  marginTop: theme.spacing(2),
+  marginTop: theme.spacing(0),
 }));
 
 const ProfileName = styled(Typography)({
@@ -282,7 +283,12 @@ const AvatarCard = () => {
             width: '100%',
           }}
         />
-        <CardContent>
+        <CardContent
+        sx={{
+            pt: 0
+        }}
+        >
+          <Divider sx={{ margin: '10px 0', backgroundColor: '#404040' }} />
           <SocialLinks>
             {socialLinks.map(({ title, icon: Icon, key }) => (
               <Tooltip key={key} title={title}>

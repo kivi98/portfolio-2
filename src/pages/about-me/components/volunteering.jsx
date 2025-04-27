@@ -35,10 +35,7 @@ const Volunteering = () => {
             direction={'column'}
             spacing={2}
             sx={{
-              // width: 'calc(100% - 80px)',
-              // alignItems: 'stretch',
               height: '50vh',
-              // overflowY: 'auto',
               paddingRight: 4,
               paddingBottom: 2,
             }}
