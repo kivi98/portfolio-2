@@ -13,6 +13,7 @@ const Experience = () => {
             justifyContent: 'center',
             width: '100%',
             height: '60vh',
+
           }}
         >
           <Stack
@@ -26,6 +27,7 @@ const Experience = () => {
               },
               msOverflowStyle: 'none',
               scrollbarWidth: 'none',
+                          py:'2rem !important'
             }}
           >
             <SkillCard

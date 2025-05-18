@@ -42,8 +42,7 @@ const Certifications = () => {
             direction={'column'}
             spacing={2}
             sx={{
-              width: 'calc(100% - 52px)',
-              padding: '16px',
+              width: 'calc(100% - 20px)',
               alignItems: 'stretch',
             }}
           >

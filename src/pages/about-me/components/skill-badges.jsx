@@ -1,7 +1,7 @@
 import OneColumnSection from '../../../components/common/section-body-type-1.jsx';
 import { Box } from '@mui/material';
 import SkillIcon from '../../../components/common/skill-icon.jsx';
-import aboutImage from '../../../assets/images/about-me.png';
+import skillsConfig from '../../../utils/skillsConfig';
 
 const SkillBadges = () => {
   return (
@@ -16,18 +16,13 @@ const SkillBadges = () => {
             gap: 1,
           }}
         >
-          <SkillIcon image={aboutImage} placeholderText={'test'} />
-          <SkillIcon image={aboutImage} placeholderText={'test'} />
-          <SkillIcon image={aboutImage} placeholderText={'test'} />
-          <SkillIcon image={aboutImage} placeholderText={'test'} />
-          <SkillIcon image={aboutImage} placeholderText={'test'} />
-          <SkillIcon image={aboutImage} placeholderText={'test'} />
-          <SkillIcon image={aboutImage} placeholderText={'test'} />
-          <SkillIcon image={aboutImage} placeholderText={'test'} />
-          <SkillIcon image={aboutImage} placeholderText={'test'} />
-          <SkillIcon image={aboutImage} placeholderText={'test'} />
-          <SkillIcon image={aboutImage} placeholderText={'test'} />
-          <SkillIcon image={aboutImage} placeholderText={'test'} />
+          {skillsConfig.map((skill, index) => (
+            <SkillIcon 
+              key={index}
+              image={skill.image} 
+              placeholderText={skill.name} 
+            />
+          ))}
         </Box>
       }
     />

@@ -35,9 +35,9 @@ const Volunteering = () => {
             direction={'column'}
             spacing={2}
             sx={{
-              height: '50vh',
-              paddingRight: 4,
-              paddingBottom: 2,
+              paddingTop: 2,
+              width: 'calc(100% - 20px)',
+
             }}
           >
             <SkillCard

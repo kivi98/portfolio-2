@@ -1,4 +1,4 @@
-import { Box, Divider, Grid, Stack, Typography } from '@mui/material';
+import { Box, Divider, Grid, Typography } from '@mui/material';
 import PropTypes from 'prop-types';
 
 const TwoColumnSection = ({ leftComponent, rightComponent, title }) => {
@@ -72,12 +72,15 @@ const TwoColumnSection = ({ leftComponent, rightComponent, title }) => {
             }}
           />
         </Grid>
-        <Grid item xs={12} md={5.5}>
+        <Grid item xs={12} md={5.5} sx={{p:0, m:0}}>
           <Box sx={{ 
             height: '100%',
             display: 'flex',
             flexDirection: 'column',
-            justifyContent: 'center'
+            justifyContent: 'center',
+            p:0,
+            m:0
+
           }}>
             {rightComponent}
           </Box>

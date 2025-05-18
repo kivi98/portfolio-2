@@ -4,68 +4,8 @@ import '@fontsource/ubuntu/400.css';
 import '@fontsource/roboto/300.css';
 import '@fontsource/open-sans/500.css';
 
-const theme = createTheme({
-  palette: {
-    primary: {
-      dark: '#0D0D0D',
-      dark2: '#252525',
-      main: '#292929',
-      light: '#303030',
-      light2: '#404040',
-      light3: '#505050',
-      lighter: '#8C8C8C',
-      lighter2: '#BDBDBD',
-      lighter3: '#E0E0E0',
-    },
-    secondary: {
-      main: '#910000',
-      light: '#E30000',
-      dark: '#590000',
-      other: '#DA2C2C',
-    },
-    text: {
-      main: '#F5F5F5',
-      dark: '#b6b6b6',
-      light: '#FFFFFF',
-    },
-    common: {
-      white: '#FFFFFF',
-      lite: '#e7e7e7',
-    },
-    transparentLevels: {
-      1: 'rgba(0,0,0,0.1)',
-      2: 'rgba(0,0,0,0.2)',
-      3: 'rgba(0,0,0,0.3)',
-      4: 'rgba(0,0,0,0.4)',
-      5: 'rgba(0,0,0,0.5)',
-      6: 'rgba(0,0,0,0.6)',
-      7: 'rgba(0,0,0,0.7)',
-      8: 'rgba(0,0,0,0.8)',
-      9: 'rgba(0,0,0,0.9)',
-    },
-    transparentLevelsWhite: {
-      1: 'rgba(255,255,255,0.1)',
-      2: 'rgba(255,255,255,0.2)',
-      3: 'rgba(255,255,255,0.3)',
-      4: 'rgba(255,255,255,0.4)',
-      5: 'rgba(255,255,255,0.5)',
-      6: 'rgba(255,255,255,0.6)',
-      7: 'rgba(255,255,255,0.7)',
-      8: 'rgba(255,255,255,0.8)',
-      9: 'rgba(255,255,255,0.9)',
-    },
-    transparentLevelsRed: {
-      1: 'rgba(255,0,0,0.1)',
-      2: 'rgba(255,0,0,0.2)',
-      3: 'rgba(255,0,0,0.3)',
-      4: 'rgba(255,0,0,0.4)',
-      5: 'rgba(255,0,0,0.5)',
-      6: 'rgba(255,0,0,0.6)',
-      7: 'rgba(255,0,0,0.7)',
-      8: 'rgba(255,0,0,0.8)',
-      9: 'rgba(255,0,0,0.9)',
-    },
-  },
+// Define common typography and breakpoint settings
+const commonSettings = {
   typography: {
     fontFamily: 'Ubuntu, Roboto sans, Open Sans',
     h1: {
@@ -130,6 +70,125 @@ const theme = createTheme({
       xl: 1920,
     },
   },
-});
+};
 
-export default theme;
+// Define palettes for dark and light modes
+const darkPalette = {
+  mode: 'dark',
+  primary: {
+    dark: '#0D0D0D',
+    dark2: '#252525',
+    main: '#292929',
+    light: '#303030',
+    light2: '#404040',
+    light3: '#505050',
+    lighter: '#8C8C8C',
+    lighter2: '#BDBDBD',
+    lighter3: '#E0E0E0',
+  },
+  secondary: {
+    main: '#910000',
+    light: '#E30000',
+    dark: '#590000',
+    other: '#DA2C2C',
+  },
+  background: {
+    default: '#121212',
+    paper: '#1E1E1E',
+  },
+  text: {
+    primary: '#F5F5F5',
+    secondary: '#b6b6b6',
+    disabled: '#8C8C8C',
+    main: '#F5F5F5',
+    dark: '#b6b6b6',
+    light: '#FFFFFF',
+  },
+  common: {
+    white: '#FFFFFF',
+    lite: '#e7e7e7',
+  },
+  transparentLevels: {
+    1: 'rgba(0,0,0,0.1)',
+    2: 'rgba(0,0,0,0.2)',
+    3: 'rgba(0,0,0,0.3)',
+    4: 'rgba(0,0,0,0.4)',
+    5: 'rgba(0,0,0,0.5)',
+    6: 'rgba(0,0,0,0.6)',
+    7: 'rgba(0,0,0,0.7)',
+    8: 'rgba(0,0,0,0.8)',
+    9: 'rgba(0,0,0,0.9)',
+  },
+  transparentLevelsWhite: {
+    1: 'rgba(255,255,255,0.1)',
+    2: 'rgba(255,255,255,0.2)',
+    3: 'rgba(255,255,255,0.3)',
+    4: 'rgba(255,255,255,0.4)',
+    5: 'rgba(255,255,255,0.5)',
+    6: 'rgba(255,255,255,0.6)',
+    7: 'rgba(255,255,255,0.7)',
+    8: 'rgba(255,255,255,0.8)',
+    9: 'rgba(255,255,255,0.9)',
+  },
+  transparentLevelsRed: {
+    1: 'rgba(255,0,0,0.1)',
+    2: 'rgba(255,0,0,0.2)',
+    3: 'rgba(255,0,0,0.3)',
+    4: 'rgba(255,0,0,0.4)',
+    5: 'rgba(255,0,0,0.5)',
+    6: 'rgba(255,0,0,0.6)',
+    7: 'rgba(255,0,0,0.7)',
+    8: 'rgba(255,0,0,0.8)',
+    9: 'rgba(255,0,0,0.9)',
+  },
+};
+
+const lightPalette = {
+  mode: 'light',
+  primary: {
+    dark: '#E0E0E0',
+    dark2: '#BDBDBD',
+    main: '#F5F5F5', // Lighter grey for main background elements
+    light: '#FFFFFF',
+    light2: '#FAFAFA',
+    light3: '#F0F0F0',
+    lighter: '#757575',
+    lighter2: '#616161',
+    lighter3: '#424242',
+  },
+  secondary: {
+    main: '#B71C1C', // Keep red tones, maybe slightly adjusted
+    light: '#EF5350',
+    dark: '#D32F2F',
+    other: '#E57373',
+  },
+  background: {
+    default: '#FAFAFA',
+    paper: '#FFFFFF',
+  },
+  text: {
+    primary: '#212121',
+    secondary: '#757575',
+    disabled: '#BDBDBD',
+    main: '#212121',
+    dark: '#424242',
+    light: '#000000',
+  },
+  common: {
+    white: '#FFFFFF',
+    lite: '#333333', // Adjusted for light mode contrast
+  },
+  // Adjust transparent levels if needed, or keep as is
+  transparentLevels: { ...darkPalette.transparentLevels },
+  transparentLevelsWhite: { ...darkPalette.transparentLevelsWhite }, 
+  transparentLevelsRed: { ...darkPalette.transparentLevelsRed },
+};
+
+// Function to create theme based on mode
+const getTheme = (mode) =>
+  createTheme({
+    palette: mode === 'dark' ? darkPalette : lightPalette,
+    ...commonSettings,
+  });
+
+export default getTheme;

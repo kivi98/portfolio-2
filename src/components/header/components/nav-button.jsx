@@ -1,7 +1,9 @@
 import { Button as MuiButton, Typography } from '@mui/material';
 import PropTypes from 'prop-types';
+import { useTheme } from '@mui/material/styles';
 
 const KNavButton = ({ label, onClick, active, size }) => {
+  const theme = useTheme();
   const activeStyle = {
     backgroundColor: 'secondary.main',
     fontWeight: 700,
@@ -32,10 +34,9 @@ const KNavButton = ({ label, onClick, active, size }) => {
       onClick={onClick}
       size={size}
     >
-      <Typography variant={active ? 'subtitle1' : 'subtitle2'}>
+      <Typography variant={active ? 'subtitle1' : 'subtitle2'} color={active && theme.palette.mode == 'light' ? "primary.main" : ''}>
         {label}
       </Typography>
-      {/*{label}*/}
     </MuiButton>
   );
 };

@@ -144,7 +144,7 @@ const SocialLinks = styled(Box)(({ theme }) => ({
 }));
 
 const ProfileName = styled(Typography)({
-  color: '#F5F5F5',
+  color: 'text.primary',
   marginBottom: '0.2rem',
   marginLeft: '-1.5rem',
 });
@@ -155,12 +155,12 @@ const ProfileTitle = styled(Typography)({
   padding: '0 16px',
   marginLeft: '-1.3rem',
   borderRadius: 10,
-  color: '#C3C3C3',
-  backgroundColor: '#131313',
+  color: 'text.primary',
+  backgroundColor: 'primary.dark',
 });
 
 const SocialButton = styled(IconButton)({
-  color: '#F5F5F5',
+  color: 'text.primary',
 });
 
 // Social media links configuration
@@ -172,7 +172,7 @@ const socialLinks = [
 
 // Update the AnimatedTypography component
 const AnimatedTypography = styled(Typography)(({ phase }) => ({
-  color: '#F5F5F5',
+  color: 'text.primary',
   '&::after': {
     content: '"|"',
     marginLeft: '2px',
@@ -288,7 +288,7 @@ const AvatarCard = () => {
             pt: 0
         }}
         >
-          <Divider sx={{ margin: '10px 0', backgroundColor: '#404040' }} />
+          <Divider sx={{ margin: '10px 0', backgroundColor: 'primary.light2' }} />
           <SocialLinks>
             {socialLinks.map(({ title, icon: Icon, key }) => (
               <Tooltip key={key} title={title}>
