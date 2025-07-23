@@ -36,21 +36,27 @@ const CardWrapper = styled(Box)(({ theme }) => ({
 const StyledCard = styled(Card)(({ theme }) => ({
   background:
     theme.palette.mode === "dark"
-      ? theme.palette.background.paper
-      : theme.palette.background.default,
+      ? "rgba(35, 39, 47, 0.35)"
+      : "rgba(255, 255, 255, 0.45)",
   color: theme.palette.text.primary,
   width: "100%",
-  borderRadius: 18,
+  borderRadius: 22,
   boxShadow:
     theme.palette.mode === "dark"
-      ? "0 4px 24px rgba(0,0,0,0.5)"
-      : "0 4px 24px rgba(200,200,200,0.15)",
-  border: `1.5px solid ${theme.palette.divider}`,
+      ? "0 8px 32px 0 rgba(135, 31, 31, 0.13)"
+      : "0 8px 32px 0 rgba(135, 31, 31, 0.13)",
+  border:
+    theme.palette.mode === "dark"
+      ? "1.5px solid rgba(255,255,255,0.12)"
+      : "1.5px solid rgba(0,0,0,0.08)",
   display: "flex",
   flexDirection: "column",
   alignItems: "center",
   padding: theme.spacing(2, 0, 2, 0),
   position: "relative",
+  backdropFilter: "blur(18px)",
+  WebkitBackdropFilter: "blur(18px)",
+  overflow: "hidden",
 }));
 
 const ProfileAvatar = styled(Avatar)(({ theme }) => ({

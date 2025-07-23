@@ -17,7 +17,7 @@ export default function Home() {
       maxWidth="lg"
       sx={{ pt: { xs: 4, md: 8 }, pb: { xs: 4, md: 8 } }}
     >
-      <Box sx={{ height: { xs: "100%", md: "calc(100vh - 220px)" } }}>
+      <Box sx={{ height: { xs: "100%", md: "calc(100vh - 218px)" } }}>
         <Grid
           container
           sx={{
@@ -37,7 +37,11 @@ export default function Home() {
             </Box>
           </Grid>
           <Grid size={{ xs: 12, md: 8 }}>
-            <Box>
+            <Box
+              sx={{
+                padding: { xs: "0 1rem", md: "0 0" },
+              }}
+            >
               <Typography
                 variant="h1"
                 sx={{

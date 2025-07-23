@@ -68,14 +68,23 @@ export default function Header() {
       position="sticky"
       elevation={0}
       sx={{
-        backdropFilter: "blur(12px)",
         background:
           theme.palette.mode === "light"
-            ? "rgba(255,255,255,0.7)"
-            : "rgba(30,30,30,0.7)",
+            ? "rgba(255,255,255,0.35)"
+            : "rgba(30,30,30,0.35)",
         boxShadow: "0 4px 30px rgba(0,0,0,0.1)",
-        borderBottom: `1px solid ${theme.palette.divider}`,
         zIndex: 1201,
+        maxWidth: { xs: "92%", sm: "90%", md: "80%", lg: "900px" },
+        margin: { xs: "1rem 1rem 0 1rem", md: "24px auto 0 auto" },
+        borderRadius: "24px",
+        left: 0,
+        right: 0,
+        backdropFilter: "blur(16px) saturate(180%)",
+        WebkitBackdropFilter: "blur(16px) saturate(180%)",
+        border:
+          theme.palette.mode === "light"
+            ? "1px solid rgba(200, 200, 200, 0.18)"
+            : "1px solid rgba(255, 255, 255, 0.10)",
       }}
     >
       <Toolbar
@@ -121,7 +130,8 @@ export default function Header() {
               fontSize: { xs: 16, sm: 20 },
               color: theme.palette.text.primary,
               textTransform: "uppercase",
-              display: { xs: "none", sm: "block" },
+              fontFamily: "Times New Roman",
+              // display: { xs: "none", sm: "block" },
             }}
           >
             Kivi Amarakoon
