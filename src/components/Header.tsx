@@ -18,6 +18,8 @@ import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import { useThemeMode } from "@/theme/ThemeProvider";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
+import Image from "next/image";
+import logo from "../assets/logo.png";
 
 const navLinks = [
   { label: "Home", href: "/" },
@@ -76,7 +78,7 @@ export default function Header() {
         zIndex: 1201,
         maxWidth: { xs: "92%", sm: "90%", md: "80%", lg: "900px" },
         margin: { xs: "1rem 1rem 0 1rem", md: "24px auto 0 auto" },
-        borderRadius: "24px",
+        borderRadius: "10px",
         left: 0,
         right: 0,
         backdropFilter: "blur(16px) saturate(180%)",
@@ -99,28 +101,23 @@ export default function Header() {
           <Box
             sx={{
               backgroundColor:
-                theme.palette.mode === "light"
-                  ? theme.palette.primary.main
-                  : theme.palette.primary.dark,
+                theme.palette.mode === "dark" ? "#ffffff" : "transparent",
               display: "flex",
+              justifyContent: "center",
               alignItems: "center",
               borderRadius: "50%",
               p: 0.5,
-              width: 40,
-              height: 40,
-              justifyContent: "center",
+              boxShadow: "0 4px 30px rgba(0,0,0,0.1)",
+              border: "1px solid rgba(255,255,255,0.10)",
+              transition: "all 0.3s ease",
+              "&:hover": {
+                transform: "scale(1.05)",
+                boxShadow: "0 8px 40px rgba(0,0,0,0.2)",
+              },
+              padding: "0.001rem",
             }}
           >
-            <Typography
-              variant="h6"
-              sx={{
-                fontWeight: 900,
-                fontSize: 22,
-                color: theme.palette.text.primary,
-              }}
-            >
-              K
-            </Typography>
+            <Image src={logo} alt="logo" width={35} height={35} />
           </Box>
           <Typography
             variant="h6"
@@ -131,7 +128,6 @@ export default function Header() {
               color: theme.palette.text.primary,
               textTransform: "uppercase",
               fontFamily: "Times New Roman",
-              // display: { xs: "none", sm: "block" },
             }}
           >
             Kivi Amarakoon
