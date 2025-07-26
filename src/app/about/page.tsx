@@ -77,37 +77,37 @@ const About = () => {
   }, []);
 
   return (
-    <Container
-      sx={{
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "flex-start",
-        alignItems: "center",
-        width: { xs: "100%", md: "65%" },
-      }}
-    >
-      <Stack direction={"row"} sx={{ gap: 2 }}>
-        <Box
-          sx={{
-            display: { xs: "none", md: "block", lg: "block", xl: "block" },
-            flexDirection: "column",
-            justifyContent: "flex-start",
-            alignItems: "center",
-            ml: -30,
-            p: 0,
-            height: 400,
-            position: "sticky",
-            top: "9.4rem",
-          }}
-        >
-          <Navigation
-            activeSection={activeSection}
-            sectionRefs={sectionRefs}
-            scrollToSection={scrollToSection}
-          />
-        </Box>
+    <>
+      {/* Navigation positioned absolutely/fixed outside the main container */}
+      <Box
+        sx={{
+          display: { xs: "none", md: "block" },
+          position: "fixed", // Changed to fixed
+          top: "9.4rem",
+          left: "calc(50% - 32.5% - 280px)", // Position it to the left of the container
+          zIndex: 1000,
+          width: 200,
+          height: "fit-content",
+        }}
+      >
+        <Navigation
+          activeSection={activeSection}
+          sectionRefs={sectionRefs}
+          scrollToSection={scrollToSection}
+        />
+      </Box>
 
-        <Box>
+      {/* Main content container */}
+      <Container
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "flex-start",
+          alignItems: "center",
+          width: { xs: "100%", md: "65%" },
+        }}
+      >
+        <Box sx={{ width: "100%" }}>
           {sectionRefs.map(({ id, text, ref }) => {
             const ComponentMap: { [key: string]: React.ComponentType } = {
               "Who Am I": WhoAmI,
@@ -126,8 +126,8 @@ const About = () => {
             );
           })}
         </Box>
-      </Stack>
-    </Container>
+      </Container>
+    </>
   );
 };
 

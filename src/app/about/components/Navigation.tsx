@@ -115,7 +115,7 @@ export const Navigation = ({
     <Card
       sx={{
         p: 2,
-        minWidth: 200,
+        minWidth: 280,
         backgroundColor: "transparent",
         display: { xs: "none", md: "block" },
         flexDirection: "column",

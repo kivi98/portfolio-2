@@ -29,7 +29,7 @@ const SkillCard = ({
         justifyContent: "space-between",
         alignItems: "stretch",
         borderRadius: "10px",
-        backgroundColor: "background.paper",
+        backgroundColor: "transparentLevels.3",
         boxShadow: "0px 0px 12px rgba(0,0,0,0.1)",
         border: "1px solid",
         borderColor: "divider",

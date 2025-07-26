@@ -58,7 +58,7 @@ const WhoAmI = () => {
             textAlign: "justify",
             p: 3,
             borderRadius: 2,
-            backgroundColor: "primary.light",
+            backgroundColor: "transparentLevels.3",
             boxShadow: "0 4px 8px rgba(0,0,0,0.1)",
             position: "relative",
             border: "1px solid",
