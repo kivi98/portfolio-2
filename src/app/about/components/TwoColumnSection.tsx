@@ -54,7 +54,7 @@ const TwoColumnSection = ({
         </Box>
       )}
       <Grid container spacing={2} alignItems="center">
-        <Grid item xs={12} md={5.5}>
+        <Grid size={{ xs: 12, md: 5.5 }}>
           <Box
             sx={{
               height: "100%",
@@ -66,12 +66,7 @@ const TwoColumnSection = ({
             {leftComponent}
           </Box>
         </Grid>
-        <Grid
-          item
-          xs={12}
-          md={1}
-          sx={{ display: "flex", justifyContent: "center" }}
-        >
+        <Grid size={{ xs: 12, md: 1 }} sx={{ display: "flex", justifyContent: "center" }}>
           <Divider
             orientation="vertical"
             sx={{
@@ -84,7 +79,7 @@ const TwoColumnSection = ({
             }}
           />
         </Grid>
-        <Grid item xs={12} md={5.5} sx={{ p: 0, m: 0 }}>
+        <Grid size={{ xs: 12, md: 5.5 }} sx={{ p: 0, m: 0 }}>
           <Box
             sx={{
               height: "100%",

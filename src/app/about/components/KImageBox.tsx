@@ -1,19 +1,16 @@
 import { Box, SxProps, Theme } from "@mui/material";
-import { ReactNode } from "react";
-
-interface ImageItem {
-  id: string;
-  src: string;
-  alt: string;
-}
+import { ImageItem } from "@/types";
+import CustomCarousel from "./CustomCarousel";
 
 interface KImageBoxProps {
   src?: string;
-  alt: string;
+  alt?: string;
   height?: number | string | object;
   width?: number | string | object;
   imageArray?: ImageItem[];
   sx?: SxProps<Theme>;
+  autoTransition?: boolean;
+  transitionInterval?: number;
 }
 
 const KImageBox = ({
@@ -23,28 +20,24 @@ const KImageBox = ({
   width,
   imageArray,
   sx,
+  autoTransition = false,
+  transitionInterval = 3000,
 }: KImageBoxProps) => {
   if (imageArray && imageArray.length > 0) {
-    // Carousel can be added here if needed
     return (
       <Box
         sx={{
-          width: "100%",
-          height: "100%",
+          width: width ?? "100%",
+          height: height ?? "100%",
         }}
       >
-        {/* Carousel functionality can be added here if needed */}
-        <Box
-          component="img"
-          src={imageArray[0].src}
-          alt={imageArray[0].alt}
+        <CustomCarousel
+          images={imageArray}
           height={height}
-          width={width ?? "100%"}
-          sx={{
-            objectFit: "cover",
-            borderRadius: 2,
-            ...sx,
-          }}
+          width={width}
+          sx={sx}
+          autoTransition={autoTransition}
+          transitionInterval={transitionInterval}
         />
       </Box>
     );
@@ -55,13 +48,15 @@ const KImageBox = ({
       component="img"
       src={src}
       alt={alt}
-      height={height ?? "auto"}
-      width={width ?? "100%"}
-      sx={{
-        objectFit: "cover",
-        borderRadius: 2,
-        ...sx,
-      }}
+      sx={
+        {
+          objectFit: "cover" as const,
+          borderRadius: 2,
+          height: height ?? "auto",
+          width: width ?? "100%",
+          ...(sx || {}),
+        } as any
+      }
     />
   );
 };

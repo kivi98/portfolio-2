@@ -1,8 +1,42 @@
 import { Box, Typography } from "@mui/material";
 import TwoColumnSection from "./TwoColumnSection";
 import KImageBox from "./KImageBox";
+import { ImageItem } from "@/types";
 
 const WhoAmI = () => {
+  const imageArray: ImageItem[] = [
+    {
+      id: 1,
+      src: "/my-images/my-image-2.jpg",
+      alt: "my-image1",
+    },
+    {
+      id: 2,
+      src: "/my-images/my-image-4.jpg",
+      alt: "my-image4",
+    },
+    {
+      id: 3,
+      src: "/my-images/my-image-5.jpg",
+      alt: "my-image5",
+    },
+    {
+      id: 4,
+      src: "/my-images/my-image-6.jpg",
+      alt: "my-image6",
+    },
+    {
+      id: 5,
+      src: "/my-images/my-image-9.jpg",
+      alt: "my-image9",
+    },
+    {
+      id: 6,
+      src: "/my-images/my-image-12.jpg",
+      alt: "my-image12",
+    },
+  ];
+  
   return (
     <TwoColumnSection
       title={"Who Am I"}
@@ -27,9 +61,10 @@ const WhoAmI = () => {
           }}
         >
           <KImageBox
-            src="/profile-image.jpg"
-            alt={"body-image"}
             height={{ xs: 300, md: 540 }}
+            imageArray={imageArray}
+            autoTransition={true}
+            transitionInterval={3000}
             sx={{
               borderRadius: 2,
               overflow: "hidden",

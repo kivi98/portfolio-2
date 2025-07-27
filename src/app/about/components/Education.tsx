@@ -4,6 +4,18 @@ import KImageBox from "./KImageBox";
 import SkillCard from "./SkillCard";
 
 const Education = () => {
+  const imageArray = [
+    {
+      id: 1,
+      src: "/educations/japura.webp",
+      alt: "japura",
+    },
+    {
+      id: 2,
+      src: "/educations/ucsc.jpg",
+      alt: "ucsc",
+    },
+  ];
   return (
     <TwoColumnSection
       title={"Education"}
@@ -32,9 +44,10 @@ const Education = () => {
       }
       leftComponent={
         <KImageBox
-          src="/education-image.jpg"
-          alt={"education-image"}
+          imageArray={imageArray}
           height={{ xs: 300, md: 400 }}
+          autoTransition={true}
+          transitionInterval={3000}
         />
       }
     />
