@@ -4,38 +4,107 @@ import KImageBox from "./KImageBox";
 import SkillCard from "./SkillCard";
 
 const Volunteering = () => {
+  const imageArray = [
+    {
+      id: 1,
+      src: "/volunteering/vol-1.jpg",
+      alt: "volunteering-1",
+    },
+    {
+      id: 2,
+      src: "/volunteering/vol-2.jpg",
+      alt: "volunteering-2",
+    },
+    {
+      id: 3,
+      src: "/volunteering/vol-3.jpg",
+      alt: "volunteering-3",
+    },
+    {
+      id: 4,
+      src: "/volunteering/vol-4.jpg",
+      alt: "volunteering-4",
+    },
+    {
+      id: 5,
+      src: "/volunteering/vol-5.jpg",
+      alt: "volunteering-5",
+    },
+    {
+      id: 6,
+      src: "/volunteering/vol-6.jpg",
+      alt: "volunteering-6",
+    },
+    {
+      id: 7,
+      src: "/volunteering/vol-7.jpg",
+      alt: "volunteering-7",
+    },
+    {
+      id: 8,
+      src: "/volunteering/vol-8.jpeg",
+      alt: "volunteering-8",
+    },
+    {
+      id: 9,
+      src: "/volunteering/vol-9.jpeg",
+      alt: "volunteering-9",
+    },
+    {
+      id: 10,
+      src: "/volunteering/vol-10.jpeg",
+      alt: "volunteering-10",
+    },
+    {
+      id: 11,
+      src: "/volunteering/vol-11.jpg",
+      alt: "volunteering-11",
+    },
+    {
+      id: 12,
+      src: "/volunteering/vol-12.jpg",
+      alt: "volunteering-12",
+    },
+    {
+      id: 13,
+      src: "/volunteering/vol-13.jpg",
+      alt: "volunteering-14",
+    },
+    
+  ];
   return (
     <TwoColumnSection
       title={"Volunteering"}
       rightComponent={
-        <Box
-          sx={{
-            width: "100%",
-            height: "55vh",
-            position: "relative",
-            overflowY: "auto",
-            "&::-webkit-scrollbar": {
-              width: "8px",
-            },
-            "&::-webkit-scrollbar-track": {
-              background: "#f1f1f1",
-              borderRadius: "4px",
-            },
-            "&::-webkit-scrollbar-thumb": {
-              background: "#888",
-              borderRadius: "4px",
-            },
-            "&::-webkit-scrollbar-thumb:hover": {
-              background: "#555",
-            },
-          }}
-        >
+        // <Box
+        //   sx={{
+        //     width: "100%",
+        //     height: "55vh",
+        //     position: "relative",
+        //     overflowY: "auto",
+        //     "&::-webkit-scrollbar": {
+        //       width: "8px",
+        //     },
+        //     "&::-webkit-scrollbar-track": {
+        //       background: "#f1f1f1",
+        //       borderRadius: "4px",
+        //     },
+        //     "&::-webkit-scrollbar-thumb": {
+        //       background: "#888",
+        //       borderRadius: "4px",
+        //     },
+        //     "&::-webkit-scrollbar-thumb:hover": {
+        //       background: "#555",
+        //     },
+        //   }}
+        // >
           <Stack
             direction={"column"}
             spacing={2}
             sx={{
-              paddingTop: 2,
-              width: "calc(100% - 20px)",
+              alignItems: "stretch",
+              maxHeight: '65vh',
+              overflowY: 'auto',
             }}
           >
             <SkillCard
@@ -160,10 +229,19 @@ const Volunteering = () => {
               }
             />
           </Stack>
-        </Box>
       }
       leftComponent={
-        <KImageBox src="/volunteering-image.jpg" alt={"volunteering-image"} />
+        <KImageBox
+          height={{ xs: 300, md: 540 }}
+          imageArray={imageArray}
+          autoTransition={true}
+          transitionInterval={3000}
+          sx={{
+            borderRadius: 2,
+            overflow: "hidden",
+            boxShadow: "0 8px 16px rgba(0,0,0,0.2)",
+          }}
+        />
       }
     />
   );

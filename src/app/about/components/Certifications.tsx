@@ -4,45 +4,62 @@ import KImageBox from "./KImageBox";
 import SkillCard from "./SkillCard";
 
 const Certifications = () => {
+  const imageArray = [
+    {
+      id: 1,
+      src: '/certifications/cert-1.jpeg',
+      alt: 'cert-1'
+    },
+    {
+      id: 2,
+      src: '/certifications/cert-2.png',
+      alt: 'cert-1'
+    },
+    {
+      id: 3,
+      src: '/certifications/cert-3.png',
+      alt: 'cert-1'
+    },    {
+      id: 4,
+      src: '/certifications/cert-4.png',
+      alt: 'cert-1'
+    },
+    {
+      id: 5,
+      src: '/certifications/cert-5.png',
+      alt: 'cert-1'
+    },
+    {
+      id: 6,
+      src: '/certifications/cert-6.png',
+      alt: 'cert-1'
+    },
+    {
+      id: 7,
+      src: '/certifications/cert-7.png',
+      alt: 'cert-1'
+    }
+  ]
   return (
     <TwoColumnSection
       title={"Certifications"}
       rightComponent={
         <KImageBox
-          src="/certifications-image.jpg"
-          alt={"certifications-image"}
-          height={{ xs: 300, md: 400 }}
+        height={{ xs: 300, md: 540 }}
+        imageArray={imageArray}
+        autoTransition={true}
+        transitionInterval={3000}
         />
       }
       leftComponent={
-        <Box
-          sx={{
-            width: "100%",
-            height: "65vh",
-            position: "relative",
-            overflowY: "auto",
-            "&::-webkit-scrollbar": {
-              width: "8px",
-            },
-            "&::-webkit-scrollbar-track": {
-              background: "#f1f1f1",
-              borderRadius: "4px",
-            },
-            "&::-webkit-scrollbar-thumb": {
-              background: "#888",
-              borderRadius: "4px",
-            },
-            "&::-webkit-scrollbar-thumb:hover": {
-              background: "#555",
-            },
-          }}
-        >
+
           <Stack
             direction={"column"}
             spacing={2}
             sx={{
-              width: "calc(100% - 20px)",
               alignItems: "stretch",
+              maxHeight: '65vh',
+              overflowY: 'auto',
             }}
           >
             <SkillCard
@@ -134,7 +151,6 @@ const Certifications = () => {
               }
             />
           </Stack>
-        </Box>
       }
     />
   );

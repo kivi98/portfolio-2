@@ -36,30 +36,30 @@ const WhoAmI = () => {
       alt: "my-image12",
     },
   ];
-  
+
   return (
     <TwoColumnSection
       title={"Who Am I"}
       rightComponent={
-        <Box
-          sx={{
-            position: "relative",
-            height: "fit-content",
-            "&::before": {
-              content: '""',
-              position: "absolute",
-              top: -15,
-              right: -15,
-              bottom: -15,
-              left: -15,
-              border: "2px solid",
-              borderColor: "secondary.main",
-              borderRadius: 2,
-              opacity: 0.5,
-              zIndex: -1,
-            },
-          }}
-        >
+        // <Box
+        //   sx={{
+        //     position: "relative",
+        //     height: "fit-content",
+        //     "&::before": {
+        //       content: '""',
+        //       position: "absolute",
+        //       top: -15,
+        //       right: -15,
+        //       bottom: -15,
+        //       left: -15,
+        //       border: "2px solid",
+        //       borderColor: "secondary.main",
+        //       borderRadius: 2,
+        //       opacity: 0.5,
+        //       zIndex: -1,
+        //     },
+        //   }}
+        // >
           <KImageBox
             height={{ xs: 300, md: 540 }}
             imageArray={imageArray}
@@ -71,7 +71,7 @@ const WhoAmI = () => {
               boxShadow: "0 8px 16px rgba(0,0,0,0.2)",
             }}
           />
-        </Box>
+        // </Box>
       }
       leftComponent={
         <Typography

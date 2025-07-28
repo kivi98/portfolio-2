@@ -53,7 +53,7 @@ const TwoColumnSection = ({
           </Box>
         </Box>
       )}
-      <Grid container spacing={2} alignItems="center">
+      <Grid container spacing={{xs:2, md:0}} alignItems="center">
         <Grid size={{ xs: 12, md: 5.5 }}>
           <Box
             sx={{

@@ -7,6 +7,7 @@ interface SkillCardProps {
   description?: ReactNode;
   date: string;
   listDescription?: ReactNode;
+  zoomInAnimation?: boolean;
 }
 
 const SkillCard = ({
@@ -15,6 +16,7 @@ const SkillCard = ({
   description,
   date,
   listDescription,
+  zoomInAnimation
 }: SkillCardProps) => {
   return (
     <Box
@@ -22,7 +24,7 @@ const SkillCard = ({
         pt: 2,
         px: 2.5,
         pb: 2.5,
-        width: { xs: "calc(100% - 20px)", md: "96%" },
+        width: { xs: "calc(100% - 0px)", md: "100%" },
         height: "100%",
         display: "flex",
         flexDirection: "column",
@@ -37,10 +39,12 @@ const SkillCard = ({
         position: "relative",
         transition: "transform 0.3s ease, box-shadow 0.3s ease",
         cursor: "pointer",
-        "&:hover": {
-          transform: "scale(1.05)",
-          boxShadow: "0px 0px 12px rgba(0,0,0,0.2)",
-        },
+        ...(zoomInAnimation && {
+          "&:hover": {
+            transform: "scale(1.05)",
+            boxShadow: "0px 0px 12px rgba(0,0,0,0.2)",
+          },
+        }),
       }}
     >
       <Stack
