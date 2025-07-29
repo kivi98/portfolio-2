@@ -194,12 +194,24 @@ export default function Header() {
                   top: "100%",
                   left: 0,
                   width: "100%",
-                  bgcolor: theme.palette.background.paper,
-                  boxShadow: 3,
-                  borderBottomLeftRadius: 8,
-                  borderBottomRightRadius: 8,
+                  background:
+                    theme.palette.mode === "light"
+                      ? "rgba(255, 255, 255, 0.97)"
+                      : "rgba(30, 30, 30, 0.97)",
+                  backdropFilter: "blur(16px) saturate(180%)",
+                  WebkitBackdropFilter: "blur(16px) saturate(180%)",
+                  boxShadow: "0 8px 32px rgba(0,0,0,0.1)",
+                  borderBottomLeftRadius: "10px",
+                  borderBottomRightRadius: "10px",
+                  borderTopRightRadius: "10px",
+                  borderTopLeftRadius: "10px",
+                  border:
+                    theme.palette.mode === "light"
+                      ? "1px solid rgba(200, 200, 200, 0.18)"
+                      : "1px solid rgba(255, 255, 255, 0.10)",
                   zIndex: 1202,
-                  p: 2,
+                  p: 3,
+                  mt: 1,
                 }}
               >
                 <Stack spacing={2}>
