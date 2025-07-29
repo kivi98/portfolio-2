@@ -11,6 +11,7 @@ interface KImageBoxProps {
   sx?: SxProps<Theme>;
   autoTransition?: boolean;
   transitionInterval?: number;
+  imageSx?: any;
 }
 
 const KImageBox = ({
@@ -22,6 +23,7 @@ const KImageBox = ({
   sx,
   autoTransition = false,
   transitionInterval = 3000,
+  imageSx,
 }: KImageBoxProps) => {
   if (imageArray && imageArray.length > 0) {
     return (
@@ -38,6 +40,7 @@ const KImageBox = ({
           sx={sx}
           autoTransition={autoTransition}
           transitionInterval={transitionInterval}
+          imageSx={imageSx}
         />
       </Box>
     );

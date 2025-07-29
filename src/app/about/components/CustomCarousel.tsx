@@ -10,15 +10,19 @@ interface CustomCarouselProps {
   sx?: any;
   autoTransition?: boolean;
   transitionInterval?: number; // in milliseconds
+  imageHeight?: number | string | object;
+  imageSx?: any;
 }
 
 const CustomCarousel = ({
   images,
-  height,
+  height = "100%",
   width,
   sx,
+  imageHeight = "100%",
   autoTransition = false,
   transitionInterval = 3000,
+  imageSx,
 }: CustomCarouselProps) => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -59,10 +63,11 @@ const CustomCarousel = ({
         src={images[currentIndex].src}
         alt={images[currentIndex].alt}
         sx={{
-          objectFit: "cover",
+          // objectFit: "",
           borderRadius: 2,
           width: "100%",
-          height: "100%",
+          height: imageHeight ?? "100%",
+          ...imageSx,
         }}
       />
 

@@ -1,4 +1,4 @@
-import { Box, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 import TwoColumnSection from "./TwoColumnSection";
 import KImageBox from "./KImageBox";
 import { ImageItem } from "@/types";
@@ -41,25 +41,6 @@ const WhoAmI = () => {
     <TwoColumnSection
       title={"Who Am I"}
       rightComponent={
-        // <Box
-        //   sx={{
-        //     position: "relative",
-        //     height: "fit-content",
-        //     "&::before": {
-        //       content: '""',
-        //       position: "absolute",
-        //       top: -15,
-        //       right: -15,
-        //       bottom: -15,
-        //       left: -15,
-        //       border: "2px solid",
-        //       borderColor: "secondary.main",
-        //       borderRadius: 2,
-        //       opacity: 0.5,
-        //       zIndex: -1,
-        //     },
-        //   }}
-        // >
           <KImageBox
             height={{ xs: 300, md: 540 }}
             imageArray={imageArray}
@@ -70,8 +51,11 @@ const WhoAmI = () => {
               overflow: "hidden",
               boxShadow: "0 8px 16px rgba(0,0,0,0.2)",
             }}
+            imageSx={{
+              height: "auto",
+              marginTop: "-1.5rem",
+            }}
           />
-        // </Box>
       }
       leftComponent={
         <Typography
