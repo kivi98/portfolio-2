@@ -43,7 +43,7 @@ const NavigationButton = ({
       onClick={onClick}
       sx={{
         color: isActive ? "white" : "text.dark",
-        backgroundColor: isActive ? "secondary.main" : "primary.main",
+        backgroundColor: isActive ? "secondary.main" : "transparentLevels.4",
         cursor: "pointer",
         mx: 0,
         py: "0.2rem",

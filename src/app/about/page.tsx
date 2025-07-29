@@ -105,6 +105,7 @@ const About = () => {
           justifyContent: "flex-start",
           alignItems: "center",
           width: { xs: "100%", md: "65%" },
+          pt: { xs: "90px", md: "110px" }, // Add top padding for fixed header
         }}
       >
         <Box sx={{ width: "100%" }}>

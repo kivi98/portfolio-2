@@ -67,7 +67,7 @@ export default function Header() {
 
   return (
     <AppBar
-      position="sticky"
+      position="fixed"
       elevation={0}
       sx={{
         background:
@@ -81,6 +81,7 @@ export default function Header() {
         borderRadius: "10px",
         left: 0,
         right: 0,
+        top: { xs: "0.5rem", md: "1rem" },
         backdropFilter: "blur(16px) saturate(180%)",
         WebkitBackdropFilter: "blur(16px) saturate(180%)",
         border:
