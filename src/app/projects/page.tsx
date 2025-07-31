@@ -54,7 +54,7 @@ const Projects = () => {
   );
 
   return (
-    <Container maxWidth="lg" sx={{ py: { xs: 4, md: 8 } }}>
+    <Container maxWidth="lg" sx={{ py: { xs: 4, md: 8 }, pt: { xs: "90px", md: "130px" } }}>
       <Stack
         direction={{ xs: "column", md: "row" }}
         spacing={4}

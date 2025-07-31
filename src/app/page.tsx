@@ -15,7 +15,10 @@ export default function Home() {
   return (
     <Container
       maxWidth="lg"
-      sx={{ pt: { xs: 4, md: 8 }, pb: { xs: 4, md: 8 } }}
+      sx={{
+        pt: { xs: "90px", md: "130px" },
+        pb: { xs: "90px", md: "88px" },
+      }}
     >
       <Box sx={{ height: { xs: "100%", md: "calc(100vh - 218px)" } }}>
         <Grid
