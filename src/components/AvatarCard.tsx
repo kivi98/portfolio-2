@@ -13,16 +13,16 @@ import {
 } from "@mui/material";
 import { GitHub, LinkedIn, Code } from "@mui/icons-material";
 
-const AccentBar = styled(Box)(({ theme }) => ({
-  width: "100%",
-  height: 20,
-  opacity: 0.5,
-  background: theme.palette.secondary.main,
-  // borderTopLeftRadius: 18,
-  // borderTopRightRadius: 18,
-}));
+// const AccentBar = styled(Box)(({ theme }) => ({
+//   width: "100%",
+//   height: 20,
+//   opacity: 0.5,
+//   background: theme.palette.secondary.main,
+//   // borderTopLeftRadius: 18,
+//   // borderTopRightRadius: 18,
+// }));
 
-const CardWrapper = styled(Box)(({ theme }) => ({
+const CardWrapper = styled(Box)(() => ({
   margin: "auto",
   maxWidth: 320,
   width: "100%",
@@ -145,7 +145,7 @@ const AvatarCard: React.FC = () => {
   const [displayText, setDisplayText] = useState("");
   const [index, setIndex] = useState(0);
   const [phase, setPhase] = useState<"typing" | "deleting">("typing");
-  const words = ["Developer", "Designer"];
+  const words = ["Developer", "Designer", "Engineer"];
   const typingSpeed = 150;
   const deletingSpeed = 100;
   const pauseDuration = 1000;
