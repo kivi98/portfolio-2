@@ -108,7 +108,7 @@ const Blog = () => {
         <Box sx={{ width: { xs: "100%", md: "40%" } }}>
           <Box
             component="img"
-            src="/public/file.svg"
+            src="/file.svg"
             alt="Blog Illustration"
             sx={{
               height: 300,
