@@ -87,12 +87,6 @@ const Experience = () => {
     setCurrentCardIndex((prevIndex) => (prevIndex + 1) % skillCards.length);
   };
 
-  const prevCard = () => {
-    setCurrentCardIndex(
-      (prevIndex) => (prevIndex - 1 + skillCards.length) % skillCards.length
-    );
-  };
-
   // Auto-scroll effect
   useEffect(() => {
     const interval = setInterval(() => {
@@ -100,7 +94,7 @@ const Experience = () => {
     }, 4000); // Scroll every 4 seconds
 
     return () => clearInterval(interval);
-  }, []);
+  }, [nextCard]);
 
   // Scroll to current card
   useEffect(() => {
@@ -111,7 +105,7 @@ const Experience = () => {
         behavior: "smooth",
       });
     }
-  }, [currentCardIndex]);
+  }, [currentCardIndex, skillCards.length]);
 
   return (
     <OneColumnSection

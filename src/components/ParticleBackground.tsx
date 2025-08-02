@@ -120,10 +120,10 @@ const ParticleBackground: React.FC = () => {
     window.addEventListener("resize", resizeCanvas);
 
     // Create particles
-    let particles = createParticles(canvas, mode);
+    const particles = createParticles(canvas, mode);
 
     // Animation loop
-    const animate = (timestamp: number) => {
+    const animate = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
       // Update and draw particles
@@ -181,7 +181,7 @@ const ParticleBackground: React.FC = () => {
       animationRef.current = requestAnimationFrame(animate);
     };
 
-    animate(0);
+    animate();
 
     return () => {
       window.removeEventListener("resize", resizeCanvas);

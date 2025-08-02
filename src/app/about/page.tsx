@@ -2,7 +2,6 @@
 
 import React, { useRef, useState, useEffect } from "react";
 import Container from "@mui/material/Container";
-import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
 import Navigation from "./components/Navigation";
 import WhoAmI from "./components/WhoAmI";
@@ -74,7 +73,7 @@ const About = () => {
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, []);
+  }, [handleScroll]);
 
   return (
     <>

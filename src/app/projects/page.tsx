@@ -12,8 +12,6 @@ import {
   CardContent,
   CardMedia,
   Avatar,
-  IconButton,
-  Tooltip,
   CircularProgress,
   Alert,
   Pagination,

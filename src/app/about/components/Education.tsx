@@ -45,7 +45,7 @@ const Education = () => {
       leftComponent={
         <KImageBox
           imageArray={imageArray}
-          height={{ xs: 300, md: 400 }}
+          height="400px"
           autoTransition={true}
           transitionInterval={3000}
         />

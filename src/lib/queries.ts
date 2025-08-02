@@ -1,6 +1,6 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { blogApi, projectApi } from "./apiClient";
-import { Blog, Project } from "@/types";
+import { Blog } from "@/types";
 
 // Query keys for consistent caching
 export const queryKeys = {

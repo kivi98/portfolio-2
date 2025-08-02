@@ -55,12 +55,13 @@ const BlogPostNotFound = () => {
         </Typography>
 
         <Typography variant="h6" color="text.secondary" sx={{ mb: 3 }}>
-          The blog post you're looking for doesn't exist or has been moved.
+          The blog post you&apos;re looking for doesn&apos;t exist or has been
+          moved.
         </Typography>
 
         <Typography variant="body1" color="text.secondary" sx={{ mb: 4 }}>
-          Don't worry! You can explore our other blog posts or go back to the
-          main page.
+          Don&apos;t worry! You can explore our other blog posts or go back to
+          the main page.
         </Typography>
 
         <Stack

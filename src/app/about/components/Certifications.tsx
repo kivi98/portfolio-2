@@ -1,5 +1,4 @@
-import { Box, Stack, IconButton } from "@mui/material";
-import { KeyboardArrowUp, KeyboardArrowDown } from "@mui/icons-material";
+import { Box, Stack } from "@mui/material";
 import { useState, useEffect, useRef } from "react";
 import TwoColumnSection from "./TwoColumnSection";
 import KImageBox from "./KImageBox";
@@ -131,12 +130,6 @@ const Certifications = () => {
     setCurrentCardIndex((prevIndex) => (prevIndex + 1) % skillCards.length);
   };
 
-  const prevCard = () => {
-    setCurrentCardIndex(
-      (prevIndex) => (prevIndex - 1 + skillCards.length) % skillCards.length
-    );
-  };
-
   // Auto-scroll effect
   useEffect(() => {
     const interval = setInterval(() => {
@@ -144,7 +137,7 @@ const Certifications = () => {
     }, 4000); // Scroll every 4 seconds
 
     return () => clearInterval(interval);
-  }, []);
+  }, [nextCard]);
 
   // Scroll to current card
   useEffect(() => {
@@ -155,14 +148,14 @@ const Certifications = () => {
         behavior: "smooth",
       });
     }
-  }, [currentCardIndex]);
+  }, [currentCardIndex, skillCards.length]);
 
   return (
     <TwoColumnSection
       title={"Certifications"}
       rightComponent={
         <KImageBox
-          height={{ xs: 300, md: 540 }}
+          height="540px"
           imageArray={imageArray}
           autoTransition={true}
           transitionInterval={3000}
