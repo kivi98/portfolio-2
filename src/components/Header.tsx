@@ -19,7 +19,7 @@ import { useThemeMode } from "@/theme/ThemeProvider";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import Image from "next/image";
-import logo from "../assets/logo.png";
+import logo from "@/public/logo/logo.png";
 
 const navLinks = [
   { label: "Home", href: "/" },
@@ -74,11 +74,11 @@ export default function Header() {
           theme.palette.mode === "light"
             ? "rgba(255,255,255,0.35)"
             : "rgba(30,30,30,0.35)",
-        boxShadow: "0 4px 30px rgba(0,0,0,0.1)",
+        boxShadow: "0 4px 30px rgba(0, 0, 0, 0.19)",
         zIndex: 1201,
         maxWidth: { xs: "92%", sm: "90%", md: "80%", lg: "900px" },
         margin: { xs: "1rem 1rem 0 1rem", md: "24px auto 0 auto" },
-        borderRadius: "10px",
+        borderRadius: "1.5rem",
         left: 0,
         right: 0,
         top: { xs: "0.5rem", md: "1rem" },

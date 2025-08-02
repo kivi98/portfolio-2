@@ -13,8 +13,8 @@ const SkillIcon = ({ image, placeholderText }: SkillIconProps) => {
         src={image}
         alt={placeholderText}
         sx={{
-          width: 60,
-          height: 60,
+          width: { xs: 50, md: 60 },
+          height: { xs: 50, md: 60 },
           borderRadius: 1,
           cursor: "pointer",
           transition: "transform 0.2s ease-in-out",

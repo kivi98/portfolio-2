@@ -121,7 +121,7 @@ export const Navigation = ({
         flexDirection: "column",
         justifyContent: "flex-start",
         alignItems: "center",
-        borderRadius: 2,
+        borderRadius: "1.5rem",
         boxShadow: "none",
       }}
     >
