@@ -54,7 +54,6 @@ const OneColumnSection = ({
         )}
       </Box>
       <Box
-        direction={"column"}
         sx={{
           display: "flex",
           color: "text.main",

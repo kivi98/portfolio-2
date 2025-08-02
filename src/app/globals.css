@@ -22,10 +22,14 @@ body {
   font-family: Arial, Helvetica, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color:hsla(0,100%,50%,0);
+  background-color: hsla(0, 100%, 50%, 0);
   background-image:
-  radial-gradient(at 99% 97%, hsla(360,100%,50%,0.54) 0px, transparent 50%),
-  radial-gradient(at -15% 40%, hsla(359,100%,50%,0.5) 0px, transparent 50%);
+    radial-gradient(
+      at 99% 97%,
+      hsla(360, 100%, 50%, 0.54) 0px,
+      transparent 50%
+    ),
+    radial-gradient(at -15% 40%, hsla(359, 100%, 50%, 0.5) 0px, transparent 50%);
 }
 
 * {
