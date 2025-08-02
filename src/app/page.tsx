@@ -69,15 +69,15 @@ export default function Home() {
                 }}
               />
               <Typography variant="body1" sx={{ color: "text.primary", mb: 2 }}>
-                👋 I'm Kivi Amarakoon, a software enthusiast dedicated to
+                👋 I&apos;m Kivi Amarakoon, a software enthusiast dedicated to
                 crafting user-friendly apps, optimizing algorithms, and solving
-                complex problems. I'm passionate about continuous learning,
+                complex problems. I&apos;m passionate about continuous learning,
                 exploring new technologies, and embracing the digital
                 revolution. Join me in building the future, one line of code at
                 a time.
                 <br />
                 <br />
-                Let's create, innovate, and inspire together!
+                Let&apos;s create, innovate, and inspire together!
               </Typography>
               <Link href="/about">
                 <Button

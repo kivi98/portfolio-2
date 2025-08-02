@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from "react";
-import { Box, IconButton } from "@mui/material";
+import { Box, IconButton, SxProps, Theme } from "@mui/material";
 import { ChevronLeft, ChevronRight } from "@mui/icons-material";
 import { ImageItem } from "@/types";
 
 interface CustomCarouselProps {
   images: ImageItem[];
-  height?: number | string | object;
-  width?: number | string | object;
-  sx?: any;
+  height?: number | string;
+  width?: number | string;
+  sx?: SxProps<Theme>;
   autoTransition?: boolean;
   transitionInterval?: number; // in milliseconds
-  imageHeight?: number | string | object;
-  imageSx?: any;
+  imageHeight?: number | string;
+  imageSx?: SxProps<Theme>;
 }
 
 const CustomCarousel = ({
@@ -45,7 +45,7 @@ const CustomCarousel = ({
     }, transitionInterval);
 
     return () => clearInterval(interval);
-  }, [autoTransition, transitionInterval, images.length]);
+  }, [autoTransition, transitionInterval, images.length, nextImage]);
 
   if (!images || images.length === 0) return null;
 

@@ -1,5 +1,5 @@
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from "axios";
-import { Blog, Project, ApiResponse, PaginatedResponse } from "@/types";
+import { Blog, Project, PaginatedResponse } from "@/types";
 import {
   mockBlogs,
   mockProjects,
@@ -76,7 +76,7 @@ export const api = {
   // Generic POST request
   post: <T>(
     url: string,
-    data?: any,
+    data?: unknown,
     config?: AxiosRequestConfig
   ): Promise<AxiosResponse<T>> => {
     return apiClient.post<T>(url, data, config);
@@ -85,7 +85,7 @@ export const api = {
   // Generic PUT request
   put: <T>(
     url: string,
-    data?: any,
+    data?: unknown,
     config?: AxiosRequestConfig
   ): Promise<AxiosResponse<T>> => {
     return apiClient.put<T>(url, data, config);

@@ -1,5 +1,4 @@
-import { Stack, Typography, Box, IconButton } from "@mui/material";
-import { KeyboardArrowUp, KeyboardArrowDown } from "@mui/icons-material";
+import { Stack, Typography, Box } from "@mui/material";
 import { useState, useEffect, useRef } from "react";
 import TwoColumnSection from "./TwoColumnSection";
 import KImageBox from "./KImageBox";
@@ -137,23 +136,23 @@ const Volunteering = () => {
           <Typography variant={"caption"} color={"text.dark"} sx={{ p: 0 }}>
             As the Community Services Director of the Charter Rotaract Club at
             the University of Colombo School of Computing, I played a pivotal
-            role in advancing the club's mission to serve the community and make
-            a positive impact.
+            role in advancing the club&apos;s mission to serve the community and
+            make a positive impact.
           </Typography>
         </li>
       ),
     },
     {
-      title: '"Phasara" - Official Media Unit - UCSC',
+      title: "&quot;Phasara&quot; - Official Media Unit - UCSC",
       subtitle: "Executives Committee Member",
       date: "2022 - 2023",
       listDescription: (
         <li style={{ color: "text.dark" }}>
           <Typography variant={"caption"} color={"text.dark"} sx={{ p: 0 }}>
-            Serving as an Executive Committee Member for the "Phasara" Official
-            Media Unit at the University of Colombo School of Computing, I
-            played a vital role in the organization's mission to capture and
-            disseminate the essence of campus life and events.
+            Serving as an Executive Committee Member for the &quot;Phasara&quot;
+            Official Media Unit at the University of Colombo School of
+            Computing, I played a vital role in the organization&apos;s mission
+            to capture and disseminate the essence of campus life and events.
           </Typography>
         </li>
       ),
@@ -179,12 +178,6 @@ const Volunteering = () => {
     setCurrentCardIndex((prevIndex) => (prevIndex + 1) % skillCards.length);
   };
 
-  const prevCard = () => {
-    setCurrentCardIndex(
-      (prevIndex) => (prevIndex - 1 + skillCards.length) % skillCards.length
-    );
-  };
-
   // Auto-scroll effect
   useEffect(() => {
     const interval = setInterval(() => {
@@ -192,7 +185,7 @@ const Volunteering = () => {
     }, 4000); // Scroll every 4 seconds
 
     return () => clearInterval(interval);
-  }, []);
+  }, [nextCard]);
 
   // Scroll to current card
   useEffect(() => {
@@ -203,7 +196,7 @@ const Volunteering = () => {
         behavior: "smooth",
       });
     }
-  }, [currentCardIndex]);
+  }, [currentCardIndex, skillCards.length]);
 
   return (
     <TwoColumnSection
@@ -281,7 +274,7 @@ const Volunteering = () => {
       }
       leftComponent={
         <KImageBox
-          height={{ xs: 300, md: 540 }}
+          height="540px"
           imageArray={imageArray}
           autoTransition={true}
           transitionInterval={3000}

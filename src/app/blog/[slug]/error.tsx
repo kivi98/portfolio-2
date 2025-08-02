@@ -55,8 +55,8 @@ const BlogPostError = ({ error, reset }: ErrorProps) => {
         </Typography>
 
         <Typography variant="body1" color="text.secondary" sx={{ mb: 4 }}>
-          The blog post you're looking for might not exist or there was an error
-          loading it. Please try again or navigate to a different page.
+          The blog post you&apos;re looking for might not exist or there was an
+          error loading it. Please try again or navigate to a different page.
         </Typography>
 
         <Stack

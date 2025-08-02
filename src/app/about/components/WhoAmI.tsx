@@ -41,21 +41,21 @@ const WhoAmI = () => {
     <TwoColumnSection
       title={"Who Am I"}
       rightComponent={
-          <KImageBox
-            height={{ xs: 300, md: 540 }}
-            imageArray={imageArray}
-            autoTransition={true}
-            transitionInterval={3000}
-            sx={{
-              borderRadius: 2,
-              overflow: "hidden",
-              boxShadow: "0 8px 16px rgba(0,0,0,0.2)",
-            }}
-            imageSx={{
-              height: "auto",
-              marginTop: "-1.5rem",
-            }}
-          />
+        <KImageBox
+          height="540px"
+          imageArray={imageArray}
+          autoTransition={true}
+          transitionInterval={3000}
+          sx={{
+            borderRadius: 2,
+            overflow: "hidden",
+            boxShadow: "0 8px 16px rgba(0,0,0,0.2)",
+          }}
+          imageSx={{
+            height: "auto",
+            marginTop: "-1.5rem",
+          }}
+        />
       }
       leftComponent={
         <Typography
@@ -92,13 +92,13 @@ const WhoAmI = () => {
           <br />
           <br />
           Currently pursuing an MSc in Computer Science at the University of Sri
-          Jayawardenapura, I'm eager to deepen my knowledge in areas like AI,
-          Software Architecture, and Networking. Whether it&#39;s creating
-          efficient systems or experimenting with the latest technologies, I'm
-          committed to continuous learning and growth.
+          Jayawardenapura, I&apos;m eager to deepen my knowledge in areas like
+          AI, Software Architecture, and Networking. Whether it&#39;s creating
+          efficient systems or experimenting with the latest technologies,
+          I&apos;m committed to continuous learning and growth.
           <br />
           <br />
-          In essence, I'm just an ordinary student with extraordinary
+          In essence, I&apos;m just an ordinary student with extraordinary
           dreams—determined to grow into an expert in software engineering, one
           line of code at a time.
         </Typography>

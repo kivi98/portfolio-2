@@ -2,15 +2,13 @@
 import React, { useEffect, useState } from "react";
 import {
   Card,
-  CardHeader,
-  CardContent,
   Avatar,
   Typography,
   Box,
-  IconButton,
-  Tooltip,
   Divider,
   styled,
+  IconButton,
+  Tooltip,
   useTheme,
 } from "@mui/material";
 import { GitHub, LinkedIn, Code } from "@mui/icons-material";
@@ -179,7 +177,7 @@ const AvatarCard: React.FC = () => {
     };
     timeout = setTimeout(animate, typingSpeed);
     return () => clearTimeout(timeout);
-  }, [displayText, index, phase]);
+  }, [displayText, index, phase, words]);
 
   const profile = {
     name: "Kivi Amarakoon",

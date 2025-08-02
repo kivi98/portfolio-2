@@ -5,13 +5,13 @@ import CustomCarousel from "./CustomCarousel";
 interface KImageBoxProps {
   src?: string;
   alt?: string;
-  height?: number | string | object;
-  width?: number | string | object;
+  height?: number | string;
+  width?: number | string;
   imageArray?: ImageItem[];
   sx?: SxProps<Theme>;
   autoTransition?: boolean;
   transitionInterval?: number;
-  imageSx?: any;
+  imageSx?: SxProps<Theme>;
 }
 
 const KImageBox = ({
@@ -51,15 +51,13 @@ const KImageBox = ({
       component="img"
       src={src}
       alt={alt}
-      sx={
-        {
-          objectFit: "cover" as const,
-          borderRadius: 2,
-          height: height ?? "auto",
-          width: width ?? "100%",
-          ...(sx || {}),
-        } as any
-      }
+      sx={{
+        objectFit: "cover" as const,
+        borderRadius: 2,
+        height: height ?? "auto",
+        width: width ?? "100%",
+        ...(sx || {}),
+      }}
     />
   );
 };

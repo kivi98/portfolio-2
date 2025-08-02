@@ -12,12 +12,11 @@ export default function Providers({ children }: { children: React.ReactNode }) {
           queries: {
             staleTime: 5 * 60 * 1000, // 5 minutes
             gcTime: 10 * 60 * 1000, // 10 minutes (formerly cacheTime)
-            retry: (failureCount, error: any) => {
+            retry: (failureCount, error: unknown) => {
               // Don't retry on 4xx errors
-              if (
-                error?.response?.status >= 400 &&
-                error?.response?.status < 500
-              ) {
+              const axiosError = error as { response?: { status?: number } };
+              const status = axiosError?.response?.status;
+              if (status && status >= 400 && status < 500) {
                 return false;
               }
               return failureCount < 3;
@@ -33,4 +32,4 @@ export default function Providers({ children }: { children: React.ReactNode }) {
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   );
-} 
+}

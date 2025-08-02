@@ -1,19 +1,33 @@
-import React from 'react';
-import { useQuery, UseQueryResult } from '@tanstack/react-query';
-import { Alert, CircularProgress, Box } from '@mui/material';
-import { useState, useEffect } from 'react';
+import React from "react";
+import { UseQueryResult } from "@tanstack/react-query";
+import { Alert, CircularProgress, Box } from "@mui/material";
+import { useState, useEffect } from "react";
 
 // Generic loading component
 export const LoadingSpinner = ({ size = 60 }: { size?: number }) => (
-  <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '50vh' }}>
+  <Box
+    sx={{
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+      minHeight: "50vh",
+    }}
+  >
     <CircularProgress size={size} />
   </Box>
 );
 
 // Generic error component
-export const ErrorMessage = ({ error, message }: { error?: any; message?: string }) => (
+export const ErrorMessage = ({
+  error,
+  message,
+}: {
+  error?: unknown;
+  message?: string;
+}) => (
   <Alert severity="error" sx={{ mt: 2 }}>
-    {message || `An error occurred: ${error?.message || 'Unknown error'}`}
+    {message ||
+      `An error occurred: ${(error as { message?: string })?.message || "Unknown error"}`}
   </Alert>
 );
 
@@ -37,7 +51,7 @@ export const useQueryWithErrorHandling = <TData, TError>(
 };
 
 // Hook for search functionality
-export const useSearch = (initialQuery = '') => {
+export const useSearch = (initialQuery = "") => {
   const [search, setSearch] = useState(initialQuery);
   const [debouncedSearch, setDebouncedSearch] = useState(initialQuery);
 
@@ -60,7 +74,10 @@ export const useSearch = (initialQuery = '') => {
 export const usePagination = (initialPage = 1) => {
   const [page, setPage] = useState(initialPage);
 
-  const handlePageChange = (event: React.ChangeEvent<unknown>, value: number) => {
+  const handlePageChange = (
+    event: React.ChangeEvent<unknown>,
+    value: number
+  ) => {
     setPage(value);
   };
 
@@ -72,4 +89,4 @@ export const usePagination = (initialPage = 1) => {
     handlePageChange,
     resetPage,
   };
-}; 
+};

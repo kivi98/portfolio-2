@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Box,
   Container,
@@ -29,15 +29,34 @@ import { useRouter } from "next/navigation";
 import { LoadingSpinner, ErrorMessage } from "@/lib/hooks";
 
 interface BlogPostPageProps {
-  params: {
+  params: Promise<{
     slug: string;
-  };
+  }>;
 }
 
 const BlogPostPage = ({ params }: BlogPostPageProps) => {
   const router = useRouter();
-  const { slug } = params;
+  const [slug, setSlug] = useState<string>("");
+
+  useEffect(() => {
+    const getSlug = async () => {
+      const resolvedParams = await params;
+      setSlug(resolvedParams.slug);
+    };
+    getSlug();
+  }, [params]);
   const { data: blog, isLoading, isError, error } = useBlogBySlug(slug);
+
+  if (!slug) {
+    return (
+      <Container
+        maxWidth="lg"
+        sx={{ py: { xs: 4, md: 8 }, pt: { xs: "90px", md: "130px" } }}
+      >
+        <LoadingSpinner />
+      </Container>
+    );
+  }
 
   if (isLoading) {
     return (
