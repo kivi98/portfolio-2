@@ -32,14 +32,14 @@ export default function Home() {
           }}
           spacing={4}
         >
-          <Grid size={{ xs: 12, md: 4 }}>
+          <Grid xs={12} md={4}>
             <Box
               sx={{ mt: { xs: "1rem", md: 0 }, mb: { xs: "1.5rem", md: 0 } }}
             >
               <AvatarCard />
             </Box>
           </Grid>
-          <Grid size={{ xs: 12, md: 8 }}>
+          <Grid xs={12} md={8}>
             <Box
               sx={{
                 padding: { xs: "0 1rem", md: "0 0" },
