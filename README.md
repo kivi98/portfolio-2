@@ -1,4 +1,4 @@
-# kivi-amarakoon
+# kivi-amarakoon portfolio
 
 A modern, responsive personal portfolio built with Next.js (App Router), TypeScript, and Material UI (MUI v5+).
 
