@@ -25,6 +25,7 @@ export interface Project {
   link: string;
   contributors: string[];
   likes: number;
+  date?: string;
   technologies?: string[];
   githubUrl?: string;
   liveUrl?: string;
