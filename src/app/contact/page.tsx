@@ -10,6 +10,8 @@ import {
   Divider,
   IconButton,
   styled,
+  Card,
+  CardContent,
 } from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
 import FacebookIcon from "@mui/icons-material/Facebook";
@@ -18,7 +20,12 @@ import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import ArticleIcon from "@mui/icons-material/Article";
 import XIcon from "@mui/icons-material/X";
+import EmailIcon from "@mui/icons-material/Email";
+import PhoneIcon from "@mui/icons-material/Phone";
+import LocationOnIcon from "@mui/icons-material/LocationOn";
 import { keyframes } from "@emotion/react";
+import { useTheme } from "@mui/material/styles";
+import avatar from "@/public/my-images/avatar.webp";
 
 const iconBounce = keyframes`
   0%, 100% { transform: translateY(0); }
@@ -41,104 +48,417 @@ const StyledIconButton = styled(IconButton)(({ theme }) => ({
 }));
 
 const Contact = () => {
+  const theme = useTheme();
   return (
-    <Container maxWidth="md" sx={{ py: { xs: 4, md: 8 }, pt: { xs: "90px", md: "130px" } }}>
+    <Container
+      maxWidth="lg"
+      sx={{
+        py: { xs: 4, md: 8 },
+        pt: { xs: "90px", md: "150px" },
+        minHeight: "100vh",
+      }}
+    >
+      {/* Hero Section */}
       <Stack
         direction={{ xs: "column", md: "row" }}
         spacing={4}
         alignItems="center"
-        justifyContent="center"
-        sx={{ width: "100%" }}
+        sx={{
+          height: "100%",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "space-between",
+          mb: 6,
+        }}
       >
-        <Box
-          sx={{
-            minWidth: { xs: "100%", md: 320 },
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            py: { xs: 2, md: 0 },
-          }}
-        >
+        <Box sx={{ width: { xs: "100%", md: "40%" } }}>
           <Box
             component="img"
-            src="/public/file.svg"
+            src={avatar.src}
             alt="Contact Illustration"
             sx={{
-              height: { xs: 180, md: 320 },
-              width: { xs: 180, md: 320 },
-              objectFit: "contain",
-              borderRadius: 4,
-              boxShadow: 2,
-              background: "rgba(255,255,255,0.1)",
+              height: 300,
+              width: "100%",
+              objectFit: "cover",
+              borderRadius: 5,
+              boxShadow: (theme) =>
+                theme.palette.mode === "dark"
+                  ? "0 8px 32px rgba(0, 0, 0, 0.3)"
+                  : "0 8px 32px rgba(0, 0, 0, 0.1)",
             }}
           />
         </Box>
-        <Divider
-          orientation="vertical"
-          flexItem
-          sx={{ display: { xs: "none", md: "block" }, mx: 2 }}
-        />
-        <Box sx={{ flex: 1, width: "100%" }}>
-          <form method="post" action="mailto:kiviamarakoon@gmail.com">
-            <Stack spacing={2}>
-              <Stack direction={{ xs: "column", md: "row" }} spacing={2}>
-                <TextField
-                  label="Email"
-                  name="email"
-                  size="small"
-                  fullWidth
-                  required
-                />
-                <TextField
-                  label="Name"
-                  name="name"
-                  size="small"
-                  fullWidth
-                  required
-                />
-              </Stack>
-              <TextField
-                label="Subject"
-                name="subject"
-                size="small"
-                fullWidth
-                required
-              />
-              <TextField
-                label="Message"
-                name="message"
-                size="small"
-                fullWidth
-                multiline
-                rows={4}
-                required
-              />
-              <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
-                <Button
-                  type="submit"
-                  variant="contained"
-                  endIcon={<SendIcon />}
-                  sx={{ px: 4, height: 40, borderRadius: 2, fontWeight: 700 }}
-                >
-                  SEND
-                </Button>
-              </Box>
-            </Stack>
-          </form>
+        <Box
+          sx={{
+            width: { xs: "100%", md: "60%" },
+            px: { xs: 0, md: 0 },
+            justifyContent: "flex-start",
+            height: 300,
+            display: "flex",
+            flexDirection: "column",
+            flexGrow: 1,
+          }}
+        >
+          <Box
+            sx={{
+              height: "100%",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "space-between",
+            }}
+          >
+            <Typography
+              variant="h4"
+              sx={{
+                color: "text.primary",
+                fontWeight: 800,
+                mb: 1,
+                width: "100%",
+                fontSize: { xs: 32, md: 50 },
+              }}
+            >
+              Get In Touch
+            </Typography>
+            <Divider
+              sx={{
+                backgroundColor: "secondary.light",
+                height: 2,
+                width: "100%",
+              }}
+            />
+            <Typography
+              variant="subtitle1"
+              sx={{ color: "text.primary", mt: 2, height: "100%", flexGrow: 1 }}
+            >
+              Ready to collaborate on your next project? I'm always excited to
+              hear about new opportunities and innovative ideas. Whether you
+              have a question, want to discuss a potential project, or just want
+              to say hello, feel free to reach out.
+            </Typography>
+          </Box>
         </Box>
       </Stack>
-      <Box sx={{ mt: { xs: 4, md: 8 }, textAlign: "center" }}>
-        <Typography variant="h6" sx={{ color: "text.primary", mb: 2 }}>
-          Get in touch with me...
+
+      <Box sx={{ py: 2 }}>
+        <Divider sx={{ width: "100%" }} />
+      </Box>
+
+      {/* Contact Form Section */}
+      <Stack direction={{ xs: "column", lg: "row" }} spacing={4} sx={{ mt: 4 }}>
+        {/* Contact Information */}
+        <Box sx={{ width: { xs: "100%", lg: "40%" } }}>
+          <Typography
+            variant="h5"
+            sx={{
+              color: "text.primary",
+              fontWeight: 700,
+              mb: 3,
+              fontSize: { xs: 24, md: 32 },
+            }}
+          >
+            Let's Connect
+          </Typography>
+
+          <Stack spacing={3}>
+            <Card
+              sx={{
+                background: (theme) =>
+                  theme.palette.mode === "dark"
+                    ? "rgba(35, 39, 47, 0.33)"
+                    : "rgba(255,255,255,0.9)",
+                backdropFilter: "blur(12px)",
+                border: (theme) =>
+                  theme.palette.mode === "dark"
+                    ? "1px solid rgba(255, 255, 255, 0.1)"
+                    : "1px solid rgba(0, 0, 0, 0.08)",
+                borderRadius: 3,
+                transition: "all 0.3s ease",
+                "&:hover": {
+                  transform: "translateY(-2px)",
+                  boxShadow: (theme) =>
+                    theme.palette.mode === "dark"
+                      ? "0 8px 32px rgba(227, 0, 0, 0.2)"
+                      : "0 8px 32px rgba(0, 0, 0, 0.1)",
+                },
+              }}
+            >
+              <CardContent>
+                <Stack direction="row" alignItems="center" spacing={2}>
+                  <EmailIcon
+                    sx={{
+                      color: "secondary.main",
+                      fontSize: 24,
+                    }}
+                  />
+                  <Box>
+                    <Typography variant="h6" fontWeight={600}>
+                      Email
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary">
+                      kiviamarakoon@gmail.com
+                    </Typography>
+                  </Box>
+                </Stack>
+              </CardContent>
+            </Card>
+
+            <Card
+              sx={{
+                background: (theme) =>
+                  theme.palette.mode === "dark"
+                    ? "rgba(35, 39, 47, 0.33)"
+                    : "rgba(255,255,255,0.9)",
+                backdropFilter: "blur(12px)",
+                border: (theme) =>
+                  theme.palette.mode === "dark"
+                    ? "1px solid rgba(255, 255, 255, 0.1)"
+                    : "1px solid rgba(0, 0, 0, 0.08)",
+                borderRadius: 3,
+                transition: "all 0.3s ease",
+                "&:hover": {
+                  transform: "translateY(-2px)",
+                  boxShadow: (theme) =>
+                    theme.palette.mode === "dark"
+                      ? "0 8px 32px rgba(227, 0, 0, 0.2)"
+                      : "0 8px 32px rgba(0, 0, 0, 0.1)",
+                },
+              }}
+            >
+              <CardContent>
+                <Stack direction="row" alignItems="center" spacing={2}>
+                  <PhoneIcon
+                    sx={{
+                      color: "secondary.main",
+                      fontSize: 24,
+                    }}
+                  />
+                  <Box>
+                    <Typography variant="h6" fontWeight={600}>
+                      Phone
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary">
+                      +94 71 123 4567
+                    </Typography>
+                  </Box>
+                </Stack>
+              </CardContent>
+            </Card>
+
+            <Card
+              sx={{
+                background: (theme) =>
+                  theme.palette.mode === "dark"
+                    ? "rgba(35, 39, 47, 0.33)"
+                    : "rgba(255,255,255,0.9)",
+                backdropFilter: "blur(12px)",
+                border: (theme) =>
+                  theme.palette.mode === "dark"
+                    ? "1px solid rgba(255, 255, 255, 0.1)"
+                    : "1px solid rgba(0, 0, 0, 0.08)",
+                borderRadius: 3,
+                transition: "all 0.3s ease",
+                "&:hover": {
+                  transform: "translateY(-2px)",
+                  boxShadow: (theme) =>
+                    theme.palette.mode === "dark"
+                      ? "0 8px 32px rgba(227, 0, 0, 0.2)"
+                      : "0 8px 32px rgba(0, 0, 0, 0.1)",
+                },
+              }}
+            >
+              <CardContent>
+                <Stack direction="row" alignItems="center" spacing={2}>
+                  <LocationOnIcon
+                    sx={{
+                      color: "secondary.main",
+                      fontSize: 24,
+                    }}
+                  />
+                  <Box>
+                    <Typography variant="h6" fontWeight={600}>
+                      Location
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary">
+                      Colombo, Sri Lanka
+                    </Typography>
+                  </Box>
+                </Stack>
+              </CardContent>
+            </Card>
+          </Stack>
+        </Box>
+
+        {/* Contact Form */}
+        <Box sx={{ width: { xs: "100%", lg: "60%" } }}>
+          <Card
+            sx={{
+              background: (theme) =>
+                theme.palette.mode === "dark"
+                  ? "rgba(35, 39, 47, 0.33)"
+                  : "rgba(255,255,255,0.9)",
+              backdropFilter: "blur(12px)",
+              border: (theme) =>
+                theme.palette.mode === "dark"
+                  ? "1px solid rgba(255, 255, 255, 0.1)"
+                  : "1px solid rgba(0, 0, 0, 0.08)",
+              borderRadius: 3,
+              p: 4,
+            }}
+          >
+            <Typography
+              variant="h5"
+              sx={{
+                color: "text.primary",
+                fontWeight: 700,
+                mb: 3,
+                fontSize: { xs: 24, md: 32 },
+              }}
+            >
+              Send Message
+            </Typography>
+            <form method="post" action="mailto:kiviamarakoon@gmail.com">
+              <Stack spacing={3}>
+                <Stack direction={{ xs: "column", md: "row" }} spacing={2}>
+                  <TextField
+                    label="Name"
+                    name="name"
+                    size="medium"
+                    fullWidth
+                    required
+                    sx={{
+                      "& .MuiInputBase-root": {
+                        borderRadius: 2,
+                        backdropFilter: "blur(8px)",
+                      },
+                    }}
+                  />
+                  <TextField
+                    label="Email"
+                    name="email"
+                    size="medium"
+                    fullWidth
+                    required
+                    sx={{
+                      "& .MuiInputBase-root": {
+                        borderRadius: 2,
+                        backdropFilter: "blur(8px)",
+                      },
+                    }}
+                  />
+                </Stack>
+                <TextField
+                  label="Subject"
+                  name="subject"
+                  size="medium"
+                  fullWidth
+                  required
+                  sx={{
+                    "& .MuiInputBase-root": {
+                      borderRadius: 2,
+                      backdropFilter: "blur(8px)",
+                    },
+                  }}
+                />
+                <TextField
+                  label="Message"
+                  name="message"
+                  size="medium"
+                  fullWidth
+                  multiline
+                  rows={5}
+                  required
+                  sx={{
+                    "& .MuiInputBase-root": {
+                      borderRadius: 2,
+                      backdropFilter: "blur(8px)",
+                    },
+                  }}
+                />
+                <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
+                  <Button
+                    type="submit"
+                    variant="contained"
+                    color="secondary"
+                    endIcon={<SendIcon />}
+                    sx={{
+                      px: 4,
+                      py: 1.5,
+                      borderRadius: 2,
+                      fontWeight: 700,
+                      textTransform: "none",
+                      fontSize: "1rem",
+                      boxShadow: "0 4px 12px rgba(227, 0, 0, 0.3)",
+                      "&:hover": {
+                        boxShadow: "0 6px 16px rgba(227, 0, 0, 0.4)",
+                        transform: "translateY(-1px)",
+                      },
+                    }}
+                  >
+                    Send Message
+                  </Button>
+                </Box>
+              </Stack>
+            </form>
+          </Card>
+        </Box>
+      </Stack>
+      {/* Social Media Section */}
+      <Box sx={{ mt: 8, textAlign: "center" }}>
+        <Typography
+          variant="h5"
+          sx={{
+            color: "text.primary",
+            fontWeight: 700,
+            mb: 3,
+            fontSize: { xs: 24, md: 32 },
+          }}
+        >
+          Follow Me
         </Typography>
-        <Stack direction="row" justifyContent="center" spacing={2}>
+        <Typography
+          variant="body1"
+          color="text.secondary"
+          sx={{ mb: 4, maxWidth: 600, mx: "auto" }}
+        >
+          Stay connected and follow my journey in technology, development, and
+          innovation across various platforms.
+        </Typography>
+        <Stack
+          direction="row"
+          justifyContent="center"
+          spacing={2}
+          flexWrap="wrap"
+        >
           <a
             href="https://facebook.com"
             target="_blank"
             rel="noopener"
             aria-label="Facebook"
           >
-            <StyledIconButton>
+            <StyledIconButton
+              sx={{
+                background: (theme) =>
+                  theme.palette.mode === "dark"
+                    ? "rgba(35, 39, 47, 0.33)"
+                    : "rgba(255,255,255,0.9)",
+                backdropFilter: "blur(12px)",
+                border: (theme) =>
+                  theme.palette.mode === "dark"
+                    ? "1px solid rgba(255, 255, 255, 0.1)"
+                    : "1px solid rgba(0, 0, 0, 0.08)",
+                "&:hover": {
+                  background: theme.palette.secondary.main,
+                  color: theme.palette.getContrastText(
+                    theme.palette.secondary.main
+                  ),
+                  transform: "translateY(-4px)",
+                  boxShadow: (theme) =>
+                    theme.palette.mode === "dark"
+                      ? "0 8px 32px rgba(227, 0, 0, 0.2)"
+                      : "0 8px 32px rgba(0, 0, 0, 0.1)",
+                },
+              }}
+            >
               <FacebookIcon fontSize="medium" />
             </StyledIconButton>
           </a>
@@ -148,7 +468,30 @@ const Contact = () => {
             rel="noopener"
             aria-label="Instagram"
           >
-            <StyledIconButton>
+            <StyledIconButton
+              sx={{
+                background: (theme) =>
+                  theme.palette.mode === "dark"
+                    ? "rgba(35, 39, 47, 0.33)"
+                    : "rgba(255,255,255,0.9)",
+                backdropFilter: "blur(12px)",
+                border: (theme) =>
+                  theme.palette.mode === "dark"
+                    ? "1px solid rgba(255, 255, 255, 0.1)"
+                    : "1px solid rgba(0, 0, 0, 0.08)",
+                "&:hover": {
+                  background: theme.palette.secondary.main,
+                  color: theme.palette.getContrastText(
+                    theme.palette.secondary.main
+                  ),
+                  transform: "translateY(-4px)",
+                  boxShadow: (theme) =>
+                    theme.palette.mode === "dark"
+                      ? "0 8px 32px rgba(227, 0, 0, 0.2)"
+                      : "0 8px 32px rgba(0, 0, 0, 0.1)",
+                },
+              }}
+            >
               <InstagramIcon fontSize="medium" />
             </StyledIconButton>
           </a>
@@ -158,7 +501,30 @@ const Contact = () => {
             rel="noopener"
             aria-label="LinkedIn"
           >
-            <StyledIconButton>
+            <StyledIconButton
+              sx={{
+                background: (theme) =>
+                  theme.palette.mode === "dark"
+                    ? "rgba(35, 39, 47, 0.33)"
+                    : "rgba(255,255,255,0.9)",
+                backdropFilter: "blur(12px)",
+                border: (theme) =>
+                  theme.palette.mode === "dark"
+                    ? "1px solid rgba(255, 255, 255, 0.1)"
+                    : "1px solid rgba(0, 0, 0, 0.08)",
+                "&:hover": {
+                  background: theme.palette.secondary.main,
+                  color: theme.palette.getContrastText(
+                    theme.palette.secondary.main
+                  ),
+                  transform: "translateY(-4px)",
+                  boxShadow: (theme) =>
+                    theme.palette.mode === "dark"
+                      ? "0 8px 32px rgba(227, 0, 0, 0.2)"
+                      : "0 8px 32px rgba(0, 0, 0, 0.1)",
+                },
+              }}
+            >
               <LinkedInIcon fontSize="medium" />
             </StyledIconButton>
           </a>
@@ -168,7 +534,30 @@ const Contact = () => {
             rel="noopener"
             aria-label="GitHub"
           >
-            <StyledIconButton>
+            <StyledIconButton
+              sx={{
+                background: (theme) =>
+                  theme.palette.mode === "dark"
+                    ? "rgba(35, 39, 47, 0.33)"
+                    : "rgba(255,255,255,0.9)",
+                backdropFilter: "blur(12px)",
+                border: (theme) =>
+                  theme.palette.mode === "dark"
+                    ? "1px solid rgba(255, 255, 255, 0.1)"
+                    : "1px solid rgba(0, 0, 0, 0.08)",
+                "&:hover": {
+                  background: theme.palette.secondary.main,
+                  color: theme.palette.getContrastText(
+                    theme.palette.secondary.main
+                  ),
+                  transform: "translateY(-4px)",
+                  boxShadow: (theme) =>
+                    theme.palette.mode === "dark"
+                      ? "0 8px 32px rgba(227, 0, 0, 0.2)"
+                      : "0 8px 32px rgba(0, 0, 0, 0.1)",
+                },
+              }}
+            >
               <GitHubIcon fontSize="medium" />
             </StyledIconButton>
           </a>
@@ -178,12 +567,58 @@ const Contact = () => {
             rel="noopener"
             aria-label="Medium"
           >
-            <StyledIconButton>
+            <StyledIconButton
+              sx={{
+                background: (theme) =>
+                  theme.palette.mode === "dark"
+                    ? "rgba(35, 39, 47, 0.33)"
+                    : "rgba(255,255,255,0.9)",
+                backdropFilter: "blur(12px)",
+                border: (theme) =>
+                  theme.palette.mode === "dark"
+                    ? "1px solid rgba(255, 255, 255, 0.1)"
+                    : "1px solid rgba(0, 0, 0, 0.08)",
+                "&:hover": {
+                  background: theme.palette.secondary.main,
+                  color: theme.palette.getContrastText(
+                    theme.palette.secondary.main
+                  ),
+                  transform: "translateY(-4px)",
+                  boxShadow: (theme) =>
+                    theme.palette.mode === "dark"
+                      ? "0 8px 32px rgba(227, 0, 0, 0.2)"
+                      : "0 8px 32px rgba(0, 0, 0, 0.1)",
+                },
+              }}
+            >
               <ArticleIcon fontSize="medium" />
             </StyledIconButton>
           </a>
           <a href="https://x.com" target="_blank" rel="noopener" aria-label="X">
-            <StyledIconButton>
+            <StyledIconButton
+              sx={{
+                background: (theme) =>
+                  theme.palette.mode === "dark"
+                    ? "rgba(35, 39, 47, 0.33)"
+                    : "rgba(255,255,255,0.9)",
+                backdropFilter: "blur(12px)",
+                border: (theme) =>
+                  theme.palette.mode === "dark"
+                    ? "1px solid rgba(255, 255, 255, 0.1)"
+                    : "1px solid rgba(0, 0, 0, 0.08)",
+                "&:hover": {
+                  background: theme.palette.secondary.main,
+                  color: theme.palette.getContrastText(
+                    theme.palette.secondary.main
+                  ),
+                  transform: "translateY(-4px)",
+                  boxShadow: (theme) =>
+                    theme.palette.mode === "dark"
+                      ? "0 8px 32px rgba(227, 0, 0, 0.2)"
+                      : "0 8px 32px rgba(0, 0, 0, 0.1)",
+                },
+              }}
+            >
               <XIcon fontSize="medium" />
             </StyledIconButton>
           </a>
