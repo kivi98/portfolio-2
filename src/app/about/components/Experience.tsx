@@ -116,7 +116,7 @@ const Experience = () => {
             display: "flex",
             justifyContent: "center",
             width: "100%",
-            height: "60vh",
+            height: "65vh",
             position: "relative",
             borderRadius: "10px",
             overflow: "hidden",

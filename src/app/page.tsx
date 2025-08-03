@@ -10,6 +10,7 @@ import {
 import DoubleArrowIcon from "@mui/icons-material/DoubleArrow";
 import Link from "next/link";
 import AvatarCard from "@/components/AvatarCard";
+import DownloadIcon from "@mui/icons-material/Download";
 
 export default function Home() {
   return (
@@ -17,7 +18,7 @@ export default function Home() {
       maxWidth="lg"
       sx={{
         pt: { xs: "90px", md: "130px" },
-        pb: { xs: "90px", md: "88px" },
+        pb: { xs: "90px", md: "120px" },
       }}
     >
       <Box sx={{ height: { xs: "100%", md: "calc(100vh - 218px)" } }}>
@@ -32,14 +33,14 @@ export default function Home() {
           }}
           spacing={4}
         >
-          <Grid xs={12} md={4}>
+          <Grid item xs={12} md={4}>
             <Box
               sx={{ mt: { xs: "1rem", md: 0 }, mb: { xs: "1.5rem", md: 0 } }}
             >
               <AvatarCard />
             </Box>
           </Grid>
-          <Grid xs={12} md={8}>
+          <Grid item xs={12} md={8}>
             <Box
               sx={{
                 padding: { xs: "0 1rem", md: "0 0" },
@@ -54,7 +55,7 @@ export default function Home() {
                   mb: 2,
                 }}
               >
-                Hi there,
+                Hi there 👋,
                 <br />
                 Welcome to my portfolio
               </Typography>
@@ -69,7 +70,7 @@ export default function Home() {
                 }}
               />
               <Typography variant="body1" sx={{ color: "text.primary", mb: 2 }}>
-                👋 I&apos;m Kivi Amarakoon, a software enthusiast dedicated to
+                I&apos;m Kivi Amarakoon, a software enthusiast dedicated to
                 crafting user-friendly apps, optimizing algorithms, and solving
                 complex problems. I&apos;m passionate about continuous learning,
                 exploring new technologies, and embracing the digital
@@ -79,6 +80,7 @@ export default function Home() {
                 <br />
                 Let&apos;s create, innovate, and inspire together!
               </Typography>
+              <Box sx={{ display: "flex", gap: { xs: 1.5, md: 1 }, flexDirection: { xs: "column", md: "row" } }}>
               <Link href="/about">
                 <Button
                   sx={{
@@ -86,6 +88,8 @@ export default function Home() {
                     color: "text.light",
                     width: { xs: "100%", md: "10rem" },
                     height: { xs: "2.5rem", md: "3rem" },
+                    borderRadius: "1rem",
+                    boxShadow: "0px 0px 10px rgba(227, 0, 0, 0.46)",
                     fontWeight: 700,
                     "&:hover": {
                       backgroundColor: "secondary.light",
@@ -96,6 +100,28 @@ export default function Home() {
                   About Me
                 </Button>
               </Link>
+              <Button
+                  variant="outlined"
+                  sx={{
+                    backgroundColor: "rgba(227, 0, 0, 0.05)",
+                    color: "text.light",
+                    width: { xs: "100%", md: "12rem" },
+                    height: { xs: "2.5rem", md: "3rem" },
+                    borderRadius: "1rem",
+                    boxShadow: "0px 0px 10px rgba(227, 0, 0, 0.18)",
+                    border: "1px solid rgba(227, 0, 0, 0.32)",
+                    fontWeight: 700,
+                    "&:hover": {
+                      backgroundColor: "rgba(227, 0, 0, 0.77)",
+                      border: "1px solid rgba(227, 0, 0, 0.77)",
+                      boxShadow: "0px 0px 10px rgba(227, 0, 0, 0.8)",
+                    },
+                  }}
+                  endIcon={<DownloadIcon />}
+                >
+                    Download CV
+                  </Button>
+                </Box>
             </Box>
           </Grid>
         </Grid>

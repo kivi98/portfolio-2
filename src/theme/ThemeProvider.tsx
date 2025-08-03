@@ -17,7 +17,7 @@ interface ThemeContextProps {
 }
 
 const ThemeContext = createContext<ThemeContextProps>({
-  mode: "light",
+  mode: "dark",
   toggleColorMode: () => {},
 });
 
@@ -26,25 +26,38 @@ export const useThemeMode = () => useContext(ThemeContext);
 const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
-  const [mode, setMode] = useState<ColorMode | null>(null);
+  const [mode, setMode] = useState<ColorMode>("light");
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    setMounted(true);
     const stored = window.localStorage.getItem("colorMode");
-    if (stored === "light" || stored === "dark") setMode(stored);
-    else setMode("light"); // fallback
+    if (stored === "light" || stored === "dark") {
+      setMode(stored);
+    }
   }, []);
 
-  const theme = useMemo(() => getTheme(mode || "light"), [mode]);
+  const theme = useMemo(() => getTheme(mode), [mode]);
 
   const toggleColorMode = () => {
     setMode((prev) => {
       const next = prev === "light" ? "dark" : "light";
-      window.localStorage.setItem("colorMode", next);
+      if (typeof window !== "undefined") {
+        window.localStorage.setItem("colorMode", next);
+      }
       return next;
     });
   };
 
-  if (mode === null) return null; // or a loading spinner
+  // Prevent hydration mismatch by not rendering until mounted
+  if (!mounted) {
+    return (
+      <MuiThemeProvider theme={getTheme("light")}>
+        <CssBaseline />
+        {children}
+      </MuiThemeProvider>
+    );
+  }
 
   return (
     <ThemeContext.Provider value={{ mode, toggleColorMode }}>

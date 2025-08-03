@@ -17,7 +17,10 @@ import {
   Pagination,
 } from "@mui/material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
+import SearchIcon from "@mui/icons-material/Search";
 import { useProjects, useSearchProjects } from "@/lib/queries";
+import CustomCarousel from "../about/components/CustomCarousel";
+import ProjectCard from "./components/ProjectCard";
 
 const Projects = () => {
   const [search, setSearch] = useState("");
@@ -49,7 +52,11 @@ const Projects = () => {
     return (
       <Container
         maxWidth="lg"
-        sx={{ py: { xs: 4, md: 8 }, pt: { xs: "90px", md: "130px" } }}
+        sx={{
+          py: { xs: 4, md: 8 },
+          pt: { xs: "90px", md: "130px" },
+          minHeight: "100vh",
+        }}
       >
         <Box
           sx={{
@@ -69,7 +76,11 @@ const Projects = () => {
     return (
       <Container
         maxWidth="lg"
-        sx={{ py: { xs: 4, md: 8 }, pt: { xs: "90px", md: "130px" } }}
+        sx={{
+          py: { xs: 4, md: 8 },
+          pt: { xs: "90px", md: "130px" },
+          minHeight: "100vh",
+        }}
       >
         <Alert severity="error" sx={{ mt: 2 }}>
           Failed to load projects: {error?.message || "Unknown error occurred"}
@@ -84,50 +95,89 @@ const Projects = () => {
   return (
     <Container
       maxWidth="lg"
-      sx={{ py: { xs: 4, md: 8 }, pt: { xs: "90px", md: "130px" } }}
+      sx={{
+        py: { xs: 4, md: 8 },
+        pt: { xs: "90px", md: "150px" },
+        minHeight: "100vh",
+      }}
     >
       <Stack
         direction={{ xs: "column", md: "row" }}
         spacing={4}
         alignItems="center"
+        sx={{
+          height: "100%",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "space-between",
+        }}
       >
         <Box sx={{ width: { xs: "100%", md: "40%" } }}>
-          <Box
-            component="img"
-            src="/public/file.svg"
-            alt="Projects Illustration"
-            sx={{
-              height: 300,
+          <CustomCarousel
+            images={projects.map((project) => ({
+              id: project.id,
+              src: project.image,
+              alt: project.title,
+            }))}
+            height={300}
+            width="100%"
+            autoTransition={true}
+            transitionInterval={5000}
+            imageHeight={300}
+            imageSx={{
               borderRadius: 5,
-              width: "100%",
-              objectFit: "cover",
-              background: "rgba(255,255,255,0.1)",
             }}
           />
         </Box>
-        <Box sx={{ width: { xs: "100%", md: "60%" }, px: { xs: 0, md: 2 } }}>
-          <Typography
-            variant="h4"
+        <Box
+          sx={{
+            width: { xs: "100%", md: "60%" },
+            px: { xs: 0, md: 0 },
+            justifyContent: "flex-start",
+            height: 300,
+            display: "flex",
+            flexDirection: "column",
+            flexGrow: 1,
+          }}
+        >
+          <Box
             sx={{
-              color: "text.primary",
-              fontWeight: 800,
-              mb: 1,
-              width: "100%",
-              fontSize: { xs: 32, md: 50 },
+              height: "100%",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "space-between",
             }}
           >
-            Projects
-          </Typography>
-          <Divider
-            sx={{
-              backgroundColor: "secondary.light",
-              height: 2,
-              width: "100%",
-            }}
-          />
-          <Typography variant="subtitle1" sx={{ color: "text.primary", mt: 2 }}>
-            A collection of projects I have worked on in the past
-          </Typography>
+            <Typography
+              variant="h4"
+              sx={{
+                color: "text.primary",
+                fontWeight: 800,
+                mb: 1,
+                width: "100%",
+                fontSize: { xs: 32, md: 50 },
+              }}
+            >
+              My Projects
+            </Typography>
+            <Divider
+              sx={{
+                backgroundColor: "secondary.light",
+                height: 2,
+                width: "100%",
+              }}
+            />
+            <Typography
+              variant="subtitle1"
+              sx={{ color: "text.primary", mt: 2, height: "100%", flexGrow: 1 }}
+            >
+              A collection of innovative projects I've developed, showcasing my
+              expertise in software development, design principles, and
+              cutting-edge technologies. From web applications to mobile
+              solutions, each project represents a unique challenge and creative
+              solution.
+            </Typography>
+          </Box>
         </Box>
       </Stack>
       <Box sx={{ py: 2 }}>
@@ -146,7 +196,17 @@ const Projects = () => {
             size="small"
             value={search}
             onChange={handleSearchChange}
-            sx={{ width: { xs: "100%", sm: 300 } }}
+            InputProps={{
+              startAdornment: <SearchIcon color="action" sx={{ mr: 1 }} />,
+            }}
+            sx={{
+              width: { xs: "100%", sm: 300 },
+              "& .MuiInputBase-root": {
+                backdropFilter: "blur(8px)",
+                borderRadius: "1rem",
+                boxShadow: "0 4px 30px rgba(0,0,0,0.1)",
+              },
+            }}
           />
         </Stack>
       </Box>
@@ -164,92 +224,21 @@ const Projects = () => {
           <Box
             sx={{
               mt: 3,
-              gap: 2,
-              display: "flex",
-              flexWrap: "wrap",
+              gap: 2.5,
+              display: "grid",
+              gridTemplateColumns: {
+                xs: "1fr",
+                sm: "repeat(2, 1fr)",
+                md: "repeat(3, 1fr)",
+              },
               mb: 5,
-              justifyContent: { xs: "center", md: "flex-start" },
+              px: { xs: 2, sm: 3, md: 0 },
+              mx: "auto",
+              maxWidth: "100%",
             }}
           >
             {projects.map((project) => (
-              <Card
-                key={project.id}
-                sx={{
-                  width: 340,
-                  m: 1,
-                  borderRadius: 4,
-                  boxShadow: 3,
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyContent: "space-between",
-                  background: (theme) =>
-                    theme.palette.mode === "dark"
-                      ? "rgba(35, 39, 47, 0.7)"
-                      : "rgba(255,255,255,0.7)",
-                  backdropFilter: "blur(8px)",
-                }}
-              >
-                <CardMedia
-                  component="img"
-                  height="180"
-                  image={project.image}
-                  alt={project.title}
-                  sx={{
-                    objectFit: "cover",
-                    borderTopLeftRadius: 4,
-                    borderTopRightRadius: 4,
-                  }}
-                />
-                <CardContent>
-                  <Stack
-                    direction="row"
-                    justifyContent="space-between"
-                    alignItems="center"
-                  >
-                    <Typography
-                      variant="h6"
-                      fontWeight={700}
-                      sx={{ fontSize: 20 }}
-                    >
-                      {project.title}
-                    </Typography>
-                    <Stack direction="row" alignItems="center" spacing={1}>
-                      <Typography variant="body2">{project.likes}</Typography>
-                      <FavoriteIcon color="secondary" fontSize="small" />
-                    </Stack>
-                  </Stack>
-                  <Divider sx={{ my: 1 }} />
-                  <Typography
-                    variant="body2"
-                    color="text.secondary"
-                    sx={{ mb: 1 }}
-                  >
-                    {project.description.length > 120
-                      ? project.description.slice(0, 120) + "..."
-                      : project.description}
-                  </Typography>
-                  <Stack
-                    direction="row"
-                    alignItems="center"
-                    spacing={1}
-                    sx={{ mb: 1 }}
-                  >
-                    <Avatar sx={{ width: 28, height: 28 }} />
-                    <Typography variant="caption" color="text.secondary">
-                      Tags: {project.contributors.join(", ")}
-                    </Typography>
-                  </Stack>
-                  <Button
-                    variant="contained"
-                    color="secondary"
-                    href={project.link}
-                    target="_blank"
-                    sx={{ mt: 1, borderRadius: 2, fontWeight: 700 }}
-                  >
-                    Read
-                  </Button>
-                </CardContent>
-              </Card>
+              <ProjectCard key={project.id} project={project} />
             ))}
           </Box>
 

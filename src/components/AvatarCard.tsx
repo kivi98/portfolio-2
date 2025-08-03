@@ -12,15 +12,7 @@ import {
   useTheme,
 } from "@mui/material";
 import { GitHub, LinkedIn, Code } from "@mui/icons-material";
-
-// const AccentBar = styled(Box)(({ theme }) => ({
-//   width: "100%",
-//   height: 20,
-//   opacity: 0.5,
-//   background: theme.palette.secondary.main,
-//   // borderTopLeftRadius: 18,
-//   // borderTopRightRadius: 18,
-// }));
+import me from "@/public/my-images/me.jpeg";
 
 const CardWrapper = styled(Box)(() => ({
   margin: "auto",
@@ -196,7 +188,7 @@ const AvatarCard: React.FC = () => {
     <CardWrapper>
       <StyledCard elevation={3}>
         {/* <AccentBar /> */}
-        <ProfileAvatar src={profile.avatarUrl} alt={profile.name} />
+        <ProfileAvatar src={me.src} alt={profile.name} />
         <AnimatedTypography variant="subtitle2" phase={phase}>
           {displayText}
         </AnimatedTypography>

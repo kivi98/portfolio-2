@@ -31,12 +31,12 @@ const Skills = () => {
         <Box sx={{ width: "100%" }}>
           <Grid container spacing={3}>
             {skillCategories.slice(0, 4).map((category, index) => (
-              <Grid sx={{ width: "100%" }} key={index}>
+              <Grid item xs={12} md={6} sx={{ width: "100%" }} key={index}>
                 <Paper
                   elevation={0}
                   sx={{
                     p: 3,
-                    borderRadius: 3,
+                    borderRadius: "1.5rem",
                     background: `linear-gradient(135deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.3) 100%)`,
                     border: `1px solid rgba(0,0,0,0.3)`,
                     transition: "all 0.3s ease-in-out",
@@ -85,12 +85,12 @@ const Skills = () => {
         <Box sx={{ width: "100%" }}>
           <Grid container spacing={3}>
             {skillCategories.slice(4).map((category, index) => (
-              <Grid sx={{ width: "100%" }} key={index}>
+              <Grid item xs={12} md={6} sx={{ width: "100%" }} key={index}>
                 <Paper
                   elevation={0}
                   sx={{
                     p: 3,
-                    borderRadius: 3,
+                    borderRadius: "1.5rem",
                     background: `linear-gradient(135deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.3) 100%)`,
                     border: `1px solid rgba(0,0,0,0.3)`,
                     transition: "all 0.3s ease-in-out",
