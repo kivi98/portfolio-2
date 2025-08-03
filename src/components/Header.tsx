@@ -9,6 +9,7 @@ import Brightness4Icon from "@mui/icons-material/Brightness4";
 import Brightness7Icon from "@mui/icons-material/Brightness7";
 import Box from "@mui/material/Box";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import MenuIcon from "@mui/icons-material/Menu";
 import Stack from "@mui/material/Stack";
 import Divider from "@mui/material/Divider";
@@ -32,6 +33,7 @@ const navLinks = [
 export default function Header() {
   const { mode, toggleColorMode } = useThemeMode();
   const theme = useTheme();
+  const pathname = usePathname();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const mobileMenuRef = useRef<HTMLDivElement | null>(null);
@@ -51,19 +53,68 @@ export default function Header() {
     return () => document.removeEventListener("mousedown", handleClick);
   }, [mobileMenuOpen]);
 
+  // Check if a link is active
+  const isActiveLink = (href: string) => {
+    if (href === "/") {
+      return pathname === "/";
+    }
+    return pathname.startsWith(href);
+  };
+
   const renderNavButtons = (onClick?: () => void) =>
-    navLinks.map((link) => (
-      <Button
-        key={link.href}
-        component={Link}
-        href={link.href}
-        color="inherit"
-        sx={{ fontWeight: 500, textTransform: "none" }}
-        onClick={onClick}
-      >
-        {link.label}
-      </Button>
-    ));
+    navLinks.map((link) => {
+      const isActive = isActiveLink(link.href);
+      return (
+        <Button
+          key={link.href}
+          component={Link}
+          href={link.href}
+          color="inherit"
+          sx={{
+            fontWeight: isActive ? 700 : 500,
+            textTransform: "none",
+            position: "relative",
+            borderRadius: "12px",
+            px: 2,
+            py: 1,
+            transition: "all 0.3s ease",
+            backgroundColor: isActive
+              ? theme.palette.mode === "dark"
+                ? "rgba(227, 0, 0, 0.59)"
+                : "rgba(227, 0, 0, 0.1)"
+              : "transparent",
+            color: isActive
+              ? theme.palette.text.primary
+              : theme.palette.text.primary,
+            "&:hover": {
+              backgroundColor: isActive
+                ? theme.palette.mode === "dark"
+                  ? "rgba(227, 0, 0, 0.25)"
+                  : "rgba(227, 0, 0, 0.15)"
+                : theme.palette.mode === "dark"
+                  ? "rgba(255, 255, 255, 0.08)"
+                  : "rgba(0, 0, 0, 0.04)",
+              transform: "translateY(-1px)",
+            },
+            // "&::after": {
+            //   content: '""',
+            //   position: "absolute",
+            //   bottom: 0,
+            //   left: "50%",
+            //   transform: "translateX(-50%)",
+            //   width: isActive ? "60%" : "0%",
+            //   height: "2px",
+            //   backgroundColor: theme.palette.text.primary,
+            //   borderRadius: "1px",
+            //   transition: "width 0.3s ease",
+            // },
+          }}
+          onClick={onClick}
+        >
+          {link.label}
+        </Button>
+      );
+    });
 
   return (
     <AppBar
@@ -76,7 +127,7 @@ export default function Header() {
             : "rgba(30,30,30,0.35)",
         boxShadow: "0 4px 30px rgba(0, 0, 0, 0.19)",
         zIndex: 1201,
-        maxWidth: { xs: "92%", sm: "90%", md: "80%", lg: "900px" },
+        maxWidth: { xs: "92%", sm: "90%", md: "80%", lg: "1000px" },
         margin: { xs: "1rem 1rem 0 1rem", md: "24px auto 0 auto" },
         borderRadius: "1.5rem",
         left: 0,

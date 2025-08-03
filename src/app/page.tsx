@@ -33,14 +33,14 @@ export default function Home() {
           }}
           spacing={4}
         >
-          <Grid xs={12} md={4}>
+          <Grid item xs={12} md={4}>
             <Box
               sx={{ mt: { xs: "1rem", md: 0 }, mb: { xs: "1.5rem", md: 0 } }}
             >
               <AvatarCard />
             </Box>
           </Grid>
-          <Grid xs={12} md={8}>
+          <Grid item xs={12} md={8}>
             <Box
               sx={{
                 padding: { xs: "0 1rem", md: "0 0" },
@@ -80,6 +80,7 @@ export default function Home() {
                 <br />
                 Let&apos;s create, innovate, and inspire together!
               </Typography>
+              <Box sx={{ display: "flex", gap: { xs: 1.5, md: 1 }, flexDirection: { xs: "column", md: "row" } }}>
               <Link href="/about">
                 <Button
                   sx={{
@@ -98,12 +99,12 @@ export default function Home() {
                 >
                   About Me
                 </Button>
-                <Button
+              </Link>
+              <Button
                   variant="outlined"
                   sx={{
                     backgroundColor: "rgba(227, 0, 0, 0.05)",
                     color: "text.light",
-                    ml: { xs: 0, md: 2 },
                     width: { xs: "100%", md: "12rem" },
                     height: { xs: "2.5rem", md: "3rem" },
                     borderRadius: "1rem",
@@ -118,9 +119,9 @@ export default function Home() {
                   }}
                   endIcon={<DownloadIcon />}
                 >
-                  Download CV
-                </Button>
-              </Link>
+                    Download CV
+                  </Button>
+                </Box>
             </Box>
           </Grid>
         </Grid>

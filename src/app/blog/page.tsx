@@ -20,6 +20,8 @@ import {
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import SearchIcon from "@mui/icons-material/Search";
 import { useBlogs, useSearchBlogs } from "@/lib/queries";
+import CustomCarousel from "../about/components/CustomCarousel";
+import BlogCard from "./components/BlogCard";
 
 const Blog = () => {
   const [search, setSearch] = useState("");
@@ -96,7 +98,7 @@ const Blog = () => {
       maxWidth="lg"
       sx={{
         py: { xs: 4, md: 8 },
-        pt: { xs: "90px", md: "130px" },
+        pt: { xs: "90px", md: "150px" },
         minHeight: "100vh",
       }}
     >
@@ -104,44 +106,84 @@ const Blog = () => {
         direction={{ xs: "column", md: "row" }}
         spacing={4}
         alignItems="center"
+        sx={{
+          height: "100%",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "space-between",
+        }}
       >
         <Box sx={{ width: { xs: "100%", md: "40%" } }}>
-          <Box
-            component="img"
-            src="/file.svg"
-            alt="Blog Illustration"
-            sx={{
-              height: 300,
+          <CustomCarousel
+            images={blogs.map((blog) => ({
+              id: blog.id,
+              src: blog.image,
+              alt: blog.title,
+            }))}
+            height={300}
+            width="100%"
+            autoTransition={true}
+            transitionInterval={5000}
+            imageHeight={300}
+            imageSx={{
               borderRadius: 5,
-              width: "100%",
-              objectFit: "cover",
-              background: "rgba(255,255,255,0.1)",
             }}
           />
         </Box>
-        <Box sx={{ width: { xs: "100%", md: "60%" }, px: { xs: 0, md: 2 } }}>
-          <Typography
-            variant="h4"
+        <Box
+          sx={{
+            width: { xs: "100%", md: "60%" },
+            px: { xs: 0, md: 0 },
+            justifyContent: "flex-start",
+            height: 300,
+            display: "flex",
+            flexDirection: "column",
+            flexGrow: 1,
+          }}
+        >
+          <Box
             sx={{
-              color: "text.primary",
-              fontWeight: 800,
-              mb: 1,
-              width: "100%",
-              fontSize: { xs: 32, md: 50 },
+              height: "100%",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "space-between",
             }}
           >
-            Blogs
-          </Typography>
-          <Divider
-            sx={{
-              backgroundColor: "secondary.light",
-              height: 2,
-              width: "100%",
-            }}
-          />
-          <Typography variant="subtitle1" sx={{ color: "text.primary", mt: 2 }}>
-            A collection of blogs I have worked on in the past
-          </Typography>
+            <Typography
+              variant="h4"
+              sx={{
+                color: "text.primary",
+                fontWeight: 800,
+                mb: 1,
+                width: "100%",
+                fontSize: { xs: 32, md: 50 },
+              }}
+            >
+              My Blog
+            </Typography>
+            <Divider
+              sx={{
+                backgroundColor: "secondary.light",
+                height: 2,
+                width: "100%",
+              }}
+            />
+            <Typography
+              variant="subtitle1"
+              sx={{ color: "text.primary", mt: 2, height: "100%", flexGrow: 1 }}
+            >
+              Exploring the intersection of technology, creativity, and
+              innovation. Dive into my thoughts on software development, design
+              principles, and the ever-evolving digital landscape. From coding
+              best practices to emerging tech trends, discover insights that
+              bridge theory and real-world application.
+            </Typography>
+          </Box>
+          {/* <Box sx={{ display: "flex", justifyContent: "flex-end", flexGrow: 0 }}>
+            <Button variant="contained" color="secondary" sx={{ width: "100%" }}>
+              Read More
+            </Button>
+          </Box> */}
         </Box>
       </Stack>
       <Box sx={{ py: 2 }}>
@@ -163,7 +205,14 @@ const Blog = () => {
             InputProps={{
               startAdornment: <SearchIcon color="action" sx={{ mr: 1 }} />,
             }}
-            sx={{ width: { xs: "100%", sm: 300 } }}
+            sx={{
+              width: { xs: "100%", sm: 300 },
+              "& .MuiInputBase-root": {
+                backdropFilter: "blur(8px)",
+                borderRadius: "1rem",
+                boxShadow: "0 4px 30px rgba(0,0,0,0.1)",
+              },
+            }}
           />
         </Stack>
       </Box>
@@ -181,99 +230,21 @@ const Blog = () => {
           <Box
             sx={{
               mt: 3,
-              gap: 2,
-              display: "flex",
-              flexWrap: "wrap",
+              gap: 2.5,
+              display: "grid",
+              gridTemplateColumns: {
+                xs: "1fr",
+                sm: "repeat(2, 1fr)",
+                md: "repeat(3, 1fr)",
+              },
               mb: 5,
-              justifyContent: { xs: "center", md: "flex-start" },
+              px: { xs: 2, sm: 3, md: 0 },
+              mx: "auto",
+              maxWidth: "100%",
             }}
           >
             {blogs.map((blog) => (
-              <Card
-                key={blog.id}
-                sx={{
-                  width: 340,
-                  m: 1,
-                  borderRadius: 4,
-                  boxShadow: 3,
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyContent: "space-between",
-                  background: (theme) =>
-                    theme.palette.mode === "dark"
-                      ? "rgba(35, 39, 47, 0.7)"
-                      : "rgba(255,255,255,0.7)",
-                  backdropFilter: "blur(8px)",
-                }}
-              >
-                <CardMedia
-                  component="img"
-                  height="180"
-                  image={blog.image}
-                  alt={blog.title}
-                  sx={{
-                    objectFit: "cover",
-                    borderTopLeftRadius: 4,
-                    borderTopRightRadius: 4,
-                  }}
-                />
-                <CardContent>
-                  <Typography
-                    variant="h6"
-                    fontWeight={700}
-                    sx={{ fontSize: 20 }}
-                  >
-                    {blog.title}
-                  </Typography>
-                  <Stack
-                    direction="row"
-                    alignItems="center"
-                    spacing={1}
-                    sx={{ my: 1 }}
-                  >
-                    <Avatar sx={{ width: 28, height: 28 }} />
-                    <Typography variant="caption" color="text.secondary">
-                      {blog.author} • {new Date(blog.date).toLocaleDateString()}
-                    </Typography>
-                  </Stack>
-                  <Divider sx={{ my: 1 }} />
-                  <Typography
-                    variant="body2"
-                    color="text.secondary"
-                    sx={{ mb: 1 }}
-                  >
-                    {blog.content.length > 120
-                      ? blog.content.slice(0, 120) + "..."
-                      : blog.content}
-                  </Typography>
-                  <Stack
-                    direction="row"
-                    spacing={1}
-                    sx={{ mb: 1, flexWrap: "wrap" }}
-                  >
-                    {blog.tags.map((tag) => (
-                      <Chip
-                        key={tag}
-                        label={tag}
-                        size="small"
-                        color="secondary"
-                      />
-                    ))}
-                  </Stack>
-                  <Stack direction="row" alignItems="center" spacing={1}>
-                    <Typography variant="body2">{blog.likes}</Typography>
-                    <FavoriteIcon color="secondary" fontSize="small" />
-                    <Button
-                      variant="contained"
-                      color="secondary"
-                      href={`/blog/${blog.slug}`}
-                      sx={{ ml: "auto", borderRadius: 2, fontWeight: 700 }}
-                    >
-                      Read
-                    </Button>
-                  </Stack>
-                </CardContent>
-              </Card>
+              <BlogCard key={blog.id} blog={blog} />
             ))}
           </Box>
 
