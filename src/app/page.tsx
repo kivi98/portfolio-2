@@ -31,7 +31,7 @@ export default function Home() {
             justifyContent: "center",
             alignItems: "center",
           }}
-          spacing={4}
+          spacing={0}
         >
           <Grid item xs={12} md={4}>
             <Box
