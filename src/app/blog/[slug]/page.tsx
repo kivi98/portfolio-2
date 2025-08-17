@@ -22,11 +22,11 @@ import {
   CalendarToday,
   Person,
 } from "@mui/icons-material";
-import ReactMarkdown from "react-markdown";
-import remarkGfm from "remark-gfm";
 import { useBlogBySlug } from "@/lib/queries";
 import { useRouter } from "next/navigation";
 import { LoadingSpinner, ErrorMessage } from "@/lib/hooks";
+import { MdxRenderer } from "@/components/mdx/MdxRenderer";
+import Image from "next/image";
 
 interface BlogPostPageProps {
   params: Promise<{
@@ -46,6 +46,7 @@ const BlogPostPage = ({ params }: BlogPostPageProps) => {
     getSlug();
   }, [params]);
   const { data: blog, isLoading, isError, error } = useBlogBySlug(slug);
+  const blogData = blog?.data;
 
   if (!slug) {
     return (
@@ -104,8 +105,8 @@ const BlogPostPage = ({ params }: BlogPostPageProps) => {
   const handleShare = () => {
     if (navigator.share) {
       navigator.share({
-        title: blog.title,
-        text: blog.excerpt || blog.content.slice(0, 150),
+        title: blogData?.title,
+        text: blogData?.excerpt || blogData?.content.slice(0, 150),
         url: window.location.href,
       });
     } else {
@@ -116,68 +117,140 @@ const BlogPostPage = ({ params }: BlogPostPageProps) => {
   return (
     <Container
       maxWidth="lg"
-      sx={{ py: { xs: 4, md: 8 }, pt: { xs: "90px", md: "130px" } }}
+      sx={{
+        py: { xs: 4, md: 8 },
+        pt: { xs: "90px", md: "130px" },
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+      }}
     >
       {/* Breadcrumbs */}
-      <Breadcrumbs sx={{ mb: 3 }}>
-        <Link
-          component="button"
-          variant="body1"
-          onClick={handleBackClick}
+      <Box sx={{ width: "100%", maxWidth: "900px", mb: 3 }}>
+        <Breadcrumbs>
+          <Link
+            component="button"
+            variant="body1"
+            onClick={handleBackClick}
+            sx={{
+              color: "text.secondary",
+              textDecoration: "none",
+              cursor: "pointer",
+              "&:hover": {
+                color: "secondary.main",
+              },
+            }}
+          >
+            Blogs
+          </Link>
+          <Typography
+            color="text.primary"
+            sx={{
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+              whiteSpace: "nowrap",
+              maxWidth: "300px",
+            }}
+          >
+            {blogData?.title}
+          </Typography>
+        </Breadcrumbs>
+      </Box>
+
+      {/* Blog Title */}
+      {/* <Box
+        sx={{ width: "100%", maxWidth: "900px", mb: 4, textAlign: "center" }}
+      >
+        <Typography
+          variant="h3"
+          component="h1"
+          fontWeight={700}
           sx={{
-            color: "text.secondary",
-            textDecoration: "none",
-            cursor: "pointer",
+            mb: 2,
+            background: (theme) =>
+              theme.palette.mode === "dark"
+                ? "linear-gradient(135deg, #fff, #e0e0e0)"
+                : "linear-gradient(135deg, #1a1a1a, #333)",
+            WebkitBackgroundClip: "text",
+            WebkitTextFillColor: "transparent",
+            backgroundClip: "text",
+            fontSize: { xs: "2rem", md: "3rem" },
+            lineHeight: 1.2,
           }}
         >
-          Blogs
-        </Link>
-        <Typography color="text.primary">{blog.title}</Typography>
-      </Breadcrumbs>
+          {blogData?.title}
+        </Typography>
+      </Box> */}
 
-      {/* Header */}
+      {/* Featured Image */}
+      {blogData?.coverImage && (
+        <Box
+          sx={{
+            position: "relative",
+            width: "100%",
+            maxWidth: "900px",
+            height: { xs: 250, md: 400 },
+            mb: 4,
+            borderRadius: 4,
+            overflow: "hidden",
+            boxShadow: (theme) =>
+              theme.palette.mode === "dark"
+                ? "0 12px 40px rgba(0, 0, 0, 0.4)"
+                : "0 12px 40px rgba(0, 0, 0, 0.15)",
+          }}
+        >
+          <Image
+            src={blogData.coverImage}
+            alt={blogData.title}
+            fill
+            style={{ objectFit: "cover" }}
+            priority
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 90vw, 80vw"
+          />
+        </Box>
+      )}
+
+      {/* Meta Information */}
       <Paper
         elevation={0}
         sx={{
+          width: "100%",
+          maxWidth: "900px",
           p: { xs: 3, md: 4 },
           mb: 4,
-          borderRadius: 3,
+          borderRadius: 4,
           background: (theme) =>
             theme.palette.mode === "dark"
-              ? "rgba(35, 39, 47, 0.7)"
-              : "rgba(255,255,255,0.7)",
-          backdropFilter: "blur(8px)",
+              ? "rgba(35, 39, 47, 0.8)"
+              : "rgba(255,255,255,0.9)",
+          backdropFilter: "blur(12px)",
+          border: (theme) =>
+            theme.palette.mode === "dark"
+              ? "1px solid rgba(255, 255, 255, 0.1)"
+              : "1px solid rgba(0, 0, 0, 0.05)",
         }}
       >
-        <Stack direction="row" alignItems="center" spacing={2} sx={{ mb: 2 }}>
-          <IconButton onClick={handleBackClick} size="small">
-            <ArrowBack />
-          </IconButton>
-          <Typography variant="h4" component="h1" fontWeight={700}>
-            {blog.title}
-          </Typography>
-        </Stack>
-
         {/* Meta information */}
         <Stack
           direction={{ xs: "column", sm: "row" }}
           spacing={2}
-          alignItems={{ xs: "flex-start", sm: "center" }}
-          sx={{ mb: 3 }}
+          alignItems={{ xs: "center", sm: "center" }}
+          justifyContent="center"
+          sx={{ mb: blogData?.tags && blogData?.tags.length > 0 ? 3 : 0 }}
         >
           <Stack direction="row" alignItems="center" spacing={1}>
             <Avatar sx={{ width: 32, height: 32 }}>
               <Person />
             </Avatar>
-            <Typography variant="body2" color="text.secondary">
-              {blog.author}
+            <Typography variant="body2" color="text.secondary" fontWeight={500}>
+              {blogData?.blogOwner.firstName} {blogData?.blogOwner.lastName}
             </Typography>
           </Stack>
 
           <Stack direction="row" alignItems="center" spacing={1}>
             <CalendarToday fontSize="small" color="action" />
-            <Typography variant="body2" color="text.secondary">
-              {new Date(blog.date).toLocaleDateString("en-US", {
+            <Typography variant="body2" color="text.secondary" fontWeight={500}>
+              {new Date(blogData?.createdAt || "").toLocaleDateString("en-US", {
                 year: "numeric",
                 month: "long",
                 day: "numeric",
@@ -187,144 +260,128 @@ const BlogPostPage = ({ params }: BlogPostPageProps) => {
 
           <Stack direction="row" alignItems="center" spacing={1}>
             <Favorite fontSize="small" color="secondary" />
-            <Typography variant="body2" color="text.secondary">
-              {blog.likes} likes
+            <Typography variant="body2" color="text.secondary" fontWeight={500}>
+              {blogData?.likes} likes
             </Typography>
           </Stack>
 
-          <Tooltip title="Share">
-            <IconButton onClick={handleShare} size="small">
+          <Tooltip title="Share this blog">
+            <IconButton
+              onClick={handleShare}
+              size="small"
+              sx={{
+                background: (theme) =>
+                  theme.palette.mode === "dark"
+                    ? "rgba(255, 255, 255, 0.1)"
+                    : "rgba(0, 0, 0, 0.05)",
+                "&:hover": {
+                  background: "secondary.main",
+                  color: "white",
+                },
+                transition: "all 0.3s ease",
+              }}
+            >
               <Share />
             </IconButton>
           </Tooltip>
         </Stack>
 
         {/* Tags */}
-        {blog.tags && blog.tags.length > 0 && (
-          <Stack direction="row" spacing={1} sx={{ mb: 3 }}>
-            {blog.tags.map((tag) => (
-              <Chip key={tag} label={tag} size="small" color="secondary" />
+        {blogData?.tags && blogData?.tags.length > 0 && (
+          <Stack
+            direction="row"
+            spacing={1}
+            justifyContent="center"
+            flexWrap="wrap"
+            sx={{ gap: 1 }}
+          >
+            {blogData?.tags.map((tag) => (
+              <Chip
+                key={tag}
+                label={tag}
+                size="small"
+                color="secondary"
+                sx={{
+                  fontWeight: 500,
+                  "&:hover": {
+                    background: "secondary.dark",
+                    transform: "translateY(-1px)",
+                  },
+                  transition: "all 0.2s ease",
+                }}
+              />
             ))}
           </Stack>
         )}
-
-        <Divider sx={{ mb: 3 }} />
       </Paper>
 
       {/* Content */}
       <Paper
         elevation={0}
         sx={{
-          p: { xs: 3, md: 4 },
-          borderRadius: 3,
+          width: "100%",
+          maxWidth: "900px",
+          p: { xs: 3, md: 5 },
+          borderRadius: 4,
           background: (theme) =>
             theme.palette.mode === "dark"
-              ? "rgba(35, 39, 47, 0.7)"
-              : "rgba(255,255,255,0.7)",
-          backdropFilter: "blur(8px)",
+              ? "rgba(35, 39, 47, 0.8)"
+              : "rgba(255,255,255,0.95)",
+          backdropFilter: "blur(12px)",
+          border: (theme) =>
+            theme.palette.mode === "dark"
+              ? "1px solid rgba(255, 255, 255, 0.1)"
+              : "1px solid rgba(0, 0, 0, 0.05)",
+          minHeight: "60vh",
         }}
       >
-        <Box
+        {/* add titile here instead of the content */}
+        <Typography
+          variant="h1"
+          color="text.primary"
           sx={{
-            "& h1, & h2, & h3, & h4, & h5, & h6": {
-              color: "text.primary",
-              fontWeight: 600,
-              mt: 4,
-              mb: 2,
-            },
-            "& h1": { fontSize: "2.5rem" },
-            "& h2": { fontSize: "2rem" },
-            "& h3": { fontSize: "1.75rem" },
-            "& h4": { fontSize: "1.5rem" },
-            "& h5": { fontSize: "1.25rem" },
-            "& h6": { fontSize: "1rem" },
-            "& p": {
-              color: "text.secondary",
-              lineHeight: 1.7,
-              mb: 2,
-              fontSize: "1.1rem",
-            },
-            "& ul, & ol": {
-              color: "text.secondary",
-              pl: 3,
-              mb: 2,
-            },
-            "& li": {
-              mb: 1,
-              lineHeight: 1.6,
-            },
-            "& blockquote": {
-              borderLeft: 3,
-              borderColor: "secondary.main",
-              pl: 3,
-              ml: 0,
-              my: 3,
-              fontStyle: "italic",
-              color: "text.secondary",
-            },
-            "& code": {
-              backgroundColor: (theme) =>
-                theme.palette.mode === "dark"
-                  ? "rgba(255,255,255,0.1)"
-                  : "rgba(0,0,0,0.1)",
-              borderRadius: 1,
-              px: 1,
-              py: 0.5,
-              fontSize: "0.9em",
-              fontFamily: "monospace",
-            },
-            "& pre": {
-              backgroundColor: (theme) =>
-                theme.palette.mode === "dark"
-                  ? "rgba(0,0,0,0.3)"
-                  : "rgba(0,0,0,0.05)",
-              borderRadius: 2,
-              p: 2,
-              overflow: "auto",
-              mb: 3,
-              "& code": {
-                backgroundColor: "transparent",
-                p: 0,
-              },
-            },
-            "& a": {
-              color: "secondary.main",
-              textDecoration: "none",
-              "&:hover": {
-                textDecoration: "underline",
-              },
-            },
-            "& img": {
-              maxWidth: "100%",
-              height: "auto",
-              borderRadius: 2,
-              my: 2,
-            },
-            "& table": {
-              width: "100%",
-              borderCollapse: "collapse",
-              mb: 3,
-            },
-            "& th, & td": {
-              border: 1,
-              borderColor: "divider",
-              p: 1,
-              textAlign: "left",
-            },
-            "& th": {
-              backgroundColor: (theme) =>
-                theme.palette.mode === "dark"
-                  ? "rgba(255,255,255,0.1)"
-                  : "rgba(0,0,0,0.05)",
-              fontWeight: 600,
-            },
+            mb: 3,
+            textAlign: "center",
+            fontWeight: 700,
+            fontSize: { xs: "1.5rem", md: "2.5rem" },
           }}
         >
-          <ReactMarkdown remarkPlugins={[remarkGfm]}>
-            {blog.content}
-          </ReactMarkdown>
-        </Box>
+          {blogData?.title}
+        </Typography>
+        <Divider sx={{ mb: 3 }} />
+        <MdxRenderer content={blogData?.content || ""} />
       </Paper>
+
+      {/* Back to Blog Button */}
+      <Box
+        sx={{ width: "100%", maxWidth: "900px", mt: 4, textAlign: "center" }}
+      >
+        <IconButton
+          onClick={handleBackClick}
+          sx={{
+            background: (theme) =>
+              theme.palette.mode === "dark"
+                ? "rgba(255, 255, 255, 0.1)"
+                : "rgba(0, 0, 0, 0.05)",
+            "&:hover": {
+              background: "secondary.main",
+              color: "white",
+              transform: "translateY(-2px)",
+            },
+            transition: "all 0.3s ease",
+            p: 2,
+          }}
+        >
+          <ArrowBack />
+        </IconButton>
+        <Typography
+          variant="body2"
+          color="text.secondary"
+          sx={{ mt: 1, fontWeight: 500 }}
+        >
+          Back to Blogs
+        </Typography>
+      </Box>
     </Container>
   );
 };

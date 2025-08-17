@@ -7,17 +7,10 @@ import {
   Stack,
   Typography,
   TextField,
-  Button,
-  Card,
-  CardContent,
-  CardMedia,
-  Chip,
-  Avatar,
   CircularProgress,
   Alert,
   Pagination,
 } from "@mui/material";
-import FavoriteIcon from "@mui/icons-material/Favorite";
 import SearchIcon from "@mui/icons-material/Search";
 import { useBlogs, useSearchBlogs } from "@/lib/queries";
 import CustomCarousel from "../about/components/CustomCarousel";
@@ -117,7 +110,7 @@ const Blog = () => {
           <CustomCarousel
             images={blogs.map((blog) => ({
               id: blog.id,
-              src: blog.image,
+              src: blog.coverImage,
               alt: blog.title,
             }))}
             height={300}

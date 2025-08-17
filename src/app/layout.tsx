@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Inter, Roboto_Mono } from "next/font/google";
 import "./globals.css";
+import "../styles/syntax-highlighting.css";
+import "../styles/mdx-typography.css";
 import ThemeProvider from "@/theme/ThemeProvider";
 import Header from "@/components/Header";
 import ParticleBackground from "@/components/ParticleBackground";
