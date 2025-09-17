@@ -18,6 +18,8 @@ import {
   LinearProgress,
   Fab,
   Fade,
+  Modal,
+  Backdrop,
 } from "@mui/material";
 import {
   Favorite,
@@ -29,6 +31,8 @@ import {
   Visibility,
   BookmarkBorder,
   KeyboardArrowUp,
+  FormatListBulleted,
+  Close,
 } from "@mui/icons-material";
 import { useBlogBySlug } from "@/lib/queries";
 import { useRouter } from "next/navigation";
@@ -42,11 +46,20 @@ interface BlogPostPageProps {
   }>;
 }
 
+interface TocItem {
+  id: string;
+  text: string;
+  level: number;
+}
+
 const BlogPostPage = ({ params }: BlogPostPageProps) => {
   const router = useRouter();
   const [slug, setSlug] = useState<string>("");
   const [readingProgress, setReadingProgress] = useState(0);
   const [showScrollToTop, setShowScrollToTop] = useState(false);
+  const [tocItems, setTocItems] = useState<TocItem[]>([]);
+  const [activeHeading, setActiveHeading] = useState<string>("");
+  const [showMobileToc, setShowMobileToc] = useState(false);
 
   useEffect(() => {
     const getSlug = async () => {
@@ -55,6 +68,9 @@ const BlogPostPage = ({ params }: BlogPostPageProps) => {
     };
     getSlug();
   }, [params]);
+
+  const { data: blog, isLoading, isError, error } = useBlogBySlug(slug);
+  const blogData = blog?.data;
 
   // Reading progress and scroll tracking
   useEffect(() => {
@@ -72,8 +88,71 @@ const BlogPostPage = ({ params }: BlogPostPageProps) => {
     return () => window.removeEventListener("scroll", updateReadingProgress);
   }, []);
 
-  const { data: blog, isLoading, isError, error } = useBlogBySlug(slug);
-  const blogData = blog?.data;
+  // Extract TOC from content and set up intersection observer
+  useEffect(() => {
+    if (!blogData?.content) return;
+
+    // Extract headings from content
+    const extractTocFromContent = () => {
+      // Wait for content to be rendered
+      setTimeout(() => {
+        const headings = document.querySelectorAll(
+          ".mdx-content h1, .mdx-content h2, .mdx-content h3, .mdx-content h4, .mdx-content h5, .mdx-content h6"
+        );
+        const tocData: TocItem[] = [];
+
+        headings.forEach((heading, index) => {
+          const level = parseInt(heading.tagName.charAt(1));
+          const text = heading.textContent || "";
+          const id = `heading-${index}`;
+
+          // Add ID to heading if it doesn't have one
+          heading.id = id;
+
+          tocData.push({ id, text, level });
+        });
+
+        setTocItems(tocData);
+      }, 100);
+    };
+
+    extractTocFromContent();
+  }, [blogData?.content]);
+
+  // Intersection Observer for active heading tracking
+  useEffect(() => {
+    if (tocItems.length === 0) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveHeading(entry.target.id);
+          }
+        });
+      },
+      {
+        rootMargin: "-20% 0% -60% 0%",
+        threshold: 0,
+      }
+    );
+
+    tocItems.forEach(({ id }) => {
+      const element = document.getElementById(id);
+      if (element) {
+        observer.observe(element);
+      }
+    });
+
+    return () => {
+      tocItems.forEach(({ id }) => {
+        const element = document.getElementById(id);
+        if (element) {
+          observer.unobserve(element);
+        }
+      });
+    };
+  }, [tocItems]);
 
   // Estimated reading time calculation
   const estimatedReadingTime = React.useMemo(() => {
@@ -153,6 +232,18 @@ const BlogPostPage = ({ params }: BlogPostPageProps) => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
+  const scrollToHeading = (headingId: string) => {
+    const element = document.getElementById(headingId);
+    if (element) {
+      const offset = 120; // Account for fixed header
+      const elementPosition = element.offsetTop - offset;
+      window.scrollTo({
+        top: elementPosition,
+        behavior: "smooth",
+      });
+    }
+  };
+
   return (
     <>
       {/* Reading Progress Bar */}
@@ -173,6 +264,134 @@ const BlogPostPage = ({ params }: BlogPostPageProps) => {
         }}
       />
 
+      {/* Table of Contents - Fixed Left Sidebar */}
+      {tocItems.length > 0 && (
+        <Box
+          sx={{
+            position: "fixed",
+            left: "2rem",
+            top: "50%",
+            transform: "translateY(-50%)",
+            width: "auto",
+            minWidth: "300px",
+            maxHeight: "70vh",
+            overflowY: "auto",
+            zIndex: 100,
+            display: { xs: "none", xl: "block", md: "block", lg: "block" },
+            pl: 2,
+          }}
+        >
+          <Paper
+            elevation={0}
+            sx={{
+              p: 3,
+              borderRadius: 3,
+              background: (theme) =>
+                theme.palette.mode === "dark"
+                  ? "linear-gradient(135deg, rgba(35, 39, 47, 0.95) 0%, rgba(45, 49, 57, 0.95) 100%)"
+                  : "linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(245, 245, 245, 0.95) 100%)",
+              backdropFilter: "blur(20px)",
+              border: (theme) =>
+                theme.palette.mode === "dark"
+                  ? "1px solid rgba(255, 255, 255, 0.1)"
+                  : "1px solid rgba(0, 0, 0, 0.1)",
+              boxShadow: (theme) =>
+                theme.palette.mode === "dark"
+                  ? "0 8px 32px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1)"
+                  : "0 8px 32px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.8)",
+              position: "relative",
+              "&::before": {
+                content: '""',
+                position: "absolute",
+                top: 0,
+                left: 0,
+                right: 0,
+                height: "1px",
+                background:
+                  "linear-gradient(90deg, transparent, rgba(227, 0, 0, 0.3), transparent)",
+                borderRadius: "3px 3px 0 0",
+              },
+            }}
+          >
+            <Typography
+              variant="subtitle2"
+              fontWeight={600}
+              sx={{
+                mb: 3,
+                color: "white",
+                textTransform: "uppercase",
+                letterSpacing: 1,
+                fontSize: "0.75rem",
+                borderBottom: "1px solid rgba(255, 255, 255, 0.1)",
+                pb: 1,
+              }}
+            >
+              Table of Contents
+            </Typography>
+            <Stack spacing={1}>
+              {tocItems.map((item) => (
+                <Button
+                  key={item.id}
+                  onClick={() => scrollToHeading(item.id)}
+                  sx={{
+                    justifyContent: "flex-start",
+                    textAlign: "left",
+                    textTransform: "none",
+                    pl: 2 + (item.level - 1) * 1.5,
+                    pr: 2,
+                    py: 1,
+                    minHeight: "auto",
+                    color:
+                      activeHeading === item.id ? "white" : "text.secondary",
+                    backgroundColor:
+                      activeHeading === item.id
+                        ? "secondary.main"
+                        : "rgba(255, 255, 255, 0.05)",
+                    border:
+                      activeHeading === item.id
+                        ? "1px solid rgba(227, 0, 0, 0.3)"
+                        : "1px solid transparent",
+                    borderRadius: 2,
+                    fontSize:
+                      Math.max(0.85 - (item.level - 1) * 0.05, 0.75) + "rem",
+                    fontWeight: activeHeading === item.id ? 600 : 500,
+                    position: "relative",
+                    overflow: "hidden",
+                    "&:hover": {
+                      backgroundColor:
+                        activeHeading === item.id
+                          ? "secondary.dark"
+                          : "rgba(255, 255, 255, 0.1)",
+                      transform: "translateY(-1px)",
+                      boxShadow:
+                        activeHeading === item.id
+                          ? "0 4px 12px rgba(227, 0, 0, 0.3)"
+                          : "0 4px 12px rgba(0, 0, 0, 0.2)",
+                    },
+                    "&::before":
+                      activeHeading === item.id
+                        ? {
+                            content: '""',
+                            position: "absolute",
+                            left: 0,
+                            top: 0,
+                            bottom: 0,
+                            width: "3px",
+                            backgroundColor: "white",
+                            borderRadius: "0 2px 2px 0",
+                          }
+                        : {},
+                    transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
+                  }}
+                >
+                  {item.text}
+                </Button>
+              ))}
+            </Stack>
+          </Paper>
+        </Box>
+      )}
+
       <Container
         maxWidth={false}
         sx={{
@@ -181,6 +400,7 @@ const BlogPostPage = ({ params }: BlogPostPageProps) => {
           py: { xs: 4, md: 6 },
           pt: { xs: "100px", md: "120px" },
           px: { xs: 2, md: 4 },
+          ml: { xl: tocItems.length > 0 ? "270px" : "auto" },
         }}
       >
         {/* Navigation Header */}
@@ -208,6 +428,17 @@ const BlogPostPage = ({ params }: BlogPostPageProps) => {
             </Button>
 
             <Stack direction="row" spacing={1}>
+              {tocItems.length > 0 && (
+                <Tooltip title="Table of Contents">
+                  <IconButton
+                    size="small"
+                    onClick={() => setShowMobileToc(true)}
+                    sx={{ display: { xl: "none" } }}
+                  >
+                    <FormatListBulleted />
+                  </IconButton>
+                </Tooltip>
+              )}
               <Tooltip title="Bookmark">
                 <IconButton size="small">
                   <BookmarkBorder />
@@ -531,6 +762,169 @@ const BlogPostPage = ({ params }: BlogPostPageProps) => {
           </Box>
         </Box>
       </Container>
+
+      {/* Mobile TOC Modal */}
+      <Modal
+        open={showMobileToc}
+        onClose={() => setShowMobileToc(false)}
+        closeAfterTransition
+        slots={{ backdrop: Backdrop }}
+        slotProps={{
+          backdrop: {
+            timeout: 500,
+            sx: {
+              backgroundColor: "rgba(0, 0, 0, 0.7)",
+              backdropFilter: "blur(4px)",
+            },
+          },
+        }}
+      >
+        <Fade in={showMobileToc}>
+          <Box
+            sx={{
+              position: "absolute",
+              top: "50%",
+              left: "50%",
+              transform: "translate(-50%, -50%)",
+              width: { xs: "90%", sm: "400px" },
+              maxHeight: "80vh",
+              overflowY: "auto",
+              outline: "none",
+            }}
+          >
+            <Paper
+              elevation={24}
+              sx={{
+                p: 3,
+                borderRadius: 3,
+                background: (theme) =>
+                  theme.palette.mode === "dark"
+                    ? "linear-gradient(135deg, rgba(35, 39, 47, 0.98) 0%, rgba(45, 49, 57, 0.98) 100%)"
+                    : "linear-gradient(135deg, rgba(255, 255, 255, 0.98) 0%, rgba(245, 245, 245, 0.98) 100%)",
+                backdropFilter: "blur(20px)",
+                border: (theme) =>
+                  theme.palette.mode === "dark"
+                    ? "1px solid rgba(255, 255, 255, 0.1)"
+                    : "1px solid rgba(0, 0, 0, 0.1)",
+                position: "relative",
+                "&::before": {
+                  content: '""',
+                  position: "absolute",
+                  top: 0,
+                  left: 0,
+                  right: 0,
+                  height: "1px",
+                  background:
+                    "linear-gradient(90deg, transparent, rgba(227, 0, 0, 0.3), transparent)",
+                  borderRadius: "3px 3px 0 0",
+                },
+              }}
+            >
+              <Stack
+                direction="row"
+                justifyContent="space-between"
+                alignItems="center"
+                sx={{
+                  mb: 3,
+                  pb: 2,
+                  borderBottom: "1px solid rgba(255, 255, 255, 0.1)",
+                }}
+              >
+                <Typography
+                  variant="h6"
+                  fontWeight={600}
+                  sx={{
+                    color: "white",
+                    textTransform: "uppercase",
+                    letterSpacing: 1,
+                    fontSize: "1rem",
+                  }}
+                >
+                  Table of Contents
+                </Typography>
+                <IconButton
+                  onClick={() => setShowMobileToc(false)}
+                  size="small"
+                  sx={{
+                    backgroundColor: "rgba(255, 255, 255, 0.1)",
+                    color: "white",
+                    "&:hover": {
+                      backgroundColor: "rgba(255, 255, 255, 0.2)",
+                      transform: "scale(1.1)",
+                    },
+                    transition: "all 0.2s ease",
+                  }}
+                >
+                  <Close />
+                </IconButton>
+              </Stack>
+
+              <Stack spacing={1}>
+                {tocItems.map((item) => (
+                  <Button
+                    key={item.id}
+                    onClick={() => {
+                      scrollToHeading(item.id);
+                      setShowMobileToc(false);
+                    }}
+                    sx={{
+                      justifyContent: "flex-start",
+                      textAlign: "left",
+                      textTransform: "none",
+                      pl: 2 + (item.level - 1) * 1.5,
+                      pr: 2,
+                      py: 1.5,
+                      color:
+                        activeHeading === item.id ? "white" : "text.secondary",
+                      backgroundColor:
+                        activeHeading === item.id
+                          ? "secondary.main"
+                          : "rgba(255, 255, 255, 0.05)",
+                      border:
+                        activeHeading === item.id
+                          ? "1px solid rgba(227, 0, 0, 0.3)"
+                          : "1px solid transparent",
+                      borderRadius: 2,
+                      fontSize:
+                        Math.max(0.9 - (item.level - 1) * 0.05, 0.8) + "rem",
+                      fontWeight: activeHeading === item.id ? 600 : 500,
+                      position: "relative",
+                      overflow: "hidden",
+                      "&:hover": {
+                        backgroundColor:
+                          activeHeading === item.id
+                            ? "secondary.dark"
+                            : "rgba(255, 255, 255, 0.1)",
+                        transform: "translateY(-1px)",
+                        boxShadow:
+                          activeHeading === item.id
+                            ? "0 4px 12px rgba(227, 0, 0, 0.3)"
+                            : "0 4px 12px rgba(0, 0, 0, 0.2)",
+                      },
+                      "&::before":
+                        activeHeading === item.id
+                          ? {
+                              content: '""',
+                              position: "absolute",
+                              left: 0,
+                              top: 0,
+                              bottom: 0,
+                              width: "3px",
+                              backgroundColor: "white",
+                              borderRadius: "0 2px 2px 0",
+                            }
+                          : {},
+                      transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
+                    }}
+                  >
+                    {item.text}
+                  </Button>
+                ))}
+              </Stack>
+            </Paper>
+          </Box>
+        </Fade>
+      </Modal>
 
       {/* Scroll to Top FAB */}
       <Fade in={showScrollToTop}>

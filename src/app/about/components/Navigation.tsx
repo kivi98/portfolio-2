@@ -8,7 +8,6 @@ import {
 } from "@mui/material";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import React from "react";
-
 import PersonIcon from "@mui/icons-material/Person";
 import SchoolIcon from "@mui/icons-material/School";
 import CodeIcon from "@mui/icons-material/Code";
@@ -16,6 +15,7 @@ import AppsIcon from "@mui/icons-material/Apps";
 import VerifiedIcon from "@mui/icons-material/Verified";
 import VolunteerActivismIcon from "@mui/icons-material/VolunteerActivism";
 import WorkHistoryIcon from "@mui/icons-material/WorkHistory";
+import me from "../../../../public/my-images/5.png";
 
 interface SectionRef {
   id: number;
@@ -125,6 +125,19 @@ export const Navigation = ({
         boxShadow: "none",
       }}
     >
+        <Box>
+        {/* portrait image*/}
+        <img
+            src={me.src}
+            alt="Portrait"
+            style={{
+              width: "100%",
+              height: "auto",
+              borderRadius: "1.5rem",
+              // marginBottom: "1rem",
+            }}
+          />
+        </Box>
       <List>
         {sectionRefs.map(({ id, text, ref, icon }) => (
           <NavigationButton

@@ -47,7 +47,7 @@
 .mdx-content h4,
 .mdx-content h5,
 .mdx-content h6 {
-  scroll-margin-top: 120px; /* Account for fixed header */
+  scroll-margin-top: 140px; /* Account for fixed header and TOC navigation */
   position: relative;
 }
 
