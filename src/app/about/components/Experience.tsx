@@ -5,6 +5,7 @@ import OneColumnSection from "./OneColumnSection";
 
 const Experience = () => {
   const [currentCardIndex, setCurrentCardIndex] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
   const stackRef = useRef<HTMLDivElement>(null);
 
   const skillCards = [
@@ -89,12 +90,14 @@ const Experience = () => {
 
   // Auto-scroll effect
   useEffect(() => {
+    if (isPaused) return;
+
     const interval = setInterval(() => {
       nextCard();
     }, 4000); // Scroll every 4 seconds
 
     return () => clearInterval(interval);
-  }, [nextCard]);
+  }, [nextCard, isPaused]);
 
   // Scroll to current card
   useEffect(() => {
@@ -129,14 +132,18 @@ const Experience = () => {
               width: "100%",
               alignItems: "center",
               overflowY: "auto",
-              scrollbarWidth: "none", // Firefox
-              msOverflowStyle: "none", // IE and Edge
+              scrollbarWidth: "none",
+              msOverflowStyle: "none",
               "&::-webkit-scrollbar": {
-                display: "none", // Chrome, Safari, Opera
+                display: "none",
               },
               py: "2rem !important",
               position: "relative",
             }}
+            onMouseEnter={() => setIsPaused(true)}
+            onMouseLeave={() => setIsPaused(false)}
+            onFocus={() => setIsPaused(true)}
+            onBlur={() => setIsPaused(false)}
           >
             {skillCards.map((card, index) => (
               <SkillCard

@@ -173,7 +173,7 @@ const AvatarCard: React.FC = () => {
 
   const profile = {
     name: "Kivi Amarakoon",
-    title: "Associate Software Engineer",
+    title: "Software Engineer",
     avatarUrl: "https://i.pravatar.cc/300?img=13", // Placeholder avatar
     github: "https://github.com/kivi98",
     linkedin: "https://linkedin.com/in/kiviamarakoon",
@@ -196,7 +196,7 @@ const AvatarCard: React.FC = () => {
         <ProfileTitle variant="subtitle1">{profile.title}</ProfileTitle>
         <Divider
           sx={{
-            my: 2,
+            mt: 2,
             width: "80%",
             mx: "auto",
             backgroundColor: theme.palette.divider,

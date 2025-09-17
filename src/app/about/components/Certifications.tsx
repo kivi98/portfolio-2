@@ -6,6 +6,7 @@ import SkillCard from "./SkillCard";
 
 const Certifications = () => {
   const [currentCardIndex, setCurrentCardIndex] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
   const stackRef = useRef<HTMLDivElement>(null);
 
   const imageArray = [
@@ -132,12 +133,14 @@ const Certifications = () => {
 
   // Auto-scroll effect
   useEffect(() => {
+    if (isPaused) return;
+
     const interval = setInterval(() => {
       nextCard();
     }, 4000); // Scroll every 4 seconds
 
     return () => clearInterval(interval);
-  }, [nextCard]);
+  }, [nextCard, isPaused]);
 
   // Scroll to current card
   useEffect(() => {
@@ -176,6 +179,10 @@ const Certifications = () => {
             ref={stackRef}
             direction={"column"}
             spacing={2}
+            onMouseEnter={() => setIsPaused(true)}
+            onMouseLeave={() => setIsPaused(false)}
+            onFocus={() => setIsPaused(true)}
+            onBlur={() => setIsPaused(false)}
             sx={{
               alignItems: "stretch",
               maxHeight: "65vh",
