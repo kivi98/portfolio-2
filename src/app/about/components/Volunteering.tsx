@@ -144,13 +144,13 @@ const Volunteering = () => {
       ),
     },
     {
-      title: "&quot;Phasara&quot; - Official Media Unit - UCSC",
+      title: "Pahasara - Official Media Unit - UCSC",
       subtitle: "Executives Committee Member",
       date: "2022 - 2023",
       listDescription: (
         <li style={{ color: "text.dark" }}>
           <Typography variant={"caption"} color={"text.dark"} sx={{ p: 0 }}>
-            Serving as an Executive Committee Member for the &quot;Phasara&quot;
+            Serving as an Executive Committee Member for the &quot;Pahasara&quot;
             Official Media Unit at the University of Colombo School of
             Computing, I played a vital role in the organization&apos;s mission
             to capture and disseminate the essence of campus life and events.

@@ -29,15 +29,15 @@ const About = () => {
   const sectionRefs = [
     { id: 1, text: "Who Am I", ref: whoAmIRef, icon: "PersonIcon" },
     { id: 2, text: "Education", ref: educationRef, icon: "SchoolIcon" },
-    { id: 3, text: "Skills", ref: skillsRef, icon: "CodeIcon" },
-    { id: 4, text: "Skill Badges", ref: skillBadgesRef, icon: "AppsIcon" },
     {
-      id: 5,
+      id: 3,
       text: "Certifications",
       ref: certificationsRef,
       icon: "WorkspacePremiumIcon",
     },
-    { id: 6, text: "Credly", ref: credlyBadgesRef, icon: "CardMembershipIcon" },
+    { id: 4, text: "Credly", ref: credlyBadgesRef, icon: "CardMembershipIcon" },
+    { id: 5, text: "Skills", ref: skillsRef, icon: "CodeIcon" },
+    { id: 6, text: "Skill Badges", ref: skillBadgesRef, icon: "AppsIcon" },
     {
       id: 7,
       text: "Volunteering",
