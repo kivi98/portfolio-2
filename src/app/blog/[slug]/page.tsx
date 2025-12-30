@@ -97,7 +97,7 @@ const BlogPostPage = ({ params }: BlogPostPageProps) => {
       // Wait for content to be rendered
       setTimeout(() => {
         const headings = document.querySelectorAll(
-          ".mdx-content h1, .mdx-content h2, .mdx-content h3, .mdx-content h4, .mdx-content h5, .mdx-content h6"
+          ".mdx-content h1, .mdx-content h2, .mdx-content h3, .mdx-content h4, .mdx-content h5, .mdx-content h6",
         );
         const tocData: TocItem[] = [];
 
@@ -134,7 +134,7 @@ const BlogPostPage = ({ params }: BlogPostPageProps) => {
       {
         rootMargin: "-20% 0% -60% 0%",
         threshold: 0,
-      }
+      },
     );
 
     tocItems.forEach(({ id }) => {
@@ -551,7 +551,7 @@ const BlogPostPage = ({ params }: BlogPostPageProps) => {
                       year: "numeric",
                       month: "long",
                       day: "numeric",
-                    }
+                    },
                   )}
                 </Typography>
               </Stack>

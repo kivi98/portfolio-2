@@ -167,7 +167,7 @@ const paginatedBlogs = createPaginatedResponse(
   mockBlogs,
   1,
   10,
-  mockBlogs.length
+  mockBlogs.length,
 );
 ```
 
@@ -188,7 +188,7 @@ const API_BASE_URL =
 export const blogApi = {
   getAll: async (page = 1, limit = 10) => {
     const response = await api.get<PaginatedResponse<Blog>>(
-      `/blogs?page=${page}&limit=${limit}`
+      `/blogs?page=${page}&limit=${limit}`,
     );
     return response.data;
   },

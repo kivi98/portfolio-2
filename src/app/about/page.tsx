@@ -11,6 +11,7 @@ import SkillBadges from "./components/SkillBadges";
 import Certifications from "./components/Certifications";
 import Volunteering from "./components/Volunteering";
 import Experience from "./components/Experience";
+import CredlyBadges from "./components/CredlyBadges";
 
 const About = () => {
   const [activeSection, setActiveSection] = useState(1);
@@ -21,6 +22,7 @@ const About = () => {
   const skillsRef = useRef<HTMLDivElement>(null);
   const skillBadgesRef = useRef<HTMLDivElement>(null);
   const certificationsRef = useRef<HTMLDivElement>(null);
+  const credlyBadgesRef = useRef<HTMLDivElement>(null);
   const volunteeringRef = useRef<HTMLDivElement>(null);
   const experienceRef = useRef<HTMLDivElement>(null);
 
@@ -33,20 +35,21 @@ const About = () => {
       id: 5,
       text: "Certifications",
       ref: certificationsRef,
-      icon: "VerifiedIcon",
+      icon: "WorkspacePremiumIcon",
     },
+    { id: 6, text: "Credly", ref: credlyBadgesRef, icon: "CardMembershipIcon" },
     {
-      id: 6,
+      id: 7,
       text: "Volunteering",
       ref: volunteeringRef,
       icon: "VolunteerActivismIcon",
     },
-    { id: 7, text: "Experience", ref: experienceRef, icon: "WorkHistoryIcon" },
+    { id: 8, text: "Experience", ref: experienceRef, icon: "WorkHistoryIcon" },
   ];
 
   const scrollToSection = (
     ref: React.RefObject<HTMLDivElement | null>,
-    offset = 0
+    offset = 0,
   ) => {
     if (ref.current) {
       const top =
@@ -115,6 +118,7 @@ const About = () => {
               Skills: Skills,
               "Skill Badges": SkillBadges,
               Certifications: Certifications,
+              Credly: CredlyBadges,
               Volunteering: Volunteering,
               Experience: Experience,
             };

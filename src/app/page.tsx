@@ -80,27 +80,33 @@ export default function Home() {
                 <br />
                 Let&apos;s create, innovate, and inspire together!
               </Typography>
-              <Box sx={{ display: "flex", gap: { xs: 1.5, md: 1 }, flexDirection: { xs: "column", md: "row" } }}>
-              <Link href="/about">
+              <Box
+                sx={{
+                  display: "flex",
+                  gap: { xs: 1.5, md: 1 },
+                  flexDirection: { xs: "column", md: "row" },
+                }}
+              >
+                <Link href="/about">
+                  <Button
+                    sx={{
+                      backgroundColor: "secondary.main",
+                      color: "text.light",
+                      width: { xs: "100%", md: "10rem" },
+                      height: { xs: "2.5rem", md: "3rem" },
+                      borderRadius: "1rem",
+                      boxShadow: "0px 0px 10px rgba(227, 0, 0, 0.46)",
+                      fontWeight: 700,
+                      "&:hover": {
+                        backgroundColor: "secondary.light",
+                      },
+                    }}
+                    endIcon={<DoubleArrowIcon />}
+                  >
+                    About Me
+                  </Button>
+                </Link>
                 <Button
-                  sx={{
-                    backgroundColor: "secondary.main",
-                    color: "text.light",
-                    width: { xs: "100%", md: "10rem" },
-                    height: { xs: "2.5rem", md: "3rem" },
-                    borderRadius: "1rem",
-                    boxShadow: "0px 0px 10px rgba(227, 0, 0, 0.46)",
-                    fontWeight: 700,
-                    "&:hover": {
-                      backgroundColor: "secondary.light",
-                    },
-                  }}
-                  endIcon={<DoubleArrowIcon />}
-                >
-                  About Me
-                </Button>
-              </Link>
-              <Button
                   variant="outlined"
                   sx={{
                     backgroundColor: "rgba(227, 0, 0, 0.05)",
@@ -119,9 +125,9 @@ export default function Home() {
                   }}
                   endIcon={<DownloadIcon />}
                 >
-                    Download CV
-                  </Button>
-                </Box>
+                  Download CV
+                </Button>
+              </Box>
             </Box>
           </Grid>
         </Grid>

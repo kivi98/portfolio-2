@@ -52,7 +52,6 @@ const SkillBadges = () => {
             flexWrap: "wrap",
             gap: 2,
             maxWidth: "100%",
-
           }}
         >
           {skillsConfig.map((skill, index) => (

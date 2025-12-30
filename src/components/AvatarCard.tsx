@@ -123,7 +123,7 @@ const AnimatedTypography = styled(Typography)<{ phase: string }>(
       "0%, 100%": { opacity: 1 },
       "50%": { opacity: 0 },
     },
-  })
+  }),
 );
 
 const socialLinks = [
@@ -208,7 +208,7 @@ const AvatarCard: React.FC = () => {
               <SocialButton
                 onClick={() =>
                   handleSocialClick(
-                    profile[key as keyof typeof profile] as string
+                    profile[key as keyof typeof profile] as string,
                   )
                 }
                 aria-label={title}

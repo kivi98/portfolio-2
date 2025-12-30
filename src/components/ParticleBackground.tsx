@@ -69,14 +69,14 @@ const ParticleBackground: React.FC = () => {
       }
       return particles;
     },
-    []
+    [],
   );
 
   const drawConnections = useCallback(
     (
       ctx: CanvasRenderingContext2D,
       particles: Particle[],
-      maxDistance: number
+      maxDistance: number,
     ) => {
       ctx.strokeStyle =
         mode === "dark" ? "rgba(255, 255, 255, 0.1)" : "rgba(0, 0, 0, 0.1)";
@@ -100,7 +100,7 @@ const ParticleBackground: React.FC = () => {
       }
       ctx.globalAlpha = 1;
     },
-    [mode]
+    [mode],
   );
 
   useEffect(() => {
@@ -154,7 +154,7 @@ const ParticleBackground: React.FC = () => {
           0,
           particle.x,
           particle.y,
-          particle.size * 4
+          particle.size * 4,
         );
         gradient.addColorStop(0, particle.color);
         gradient.addColorStop(0.3, `${particle.color}60`);

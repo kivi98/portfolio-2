@@ -112,7 +112,7 @@ export const useSearchProjects = (query: string, page = 1, limit = 10) => {
 export const useProjectsByTechnology = (
   technology: string,
   page = 1,
-  limit = 10
+  limit = 10,
 ) => {
   return useQuery({
     queryKey: queryKeys.projects.list({ page, limit, technology }),
@@ -160,7 +160,7 @@ export const useUpdateBlog = () => {
       // Update the cache with the new data
       queryClient.setQueryData(
         queryKeys.blogs.detail(updatedBlog.id),
-        updatedBlog
+        updatedBlog,
       );
       queryClient.invalidateQueries({ queryKey: queryKeys.blogs.lists() });
     },

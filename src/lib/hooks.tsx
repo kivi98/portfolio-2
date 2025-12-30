@@ -33,7 +33,7 @@ export const ErrorMessage = ({
 
 // Hook for handling query states
 export const useQueryWithErrorHandling = <TData, TError>(
-  query: UseQueryResult<TData, TError>
+  query: UseQueryResult<TData, TError>,
 ) => {
   const { data, isLoading, isError, error } = query;
 
@@ -76,7 +76,7 @@ export const usePagination = (initialPage = 1) => {
 
   const handlePageChange = (
     event: React.ChangeEvent<unknown>,
-    value: number
+    value: number,
   ) => {
     setPage(value);
   };

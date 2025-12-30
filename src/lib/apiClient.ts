@@ -47,7 +47,7 @@ const createApiClient = (): AxiosInstance => {
     },
     (error) => {
       return Promise.reject(error);
-    }
+    },
   );
 
   // Response interceptor for error handling
@@ -85,7 +85,7 @@ const createApiClient = (): AxiosInstance => {
       }
 
       return Promise.reject(error);
-    }
+    },
   );
 
   return client;
@@ -99,7 +99,7 @@ export const api = {
   // Generic GET request
   get: <T>(
     url: string,
-    config?: AxiosRequestConfig
+    config?: AxiosRequestConfig,
   ): Promise<AxiosResponse<T>> => {
     return apiClient.get<T>(url, config);
   },
@@ -108,7 +108,7 @@ export const api = {
   post: <T>(
     url: string,
     data?: unknown,
-    config?: AxiosRequestConfig
+    config?: AxiosRequestConfig,
   ): Promise<AxiosResponse<T>> => {
     return apiClient.post<T>(url, data, config);
   },
@@ -117,7 +117,7 @@ export const api = {
   put: <T>(
     url: string,
     data?: unknown,
-    config?: AxiosRequestConfig
+    config?: AxiosRequestConfig,
   ): Promise<AxiosResponse<T>> => {
     return apiClient.put<T>(url, data, config);
   },
@@ -125,7 +125,7 @@ export const api = {
   // Generic DELETE request
   delete: <T>(
     url: string,
-    config?: AxiosRequestConfig
+    config?: AxiosRequestConfig,
   ): Promise<AxiosResponse<T>> => {
     return apiClient.delete<T>(url, config);
   },
@@ -165,7 +165,7 @@ const mockApi = {
     search: async (
       query: string,
       page = 1,
-      limit = 10
+      limit = 10,
     ): Promise<PaginatedResponse<Blog>> => {
       await mockApi.delay();
       const filteredBlogs = searchData(mockBlogs, query);
@@ -173,7 +173,7 @@ const mockApi = {
         filteredBlogs,
         page,
         limit,
-        filteredBlogs.length
+        filteredBlogs.length,
       );
     },
 
@@ -187,14 +187,14 @@ const mockApi = {
   projects: {
     getAll: async (
       page = 1,
-      limit = 10
+      limit = 10,
     ): Promise<PaginatedResponse<Project>> => {
       await mockApi.delay();
       return createPaginatedResponse(
         mockProjects,
         page,
         limit,
-        mockProjects.length
+        mockProjects.length,
       );
     },
 
@@ -210,7 +210,7 @@ const mockApi = {
     search: async (
       query: string,
       page = 1,
-      limit = 10
+      limit = 10,
     ): Promise<PaginatedResponse<Project>> => {
       await mockApi.delay();
       const filteredProjects = searchData(mockProjects, query);
@@ -218,7 +218,7 @@ const mockApi = {
         filteredProjects,
         page,
         limit,
-        filteredProjects.length
+        filteredProjects.length,
       );
     },
 
@@ -230,19 +230,19 @@ const mockApi = {
     getByTechnology: async (
       technology: string,
       page = 1,
-      limit = 10
+      limit = 10,
     ): Promise<PaginatedResponse<Project>> => {
       await mockApi.delay();
       const filteredProjects = mockProjects.filter((project) =>
         project.technologies?.some((tech) =>
-          tech.toLowerCase().includes(technology.toLowerCase())
-        )
+          tech.toLowerCase().includes(technology.toLowerCase()),
+        ),
       );
       return createPaginatedResponse(
         filteredProjects,
         page,
         limit,
-        filteredProjects.length
+        filteredProjects.length,
       );
     },
   },
@@ -253,7 +253,7 @@ export const blogApi = {
   // Get all blogs with optional pagination
   getAll: async (page = 1, limit = 10): Promise<PaginatedResponse<Blog>> => {
     const response = await apiClient.get<PaginatedResponse<Blog>>(
-      `${BLOG_ENDPOINT}?limit=${limit}&page=${page}`
+      `${BLOG_ENDPOINT}?limit=${limit}&page=${page}`,
     );
     return response.data;
   },
@@ -261,7 +261,7 @@ export const blogApi = {
   // Get blog by ID
   getById: async (id: number): Promise<ApiResponse<Blog>> => {
     const response = await apiClient.get<ApiResponse<Blog>>(
-      `${BLOG_ENDPOINT}/${id}`
+      `${BLOG_ENDPOINT}/${id}`,
     );
     return response.data;
   },
@@ -269,7 +269,7 @@ export const blogApi = {
   // Get blog by slug
   getBySlug: async (slug: string): Promise<ApiResponse<Blog>> => {
     const response = await apiClient.get<ApiResponse<Blog>>(
-      `${BLOG_ENDPOINT}/${slug}`
+      `${BLOG_ENDPOINT}/${slug}`,
     );
     return response.data;
   },
@@ -278,10 +278,10 @@ export const blogApi = {
   search: async (
     query: string,
     page = 1,
-    limit = 10
+    limit = 10,
   ): Promise<PaginatedResponse<Blog>> => {
     const response = await apiClient.get<PaginatedResponse<Blog>>(
-      `${BLOG_ENDPOINT}/search?q=${encodeURIComponent(query)}&page=${page}&pageSize=${limit}`
+      `${BLOG_ENDPOINT}/search?q=${encodeURIComponent(query)}&page=${page}&pageSize=${limit}`,
     );
     return response.data;
   },
@@ -315,7 +315,7 @@ export const projectApi = {
   // Get all projects with optional pagination
   getAll: async (page = 1, limit = 10): Promise<PaginatedResponse<Project>> => {
     const response = await apiClient.get<PaginatedResponse<Project>>(
-      `${PROJECT_ENDPOINT}?page=${page}&pageSize=${limit}`
+      `${PROJECT_ENDPOINT}?page=${page}&pageSize=${limit}`,
     );
     return response.data;
   },
@@ -330,10 +330,10 @@ export const projectApi = {
   search: async (
     query: string,
     page = 1,
-    limit = 10
+    limit = 10,
   ): Promise<PaginatedResponse<Project>> => {
     const response = await apiClient.get<PaginatedResponse<Project>>(
-      `${PROJECT_ENDPOINT}/search?q=${encodeURIComponent(query)}&page=${page}&pageSize=${limit}`
+      `${PROJECT_ENDPOINT}/search?q=${encodeURIComponent(query)}&page=${page}&pageSize=${limit}`,
     );
     return response.data;
   },
@@ -341,7 +341,7 @@ export const projectApi = {
   // Get featured projects
   getFeatured: async (): Promise<Project[]> => {
     const response = await apiClient.get<Project[]>(
-      `${PROJECT_ENDPOINT}/featured`
+      `${PROJECT_ENDPOINT}/featured`,
     );
     return response.data;
   },
@@ -350,10 +350,10 @@ export const projectApi = {
   getByTechnology: async (
     technology: string,
     page = 1,
-    limit = 10
+    limit = 10,
   ): Promise<PaginatedResponse<Project>> => {
     const response = await apiClient.get<PaginatedResponse<Project>>(
-      `${PROJECT_ENDPOINT}/technology/${encodeURIComponent(technology)}?page=${page}&pageSize=${limit}`
+      `${PROJECT_ENDPOINT}/technology/${encodeURIComponent(technology)}?page=${page}&pageSize=${limit}`,
     );
     return response.data;
   },
@@ -368,7 +368,7 @@ export const projectApi = {
   update: async (id: number, project: Partial<Project>): Promise<Project> => {
     const response = await apiClient.put<Project>(
       `${PROJECT_ENDPOINT}/${id}`,
-      project
+      project,
     );
     return response.data;
   },
@@ -398,7 +398,7 @@ export const authApi = {
   }) => {
     const response = await apiClient.post(
       `${AUTH_ENDPOINT}/register`,
-      userData
+      userData,
     );
     return response.data;
   },

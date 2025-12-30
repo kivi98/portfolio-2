@@ -14,7 +14,7 @@ export interface ApplicationUser {
 
 export interface Media {
   id: number;
-  type?: 'image' | 'video';
+  type?: "image" | "video";
   fileName: string;
   altText: string;
   caption: string;
@@ -54,7 +54,6 @@ export interface Docket {
   name: string;
   documents: Document[];
 }
-
 
 export interface Blog {
   id: number;

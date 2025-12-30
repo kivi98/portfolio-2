@@ -34,7 +34,7 @@ export function preprocessContent(content: string): string {
       }
 
       return markdownImg;
-    }
+    },
   );
 
   // Handle img tags without alt text
@@ -65,7 +65,7 @@ export function preprocessContent(content: string): string {
       markdownImg += ")";
 
       return markdownImg;
-    }
+    },
   );
 
   // Clean up excessive whitespace but preserve intentional line breaks

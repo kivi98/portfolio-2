@@ -16,7 +16,7 @@ const SkillCard = ({
   description,
   date,
   listDescription,
-  zoomInAnimation
+  zoomInAnimation,
 }: SkillCardProps) => {
   return (
     <Box
