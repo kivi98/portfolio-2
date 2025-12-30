@@ -150,10 +150,11 @@ const Volunteering = () => {
       listDescription: (
         <li style={{ color: "text.dark" }}>
           <Typography variant={"caption"} color={"text.dark"} sx={{ p: 0 }}>
-            Serving as an Executive Committee Member for the &quot;Pahasara&quot;
-            Official Media Unit at the University of Colombo School of
-            Computing, I played a vital role in the organization&apos;s mission
-            to capture and disseminate the essence of campus life and events.
+            Serving as an Executive Committee Member for the
+            &quot;Pahasara&quot; Official Media Unit at the University of
+            Colombo School of Computing, I played a vital role in the
+            organization&apos;s mission to capture and disseminate the essence
+            of campus life and events.
           </Typography>
         </li>
       ),
