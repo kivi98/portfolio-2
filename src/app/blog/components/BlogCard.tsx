@@ -1,4 +1,4 @@
-import { Blog } from "@/types";
+import { Blog, Post } from "@/types";
 import {
   Card,
   CardContent,
@@ -26,7 +26,7 @@ import {
 import Image from "next/image";
 import { useState } from "react";
 
-const BlogCard = ({ blog }: { blog: Blog }) => {
+const BlogCard = ({ blog }: { blog: Post | Blog }) => {
   const theme = useTheme();
   const [isHovered, setIsHovered] = useState(false);
   const [isBookmarked, setIsBookmarked] = useState(false);
@@ -114,7 +114,7 @@ const BlogCard = ({ blog }: { blog: Blog }) => {
     >
       <Box sx={{ position: "relative", overflow: "hidden", height: 240 }}>
         <Image
-          src={blog.coverImage}
+          src={(blog.coverImage || blog.image || "/images/blog-placeholder.jpg") as string}
           alt={blog.title}
           fill
           className="blog-image"
@@ -241,7 +241,7 @@ const BlogCard = ({ blog }: { blog: Blog }) => {
             color="text.secondary"
             sx={{ fontWeight: 500 }}
           >
-            {blog.blogOwner.firstName} {blog.blogOwner.lastName}
+            {blog.owner?.firstName || (blog as any).blogOwner?.firstName} {blog.owner?.lastName || (blog as any).blogOwner?.lastName}
           </Typography>
           <Box
             sx={{
@@ -260,7 +260,7 @@ const BlogCard = ({ blog }: { blog: Blog }) => {
               color="text.secondary"
               sx={{ fontWeight: 500 }}
             >
-              {new Date(blog.createdAt).toLocaleDateString()}
+              {new Date(blog.createdAt || blog.date || Date.now()).toLocaleDateString()}
             </Typography>
           </Stack>
         </Stack>
@@ -287,25 +287,29 @@ const BlogCard = ({ blog }: { blog: Blog }) => {
           spacing={1}
           sx={{ mb: 3, flexWrap: "wrap", gap: 1 }}
         >
-          {blog.tags.slice(0, 3).map((tag) => (
+          {(blog.tags || []).slice(0, 3).map((tag, index) => {
+            const tagName = typeof tag === 'string' ? tag : tag.name;
+            const tagKey = typeof tag === 'string' ? tag : tag.id;
+            return (
+              <Chip
+                key={tagKey || index}
+                label={tagName}
+                size="small"
+                color="secondary"
+                sx={{
+                  fontSize: "0.7rem",
+                  height: 24,
+                  fontWeight: 600,
+                  "& .MuiChip-label": {
+                    px: 1,
+                  },
+                }}
+              />
+            );
+          })}
+          {(blog.tags || []).length > 3 && (
             <Chip
-              key={tag}
-              label={tag}
-              size="small"
-              color="secondary"
-              sx={{
-                fontSize: "0.7rem",
-                height: 24,
-                fontWeight: 600,
-                "& .MuiChip-label": {
-                  px: 1,
-                },
-              }}
-            />
-          ))}
-          {blog.tags.length > 3 && (
-            <Chip
-              label={`+${blog.tags.length - 3}`}
+              label={`+${(blog.tags || []).length - 3}`}
               size="small"
               variant="outlined"
               sx={{

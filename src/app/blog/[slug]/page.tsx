@@ -526,8 +526,8 @@ const BlogPostPage = ({ params }: BlogPostPageProps) => {
               </Avatar>
               <Box>
                 <Typography variant="subtitle1" fontWeight={600}>
-                  {blogData?.blogOwner?.firstName}{" "}
-                  {blogData?.blogOwner?.lastName}
+                  {blogData?.owner?.firstName || (blogData as any)?.blogOwner?.firstName}{" "}
+                  {blogData?.owner?.lastName || (blogData as any)?.blogOwner?.lastName}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
                   Author
@@ -581,14 +581,17 @@ const BlogPostPage = ({ params }: BlogPostPageProps) => {
               flexWrap="wrap"
               sx={{ gap: 1, mb: 4 }}
             >
-              {blogData.tags.map((tag) => (
-                <Chip
-                  key={tag}
-                  label={tag}
-                  size="small"
-                  sx={{
-                    backgroundColor: "secondary.main",
-                    color: "white",
+              {(blogData.tags || []).map((tag, index) => {
+                const tagName = typeof tag === 'string' ? tag : tag.name;
+                const tagKey = typeof tag === 'string' ? tag : tag.id;
+                return (
+                  <Chip
+                    key={tagKey || index}
+                    label={tagName}
+                    size="small"
+                    sx={{
+                      backgroundColor: "secondary.main",
+                      color: "white",
                     fontWeight: 500,
                     "&:hover": {
                       backgroundColor: "secondary.dark",
@@ -597,7 +600,8 @@ const BlogPostPage = ({ params }: BlogPostPageProps) => {
                     transition: "all 0.2s ease",
                   }}
                 />
-              ))}
+                );
+              })}
             </Stack>
           )}
         </Box>

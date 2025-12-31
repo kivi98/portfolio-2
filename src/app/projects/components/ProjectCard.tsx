@@ -15,8 +15,18 @@ import {
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { CalendarToday, Person, Launch } from "@mui/icons-material";
 
-const ProjectCard = ({ project }: { project: Project }) => {
+const ProjectCard = ({ project }: { project: Project | any }) => {
   const theme = useTheme();
+
+  // Handle both Project and Post structures
+  const image = project.image || (project as any).coverImage || "/images/project-placeholder.jpg";
+  const description = project.description || (project as any).content?.substring(0, 150) || "";
+  const contributors = project.contributors || 
+    ((project as any).owner ? [`${(project as any).owner.firstName} ${(project as any).owner.lastName}`] : ["Unknown"]);
+  const technologies = project.technologies || 
+    ((project as any).tags ? (project as any).tags.map((tag: any) => typeof tag === 'string' ? tag : tag.name) : []);
+  const date = project.date || (project as any).createdAt;
+  const projectLink = project.link || (project as any).liveUrl || "#";
 
   return (
     <Card
@@ -55,7 +65,7 @@ const ProjectCard = ({ project }: { project: Project }) => {
         <CardMedia
           component="img"
           height="200"
-          image={project.image}
+          image={image}
           alt={project.title}
           sx={{
             objectFit: "cover",
@@ -84,7 +94,7 @@ const ProjectCard = ({ project }: { project: Project }) => {
               variant="caption"
               sx={{ color: "white", fontWeight: 600 }}
             >
-              {project.likes}
+              {project.likes || 0}
             </Typography>
           </Stack>
         </Box>
@@ -126,7 +136,7 @@ const ProjectCard = ({ project }: { project: Project }) => {
             color="text.secondary"
             sx={{ fontWeight: 500 }}
           >
-            {project.contributors.join(", ")}
+            {Array.isArray(contributors) ? contributors.join(", ") : contributors}
           </Typography>
           <Box
             sx={{
@@ -145,8 +155,8 @@ const ProjectCard = ({ project }: { project: Project }) => {
               color="text.secondary"
               sx={{ fontWeight: 500 }}
             >
-              {project.date
-                ? new Date(project.date).toLocaleDateString()
+              {date
+                ? new Date(date).toLocaleDateString()
                 : "Recent"}
             </Typography>
           </Stack>
@@ -165,9 +175,9 @@ const ProjectCard = ({ project }: { project: Project }) => {
             flexGrow: 1,
           }}
         >
-          {project.description.length > 150
-            ? project.description.slice(0, 150) + "..."
-            : project.description}
+          {description?.length > 150
+            ? description.slice(0, 150) + "..."
+            : description}
         </Typography>
 
         <Stack
@@ -175,9 +185,9 @@ const ProjectCard = ({ project }: { project: Project }) => {
           spacing={1}
           sx={{ mb: 3, flexWrap: "wrap", gap: 1 }}
         >
-          {project.technologies?.slice(0, 3).map((tech) => (
+          {technologies?.slice(0, 3).map((tech: string, index: number) => (
             <Chip
-              key={tech}
+              key={tech || index}
               label={tech}
               size="small"
               color="secondary"
@@ -191,9 +201,9 @@ const ProjectCard = ({ project }: { project: Project }) => {
               }}
             />
           ))}
-          {project.technologies && project.technologies.length > 3 && (
+          {technologies && technologies.length > 3 && (
             <Chip
-              label={`+${project.technologies.length - 3}`}
+              label={`+${technologies.length - 3}`}
               size="small"
               variant="outlined"
               sx={{
@@ -210,7 +220,7 @@ const ProjectCard = ({ project }: { project: Project }) => {
           <Button
             variant="contained"
             color="secondary"
-            href={project.link}
+            href={projectLink}
             target="_blank"
             endIcon={<Launch sx={{ fontSize: 16 }} />}
             fullWidth

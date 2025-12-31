@@ -12,9 +12,10 @@ import {
   Pagination,
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
-import { useBlogs, useSearchBlogs } from "@/lib/queries";
+import {useBlogs, usePosts, useSearchBlogs} from "@/lib/queries";
 import CustomCarousel from "../about/components/CustomCarousel";
 import BlogCard from "./components/BlogCard";
+import {ContentCategory, PostStatus} from "@/enum";
 
 const Blog = () => {
   const [search, setSearch] = useState("");
@@ -23,7 +24,7 @@ const Blog = () => {
 
   // Use search query if search term exists, otherwise use regular blogs query
   const searchQuery = useSearchBlogs(search, page, limit);
-  const blogsQuery = useBlogs(page, limit);
+  const blogsQuery = usePosts(page, limit, ContentCategory.Blog, PostStatus.Published);
 
   // Use the appropriate query based on whether we're searching
   const query = search.trim() ? searchQuery : blogsQuery;
@@ -110,7 +111,7 @@ const Blog = () => {
           <CustomCarousel
             images={blogs.map((blog) => ({
               id: blog.id,
-              src: blog.coverImage,
+              src: blog.coverImage || blog.image || "/images/blog-placeholder.jpg",
               alt: blog.title,
             }))}
             height={300}

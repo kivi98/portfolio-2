@@ -1,7 +1,11 @@
-export enum BlogStatus {
-  PUBLISHED = 1,
-  DRAFT = 2,
-}
+// Re-export PostStatus from types for backward compatibility
+export { PostStatus } from "@/types";
+
+// Legacy alias
+export const BlogStatus = {
+  PUBLISHED: 2,
+  DRAFT: 1,
+} as const;
 
 export enum DocumentCategory {
   // Blog-related categories
@@ -21,5 +25,14 @@ export enum DocumentCategory {
 
   // Legacy/General
   Product = 30,
-  Other = 99,
+  
+  // Miscellaneous
+  Temporary = 99,
+  Other = 100,
+}
+
+export enum ContentCategory {
+    Blog = 1,
+    Project = 2,
+    Article = 3
 }

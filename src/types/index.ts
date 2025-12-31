@@ -1,5 +1,3 @@
-import { BlogStatus } from "@/enum";
-
 export type ImageItem = {
   id: number;
   src: string;
@@ -28,7 +26,7 @@ export interface Media {
   status: string;
   category?: number;
   docketId: number;
-  entityId?: number; // Blog ID for blog uploads
+  entityId?: number; // Post ID for post uploads
   userId?: string; // User ID who uploaded
   subFolder?: string; // Custom subfolder within category
 }
@@ -55,40 +53,93 @@ export interface Docket {
   documents: Document[];
 }
 
-export interface Blog {
+// Post-related enums
+export enum PostStatus {
+  Draft = 1,
+  Published = 2,
+  Archived = 3,
+}
+
+export interface PostContentCategory {
+  id: number;
+  name: string;
+}
+
+export interface PostCategory {
+  id: number;
+  name: string;
+  code: string;
+}
+
+export interface PostTag {
+  id: number;
+  name: string;
+}
+
+export interface PostComment {
+  id: number;
+  content: string;
+  authorId: number;
+  author: ApplicationUser;
+  createdAt: string;
+}
+
+// Main Post interface that replaces Blog
+export interface Post {
   id: number;
   title: string;
   content: string;
-  coverImage: string;
-  description: string;
-  blogOwner: ApplicationUser;
-  blogOwnerId: number;
-  imageUrl?: string;
-  status: BlogStatus;
+  coverImage?: string;
+  description?: string;
   slug: string;
-  createdAt: string;
-  updatedAt: string;
-  tags: string[];
+  ownerId?: number;
+  owner?: ApplicationUser;
+  postCategoryId?: number;
+  postCategory?: PostCategory;
+  contentCategory?: PostContentCategory;
+  status?: PostStatus;
+  tags?: (PostTag | string)[]; // Accept both PostTag objects and strings for flexibility
+  contributors?: ApplicationUser[];
   media?: Media[];
+  comments?: PostComment[];
   likes: number;
-  docketId: number;
+  docketId?: number;
   docket?: Docket;
+  createdAt?: string;
+  updatedAt?: string;
   excerpt?: string;
+  // Legacy properties for backward compatibility
+  author?: string;
+  date?: string;
+  image?: string;
+  blogOwner?: ApplicationUser;
+  blogOwnerId?: number;
 }
+
+// Backward compatibility alias - Blog is now a Post
+export type Blog = Post;
 
 export interface Project {
   id: number;
   title: string;
-  description: string;
-  image: string;
-  link: string;
-  contributors: string[];
-  likes: number;
+  description?: string;
+  image?: string;
+  link?: string;
+  contributors?: string[];
+  likes?: number;
   date?: string;
   technologies?: string[];
   githubUrl?: string;
   liveUrl?: string;
   featured?: boolean;
+  // Post-compatible properties
+  coverImage?: string;
+  content?: string;
+  owner?: ApplicationUser;
+  tags?: (PostTag | string)[];
+  createdAt?: string;
+  slug?: string;
+  status?: PostStatus;
 }
 
 export interface ApiResponse<T> {

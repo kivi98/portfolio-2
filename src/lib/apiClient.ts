@@ -1,5 +1,5 @@
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from "axios";
-import { Blog, Project, PaginatedResponse, ApiResponse } from "@/types";
+import { Blog, Post, Project, PaginatedResponse, ApiResponse, PostContentCategory, PostStatus } from "@/types";
 import {
   mockBlogs,
   mockProjects,
@@ -14,7 +14,10 @@ const API_TIMEOUT = parseInt(process.env.NEXT_PUBLIC_API_TIMEOUT || "10000");
 const TOKEN_KEY = process.env.NEXT_PUBLIC_TOKEN_KEY || "authToken";
 
 // API Endpoints
-const BLOG_ENDPOINT = `${API_BASE_URL}/blogs`;
+const POST_ENDPOINT = `${API_BASE_URL}/posts`;
+const POST_CATEGORY_ENDPOINT = `${POST_ENDPOINT}/category`;
+const POST_CONTENT_CATEGORY_ENDPOINT = `${POST_ENDPOINT}/content-category`;
+const BLOG_ENDPOINT = POST_ENDPOINT; // Backward compatibility
 const PROJECT_ENDPOINT = `${API_BASE_URL}/projects`;
 const AUTH_ENDPOINT = `${API_BASE_URL}/auth`;
 
@@ -248,82 +251,204 @@ const mockApi = {
   },
 };
 
-// Blog API methods - .NET Backend
+// Post API methods - .NET Backend (replaces blogApi)
+export const postApi = {
+  // Get all posts with optional pagination and filtering
+  getAll: async (
+    page = 1,
+    limit = 10,
+    contentCategoryId?: number,
+    status?: PostStatus,
+  ): Promise<PaginatedResponse<Post>> => {
+    let url = `${POST_ENDPOINT}?limit=${limit}&page=${page}`;
+    if (contentCategoryId !== undefined) {
+      url += `&contentCategoryId=${contentCategoryId}`;
+    }
+    if (status !== undefined) {
+      url += `&status=${status}`;
+    }
+    
+    // Backend returns Result<IEnumerable<PostDto>> structure
+    const response = await apiClient.get<ApiResponse<Post[]>>(url);
+    
+    // Transform to PaginatedResponse format
+    const posts = response.data.data || [];
+    return {
+      data: posts,
+      pagination: {
+        page,
+        limit,
+        total: posts.length, // Backend doesn't return total, use array length
+        totalPages: Math.ceil(posts.length / limit) || 1,
+      },
+    };
+  },
+
+  // Get posts by content category (Blog, Project, Article, etc.)
+  getByContentCategory: async (
+    categoryName: string,
+    page = 1,
+    limit = 10,
+    status?: PostStatus,
+  ): Promise<PaginatedResponse<Post>> => {
+    try {
+      // Try to get the content category ID by name
+      const categoryResponse = await apiClient.get<ApiResponse<PostContentCategory>>(
+        `${POST_CONTENT_CATEGORY_ENDPOINT}/${categoryName}`,
+      );
+      const categoryId = categoryResponse.data.data.id;
+      return postApi.getAll(page, limit, categoryId, status);
+    } catch (error) {
+      // If content category endpoint doesn't exist or fails, just filter by status
+      console.warn(`Could not fetch content category '${categoryName}', fetching all posts with status filter`);
+      return postApi.getAll(page, limit, undefined, status);
+    }
+  },
+
+  // Get post by ID
+  getById: async (id: number): Promise<ApiResponse<Post>> => {
+    const response = await apiClient.get<ApiResponse<Post>>(
+      `${POST_ENDPOINT}/${id}`,
+    );
+    return response.data;
+  },
+
+  // Get post by slug
+  getBySlug: async (slug: string): Promise<ApiResponse<Post>> => {
+    const response = await apiClient.get<ApiResponse<Post>>(
+      `${POST_ENDPOINT}/${slug}`,
+    );
+    return response.data;
+  },
+
+  // Search posts
+  search: async (
+    query: string,
+    page = 1,
+    limit = 10,
+    contentCategoryId?: number,
+  ): Promise<PaginatedResponse<Post>> => {
+    let url = `${POST_ENDPOINT}/search?q=${encodeURIComponent(query)}&page=${page}&pageSize=${limit}`;
+    if (contentCategoryId !== undefined) {
+      url += `&contentCategoryId=${contentCategoryId}`;
+    }
+    
+    // Backend returns Result<IEnumerable<PostDto>> structure
+    const response = await apiClient.get<ApiResponse<Post[]>>(url);
+    const posts = response.data.data || [];
+    
+    return {
+      data: posts,
+      pagination: {
+        page,
+        limit,
+        total: posts.length,
+        totalPages: Math.ceil(posts.length / limit) || 1,
+      },
+    };
+  },
+
+  // Get featured posts
+  getFeatured: async (contentCategoryId?: number): Promise<Post[]> => {
+    let url = `${POST_ENDPOINT}/featured`;
+    if (contentCategoryId !== undefined) {
+      url += `?contentCategoryId=${contentCategoryId}`;
+    }
+    const response = await apiClient.get<Post[]>(url);
+    return response.data;
+  },
+
+  // Create new post (if authenticated)
+  create: async (post: Omit<Post, "id">): Promise<Post> => {
+    const response = await apiClient.post<Post>(POST_ENDPOINT, post);
+    return response.data;
+  },
+
+  // Update post (if authenticated)
+  update: async (id: number, post: Partial<Post>): Promise<Post> => {
+    const response = await apiClient.put<Post>(`${POST_ENDPOINT}/${id}`, post);
+    return response.data;
+  },
+
+  // Delete post (if authenticated)
+  delete: async (id: number): Promise<void> => {
+    await apiClient.delete(`${POST_ENDPOINT}/${id}`);
+  },
+};
+
+// Post Content Category API methods
+export const postContentCategoryApi = {
+  // Get all content categories
+  getAll: async (): Promise<PostContentCategory[]> => {
+    const response = await apiClient.get<ApiResponse<PostContentCategory[]>>(
+      POST_CONTENT_CATEGORY_ENDPOINT,
+    );
+    return response.data.data;
+  },
+
+  // Get content category by name
+  getByName: async (name: string): Promise<PostContentCategory> => {
+    const response = await apiClient.get<ApiResponse<PostContentCategory>>(
+      `${POST_CONTENT_CATEGORY_ENDPOINT}/${name}`,
+    );
+    return response.data.data;
+  },
+};
+
+// Backward compatibility - blogApi is now an alias for postApi with Blog content category filtering
 export const blogApi = {
-  // Get all blogs with optional pagination
   getAll: async (page = 1, limit = 10): Promise<PaginatedResponse<Blog>> => {
-    const response = await apiClient.get<PaginatedResponse<Blog>>(
-      `${BLOG_ENDPOINT}?limit=${limit}&page=${page}`,
-    );
-    return response.data;
+    // For now, just get published posts without content category filter
+    // Once PostContentCategory is properly seeded in DB, we can add contentCategoryId filter
+    return postApi.getAll(page, limit, undefined, PostStatus.Published) as Promise<PaginatedResponse<Blog>>;
   },
 
-  // Get blog by ID
   getById: async (id: number): Promise<ApiResponse<Blog>> => {
-    const response = await apiClient.get<ApiResponse<Blog>>(
-      `${BLOG_ENDPOINT}/${id}`,
-    );
-    return response.data;
+    return postApi.getById(id) as Promise<ApiResponse<Blog>>;
   },
 
-  // Get blog by slug
   getBySlug: async (slug: string): Promise<ApiResponse<Blog>> => {
-    const response = await apiClient.get<ApiResponse<Blog>>(
-      `${BLOG_ENDPOINT}/${slug}`,
-    );
-    return response.data;
+    return postApi.getBySlug(slug) as Promise<ApiResponse<Blog>>;
   },
 
-  // Search blogs
   search: async (
     query: string,
     page = 1,
     limit = 10,
   ): Promise<PaginatedResponse<Blog>> => {
-    const response = await apiClient.get<PaginatedResponse<Blog>>(
-      `${BLOG_ENDPOINT}/search?q=${encodeURIComponent(query)}&page=${page}&pageSize=${limit}`,
-    );
-    return response.data;
+    return postApi.search(query, page, limit) as Promise<PaginatedResponse<Blog>>;
   },
 
-  // Get featured blogs
   getFeatured: async (): Promise<Blog[]> => {
-    const response = await apiClient.get<Blog[]>(`${BLOG_ENDPOINT}/featured`);
-    return response.data;
+    return postApi.getFeatured() as Promise<Blog[]>;
   },
 
-  // Create new blog (if authenticated)
   create: async (blog: Omit<Blog, "id">): Promise<Blog> => {
-    const response = await apiClient.post<Blog>(BLOG_ENDPOINT, blog);
-    return response.data;
+    return postApi.create(blog as Omit<Post, "id">) as Promise<Blog>;
   },
 
-  // Update blog (if authenticated)
   update: async (id: number, blog: Partial<Blog>): Promise<Blog> => {
-    const response = await apiClient.put<Blog>(`${BLOG_ENDPOINT}/${id}`, blog);
-    return response.data;
+    return postApi.update(id, blog as Partial<Post>) as Promise<Blog>;
   },
 
-  // Delete blog (if authenticated)
   delete: async (id: number): Promise<void> => {
-    await apiClient.delete(`${BLOG_ENDPOINT}/${id}`);
+    return postApi.delete(id);
   },
 };
 
-// Project API methods - .NET Backend
+// Project API methods - Uses Post API with Project content category
 export const projectApi = {
   // Get all projects with optional pagination
   getAll: async (page = 1, limit = 10): Promise<PaginatedResponse<Project>> => {
-    const response = await apiClient.get<PaginatedResponse<Project>>(
-      `${PROJECT_ENDPOINT}?page=${page}&pageSize=${limit}`,
-    );
-    return response.data;
+    // Get published posts without content category filter for now
+    // Once PostContentCategory is properly seeded, filter by Project category
+    return postApi.getAll(page, limit, undefined, PostStatus.Published) as any;
   },
 
   // Get project by ID
   getById: async (id: number): Promise<Project> => {
-    const response = await apiClient.get<Project>(`${PROJECT_ENDPOINT}/${id}`);
-    return response.data;
+    const response = await postApi.getById(id);
+    return response.data as any;
   },
 
   // Search projects
@@ -332,50 +457,37 @@ export const projectApi = {
     page = 1,
     limit = 10,
   ): Promise<PaginatedResponse<Project>> => {
-    const response = await apiClient.get<PaginatedResponse<Project>>(
-      `${PROJECT_ENDPOINT}/search?q=${encodeURIComponent(query)}&page=${page}&pageSize=${limit}`,
-    );
-    return response.data;
+    return postApi.search(query, page, limit) as any;
   },
 
   // Get featured projects
   getFeatured: async (): Promise<Project[]> => {
-    const response = await apiClient.get<Project[]>(
-      `${PROJECT_ENDPOINT}/featured`,
-    );
-    return response.data;
+    return postApi.getFeatured() as any;
   },
 
-  // Get projects by technology
+  // Get projects by technology (will search tags/categories)
   getByTechnology: async (
     technology: string,
     page = 1,
     limit = 10,
   ): Promise<PaginatedResponse<Project>> => {
-    const response = await apiClient.get<PaginatedResponse<Project>>(
-      `${PROJECT_ENDPOINT}/technology/${encodeURIComponent(technology)}?page=${page}&pageSize=${limit}`,
-    );
-    return response.data;
+    // Use search to find projects with specific technology
+    return postApi.search(technology, page, limit) as any;
   },
 
   // Create new project (if authenticated)
   create: async (project: Omit<Project, "id">): Promise<Project> => {
-    const response = await apiClient.post<Project>(PROJECT_ENDPOINT, project);
-    return response.data;
+    return postApi.create(project as any) as any;
   },
 
   // Update project (if authenticated)
   update: async (id: number, project: Partial<Project>): Promise<Project> => {
-    const response = await apiClient.put<Project>(
-      `${PROJECT_ENDPOINT}/${id}`,
-      project,
-    );
-    return response.data;
+    return postApi.update(id, project as any) as any;
   },
 
   // Delete project (if authenticated)
   delete: async (id: number): Promise<void> => {
-    await apiClient.delete(`${PROJECT_ENDPOINT}/${id}`);
+    return postApi.delete(id);
   },
 };
 
