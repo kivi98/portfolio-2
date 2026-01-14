@@ -373,15 +373,15 @@ const BlogPostPage = ({ params }: BlogPostPageProps) => {
                     "&::before":
                       activeHeading === item.id
                         ? {
-                            content: '""',
-                            position: "absolute",
-                            left: 0,
-                            top: 0,
-                            bottom: 0,
-                            width: "3px",
-                            backgroundColor: "white",
-                            borderRadius: "0 2px 2px 0",
-                          }
+                          content: '""',
+                          position: "absolute",
+                          left: 0,
+                          top: 0,
+                          bottom: 0,
+                          width: "3px",
+                          backgroundColor: "white",
+                          borderRadius: "0 2px 2px 0",
+                        }
                         : {},
                     transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
                   }}
@@ -594,14 +594,14 @@ const BlogPostPage = ({ params }: BlogPostPageProps) => {
                     sx={{
                       backgroundColor: "secondary.main",
                       color: "white",
-                    fontWeight: 500,
-                    "&:hover": {
-                      backgroundColor: "secondary.dark",
-                      transform: "translateY(-1px)",
-                    },
-                    transition: "all 0.2s ease",
-                  }}
-                />
+                      fontWeight: 500,
+                      "&:hover": {
+                        backgroundColor: "secondary.dark",
+                        transform: "translateY(-1px)",
+                      },
+                      transition: "all 0.2s ease",
+                    }}
+                  />
                 );
               })}
             </Stack>
@@ -910,15 +910,15 @@ const BlogPostPage = ({ params }: BlogPostPageProps) => {
                       "&::before":
                         activeHeading === item.id
                           ? {
-                              content: '""',
-                              position: "absolute",
-                              left: 0,
-                              top: 0,
-                              bottom: 0,
-                              width: "3px",
-                              backgroundColor: "white",
-                              borderRadius: "0 2px 2px 0",
-                            }
+                            content: '""',
+                            position: "absolute",
+                            left: 0,
+                            top: 0,
+                            bottom: 0,
+                            width: "3px",
+                            backgroundColor: "white",
+                            borderRadius: "0 2px 2px 0",
+                          }
                           : {},
                       transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
                     }}

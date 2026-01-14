@@ -13,6 +13,7 @@ import Certifications from "./components/Certifications";
 import Volunteering from "./components/Volunteering";
 import Experience from "./components/Experience";
 import CredlyBadges from "./components/CredlyBadges";
+import ContactCTA from "./components/ContactCTA";
 
 const About = () => {
   const [activeSection, setActiveSection] = useState(1);
@@ -73,7 +74,7 @@ const About = () => {
   );
 
   const handleScroll = useCallback(() => {
-    const offset = 150;
+    const offset = 220;
     sectionRefs.forEach(({ id, ref }) => {
       const sectionTop = ref.current?.getBoundingClientRect().top;
       const sectionHeight = ref.current?.offsetHeight;
@@ -115,7 +116,7 @@ const About = () => {
       </Box> */}
 
       {/* Floating Navigation (Mobile & Desktop) */}
-      <Box sx={{ width: "100%", position: "fixed", top: { xs: "90px", sm: "64px", md: "110px" }, zIndex: 999 }}>
+      <Box sx={{ width: "100%", position: "fixed", top: { xs: "90px", sm: "64px", md: "110px" }, zIndex: 1201 }}>
         <MobileNavigation
           activeSection={activeSection}
           sectionRefs={sectionRefs}
@@ -155,6 +156,11 @@ const About = () => {
               </Box>
             );
           })}
+        </Box>
+
+        {/* Contact CTA Section - Footer Style */}
+        <Box sx={{ width: "100%", maxWidth: "1100px" }}>
+          <ContactCTA />
         </Box>
       </Container>
     </>

@@ -72,7 +72,7 @@ const MobileNavigation: React.FC<MobileNavigationProps> = ({
                     <Chip
                         key={id}
                         label={text}
-                        onClick={() => scrollToSection(ref, 180)}
+                        onClick={() => scrollToSection(ref, 200)}
                         variant={isActive ? "filled" : "outlined"}
                         color={isActive ? "secondary" : "default"}
                         icon={
@@ -89,6 +89,9 @@ const MobileNavigation: React.FC<MobileNavigationProps> = ({
                         sx={{
                             fontWeight: isActive ? 600 : 400,
                             transition: "all 0.3s ease",
+                            "& .MuiChip-icon": {
+                                fontSize: "1.1rem", // Reduced icon size
+                            },
                             "&:hover": {
                                 backgroundColor: isActive ? "secondary.main" : "transparentLevels.3",
                             }

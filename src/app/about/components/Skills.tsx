@@ -38,12 +38,19 @@ const Skills = () => {
                   sx={{
                     p: 3,
                     borderRadius: "1.5rem",
-                    background: `linear-gradient(135deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.3) 100%)`,
-                    border: `1px solid rgba(0,0,0,0.3)`,
+                    background: theme.palette.mode === "dark"
+                      ? `linear-gradient(135deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.3) 100%)`
+                      : theme.palette.background.paper, // White in light mode
+                    border: `1px solid ${theme.palette.mode === "dark" ? "rgba(255,255,255,0.1)" : "rgba(0,0,0,0.08)"}`,
+                    boxShadow: theme.palette.mode === "dark"
+                      ? "none"
+                      : "0 2px 8px rgba(0,0,0,0.08)",
                     transition: "all 0.3s ease-in-out",
                     "&:hover": {
                       transform: "translateY(-2px)",
-                      boxShadow: `0 8px 25px ${theme.palette.mode === "dark" ? "rgba(0,0,0,0.3)" : "rgba(0,0,0,0.1)"}`,
+                      boxShadow: theme.palette.mode === "dark"
+                        ? "0 8px 25px rgba(227,0,0,0.2)"
+                        : "0 8px 25px rgba(0,0,0,0.12)",
                       borderColor: theme.palette.secondary.main,
                     },
                   }}
@@ -92,12 +99,19 @@ const Skills = () => {
                   sx={{
                     p: 3,
                     borderRadius: "1.5rem",
-                    background: `linear-gradient(135deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.3) 100%)`,
-                    border: `1px solid rgba(0,0,0,0.3)`,
+                    background: theme.palette.mode === "dark"
+                      ? `linear-gradient(135deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.3) 100%)`
+                      : theme.palette.background.paper, // White in light mode
+                    border: `1px solid ${theme.palette.mode === "dark" ? "rgba(255,255,255,0.1)" : "rgba(0,0,0,0.08)"}`,
+                    boxShadow: theme.palette.mode === "dark"
+                      ? "none"
+                      : "0 2px 8px rgba(0,0,0,0.08)",
                     transition: "all 0.3s ease-in-out",
                     "&:hover": {
                       transform: "translateY(-2px)",
-                      boxShadow: `0 8px 25px ${theme.palette.mode === "dark" ? "rgba(0,0,0,0.3)" : "rgba(0,0,0,0.1)"}`,
+                      boxShadow: theme.palette.mode === "dark"
+                        ? "0 8px 25px rgba(227,0,0,0.2)"
+                        : "0 8px 25px rgba(0,0,0,0.12)",
                       borderColor: theme.palette.secondary.main,
                     },
                   }}
