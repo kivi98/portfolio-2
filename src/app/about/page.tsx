@@ -4,6 +4,7 @@ import React, { useRef, useState, useEffect, useMemo, useCallback } from "react"
 import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
 import Navigation from "./components/Navigation";
+import MobileNavigation from "./components/MobileNavigation";
 import WhoAmI from "./components/WhoAmI";
 import Education from "./components/Education";
 import Skills from "./components/Skills";
@@ -93,13 +94,14 @@ const About = () => {
 
   return (
     <>
-      {/* Navigation positioned absolutely/fixed outside the main container */}
-      <Box
+
+      {/* Navigation positioned absolutely/fixed outside the main container - DESKTOP */}
+      {/* <Box
         sx={{
           display: { xs: "none", md: "block" },
-          position: "fixed", // Changed to fixed
+          position: "fixed",
           top: "9.4rem",
-          left: "calc(50% - 32.5% - 280px)", // Position it to the left of the container
+          left: "calc(50% - 32.5% - 280px)",
           zIndex: 1000,
           width: 200,
           height: "fit-content",
@@ -110,20 +112,31 @@ const About = () => {
           sectionRefs={sectionRefs}
           scrollToSection={scrollToSection}
         />
+      </Box> */}
+
+      {/* Floating Navigation (Mobile & Desktop) */}
+      <Box sx={{ width: "100%", position: "fixed", top: { xs: "90px", sm: "64px", md: "110px" }, zIndex: 999 }}>
+        <MobileNavigation
+          activeSection={activeSection}
+          sectionRefs={sectionRefs}
+          scrollToSection={scrollToSection}
+        />
       </Box>
 
       {/* Main content container */}
       <Container
+        // maxWidth="lg"
         sx={{
           display: "flex",
           flexDirection: "column",
           justifyContent: "flex-start",
           alignItems: "center",
-          width: { xs: "100%", md: "65%" },
-          pt: { xs: "90px", md: "110px" }, // Add top padding for fixed header
+          width: "100%",
+          pt: { xs: "10rem", md: "12rem" }, // Padding after sticky nav
+          px: { xs: 2, md: 3 },
         }}
       >
-        <Box sx={{ width: "100%" }}>
+        <Box sx={{ width: "100%", maxWidth: "1100px" }}>
           {sectionRefs.map(({ id, text, ref }) => {
             const ComponentMap: { [key: string]: React.ComponentType } = {
               "Who Am I": WhoAmI,
@@ -137,7 +150,7 @@ const About = () => {
             };
             const Component = ComponentMap[text];
             return (
-              <Box key={id} ref={ref}>
+              <Box key={id} ref={ref} sx={{ width: "100%", mb: { xs: 4, md: 6 } }}>
                 {Component && <Component />}
               </Box>
             );
