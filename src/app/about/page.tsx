@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState, useEffect, useMemo, useCallback } from "react";
 import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
 import Navigation from "./components/Navigation";
@@ -26,50 +26,63 @@ const About = () => {
   const volunteeringRef = useRef<HTMLDivElement>(null);
   const experienceRef = useRef<HTMLDivElement>(null);
 
-  const sectionRefs = [
-    { id: 1, text: "Who Am I", ref: whoAmIRef, icon: "PersonIcon" },
-    { id: 2, text: "Education", ref: educationRef, icon: "SchoolIcon" },
-    {
-      id: 3,
-      text: "Certifications",
-      ref: certificationsRef,
-      icon: "WorkspacePremiumIcon",
-    },
-    { id: 4, text: "Credly", ref: credlyBadgesRef, icon: "CardMembershipIcon" },
-    { id: 5, text: "Skills", ref: skillsRef, icon: "CodeIcon" },
-    { id: 6, text: "Skill Badges", ref: skillBadgesRef, icon: "AppsIcon" },
-    {
-      id: 7,
-      text: "Volunteering",
-      ref: volunteeringRef,
-      icon: "VolunteerActivismIcon",
-    },
-    { id: 8, text: "Experience", ref: experienceRef, icon: "WorkHistoryIcon" },
-  ];
+  const sectionRefs = useMemo(
+    () => [
+      { id: 1, text: "Who Am I", ref: whoAmIRef, icon: "PersonIcon" },
+      { id: 2, text: "Education", ref: educationRef, icon: "SchoolIcon" },
+      {
+        id: 3,
+        text: "Certifications",
+        ref: certificationsRef,
+        icon: "WorkspacePremiumIcon",
+      },
+      {
+        id: 4,
+        text: "Credly",
+        ref: credlyBadgesRef,
+        icon: "CardMembershipIcon",
+      },
+      { id: 5, text: "Skills", ref: skillsRef, icon: "CodeIcon" },
+      { id: 6, text: "Skill Badges", ref: skillBadgesRef, icon: "AppsIcon" },
+      {
+        id: 7,
+        text: "Volunteering",
+        ref: volunteeringRef,
+        icon: "VolunteerActivismIcon",
+      },
+      {
+        id: 8,
+        text: "Experience",
+        ref: experienceRef,
+        icon: "WorkHistoryIcon",
+      },
+    ],
+    [],
+  );
 
-  const scrollToSection = (
-    ref: React.RefObject<HTMLDivElement | null>,
-    offset = 0,
-  ) => {
-    if (ref.current) {
-      const top =
-        ref.current.getBoundingClientRect().top + window.scrollY - offset;
-      window.scrollTo({ top, behavior: "smooth" });
-    }
-  };
+  const scrollToSection = useCallback(
+    (ref: React.RefObject<HTMLDivElement | null>, offset = 0) => {
+      if (ref.current) {
+        const top =
+          ref.current.getBoundingClientRect().top + window.scrollY - offset;
+        window.scrollTo({ top, behavior: "smooth" });
+      }
+    },
+    [],
+  );
 
-  const handleScroll = () => {
+  const handleScroll = useCallback(() => {
     const offset = 150;
     sectionRefs.forEach(({ id, ref }) => {
       const sectionTop = ref.current?.getBoundingClientRect().top;
       const sectionHeight = ref.current?.offsetHeight;
-      if (sectionTop && sectionHeight) {
+      if (sectionTop !== undefined && sectionHeight !== undefined) {
         if (sectionTop <= offset && sectionTop + sectionHeight > offset) {
           setActiveSection(id);
         }
       }
     });
-  };
+  }, [sectionRefs]);
 
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
