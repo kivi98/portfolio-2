@@ -21,29 +21,37 @@ import {
   Launch,
   Bookmark,
   BookmarkBorder,
+  ArrowForward,
 } from "@mui/icons-material";
 import Image from "next/image";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 const ProjectCard = ({ project }: { project: Project | any }) => {
   const theme = useTheme();
+  const router = useRouter();
   const [isHovered, setIsHovered] = useState(false);
   const [isBookmarked, setIsBookmarked] = useState(false);
 
   // Handle both Project and Post structures
   const image = project.image || (project as any).coverImage || "/images/project-placeholder.svg";
   const description = project.description || (project as any).content?.substring(0, 150) || "";
-  const contributors = project.contributors || 
+  const contributors = project.contributors ||
     ((project as any).owner ? [`${(project as any).owner.firstName} ${(project as any).owner.lastName}`] : ["Unknown"]);
-  const technologies = project.technologies || 
+  const technologies = project.technologies ||
     ((project as any).tags ? (project as any).tags.map((tag: any) => typeof tag === 'string' ? tag : tag.name) : []);
   const date = project.date || (project as any).createdAt;
-  const projectLink = project.link || (project as any).liveUrl || "#";
+  const liveUrl = project.link || (project as any).liveUrl || (project as any).githubUrl;
+  const slug = project.slug || `project-${project.id}`;
 
   // Extract clean description
   const getDescription = (desc: string, maxLength: number = 150) => {
     if (!desc) return "";
     return desc.length > maxLength ? desc.slice(0, maxLength) + "..." : desc;
+  };
+
+  const handleCardClick = () => {
+    router.push(`/projects/${slug}`);
   };
 
   const handleBookmarkClick = (e: React.MouseEvent) => {
@@ -52,8 +60,14 @@ const ProjectCard = ({ project }: { project: Project | any }) => {
     setIsBookmarked(!isBookmarked);
   };
 
+  const handleLiveDemoClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+  };
+
   return (
     <Card
+      onClick={handleCardClick}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       sx={{
@@ -320,47 +334,74 @@ const ProjectCard = ({ project }: { project: Project | any }) => {
         </Stack>
 
         <Box sx={{ mt: "auto" }}>
-          <Button
-            variant="contained"
-            color="secondary"
-            href={projectLink}
-            target="_blank"
-            endIcon={<Launch sx={{ fontSize: 16 }} />}
-            fullWidth
-            sx={{
-              borderRadius: 3,
-              fontWeight: 700,
-              py: 1.5,
-              textTransform: "none",
-              fontSize: "0.9rem",
-              background: `linear-gradient(45deg, ${theme.palette.secondary.main}, ${theme.palette.secondary.dark})`,
-              boxShadow: `0 4px 12px ${theme.palette.secondary.main}40`,
-              border: "none",
-              position: "relative",
-              overflow: "hidden",
-              "&:hover": {
-                background: `linear-gradient(45deg, ${theme.palette.secondary.dark}, ${theme.palette.secondary.main})`,
-                boxShadow: `0 6px 20px ${theme.palette.secondary.main}50`,
-                transform: "translateY(-2px)",
-              },
-              "&::before": {
-                content: '""',
-                position: "absolute",
-                top: 0,
-                left: "-100%",
-                width: "100%",
-                height: "100%",
-                background:
-                  "linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent)",
-                transition: "left 0.5s ease",
-              },
-              "&:hover::before": {
-                left: "100%",
-              },
-            }}
-          >
-            View Project
-          </Button>
+          <Stack spacing={1.5}>
+            <Button
+              variant="contained"
+              color="secondary"
+              onClick={handleCardClick}
+              endIcon={<ArrowForward sx={{ fontSize: 18 }} />}
+              fullWidth
+              sx={{
+                borderRadius: 3,
+                fontWeight: 700,
+                py: 1.5,
+                textTransform: "none",
+                fontSize: "0.9rem",
+                background: `linear-gradient(45deg, ${theme.palette.secondary.main}, ${theme.palette.secondary.dark})`,
+                boxShadow: `0 4px 12px ${theme.palette.secondary.main}40`,
+                border: "none",
+                position: "relative",
+                overflow: "hidden",
+                "&:hover": {
+                  background: `linear-gradient(45deg, ${theme.palette.secondary.dark}, ${theme.palette.secondary.main})`,
+                  boxShadow: `0 6px 20px ${theme.palette.secondary.main}50`,
+                  transform: "translateY(-2px)",
+                },
+                "&::before": {
+                  content: '""',
+                  position: "absolute",
+                  top: 0,
+                  left: "-100%",
+                  width: "100%",
+                  height: "100%",
+                  background:
+                    "linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent)",
+                  transition: "left 0.5s ease",
+                },
+                "&:hover::before": {
+                  left: "100%",
+                },
+              }}
+            >
+              View Details
+            </Button>
+            {liveUrl && (
+              <Button
+                variant="outlined"
+                color="secondary"
+                href={liveUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={handleLiveDemoClick}
+                endIcon={<Launch sx={{ fontSize: 16 }} />}
+                fullWidth
+                sx={{
+                  borderRadius: 3,
+                  fontWeight: 600,
+                  py: 1,
+                  textTransform: "none",
+                  fontSize: "0.85rem",
+                  borderWidth: 2,
+                  "&:hover": {
+                    borderWidth: 2,
+                    transform: "translateY(-1px)",
+                  },
+                }}
+              >
+                Live Demo
+              </Button>
+            )}
+          </Stack>
         </Box>
       </CardContent>
     </Card>

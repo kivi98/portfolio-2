@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Roboto_Mono } from "next/font/google";
+import { Outfit, Plus_Jakarta_Sans, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import "../styles/syntax-highlighting.css";
 import "../styles/mdx-typography.css";
@@ -8,14 +8,25 @@ import Header from "@/components/Header";
 import ParticleBackground from "@/components/ParticleBackground";
 import Providers from "@/components/Providers";
 
-const inter = Inter({
-  variable: "--font-inter",
+// Canva-style display font for headings
+const outfit = Outfit({
+  variable: "--font-outfit",
   subsets: ["latin"],
+  display: "swap",
 });
 
-const robotoMono = Roboto_Mono({
-  variable: "--font-roboto-mono",
+// Modern sans-serif for body text
+const plusJakartaSans = Plus_Jakarta_Sans({
+  variable: "--font-plus-jakarta",
   subsets: ["latin"],
+  display: "swap",
+});
+
+// Clean monospace for code
+const jetbrainsMono = JetBrains_Mono({
+  variable: "--font-jetbrains-mono",
+  subsets: ["latin"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -71,7 +82,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.variable} ${robotoMono.variable}`}>
+      <body className={`${outfit.variable} ${plusJakartaSans.variable} ${jetbrainsMono.variable}`}>
         <Providers>
           <ThemeProvider>
             <ParticleBackground />

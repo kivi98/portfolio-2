@@ -267,10 +267,10 @@ export const postApi = {
     if (status !== undefined) {
       url += `&status=${status}`;
     }
-    
+
     // Backend returns Result<IEnumerable<PostDto>> structure
     const response = await apiClient.get<ApiResponse<Post[]>>(url);
-    
+
     // Transform to PaginatedResponse format
     const posts = response.data.data || [];
     return {
@@ -332,11 +332,11 @@ export const postApi = {
     if (contentCategoryId !== undefined) {
       url += `&contentCategoryId=${contentCategoryId}`;
     }
-    
+
     // Backend returns Result<IEnumerable<PostDto>> structure
     const response = await apiClient.get<ApiResponse<Post[]>>(url);
     const posts = response.data.data || [];
-    
+
     return {
       data: posts,
       pagination: {
@@ -449,6 +449,11 @@ export const projectApi = {
   getById: async (id: number): Promise<Project> => {
     const response = await postApi.getById(id);
     return response.data as any;
+  },
+
+  // Get project by slug
+  getBySlug: async (slug: string): Promise<ApiResponse<Project>> => {
+    return postApi.getBySlug(slug) as Promise<ApiResponse<Project>>;
   },
 
   // Search projects

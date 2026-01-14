@@ -8,9 +8,9 @@ export const queryKeys = {
   posts: {
     all: ["posts"] as const,
     lists: () => [...queryKeys.posts.all, "list"] as const,
-    list: (filters: { 
-      page?: number; 
-      limit?: number; 
+    list: (filters: {
+      page?: number;
+      limit?: number;
       search?: string;
       contentCategoryId?: number;
       status?: PostStatus;
@@ -18,7 +18,7 @@ export const queryKeys = {
     details: () => [...queryKeys.posts.all, "detail"] as const,
     detail: (id: number) => [...queryKeys.posts.details(), id] as const,
     bySlug: (slug: string) => [...queryKeys.posts.details(), "slug", slug] as const,
-    featured: (contentCategoryId?: number) => 
+    featured: (contentCategoryId?: number) =>
       [...queryKeys.posts.all, "featured", contentCategoryId] as const,
   },
   blogs: {
@@ -43,14 +43,15 @@ export const queryKeys = {
     }) => [...queryKeys.projects.lists(), filters] as const,
     details: () => [...queryKeys.projects.all, "detail"] as const,
     detail: (id: number) => [...queryKeys.projects.details(), id] as const,
+    bySlug: (slug: string) => [...queryKeys.projects.details(), "slug", slug] as const,
     featured: () => [...queryKeys.projects.all, "featured"] as const,
   },
 };
 
 // Post hooks (new, generic for all content types)
 export const usePosts = (
-  page = 1, 
-  limit = 10, 
+  page = 1,
+  limit = 10,
   contentCategoryId?: number,
   status?: PostStatus
 ) => {
@@ -97,8 +98,8 @@ export const usePostBySlug = (slug: string) => {
 };
 
 export const useSearchPosts = (
-  query: string, 
-  page = 1, 
+  query: string,
+  page = 1,
   limit = 10,
   contentCategoryId?: number
 ) => {
@@ -175,6 +176,16 @@ export const useProject = (id: number) => {
     queryKey: queryKeys.projects.detail(id),
     queryFn: () => projectApi.getById(id),
     enabled: !!id,
+    staleTime: 10 * 60 * 1000, // 10 minutes
+    gcTime: 30 * 60 * 1000, // 30 minutes
+  });
+};
+
+export const useProjectBySlug = (slug: string) => {
+  return useQuery({
+    queryKey: queryKeys.projects.bySlug(slug),
+    queryFn: () => projectApi.getBySlug(slug),
+    enabled: !!slug,
     staleTime: 10 * 60 * 1000, // 10 minutes
     gcTime: 30 * 60 * 1000, // 30 minutes
   });
