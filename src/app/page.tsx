@@ -18,34 +18,35 @@ export default function Home() {
       maxWidth="lg"
       sx={{
         pt: { xs: "90px", md: "130px" },
-        pb: { xs: "90px", md: "120px" },
+        pb: { xs: 4, md: 6 },
+        minHeight: "100vh",
+        display: "flex",
+        alignItems: "center",
       }}
     >
-      <Box sx={{ height: { xs: "100%", md: "calc(100vh - 218px)" } }}>
+      <Box sx={{ width: "100%" }}>
         <Grid
           container
           sx={{
             width: "100%",
             display: "flex",
-            height: "100%",
             justifyContent: "center",
             alignItems: "center",
           }}
-          spacing={0}
+          spacing={{ xs: 3, md: 4 }}
         >
           <Grid item xs={12} md={4}>
             <Box
-              sx={{ mt: { xs: "1rem", md: 0 }, mb: { xs: "1.5rem", md: 0 } }}
+              sx={{
+                display: "flex",
+                justifyContent: { xs: "center", md: "flex-start" },
+              }}
             >
               <AvatarCard />
             </Box>
           </Grid>
           <Grid item xs={12} md={8}>
-            <Box
-              sx={{
-                padding: { xs: "0 1rem", md: "0 0" },
-              }}
-            >
+            <Box>
               <Typography
                 variant="h1"
                 sx={{
@@ -53,6 +54,7 @@ export default function Home() {
                   fontSize: { xs: "2rem", sm: "2.5rem", md: "3rem" },
                   fontWeight: 700,
                   mb: 2,
+                  lineHeight: 1.2,
                 }}
               >
                 Hi there 👋,
@@ -69,7 +71,15 @@ export default function Home() {
                   borderRadius: 10,
                 }}
               />
-              <Typography variant="body1" sx={{ color: "text.primary", mb: 2 }}>
+              <Typography
+                variant="body1"
+                sx={{
+                  color: "text.primary",
+                  mb: 3,
+                  lineHeight: 1.7,
+                  fontSize: { xs: "0.95rem", md: "1rem" }
+                }}
+              >
                 I&apos;m Kivi Amarakoon, a software enthusiast dedicated to
                 crafting user-friendly apps, optimizing algorithms, and solving
                 complex problems. I&apos;m passionate about continuous learning,
@@ -83,8 +93,9 @@ export default function Home() {
               <Box
                 sx={{
                   display: "flex",
-                  gap: { xs: 1.5, md: 1 },
-                  flexDirection: { xs: "column", md: "row" },
+                  gap: 2,
+                  flexDirection: { xs: "column", sm: "row" },
+                  flexWrap: "wrap",
                 }}
               >
                 <Link href="/about">
@@ -92,14 +103,17 @@ export default function Home() {
                     sx={{
                       backgroundColor: "secondary.main",
                       color: "text.light",
-                      width: { xs: "100%", md: "10rem" },
+                      minWidth: { xs: "100%", sm: "10rem" },
                       height: { xs: "2.5rem", md: "3rem" },
                       borderRadius: "1rem",
                       boxShadow: "0px 0px 10px rgba(227, 0, 0, 0.46)",
                       fontWeight: 700,
                       "&:hover": {
                         backgroundColor: "secondary.light",
+                        transform: "translateY(-2px)",
+                        boxShadow: "0px 4px 14px rgba(227, 0, 0, 0.6)",
                       },
+                      transition: "all 0.3s ease",
                     }}
                     endIcon={<DoubleArrowIcon />}
                   >
@@ -111,7 +125,7 @@ export default function Home() {
                   sx={{
                     backgroundColor: "rgba(227, 0, 0, 0.05)",
                     color: "text.light",
-                    width: { xs: "100%", md: "12rem" },
+                    minWidth: { xs: "100%", sm: "12rem" },
                     height: { xs: "2.5rem", md: "3rem" },
                     borderRadius: "1rem",
                     boxShadow: "0px 0px 10px rgba(227, 0, 0, 0.18)",
@@ -121,7 +135,9 @@ export default function Home() {
                       backgroundColor: "rgba(227, 0, 0, 0.77)",
                       border: "1px solid rgba(227, 0, 0, 0.77)",
                       boxShadow: "0px 0px 10px rgba(227, 0, 0, 0.8)",
+                      transform: "translateY(-2px)",
                     },
+                    transition: "all 0.3s ease",
                   }}
                   endIcon={<DownloadIcon />}
                 >
