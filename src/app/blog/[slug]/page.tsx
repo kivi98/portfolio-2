@@ -20,6 +20,7 @@ import {
   Fade,
   Modal,
   Backdrop,
+  useTheme,
 } from "@mui/material";
 import {
   Favorite,
@@ -54,6 +55,7 @@ interface TocItem {
 
 const BlogPostPage = ({ params }: BlogPostPageProps) => {
   const router = useRouter();
+  const theme = useTheme();
   const [slug, setSlug] = useState<string>("");
   const [readingProgress, setReadingProgress] = useState(0);
   const [showScrollToTop, setShowScrollToTop] = useState(false);
@@ -286,16 +288,16 @@ const BlogPostPage = ({ params }: BlogPostPageProps) => {
             sx={{
               p: 3,
               borderRadius: 3,
-              background: (theme) =>
+              background:
                 theme.palette.mode === "dark"
                   ? "linear-gradient(135deg, rgba(35, 39, 47, 0.95) 0%, rgba(45, 49, 57, 0.95) 100%)"
                   : "linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(245, 245, 245, 0.95) 100%)",
               backdropFilter: "blur(20px)",
-              border: (theme) =>
+              border:
                 theme.palette.mode === "dark"
                   ? "1px solid rgba(255, 255, 255, 0.1)"
                   : "1px solid rgba(0, 0, 0, 0.1)",
-              boxShadow: (theme) =>
+              boxShadow:
                 theme.palette.mode === "dark"
                   ? "0 8px 32px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1)"
                   : "0 8px 32px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.8)",
@@ -492,7 +494,7 @@ const BlogPostPage = ({ params }: BlogPostPageProps) => {
               fontWeight: 800,
               lineHeight: 1.2,
               mb: 3,
-              background: (theme) =>
+              background:
                 theme.palette.mode === "dark"
                   ? "linear-gradient(135deg, #ffffff, #e0e0e0)"
                   : "linear-gradient(135deg, #1a1a1a, #333333)",
@@ -648,12 +650,12 @@ const BlogPostPage = ({ params }: BlogPostPageProps) => {
             sx={{
               p: { xs: 3, sm: 4, md: 6 },
               borderRadius: 3,
-              background: (theme) =>
+              background:
                 theme.palette.mode === "dark"
                   ? "rgba(35, 39, 47, 0.4)"
                   : "rgba(255, 255, 255, 0.7)",
               backdropFilter: "blur(20px)",
-              border: (theme) =>
+              border:
                 theme.palette.mode === "dark"
                   ? "1px solid rgba(255, 255, 255, 0.1)"
                   : "1px solid rgba(0, 0, 0, 0.05)",
@@ -676,12 +678,12 @@ const BlogPostPage = ({ params }: BlogPostPageProps) => {
               sx={{
                 p: 3,
                 borderRadius: 3,
-                background: (theme) =>
+                background:
                   theme.palette.mode === "dark"
                     ? "rgba(35, 39, 47, 0.4)"
                     : "rgba(255, 255, 255, 0.7)",
                 backdropFilter: "blur(20px)",
-                border: (theme) =>
+                border:
                   theme.palette.mode === "dark"
                     ? "1px solid rgba(255, 255, 255, 0.1)"
                     : "1px solid rgba(0, 0, 0, 0.05)",
@@ -801,12 +803,12 @@ const BlogPostPage = ({ params }: BlogPostPageProps) => {
               sx={{
                 p: 3,
                 borderRadius: 3,
-                background: (theme) =>
+                background:
                   theme.palette.mode === "dark"
                     ? "linear-gradient(135deg, rgba(35, 39, 47, 0.98) 0%, rgba(45, 49, 57, 0.98) 100%)"
                     : "linear-gradient(135deg, rgba(255, 255, 255, 0.98) 0%, rgba(245, 245, 245, 0.98) 100%)",
                 backdropFilter: "blur(20px)",
-                border: (theme) =>
+                border:
                   theme.palette.mode === "dark"
                     ? "1px solid rgba(255, 255, 255, 0.1)"
                     : "1px solid rgba(0, 0, 0, 0.1)",

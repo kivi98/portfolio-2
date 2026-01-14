@@ -1,7 +1,10 @@
+"use client";
 import React from "react";
-import { Box, Container, Skeleton, Stack, Paper, Divider } from "@mui/material";
+import { Box, Container, Skeleton, Stack, Paper, Divider, useTheme } from "@mui/material";
 
 const BlogPostLoading = () => {
+  const theme = useTheme();
+
   return (
     <Container
       maxWidth="lg"
@@ -21,7 +24,7 @@ const BlogPostLoading = () => {
           p: { xs: 3, md: 4 },
           mb: 4,
           borderRadius: 3,
-          background: (theme) =>
+          background:
             theme.palette.mode === "dark"
               ? "rgba(35, 39, 47, 0.7)"
               : "rgba(255,255,255,0.7)",
@@ -73,7 +76,7 @@ const BlogPostLoading = () => {
         sx={{
           p: { xs: 3, md: 4 },
           borderRadius: 3,
-          background: (theme) =>
+          background:
             theme.palette.mode === "dark"
               ? "rgba(35, 39, 47, 0.7)"
               : "rgba(255,255,255,0.7)",

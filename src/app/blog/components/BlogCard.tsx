@@ -1,3 +1,4 @@
+"use client";
 import { Blog, Post } from "@/types";
 import {
   Card,
@@ -114,7 +115,7 @@ const BlogCard = ({ blog }: { blog: Post | Blog }) => {
     >
       <Box sx={{ position: "relative", overflow: "hidden", height: 240 }}>
         <Image
-          src={(blog.coverImage || blog.image || "/images/blog-placeholder.jpg") as string}
+          src={(blog.coverImage || blog.image || "/images/blog-placeholder.svg") as string}
           alt={blog.title}
           fill
           className="blog-image"

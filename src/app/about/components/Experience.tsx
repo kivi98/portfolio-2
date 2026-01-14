@@ -84,6 +84,12 @@ const Experience = () => {
               and Material UI
             </Typography>
           </li>
+          <li>
+            <Typography variant={"caption"} sx={{ p: 0 }}>
+              Implemented secure authentication and authorization using industry
+              best practices
+            </Typography>
+          </li>
         </>
       ),
     },

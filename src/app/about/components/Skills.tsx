@@ -1,3 +1,4 @@
+"use client";
 import { Box, Grid, Paper, Typography, useTheme } from "@mui/material";
 import TwoColumnSection from "./TwoColumnSection";
 import SkillChip from "./SkillChip";
@@ -9,7 +10,7 @@ import {
   toolSkills,
   osSkills,
   frameworkSkills,
-} from "../../../features/skills.config";
+} from "@/features/skills.config";
 
 const Skills = () => {
   const theme = useTheme();
