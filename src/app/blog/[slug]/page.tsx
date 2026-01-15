@@ -265,134 +265,6 @@ const BlogPostPage = ({ params }: BlogPostPageProps) => {
         }}
       />
 
-      {/* Table of Contents - Fixed Left Sidebar */}
-      {tocItems.length > 0 && (
-        <Box
-          sx={{
-            position: "fixed",
-            left: "2rem",
-            top: "50%",
-            transform: "translateY(-50%)",
-            width: "auto",
-            minWidth: "300px",
-            maxHeight: "70vh",
-            overflowY: "auto",
-            zIndex: 100,
-            display: { xs: "none", xl: "block", md: "block", lg: "block" },
-            pl: 2,
-          }}
-        >
-          <Paper
-            elevation={0}
-            sx={{
-              p: 3,
-              borderRadius: 3,
-              background:
-                theme.palette.mode === "dark"
-                  ? "linear-gradient(135deg, rgba(35, 39, 47, 0.95) 0%, rgba(45, 49, 57, 0.95) 100%)"
-                  : "linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(245, 245, 245, 0.95) 100%)",
-              backdropFilter: "blur(20px)",
-              border:
-                theme.palette.mode === "dark"
-                  ? "1px solid rgba(255, 255, 255, 0.1)"
-                  : "1px solid rgba(0, 0, 0, 0.1)",
-              boxShadow:
-                theme.palette.mode === "dark"
-                  ? "0 8px 32px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1)"
-                  : "0 8px 32px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.8)",
-              position: "relative",
-              "&::before": {
-                content: '""',
-                position: "absolute",
-                top: 0,
-                left: 0,
-                right: 0,
-                height: "1px",
-                background:
-                  "linear-gradient(90deg, transparent, rgba(114, 137, 218, 0.3), transparent)",
-                borderRadius: "3px 3px 0 0",
-              },
-            }}
-          >
-            <Typography
-              variant="subtitle2"
-              fontWeight={600}
-              sx={{
-                mb: 3,
-                color: "white",
-                textTransform: "uppercase",
-                letterSpacing: 1,
-                fontSize: "0.75rem",
-                borderBottom: "1px solid rgba(255, 255, 255, 0.1)",
-                pb: 1,
-              }}
-            >
-              Table of Contents
-            </Typography>
-            <Stack spacing={1}>
-              {tocItems.map((item) => (
-                <Button
-                  key={item.id}
-                  onClick={() => scrollToHeading(item.id)}
-                  sx={{
-                    justifyContent: "flex-start",
-                    textAlign: "left",
-                    textTransform: "none",
-                    pl: 2 + (item.level - 1) * 1.5,
-                    pr: 2,
-                    py: 1,
-                    minHeight: "auto",
-                    color:
-                      activeHeading === item.id ? "white" : "text.secondary",
-                    backgroundColor:
-                      activeHeading === item.id
-                        ? "rgba(114, 137, 218, 0.8)"
-                        : "rgba(255, 255, 255, 0.05)",
-                    border:
-                      activeHeading === item.id
-                        ? "1px solid rgba(114, 137, 218, 0.5)"
-                        : "1px solid transparent",
-                    borderRadius: 2,
-                    fontSize:
-                      Math.max(0.85 - (item.level - 1) * 0.05, 0.75) + "rem",
-                    fontWeight: activeHeading === item.id ? 600 : 500,
-                    position: "relative",
-                    overflow: "hidden",
-                    "&:hover": {
-                      backgroundColor:
-                        activeHeading === item.id
-                          ? "rgba(114, 137, 218, 0.9)"
-                          : "rgba(255, 255, 255, 0.1)",
-                      transform: "translateY(-1px)",
-                      boxShadow:
-                        activeHeading === item.id
-                          ? "0 4px 12px rgba(114, 137, 218, 0.4)"
-                          : "0 4px 12px rgba(0, 0, 0, 0.2)",
-                    },
-                    "&::before":
-                      activeHeading === item.id
-                        ? {
-                          content: '""',
-                          position: "absolute",
-                          left: 0,
-                          top: 0,
-                          bottom: 0,
-                          width: "3px",
-                          backgroundColor: "white",
-                          borderRadius: "0 2px 2px 0",
-                        }
-                        : {},
-                    transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
-                  }}
-                >
-                  {item.text}
-                </Button>
-              ))}
-            </Stack>
-          </Paper>
-        </Box>
-      )}
-
       <Container
         maxWidth={false}
         sx={{
@@ -401,7 +273,6 @@ const BlogPostPage = ({ params }: BlogPostPageProps) => {
           py: { xs: 4, md: 6 },
           pt: { xs: "100px", md: "120px" },
           px: { xs: 2, md: 4 },
-          ml: { xl: tocItems.length > 0 ? "270px" : "auto" },
         }}
       >
         {/* Navigation Header */}
@@ -434,7 +305,7 @@ const BlogPostPage = ({ params }: BlogPostPageProps) => {
                   <IconButton
                     size="small"
                     onClick={() => setShowMobileToc(true)}
-                    sx={{ display: { xl: "none" } }}
+                    sx={{ display: { xl: "none", lg: "none" } }}
                   >
                     <FormatListBulleted />
                   </IconButton>
@@ -675,98 +546,178 @@ const BlogPostPage = ({ params }: BlogPostPageProps) => {
               zIndex: 10,
             }}
           >
-            <Paper
-              elevation={0}
-              sx={{
-                p: 3,
-                borderRadius: 3,
-                background:
-                  theme.palette.mode === "dark"
-                    ? "rgba(35, 39, 47, 0.4)"
-                    : "rgba(255, 255, 255, 0.7)",
-                backdropFilter: "blur(20px)",
-                border:
-                  theme.palette.mode === "dark"
-                    ? "1px solid rgba(255, 255, 255, 0.1)"
-                    : "1px solid rgba(0, 0, 0, 0.05)",
-              }}
-            >
-              <Typography variant="h6" fontWeight={600} sx={{ mb: 3 }}>
-                Article Info
-              </Typography>
+            <Stack spacing={3}>
+              <Paper
+                elevation={0}
+                sx={{
+                  p: 3,
+                  borderRadius: 3,
+                  background:
+                    theme.palette.mode === "dark"
+                      ? "rgba(35, 39, 47, 0.4)"
+                      : "rgba(255, 255, 255, 0.7)",
+                  backdropFilter: "blur(20px)",
+                  border:
+                    theme.palette.mode === "dark"
+                      ? "1px solid rgba(255, 255, 255, 0.1)"
+                      : "1px solid rgba(0, 0, 0, 0.05)",
+                }}
+              >
+                <Typography variant="h6" fontWeight={600} sx={{ mb: 3 }}>
+                  Article Info
+                </Typography>
 
-              <Stack spacing={2}>
-                <Box>
-                  <Typography
-                    variant="body2"
-                    color="text.secondary"
-                    sx={{ mb: 1 }}
-                  >
-                    Reading Progress
-                  </Typography>
-                  <LinearProgress
-                    variant="determinate"
-                    value={readingProgress}
-                    sx={{
-                      height: 6,
-                      borderRadius: 3,
-                      backgroundColor: "rgba(0, 0, 0, 0.1)",
-                      "& .MuiLinearProgress-bar": {
+                <Stack spacing={2}>
+                  <Box>
+                    <Typography
+                      variant="body2"
+                      color="text.secondary"
+                      sx={{ mb: 1 }}
+                    >
+                      Reading Progress
+                    </Typography>
+                    <LinearProgress
+                      variant="determinate"
+                      value={readingProgress}
+                      sx={{
+                        height: 6,
                         borderRadius: 3,
-                        backgroundColor: "secondary.main",
-                      },
-                    }}
-                  />
-                  <Typography variant="caption" color="text.secondary">
-                    {Math.round(readingProgress)}% completed
-                  </Typography>
-                </Box>
-
-                <Divider />
-
-                <Box>
-                  <Typography
-                    variant="body2"
-                    color="text.secondary"
-                    sx={{ mb: 2 }}
-                  >
-                    Share this article
-                  </Typography>
-                  <Stack direction="row" spacing={1}>
-                    <Tooltip title="Share">
-                      <IconButton
-                        size="small"
-                        onClick={handleShare}
-                        sx={{
+                        backgroundColor: "rgba(0, 0, 0, 0.1)",
+                        "& .MuiLinearProgress-bar": {
+                          borderRadius: 3,
                           backgroundColor: "secondary.main",
-                          color: "white",
-                          "&:hover": { backgroundColor: "secondary.dark" },
-                        }}
-                      >
-                        <Share fontSize="small" />
-                      </IconButton>
-                    </Tooltip>
-                    <Tooltip title="Bookmark">
-                      <IconButton
-                        size="small"
-                        sx={{
-                          backgroundColor: (theme) =>
-                            theme.palette.mode === "dark"
-                              ? "rgba(255,255,255,0.1)"
-                              : "rgba(0,0,0,0.1)",
-                          "&:hover": {
+                        },
+                      }}
+                    />
+                    <Typography variant="caption" color="text.secondary">
+                      {Math.round(readingProgress)}% completed
+                    </Typography>
+                  </Box>
+
+                  <Divider />
+
+                  <Box>
+                    <Typography
+                      variant="body2"
+                      color="text.secondary"
+                      sx={{ mb: 2 }}
+                    >
+                      Share this article
+                    </Typography>
+                    <Stack direction="row" spacing={1}>
+                      <Tooltip title="Share">
+                        <IconButton
+                          size="small"
+                          onClick={handleShare}
+                          sx={{
                             backgroundColor: "secondary.main",
                             color: "white",
+                            "&:hover": { backgroundColor: "secondary.dark" },
+                          }}
+                        >
+                          <Share fontSize="small" />
+                        </IconButton>
+                      </Tooltip>
+                      <Tooltip title="Bookmark">
+                        <IconButton
+                          size="small"
+                          sx={{
+                            backgroundColor: (theme) =>
+                              theme.palette.mode === "dark"
+                                ? "rgba(255,255,255,0.1)"
+                                : "rgba(0,0,0,0.1)",
+                            "&:hover": {
+                              backgroundColor: "secondary.main",
+                              color: "white",
+                            },
+                          }}
+                        >
+                          <BookmarkBorder fontSize="small" />
+                        </IconButton>
+                      </Tooltip>
+                    </Stack>
+                  </Box>
+                </Stack>
+              </Paper>
+
+              {tocItems.length > 0 && (
+                <Paper
+                  elevation={0}
+                  sx={{
+                    p: 3,
+                    borderRadius: 3,
+                    background:
+                      theme.palette.mode === "dark"
+                        ? "rgba(35, 39, 47, 0.4)"
+                        : "rgba(255, 255, 255, 0.7)",
+                    backdropFilter: "blur(20px)",
+                    border:
+                      theme.palette.mode === "dark"
+                        ? "1px solid rgba(255, 255, 255, 0.1)"
+                        : "1px solid rgba(0, 0, 0, 0.05)",
+                    maxHeight: "calc(100vh - 500px)",
+                    overflowY: "auto",
+                    "&::-webkit-scrollbar": {
+                      width: "4px",
+                    },
+                    "&::-webkit-scrollbar-track": {
+                      background: "transparent",
+                    },
+                    "&::-webkit-scrollbar-thumb": {
+                      background: theme.palette.mode === 'dark' ? "rgba(255,255,255,0.1)" : "rgba(0,0,0,0.1)",
+                      borderRadius: "4px",
+                    },
+                    "&::-webkit-scrollbar-thumb:hover": {
+                      background: theme.palette.mode === 'dark' ? "rgba(255,255,255,0.2)" : "rgba(0,0,0,0.2)",
+                    }
+                  }}
+                >
+                  <Typography
+                    variant="h6"
+                    fontWeight={600}
+                    sx={{ mb: 2 }}
+                  >
+                    Table of Contents
+                  </Typography>
+                  <Stack spacing={1}>
+                    {tocItems.map((item) => (
+                      <Button
+                        key={item.id}
+                        onClick={() => scrollToHeading(item.id)}
+                        sx={{
+                          justifyContent: "flex-start",
+                          textAlign: "left",
+                          textTransform: "none",
+                          pl: 1 + (item.level - 1) * 1.5,
+                          pr: 2,
+                          py: 0.75,
+                          minHeight: "auto",
+                          color:
+                            activeHeading === item.id ? "white" : "text.secondary",
+                          backgroundColor:
+                            activeHeading === item.id
+                              ? "rgba(114, 137, 218, 0.8)"
+                              : "transparent",
+                          border: "none",
+                          borderRadius: 2,
+                          fontSize: "0.85rem",
+                          fontWeight: activeHeading === item.id ? 600 : 400,
+                          "&:hover": {
+                            backgroundColor:
+                              activeHeading === item.id
+                                ? "rgba(114, 137, 218, 0.9)"
+                                : theme.palette.mode === 'dark' ? "rgba(255, 255, 255, 0.05)" : "rgba(0, 0, 0, 0.05)",
                           },
+                          transition: "all 0.2s ease",
                         }}
                       >
-                        <BookmarkBorder fontSize="small" />
-                      </IconButton>
-                    </Tooltip>
+                        {item.text}
+                      </Button>
+                    ))}
                   </Stack>
-                </Box>
-              </Stack>
-            </Paper>
+                </Paper>
+              )}
+            </Stack>
           </Box>
         </Box>
       </Container>
@@ -879,50 +830,27 @@ const BlogPostPage = ({ params }: BlogPostPageProps) => {
                       justifyContent: "flex-start",
                       textAlign: "left",
                       textTransform: "none",
-                      pl: 2 + (item.level - 1) * 1.5,
+                      pl: 1 + (item.level - 1) * 1.5,
                       pr: 2,
-                      py: 1.5,
+                      py: 0.75,
+                      minHeight: "auto",
                       color:
                         activeHeading === item.id ? "white" : "text.secondary",
                       backgroundColor:
                         activeHeading === item.id
                           ? "rgba(114, 137, 218, 0.8)"
-                          : "rgba(255, 255, 255, 0.05)",
-                      border:
-                        activeHeading === item.id
-                          ? "1px solid rgba(114, 137, 218, 0.5)"
-                          : "1px solid transparent",
+                          : "transparent",
+                      border: "none",
                       borderRadius: 2,
-                      fontSize:
-                        Math.max(0.9 - (item.level - 1) * 0.05, 0.8) + "rem",
-                      fontWeight: activeHeading === item.id ? 600 : 500,
-                      position: "relative",
-                      overflow: "hidden",
+                      fontSize: "0.85rem",
+                      fontWeight: activeHeading === item.id ? 600 : 400,
                       "&:hover": {
                         backgroundColor:
                           activeHeading === item.id
                             ? "rgba(114, 137, 218, 0.9)"
-                            : "rgba(255, 255, 255, 0.1)",
-                        transform: "translateY(-1px)",
-                        boxShadow:
-                          activeHeading === item.id
-                            ? "0 4px 12px rgba(114, 137, 218, 0.4)"
-                            : "0 4px 12px rgba(0, 0, 0, 0.2)",
+                            : theme.palette.mode === 'dark' ? "rgba(255, 255, 255, 0.05)" : "rgba(0, 0, 0, 0.05)",
                       },
-                      "&::before":
-                        activeHeading === item.id
-                          ? {
-                            content: '""',
-                            position: "absolute",
-                            left: 0,
-                            top: 0,
-                            bottom: 0,
-                            width: "3px",
-                            backgroundColor: "white",
-                            borderRadius: "0 2px 2px 0",
-                          }
-                          : {},
-                      transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
+                      transition: "all 0.2s ease",
                     }}
                   >
                     {item.text}

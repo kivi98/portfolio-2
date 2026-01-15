@@ -252,10 +252,17 @@ export default function Header() {
             sx={{ display: "flex", alignItems: "center" }}
           >
             <IconButton
-              color="inherit"
               aria-label="open navigation menu"
               onClick={() => setMobileMenuOpen((prev) => !prev)}
               edge="end"
+              sx={{
+                color: theme.palette.mode === "dark" ? "#FFFFFF" : "#171717",
+                transition: "all 0.3s ease",
+                "&:hover": {
+                  color: theme.palette.secondary.main,
+                  transform: "scale(1.1)",
+                },
+              }}
             >
               <MenuIcon />
             </IconButton>
