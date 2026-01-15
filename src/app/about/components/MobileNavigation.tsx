@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import Box from "@mui/material/Box";
 import Chip from "@mui/material/Chip";
 import { useTheme } from "@mui/material/styles";
@@ -34,6 +34,18 @@ const MobileNavigation: React.FC<MobileNavigationProps> = ({
     scrollToSection,
 }) => {
     const theme = useTheme();
+    const itemRefs = useRef<{ [key: number]: HTMLDivElement | null }>({});
+
+    useEffect(() => {
+        const activeItem = itemRefs.current[activeSection];
+        if (activeItem) {
+            activeItem.scrollIntoView({
+                behavior: "smooth",
+                block: "nearest",
+                inline: "center",
+            });
+        }
+    }, [activeSection]);
 
     return (
         <Box
@@ -71,6 +83,9 @@ const MobileNavigation: React.FC<MobileNavigationProps> = ({
                 return (
                     <Chip
                         key={id}
+                        ref={(el) => {
+                            itemRefs.current[id] = el;
+                        }}
                         label={text}
                         onClick={() => scrollToSection(ref, 200)}
                         variant={isActive ? "filled" : "outlined"}

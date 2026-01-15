@@ -22,7 +22,7 @@ export async function POST(req: Request) {
         const { name, email, subject, message } = result.data;
 
         const data = await resend.emails.send({
-            from: 'Portfolio Contact kiviamarakoon.me', // Change this to your verified domain
+            from: 'Portfolio Contact <info>@siloukul.resend.app>',
             to: ['kiviamarakoon@gmail.com'], // Sending to your personal email
             reply_to: email,
             subject: `Portfolio Contact: ${subject}`,

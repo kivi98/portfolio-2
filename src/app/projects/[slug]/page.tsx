@@ -428,7 +428,7 @@ const ProjectPage = ({ params }: ProjectPageProps) => {
                                     {projectData?.owner?.firstName || "Kivi"}{" "}
                                     {projectData?.owner?.lastName || "Amarakoon"}
                                 </Typography>
-                                <Typography variant="body2" color="text.secondary">
+                                <Typography variant="body2" color="text.secondary" textAlign="left">
                                     {contributors.length > 1 ? "Lead Developer" : "Developer"}
                                 </Typography>
                             </Box>

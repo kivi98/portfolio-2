@@ -401,7 +401,7 @@ const BlogPostPage = ({ params }: BlogPostPageProps) => {
                   {blogData?.owner?.firstName || (blogData as any)?.blogOwner?.firstName}{" "}
                   {blogData?.owner?.lastName || (blogData as any)?.blogOwner?.lastName}
                 </Typography>
-                <Typography variant="body2" color="text.secondary">
+                <Typography variant="body2" color="text.secondary" textAlign="left">
                   Author
                 </Typography>
               </Box>
