@@ -18,9 +18,10 @@ import {
 } from "@mui/material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import SearchIcon from "@mui/icons-material/Search";
-import { useProjects, useSearchProjects } from "@/lib/queries";
+import {usePosts, useProjects, useSearchProjects} from "@/lib/queries";
 import CustomCarousel from "../about/components/CustomCarousel";
 import ProjectCard from "./components/ProjectCard";
+import {ContentCategory, PostStatus} from "@/enum";
 
 const Projects = () => {
   const [search, setSearch] = useState("");
@@ -29,7 +30,7 @@ const Projects = () => {
 
   // Use search query if search term exists, otherwise use regular projects query
   const searchQuery = useSearchProjects(search, page, limit);
-  const projectsQuery = useProjects(page, limit);
+  const projectsQuery = usePosts(page, limit, ContentCategory.Project, PostStatus.Published);
 
   // Use the appropriate query based on whether we're searching
   const query = search.trim() ? searchQuery : projectsQuery;
@@ -43,7 +44,7 @@ const Projects = () => {
 
   const handlePageChange = (
     event: React.ChangeEvent<unknown>,
-    value: number
+    value: number,
   ) => {
     setPage(value);
   };
@@ -114,9 +115,9 @@ const Projects = () => {
       >
         <Box sx={{ width: { xs: "100%", md: "40%" } }}>
           <CustomCarousel
-            images={projects.map((project) => ({
+            images={projects.map((project: any) => ({
               id: project.id,
-              src: project.image,
+              src: project.image || project.coverImage || "/images/project-placeholder.jpg",
               alt: project.title,
             }))}
             height={300}

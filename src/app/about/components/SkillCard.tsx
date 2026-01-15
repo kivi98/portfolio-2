@@ -16,11 +16,11 @@ const SkillCard = ({
   description,
   date,
   listDescription,
-  zoomInAnimation
+  zoomInAnimation,
 }: SkillCardProps) => {
   return (
     <Box
-      sx={{
+      sx={(theme) => ({
         pt: 2,
         px: 2.5,
         pb: 2.5,
@@ -31,10 +31,16 @@ const SkillCard = ({
         justifyContent: "space-between",
         alignItems: "stretch",
         borderRadius: "10px",
-        backgroundColor: "transparentLevels.3",
-        boxShadow: "0px 0px 12px rgba(0,0,0,0.1)",
+        backgroundColor: theme.palette.mode === "dark"
+          ? "transparentLevels.3"
+          : "background.paper", // White cards in light mode
+        boxShadow: theme.palette.mode === "dark"
+          ? "0px 0px 12px rgba(0,0,0,0.3)"
+          : "0px 2px 8px rgba(0,0,0,0.08)", // Softer shadow in light mode
         border: "1px solid",
-        borderColor: "divider",
+        borderColor: theme.palette.mode === "dark"
+          ? "divider"
+          : "rgba(0,0,0,0.08)", // Subtle border in light mode
         marginInline: "2rem",
         position: "relative",
         transition: "transform 0.3s ease, box-shadow 0.3s ease",
@@ -42,10 +48,12 @@ const SkillCard = ({
         ...(zoomInAnimation && {
           "&:hover": {
             transform: "scale(1.05)",
-            boxShadow: "0px 0px 12px rgba(0,0,0,0.2)",
+            boxShadow: theme.palette.mode === "dark"
+              ? "0px 0px 16px rgba(227,0,0,0.3)"
+              : "0px 4px 16px rgba(0,0,0,0.12)",
           },
         }),
-      }}
+      })}
     >
       <Stack
         direction={"row"}

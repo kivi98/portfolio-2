@@ -8,6 +8,7 @@ import {
   Button,
   Paper,
   Stack,
+  useTheme,
 } from "@mui/material";
 import { ArrowBack, Home } from "@mui/icons-material";
 import { useRouter } from "next/navigation";
@@ -19,6 +20,7 @@ interface ErrorProps {
 
 const BlogPostError = ({ error, reset }: ErrorProps) => {
   const router = useRouter();
+  const theme = useTheme();
 
   const handleBackToBlogs = () => {
     router.push("/blog");
@@ -38,7 +40,7 @@ const BlogPostError = ({ error, reset }: ErrorProps) => {
         sx={{
           p: { xs: 3, md: 4 },
           borderRadius: 3,
-          background: (theme) =>
+          background:
             theme.palette.mode === "dark"
               ? "rgba(35, 39, 47, 0.7)"
               : "rgba(255,255,255,0.7)",

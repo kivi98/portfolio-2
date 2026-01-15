@@ -70,11 +70,13 @@ const ProfileName = styled(Typography)(({ theme }) => ({
 const ProfileTitle = styled(Typography)(({ theme }) => ({
   fontWeight: 500,
   fontSize: 15,
-  color: theme.palette.text.secondary,
+  color: theme.palette.mode === "dark"
+    ? theme.palette.text.primary // White text in dark mode
+    : theme.palette.common.white, // White text in light mode
   background:
     theme.palette.mode === "dark"
-      ? theme.palette.primary.dark
-      : theme.palette.primary.light,
+      ? theme.palette.primary.dark // Dark background in dark mode
+      : theme.palette.secondary.main, // Red background in light mode for contrast
   borderRadius: 8,
   padding: "2px 12px",
   margin: "0 auto",
@@ -123,7 +125,7 @@ const AnimatedTypography = styled(Typography)<{ phase: string }>(
       "0%, 100%": { opacity: 1 },
       "50%": { opacity: 0 },
     },
-  })
+  }),
 );
 
 const socialLinks = [
@@ -173,7 +175,7 @@ const AvatarCard: React.FC = () => {
 
   const profile = {
     name: "Kivi Amarakoon",
-    title: "Associate Software Engineer",
+    title: "Software Engineer",
     avatarUrl: "https://i.pravatar.cc/300?img=13", // Placeholder avatar
     github: "https://github.com/kivi98",
     linkedin: "https://linkedin.com/in/kiviamarakoon",
@@ -196,7 +198,7 @@ const AvatarCard: React.FC = () => {
         <ProfileTitle variant="subtitle1">{profile.title}</ProfileTitle>
         <Divider
           sx={{
-            my: 2,
+            mt: 2,
             width: "80%",
             mx: "auto",
             backgroundColor: theme.palette.divider,
@@ -208,7 +210,7 @@ const AvatarCard: React.FC = () => {
               <SocialButton
                 onClick={() =>
                   handleSocialClick(
-                    profile[key as keyof typeof profile] as string
+                    profile[key as keyof typeof profile] as string,
                   )
                 }
                 aria-label={title}

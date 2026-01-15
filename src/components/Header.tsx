@@ -191,24 +191,38 @@ export default function Header() {
             {renderNavButtons()}
             <Tooltip title="GitHub">
               <IconButton
-                color="inherit"
                 component="a"
                 href="https://github.com/"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="GitHub"
+                sx={{
+                  color: theme.palette.mode === "dark" ? "#FFFFFF" : "#171717",
+                  transition: "all 0.3s ease",
+                  "&:hover": {
+                    color: theme.palette.secondary.main,
+                    transform: "scale(1.1)",
+                  },
+                }}
               >
                 <GitHubIcon />
               </IconButton>
             </Tooltip>
             <Tooltip title="LinkedIn">
               <IconButton
-                color="inherit"
                 component="a"
                 href="https://linkedin.com/"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="LinkedIn"
+                sx={{
+                  color: theme.palette.mode === "dark" ? "#FFFFFF" : "#171717",
+                  transition: "all 0.3s ease",
+                  "&:hover": {
+                    color: theme.palette.secondary.main,
+                    transform: "scale(1.1)",
+                  },
+                }}
               >
                 <LinkedInIcon />
               </IconButton>
@@ -216,8 +230,15 @@ export default function Header() {
             <Tooltip title="Toggle light/dark theme">
               <IconButton
                 onClick={toggleColorMode}
-                color="inherit"
                 aria-label="toggle dark mode"
+                sx={{
+                  color: theme.palette.mode === "dark" ? "#FFFFFF" : "#171717",
+                  transition: "all 0.3s ease",
+                  "&:hover": {
+                    color: theme.palette.secondary.main,
+                    transform: "rotate(180deg) scale(1.1)",
+                  },
+                }}
               >
                 {mode === "dark" ? <Brightness7Icon /> : <Brightness4Icon />}
               </IconButton>
@@ -271,24 +292,38 @@ export default function Header() {
                   <Stack direction="row" spacing={1} justifyContent="center">
                     <Tooltip title="GitHub">
                       <IconButton
-                        color="inherit"
                         component="a"
                         href="https://github.com/"
                         target="_blank"
                         rel="noopener noreferrer"
                         aria-label="GitHub"
+                        sx={{
+                          color: theme.palette.mode === "dark" ? "#FFFFFF" : "#171717",
+                          transition: "all 0.3s ease",
+                          "&:hover": {
+                            color: theme.palette.secondary.main,
+                            transform: "scale(1.1)",
+                          },
+                        }}
                       >
                         <GitHubIcon />
                       </IconButton>
                     </Tooltip>
                     <Tooltip title="LinkedIn">
                       <IconButton
-                        color="inherit"
                         component="a"
                         href="https://linkedin.com/"
                         target="_blank"
                         rel="noopener noreferrer"
                         aria-label="LinkedIn"
+                        sx={{
+                          color: theme.palette.mode === "dark" ? "#FFFFFF" : "#171717",
+                          transition: "all 0.3s ease",
+                          "&:hover": {
+                            color: theme.palette.secondary.main,
+                            transform: "scale(1.1)",
+                          },
+                        }}
                       >
                         <LinkedInIcon />
                       </IconButton>
@@ -299,8 +334,15 @@ export default function Header() {
                           toggleColorMode();
                           setMobileMenuOpen(false);
                         }}
-                        color="inherit"
                         aria-label="toggle dark mode"
+                        sx={{
+                          color: theme.palette.mode === "dark" ? "#FFFFFF" : "#171717",
+                          transition: "all 0.3s ease",
+                          "&:hover": {
+                            color: theme.palette.secondary.main,
+                            transform: "rotate(180deg) scale(1.1)",
+                          },
+                        }}
                       >
                         {mode === "dark" ? (
                           <Brightness7Icon />

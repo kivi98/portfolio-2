@@ -1,6 +1,49 @@
+const createMDX = require("@next/mdx");
+const rehypeHighlight = require("rehype-highlight");
+const rehypeSlug = require("rehype-slug");
+const rehypeAutolinkHeadings = require("rehype-autolink-headings");
+const remarkMath = require("remark-math");
+const rehypeKatex = require("rehype-katex");
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  /* config options here */
+  // Configure `pageExtensions` to include markdown and MDX files
+  pageExtensions: ["js", "jsx", "md", "mdx", "ts", "tsx"],
+  // Optionally, add any other Next.js config below
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "**",
+      },
+      {
+        protocol: "http",
+        hostname: "**",
+      },
+    ],
+  },
 };
 
-module.exports = nextConfig;
+const withMDX = createMDX({
+  // Add markdown plugins here, as desired
+  options: {
+    remarkPlugins: [remarkMath],
+    rehypePlugins: [
+      rehypeHighlight,
+      rehypeSlug,
+      [
+        rehypeAutolinkHeadings,
+        {
+          behavior: "wrap",
+          properties: {
+            className: ["anchor"],
+          },
+        },
+      ],
+      rehypeKatex,
+    ],
+  },
+});
+
+// Merge MDX config with Next.js config
+module.exports = withMDX(nextConfig);

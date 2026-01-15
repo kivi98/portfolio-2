@@ -466,7 +466,7 @@ export const createPaginatedResponse = <T>(
   data: T[],
   page: number,
   limit: number,
-  total: number
+  total: number,
 ): PaginatedResponse<T> => {
   const totalPages = Math.ceil(total / limit);
   const startIndex = (page - 1) * limit;
@@ -489,7 +489,7 @@ export const searchData = <
   T extends { title: string; description?: string; content?: string },
 >(
   data: T[],
-  query: string
+  query: string,
 ): T[] => {
   const searchTerm = query.toLowerCase();
   return data.filter(
@@ -497,6 +497,6 @@ export const searchData = <
       item.title.toLowerCase().includes(searchTerm) ||
       (item.description &&
         item.description.toLowerCase().includes(searchTerm)) ||
-      (item.content && item.content.toLowerCase().includes(searchTerm))
+      (item.content && item.content.toLowerCase().includes(searchTerm)),
   );
 };

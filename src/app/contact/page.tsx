@@ -449,7 +449,7 @@ const Contact = () => {
                 "&:hover": {
                   background: theme.palette.secondary.main,
                   color: theme.palette.getContrastText(
-                    theme.palette.secondary.main
+                    theme.palette.secondary.main,
                   ),
                   transform: "translateY(-4px)",
                   boxShadow: (theme) =>
@@ -482,7 +482,7 @@ const Contact = () => {
                 "&:hover": {
                   background: theme.palette.secondary.main,
                   color: theme.palette.getContrastText(
-                    theme.palette.secondary.main
+                    theme.palette.secondary.main,
                   ),
                   transform: "translateY(-4px)",
                   boxShadow: (theme) =>
@@ -515,7 +515,7 @@ const Contact = () => {
                 "&:hover": {
                   background: theme.palette.secondary.main,
                   color: theme.palette.getContrastText(
-                    theme.palette.secondary.main
+                    theme.palette.secondary.main,
                   ),
                   transform: "translateY(-4px)",
                   boxShadow: (theme) =>
@@ -548,7 +548,7 @@ const Contact = () => {
                 "&:hover": {
                   background: theme.palette.secondary.main,
                   color: theme.palette.getContrastText(
-                    theme.palette.secondary.main
+                    theme.palette.secondary.main,
                   ),
                   transform: "translateY(-4px)",
                   boxShadow: (theme) =>
@@ -581,7 +581,7 @@ const Contact = () => {
                 "&:hover": {
                   background: theme.palette.secondary.main,
                   color: theme.palette.getContrastText(
-                    theme.palette.secondary.main
+                    theme.palette.secondary.main,
                   ),
                   transform: "translateY(-4px)",
                   boxShadow: (theme) =>
@@ -609,7 +609,7 @@ const Contact = () => {
                 "&:hover": {
                   background: theme.palette.secondary.main,
                   color: theme.palette.getContrastText(
-                    theme.palette.secondary.main
+                    theme.palette.secondary.main,
                   ),
                   transform: "translateY(-4px)",
                   boxShadow: (theme) =>

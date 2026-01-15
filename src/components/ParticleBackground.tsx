@@ -28,13 +28,13 @@ const ParticleBackground: React.FC = () => {
           mode === "dark"
             ? ["#ffffff", "#e0e0e0", "#bdbdbd", "#910000", "#e30000", "#da2c2c"]
             : [
-                "#212121",
-                "#424242",
-                "#757575",
-                "#b71c1c",
-                "#ef5350",
-                "#e57373",
-              ],
+              "#212121",
+              "#424242",
+              "#757575",
+              "#b71c1c",
+              "#ef5350",
+              "#e57373",
+            ],
         minSize: 1,
         maxSize: 3,
         minSpeed: 0.1,
@@ -51,17 +51,17 @@ const ParticleBackground: React.FC = () => {
             particleConfig.minSize,
           speedX:
             (Math.random() - 0.5) *
-              (particleConfig.maxSpeed - particleConfig.minSpeed) +
+            (particleConfig.maxSpeed - particleConfig.minSpeed) +
             particleConfig.minSpeed,
           speedY:
             (Math.random() - 0.5) *
-              (particleConfig.maxSpeed - particleConfig.minSpeed) +
+            (particleConfig.maxSpeed - particleConfig.minSpeed) +
             particleConfig.minSpeed,
           originalOpacity: Math.random() * 0.6 + 0.2,
           opacity: Math.random() * 0.6 + 0.2,
           color:
             particleConfig.colors[
-              Math.floor(Math.random() * particleConfig.colors.length)
+            Math.floor(Math.random() * particleConfig.colors.length)
             ],
           twinkleSpeed: Math.random() * 0.02 + 0.005,
           twinklePhase: Math.random() * Math.PI * 2,
@@ -69,14 +69,14 @@ const ParticleBackground: React.FC = () => {
       }
       return particles;
     },
-    []
+    [],
   );
 
   const drawConnections = useCallback(
     (
       ctx: CanvasRenderingContext2D,
       particles: Particle[],
-      maxDistance: number
+      maxDistance: number,
     ) => {
       ctx.strokeStyle =
         mode === "dark" ? "rgba(255, 255, 255, 0.1)" : "rgba(0, 0, 0, 0.1)";
@@ -100,7 +100,7 @@ const ParticleBackground: React.FC = () => {
       }
       ctx.globalAlpha = 1;
     },
-    [mode]
+    [mode],
   );
 
   useEffect(() => {
@@ -154,7 +154,7 @@ const ParticleBackground: React.FC = () => {
           0,
           particle.x,
           particle.y,
-          particle.size * 4
+          particle.size * 4,
         );
         gradient.addColorStop(0, particle.color);
         gradient.addColorStop(0.3, `${particle.color}60`);
@@ -190,6 +190,10 @@ const ParticleBackground: React.FC = () => {
       }
     };
   }, [mode, createParticles, drawConnections]);
+
+  if (mode === "light") {
+    return null;
+  }
 
   return (
     <>

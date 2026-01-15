@@ -6,6 +6,7 @@ import SkillCard from "./SkillCard";
 
 const Volunteering = () => {
   const [currentCardIndex, setCurrentCardIndex] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
   const stackRef = useRef<HTMLDivElement>(null);
 
   const imageArray = [
@@ -143,16 +144,17 @@ const Volunteering = () => {
       ),
     },
     {
-      title: "&quot;Phasara&quot; - Official Media Unit - UCSC",
+      title: "Pahasara - Official Media Unit - UCSC",
       subtitle: "Executives Committee Member",
       date: "2022 - 2023",
       listDescription: (
         <li style={{ color: "text.dark" }}>
           <Typography variant={"caption"} color={"text.dark"} sx={{ p: 0 }}>
-            Serving as an Executive Committee Member for the &quot;Phasara&quot;
-            Official Media Unit at the University of Colombo School of
-            Computing, I played a vital role in the organization&apos;s mission
-            to capture and disseminate the essence of campus life and events.
+            Serving as an Executive Committee Member for the
+            &quot;Pahasara&quot; Official Media Unit at the University of
+            Colombo School of Computing, I played a vital role in the
+            organization&apos;s mission to capture and disseminate the essence
+            of campus life and events.
           </Typography>
         </li>
       ),
@@ -180,12 +182,14 @@ const Volunteering = () => {
 
   // Auto-scroll effect
   useEffect(() => {
+    if (isPaused) return;
+
     const interval = setInterval(() => {
       nextCard();
     }, 4000); // Scroll every 4 seconds
 
     return () => clearInterval(interval);
-  }, [nextCard]);
+  }, [nextCard, isPaused]);
 
   // Scroll to current card
   useEffect(() => {
@@ -213,14 +217,18 @@ const Volunteering = () => {
             ref={stackRef}
             direction={"column"}
             spacing={2}
+            onMouseEnter={() => setIsPaused(true)}
+            onMouseLeave={() => setIsPaused(false)}
+            onFocus={() => setIsPaused(true)}
+            onBlur={() => setIsPaused(false)}
             sx={{
               alignItems: "stretch",
               maxHeight: "65vh",
               overflowY: "auto",
-              scrollbarWidth: "none", // Firefox
-              msOverflowStyle: "none", // IE and Edge
+              scrollbarWidth: "none",
+              msOverflowStyle: "none",
               "&::-webkit-scrollbar": {
-                display: "none", // Chrome, Safari, Opera
+                display: "none",
               },
               position: "relative",
             }}

@@ -26,7 +26,7 @@ export const useThemeMode = () => useContext(ThemeContext);
 const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
-  const [mode, setMode] = useState<ColorMode>("light");
+  const [mode, setMode] = useState<ColorMode>("dark");
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -52,7 +52,7 @@ const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({
   // Prevent hydration mismatch by not rendering until mounted
   if (!mounted) {
     return (
-      <MuiThemeProvider theme={getTheme("light")}>
+      <MuiThemeProvider theme={getTheme("dark")}>
         <CssBaseline />
         {children}
       </MuiThemeProvider>

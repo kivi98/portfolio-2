@@ -54,7 +54,7 @@ const TwoColumnSection = ({
         </Box>
       )}
       <Grid container spacing={{ xs: 2, md: 0 }} alignItems="center">
-        <Grid item xs={12} md={5.5}>
+        <Grid item xs={12} md={5.7}>
           <Box
             sx={{
               height: "100%",
@@ -69,7 +69,7 @@ const TwoColumnSection = ({
         <Grid
           item
           xs={12}
-          md={1}
+          md={0.6}
           sx={{ display: "flex", justifyContent: "center" }}
         >
           <Divider
@@ -77,14 +77,14 @@ const TwoColumnSection = ({
             sx={{
               height: "100%",
               mx: { xs: 0, md: "auto" },
-              backgroundColor: "transparentLevelsWhite.2",
+              backgroundColor: "transparentLevelsWhite.1",
               borderRadius: 10,
               display: { xs: "none", md: "block" },
               minHeight: "200px",
             }}
           />
         </Grid>
-        <Grid item xs={12} md={5.5} sx={{ p: 0, m: 0 }}>
+        <Grid item xs={12} md={5.7} sx={{ p: 0, m: 0 }}>
           <Box
             sx={{
               height: "100%",

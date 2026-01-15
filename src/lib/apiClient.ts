@@ -1,5 +1,5 @@
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from "axios";
-import { Blog, Project, PaginatedResponse } from "@/types";
+import { Blog, Post, Project, PaginatedResponse, ApiResponse, PostContentCategory, PostStatus } from "@/types";
 import {
   mockBlogs,
   mockProjects,
@@ -7,18 +7,30 @@ import {
   searchData,
 } from "./mockData";
 
-// API Configuration
+// API Configuration for .NET Backend
 const API_BASE_URL =
-  process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001/api";
-const API_TIMEOUT = 10000; // 10 seconds
+  process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api";
+const API_TIMEOUT = parseInt(process.env.NEXT_PUBLIC_API_TIMEOUT || "10000");
+const TOKEN_KEY = process.env.NEXT_PUBLIC_TOKEN_KEY || "authToken";
 
-// Create axios instance with default configuration
+// API Endpoints
+const POST_ENDPOINT = `${API_BASE_URL}/posts`;
+const POST_CATEGORY_ENDPOINT = `${POST_ENDPOINT}/category`;
+const POST_CONTENT_CATEGORY_ENDPOINT = `${POST_ENDPOINT}/content-category`;
+const BLOG_ENDPOINT = POST_ENDPOINT; // Backward compatibility
+const PROJECT_ENDPOINT = `${API_BASE_URL}/projects`;
+const AUTH_ENDPOINT = `${API_BASE_URL}/auth`;
+
+// Create axios instance with default configuration for .NET Backend
 const createApiClient = (): AxiosInstance => {
   const client = axios.create({
     baseURL: API_BASE_URL,
     timeout: API_TIMEOUT,
     headers: {
       "Content-Type": "application/json",
+      Accept: "application/json",
+      // .NET specific headers
+      "X-Requested-With": "XMLHttpRequest",
     },
   });
 
@@ -26,15 +38,19 @@ const createApiClient = (): AxiosInstance => {
   client.interceptors.request.use(
     (config) => {
       // Add auth token if available
-      const token = localStorage.getItem("authToken");
+      const token = localStorage.getItem(TOKEN_KEY);
       if (token) {
         config.headers.Authorization = `Bearer ${token}`;
       }
+
+      // Add .NET specific headers
+      config.headers["X-Requested-With"] = "XMLHttpRequest";
+
       return config;
     },
     (error) => {
       return Promise.reject(error);
-    }
+    },
   );
 
   // Response interceptor for error handling
@@ -43,18 +59,36 @@ const createApiClient = (): AxiosInstance => {
       return response;
     },
     (error) => {
-      // Handle common errors
+      // Handle .NET backend specific errors
       if (error.response?.status === 401) {
-        // Handle unauthorized
-        localStorage.removeItem("authToken");
+        // Handle unauthorized - clear token
+        localStorage.removeItem(TOKEN_KEY);
+        // Optionally redirect to login
+        if (typeof window !== "undefined") {
+          window.location.href = "/login";
+        }
+      }
+
+      if (error.response?.status === 403) {
+        // Handle forbidden
+        console.error("Access forbidden:", error.config?.url);
       }
 
       if (error.response?.status === 404) {
         console.error("Resource not found:", error.config?.url);
       }
 
+      if (error.response?.status === 500) {
+        console.error("Server error:", error.response?.data);
+      }
+
+      // Handle .NET validation errors (400)
+      if (error.response?.status === 400) {
+        console.error("Validation error:", error.response?.data);
+      }
+
       return Promise.reject(error);
-    }
+    },
   );
 
   return client;
@@ -68,7 +102,7 @@ export const api = {
   // Generic GET request
   get: <T>(
     url: string,
-    config?: AxiosRequestConfig
+    config?: AxiosRequestConfig,
   ): Promise<AxiosResponse<T>> => {
     return apiClient.get<T>(url, config);
   },
@@ -77,7 +111,7 @@ export const api = {
   post: <T>(
     url: string,
     data?: unknown,
-    config?: AxiosRequestConfig
+    config?: AxiosRequestConfig,
   ): Promise<AxiosResponse<T>> => {
     return apiClient.post<T>(url, data, config);
   },
@@ -86,7 +120,7 @@ export const api = {
   put: <T>(
     url: string,
     data?: unknown,
-    config?: AxiosRequestConfig
+    config?: AxiosRequestConfig,
   ): Promise<AxiosResponse<T>> => {
     return apiClient.put<T>(url, data, config);
   },
@@ -94,7 +128,7 @@ export const api = {
   // Generic DELETE request
   delete: <T>(
     url: string,
-    config?: AxiosRequestConfig
+    config?: AxiosRequestConfig,
   ): Promise<AxiosResponse<T>> => {
     return apiClient.delete<T>(url, config);
   },
@@ -134,7 +168,7 @@ const mockApi = {
     search: async (
       query: string,
       page = 1,
-      limit = 10
+      limit = 10,
     ): Promise<PaginatedResponse<Blog>> => {
       await mockApi.delay();
       const filteredBlogs = searchData(mockBlogs, query);
@@ -142,7 +176,7 @@ const mockApi = {
         filteredBlogs,
         page,
         limit,
-        filteredBlogs.length
+        filteredBlogs.length,
       );
     },
 
@@ -156,14 +190,14 @@ const mockApi = {
   projects: {
     getAll: async (
       page = 1,
-      limit = 10
+      limit = 10,
     ): Promise<PaginatedResponse<Project>> => {
       await mockApi.delay();
       return createPaginatedResponse(
         mockProjects,
         page,
         limit,
-        mockProjects.length
+        mockProjects.length,
       );
     },
 
@@ -179,7 +213,7 @@ const mockApi = {
     search: async (
       query: string,
       page = 1,
-      limit = 10
+      limit = 10,
     ): Promise<PaginatedResponse<Project>> => {
       await mockApi.delay();
       const filteredProjects = searchData(mockProjects, query);
@@ -187,7 +221,7 @@ const mockApi = {
         filteredProjects,
         page,
         limit,
-        filteredProjects.length
+        filteredProjects.length,
       );
     },
 
@@ -199,90 +233,361 @@ const mockApi = {
     getByTechnology: async (
       technology: string,
       page = 1,
-      limit = 10
+      limit = 10,
     ): Promise<PaginatedResponse<Project>> => {
       await mockApi.delay();
       const filteredProjects = mockProjects.filter((project) =>
         project.technologies?.some((tech) =>
-          tech.toLowerCase().includes(technology.toLowerCase())
-        )
+          tech.toLowerCase().includes(technology.toLowerCase()),
+        ),
       );
       return createPaginatedResponse(
         filteredProjects,
         page,
         limit,
-        filteredProjects.length
+        filteredProjects.length,
       );
     },
   },
 };
 
-// Blog API methods
-export const blogApi = {
-  // Get all blogs with optional pagination
-  getAll: async (page = 1, limit = 10): Promise<PaginatedResponse<Blog>> => {
-    // Use mock API for now, can be replaced with real API calls
-    return mockApi.blogs.getAll(page, limit);
+// Post API methods - .NET Backend (replaces blogApi)
+export const postApi = {
+  // Get all posts with optional pagination and filtering
+  getAll: async (
+    page = 1,
+    limit = 10,
+    contentCategoryId?: number,
+    status?: PostStatus,
+  ): Promise<PaginatedResponse<Post>> => {
+    let url = `${POST_ENDPOINT}?limit=${limit}&page=${page}`;
+    if (contentCategoryId !== undefined) {
+      url += `&contentCategoryId=${contentCategoryId}`;
+    }
+    if (status !== undefined) {
+      url += `&status=${status}`;
+    }
+
+    // Backend returns Result<IEnumerable<PostDto>> structure
+    const response = await apiClient.get<ApiResponse<Post[]>>(url);
+
+    // Transform to PaginatedResponse format
+    const posts = response.data.data || [];
+    return {
+      data: posts,
+      pagination: {
+        page,
+        limit,
+        total: posts.length, // Backend doesn't return total, use array length
+        totalPages: Math.ceil(posts.length / limit) || 1,
+      },
+    };
   },
 
-  // Get blog by ID
-  getById: async (id: number): Promise<Blog> => {
-    return mockApi.blogs.getById(id);
+  // Get posts by content category (Blog, Project, Article, etc.)
+  getByContentCategory: async (
+    categoryName: string,
+    page = 1,
+    limit = 10,
+    status?: PostStatus,
+  ): Promise<PaginatedResponse<Post>> => {
+    try {
+      // Try to get the content category ID by name
+      const categoryResponse = await apiClient.get<ApiResponse<PostContentCategory>>(
+        `${POST_CONTENT_CATEGORY_ENDPOINT}/${categoryName}`,
+      );
+      const categoryId = categoryResponse.data.data.id;
+      return postApi.getAll(page, limit, categoryId, status);
+    } catch (error) {
+      // If content category endpoint doesn't exist or fails, just filter by status
+      console.warn(`Could not fetch content category '${categoryName}', fetching all posts with status filter`);
+      return postApi.getAll(page, limit, undefined, status);
+    }
   },
 
-  // Get blog by slug
-  getBySlug: async (slug: string): Promise<Blog> => {
-    return mockApi.blogs.getBySlug(slug);
+  // Get post by ID
+  getById: async (id: number): Promise<ApiResponse<Post>> => {
+    const response = await apiClient.get<ApiResponse<Post>>(
+      `${POST_ENDPOINT}/${id}`,
+    );
+    return response.data;
   },
 
-  // Search blogs
+  // Get post by slug
+  getBySlug: async (slug: string): Promise<ApiResponse<Post>> => {
+    const response = await apiClient.get<ApiResponse<Post>>(
+      `${POST_ENDPOINT}/${slug}`,
+    );
+    return response.data;
+  },
+
+  // Search posts
   search: async (
     query: string,
     page = 1,
-    limit = 10
-  ): Promise<PaginatedResponse<Blog>> => {
-    return mockApi.blogs.search(query, page, limit);
+    limit = 10,
+    contentCategoryId?: number,
+  ): Promise<PaginatedResponse<Post>> => {
+    let url = `${POST_ENDPOINT}/search?q=${encodeURIComponent(query)}&page=${page}&pageSize=${limit}`;
+    if (contentCategoryId !== undefined) {
+      url += `&contentCategoryId=${contentCategoryId}`;
+    }
+
+    // Backend returns Result<IEnumerable<PostDto>> structure
+    const response = await apiClient.get<ApiResponse<Post[]>>(url);
+    const posts = response.data.data || [];
+
+    return {
+      data: posts,
+      pagination: {
+        page,
+        limit,
+        total: posts.length,
+        totalPages: Math.ceil(posts.length / limit) || 1,
+      },
+    };
   },
 
-  // Get featured blogs
-  getFeatured: async (): Promise<Blog[]> => {
-    return mockApi.blogs.getFeatured();
+  // Get featured posts
+  getFeatured: async (contentCategoryId?: number): Promise<Post[]> => {
+    let url = `${POST_ENDPOINT}/featured`;
+    if (contentCategoryId !== undefined) {
+      url += `?contentCategoryId=${contentCategoryId}`;
+    }
+    const response = await apiClient.get<Post[]>(url);
+    return response.data;
+  },
+
+  // Create new post (if authenticated)
+  create: async (post: Omit<Post, "id">): Promise<Post> => {
+    const response = await apiClient.post<Post>(POST_ENDPOINT, post);
+    return response.data;
+  },
+
+  // Update post (if authenticated)
+  update: async (id: number, post: Partial<Post>): Promise<Post> => {
+    const response = await apiClient.put<Post>(`${POST_ENDPOINT}/${id}`, post);
+    return response.data;
+  },
+
+  // Delete post (if authenticated)
+  delete: async (id: number): Promise<void> => {
+    await apiClient.delete(`${POST_ENDPOINT}/${id}`);
   },
 };
 
-// Project API methods
+// Post Content Category API methods
+export const postContentCategoryApi = {
+  // Get all content categories
+  getAll: async (): Promise<PostContentCategory[]> => {
+    const response = await apiClient.get<ApiResponse<PostContentCategory[]>>(
+      POST_CONTENT_CATEGORY_ENDPOINT,
+    );
+    return response.data.data;
+  },
+
+  // Get content category by name
+  getByName: async (name: string): Promise<PostContentCategory> => {
+    const response = await apiClient.get<ApiResponse<PostContentCategory>>(
+      `${POST_CONTENT_CATEGORY_ENDPOINT}/${name}`,
+    );
+    return response.data.data;
+  },
+};
+
+// Backward compatibility - blogApi is now an alias for postApi with Blog content category filtering
+export const blogApi = {
+  getAll: async (page = 1, limit = 10): Promise<PaginatedResponse<Blog>> => {
+    // For now, just get published posts without content category filter
+    // Once PostContentCategory is properly seeded in DB, we can add contentCategoryId filter
+    return postApi.getAll(page, limit, undefined, PostStatus.Published) as Promise<PaginatedResponse<Blog>>;
+  },
+
+  getById: async (id: number): Promise<ApiResponse<Blog>> => {
+    return postApi.getById(id) as Promise<ApiResponse<Blog>>;
+  },
+
+  getBySlug: async (slug: string): Promise<ApiResponse<Blog>> => {
+    return postApi.getBySlug(slug) as Promise<ApiResponse<Blog>>;
+  },
+
+  search: async (
+    query: string,
+    page = 1,
+    limit = 10,
+  ): Promise<PaginatedResponse<Blog>> => {
+    return postApi.search(query, page, limit) as Promise<PaginatedResponse<Blog>>;
+  },
+
+  getFeatured: async (): Promise<Blog[]> => {
+    return postApi.getFeatured() as Promise<Blog[]>;
+  },
+
+  create: async (blog: Omit<Blog, "id">): Promise<Blog> => {
+    return postApi.create(blog as Omit<Post, "id">) as Promise<Blog>;
+  },
+
+  update: async (id: number, blog: Partial<Blog>): Promise<Blog> => {
+    return postApi.update(id, blog as Partial<Post>) as Promise<Blog>;
+  },
+
+  delete: async (id: number): Promise<void> => {
+    return postApi.delete(id);
+  },
+};
+
+// Project API methods - Uses Post API with Project content category
 export const projectApi = {
   // Get all projects with optional pagination
   getAll: async (page = 1, limit = 10): Promise<PaginatedResponse<Project>> => {
-    return mockApi.projects.getAll(page, limit);
+    // Get published posts without content category filter for now
+    // Once PostContentCategory is properly seeded, filter by Project category
+    return postApi.getAll(page, limit, undefined, PostStatus.Published) as any;
   },
 
   // Get project by ID
   getById: async (id: number): Promise<Project> => {
-    return mockApi.projects.getById(id);
+    const response = await postApi.getById(id);
+    return response.data as any;
+  },
+
+  // Get project by slug
+  getBySlug: async (slug: string): Promise<ApiResponse<Project>> => {
+    return postApi.getBySlug(slug) as Promise<ApiResponse<Project>>;
   },
 
   // Search projects
   search: async (
     query: string,
     page = 1,
-    limit = 10
+    limit = 10,
   ): Promise<PaginatedResponse<Project>> => {
-    return mockApi.projects.search(query, page, limit);
+    return postApi.search(query, page, limit) as any;
   },
 
   // Get featured projects
   getFeatured: async (): Promise<Project[]> => {
-    return mockApi.projects.getFeatured();
+    return postApi.getFeatured() as any;
   },
 
-  // Get projects by technology
+  // Get projects by technology (will search tags/categories)
   getByTechnology: async (
     technology: string,
     page = 1,
-    limit = 10
+    limit = 10,
   ): Promise<PaginatedResponse<Project>> => {
-    return mockApi.projects.getByTechnology(technology, page, limit);
+    // Use search to find projects with specific technology
+    return postApi.search(technology, page, limit) as any;
+  },
+
+  // Create new project (if authenticated)
+  create: async (project: Omit<Project, "id">): Promise<Project> => {
+    return postApi.create(project as any) as any;
+  },
+
+  // Update project (if authenticated)
+  update: async (id: number, project: Partial<Project>): Promise<Project> => {
+    return postApi.update(id, project as any) as any;
+  },
+
+  // Delete project (if authenticated)
+  delete: async (id: number): Promise<void> => {
+    return postApi.delete(id);
+  },
+};
+
+// Authentication API methods - .NET Backend
+export const authApi = {
+  // Login
+  login: async (email: string, password: string) => {
+    const response = await apiClient.post(`${AUTH_ENDPOINT}/login`, {
+      email,
+      password,
+    });
+    return response.data;
+  },
+
+  // Register
+  register: async (userData: {
+    email: string;
+    password: string;
+    name: string;
+  }) => {
+    const response = await apiClient.post(
+      `${AUTH_ENDPOINT}/register`,
+      userData,
+    );
+    return response.data;
+  },
+
+  // Refresh token
+  refreshToken: async (refreshToken: string) => {
+    const response = await apiClient.post(`${AUTH_ENDPOINT}/refresh`, {
+      refreshToken,
+    });
+    return response.data;
+  },
+
+  // Logout
+  logout: async () => {
+    await apiClient.post(`${AUTH_ENDPOINT}/logout`);
+  },
+
+  // Get current user
+  getCurrentUser: async () => {
+    const response = await apiClient.get(`${AUTH_ENDPOINT}/me`);
+    return response.data;
+  },
+};
+
+// Utility functions for .NET Backend
+export const apiUtils = {
+  // Handle .NET validation errors
+  handleValidationError: (error: any) => {
+    if (error.response?.status === 400) {
+      const validationErrors = error.response.data?.errors;
+      if (validationErrors) {
+        return Object.keys(validationErrors).map((key) => ({
+          field: key,
+          message: validationErrors[key][0],
+        }));
+      }
+    }
+    return [];
+  },
+
+  // Format .NET API response
+  formatResponse: (response: any) => {
+    // Handle .NET API response structure
+    if (response.data && typeof response.data === "object") {
+      return response.data;
+    }
+    return response;
+  },
+
+  // Check if user is authenticated
+  isAuthenticated: (): boolean => {
+    if (typeof window === "undefined") return false;
+    const token = localStorage.getItem(TOKEN_KEY);
+    return !!token;
+  },
+
+  // Get auth token
+  getAuthToken: (): string | null => {
+    if (typeof window === "undefined") return null;
+    return localStorage.getItem(TOKEN_KEY);
+  },
+
+  // Set auth token
+  setAuthToken: (token: string): void => {
+    if (typeof window === "undefined") return;
+    localStorage.setItem(TOKEN_KEY, token);
+  },
+
+  // Clear auth token
+  clearAuthToken: (): void => {
+    if (typeof window === "undefined") return;
+    localStorage.removeItem(TOKEN_KEY);
   },
 };
 

@@ -1,9 +1,26 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { blogApi, projectApi } from "./apiClient";
-import { Blog } from "@/types";
+import { blogApi, postApi, projectApi } from "./apiClient";
+import { Blog, Post } from "@/types";
+import { PostStatus } from "@/types";
 
 // Query keys for consistent caching
 export const queryKeys = {
+  posts: {
+    all: ["posts"] as const,
+    lists: () => [...queryKeys.posts.all, "list"] as const,
+    list: (filters: {
+      page?: number;
+      limit?: number;
+      search?: string;
+      contentCategoryId?: number;
+      status?: PostStatus;
+    }) => [...queryKeys.posts.lists(), filters] as const,
+    details: () => [...queryKeys.posts.all, "detail"] as const,
+    detail: (id: number) => [...queryKeys.posts.details(), id] as const,
+    bySlug: (slug: string) => [...queryKeys.posts.details(), "slug", slug] as const,
+    featured: (contentCategoryId?: number) =>
+      [...queryKeys.posts.all, "featured", contentCategoryId] as const,
+  },
   blogs: {
     all: ["blogs"] as const,
     lists: () => [...queryKeys.blogs.all, "list"] as const,
@@ -26,11 +43,76 @@ export const queryKeys = {
     }) => [...queryKeys.projects.lists(), filters] as const,
     details: () => [...queryKeys.projects.all, "detail"] as const,
     detail: (id: number) => [...queryKeys.projects.details(), id] as const,
+    bySlug: (slug: string) => [...queryKeys.projects.details(), "slug", slug] as const,
     featured: () => [...queryKeys.projects.all, "featured"] as const,
   },
 };
 
-// Blog hooks
+// Post hooks (new, generic for all content types)
+export const usePosts = (
+  page = 1,
+  limit = 10,
+  contentCategoryId?: number,
+  status?: PostStatus
+) => {
+  return useQuery({
+    queryKey: queryKeys.posts.list({ page, limit, contentCategoryId, status }),
+    queryFn: () => postApi.getAll(page, limit, contentCategoryId, status),
+    staleTime: 5 * 60 * 1000, // 5 minutes
+    gcTime: 10 * 60 * 1000, // 10 minutes
+  });
+};
+
+export const usePostsByContentCategory = (
+  categoryName: string,
+  page = 1,
+  limit = 10,
+  status?: PostStatus
+) => {
+  return useQuery({
+    queryKey: queryKeys.posts.list({ page, limit, search: categoryName, status }),
+    queryFn: () => postApi.getByContentCategory(categoryName, page, limit, status),
+    staleTime: 5 * 60 * 1000,
+    gcTime: 10 * 60 * 1000,
+  });
+};
+
+export const usePost = (id: number) => {
+  return useQuery({
+    queryKey: queryKeys.posts.detail(id),
+    queryFn: () => postApi.getById(id),
+    enabled: !!id,
+    staleTime: 10 * 60 * 1000,
+    gcTime: 30 * 60 * 1000,
+  });
+};
+
+export const usePostBySlug = (slug: string) => {
+  return useQuery({
+    queryKey: queryKeys.posts.bySlug(slug),
+    queryFn: () => postApi.getBySlug(slug),
+    enabled: !!slug,
+    staleTime: 10 * 60 * 1000,
+    gcTime: 30 * 60 * 1000,
+  });
+};
+
+export const useSearchPosts = (
+  query: string,
+  page = 1,
+  limit = 10,
+  contentCategoryId?: number
+) => {
+  return useQuery({
+    queryKey: queryKeys.posts.list({ page, limit, search: query, contentCategoryId }),
+    queryFn: () => postApi.search(query, page, limit, contentCategoryId),
+    enabled: !!query.trim(),
+    staleTime: 2 * 60 * 1000,
+    gcTime: 5 * 60 * 1000,
+  });
+};
+
+// Blog hooks (backward compatibility - these filter posts by Blog content category)
 export const useBlogs = (page = 1, limit = 10) => {
   return useQuery({
     queryKey: queryKeys.blogs.list({ page, limit }),
@@ -99,6 +181,16 @@ export const useProject = (id: number) => {
   });
 };
 
+export const useProjectBySlug = (slug: string) => {
+  return useQuery({
+    queryKey: queryKeys.projects.bySlug(slug),
+    queryFn: () => projectApi.getBySlug(slug),
+    enabled: !!slug,
+    staleTime: 10 * 60 * 1000, // 10 minutes
+    gcTime: 30 * 60 * 1000, // 30 minutes
+  });
+};
+
 export const useSearchProjects = (query: string, page = 1, limit = 10) => {
   return useQuery({
     queryKey: queryKeys.projects.list({ page, limit, search: query }),
@@ -112,7 +204,7 @@ export const useSearchProjects = (query: string, page = 1, limit = 10) => {
 export const useProjectsByTechnology = (
   technology: string,
   page = 1,
-  limit = 10
+  limit = 10,
 ) => {
   return useQuery({
     queryKey: queryKeys.projects.list({ page, limit, technology }),
@@ -160,7 +252,7 @@ export const useUpdateBlog = () => {
       // Update the cache with the new data
       queryClient.setQueryData(
         queryKeys.blogs.detail(updatedBlog.id),
-        updatedBlog
+        updatedBlog,
       );
       queryClient.invalidateQueries({ queryKey: queryKeys.blogs.lists() });
     },
