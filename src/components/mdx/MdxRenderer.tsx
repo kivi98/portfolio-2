@@ -49,6 +49,14 @@ export const MdxRenderer: React.FC<MdxRendererProps> = ({
         "& .katex-display": {
           margin: `${theme.spacing(2)} 0`,
         },
+        // Fix anchor-wrapped headings to preserve heading color
+        "& a.anchor": {
+          color: "inherit",
+          textDecoration: "none",
+          "&:hover": {
+            textDecoration: "none",
+          },
+        },
       }}
     >
       <ReactMarkdown

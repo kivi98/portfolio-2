@@ -29,7 +29,6 @@ import {
   CalendarToday,
   Person,
   AccessTime,
-  Visibility,
   BookmarkBorder,
   KeyboardArrowUp,
   FormatListBulleted,
@@ -40,7 +39,6 @@ import { useRouter } from "next/navigation";
 import { LoadingSpinner, ErrorMessage } from "@/lib/hooks";
 import { MdxRenderer } from "@/components/mdx/MdxRenderer";
 import Image from "next/image";
-import { color } from "@mui/system";
 
 interface BlogPostPageProps {
   params: Promise<{
@@ -257,7 +255,6 @@ const BlogPostPage = ({ params }: BlogPostPageProps) => {
           position: "fixed",
           top: { xs: 70, md: 80 },
           left: 0,
-          color: "secondary.main",
           right: 0,
           zIndex: 1000,
           height: 3,
@@ -312,7 +309,7 @@ const BlogPostPage = ({ params }: BlogPostPageProps) => {
                 right: 0,
                 height: "1px",
                 background:
-                  "linear-gradient(90deg, transparent, rgba(227, 0, 0, 0.3), transparent)",
+                  "linear-gradient(90deg, transparent, rgba(114, 137, 218, 0.3), transparent)",
                 borderRadius: "3px 3px 0 0",
               },
             }}
@@ -349,11 +346,11 @@ const BlogPostPage = ({ params }: BlogPostPageProps) => {
                       activeHeading === item.id ? "white" : "text.secondary",
                     backgroundColor:
                       activeHeading === item.id
-                        ? "secondary.main"
+                        ? "rgba(114, 137, 218, 0.8)"
                         : "rgba(255, 255, 255, 0.05)",
                     border:
                       activeHeading === item.id
-                        ? "1px solid rgba(227, 0, 0, 0.3)"
+                        ? "1px solid rgba(114, 137, 218, 0.5)"
                         : "1px solid transparent",
                     borderRadius: 2,
                     fontSize:
@@ -364,12 +361,12 @@ const BlogPostPage = ({ params }: BlogPostPageProps) => {
                     "&:hover": {
                       backgroundColor:
                         activeHeading === item.id
-                          ? "secondary.dark"
+                          ? "rgba(114, 137, 218, 0.9)"
                           : "rgba(255, 255, 255, 0.1)",
                       transform: "translateY(-1px)",
                       boxShadow:
                         activeHeading === item.id
-                          ? "0 4px 12px rgba(227, 0, 0, 0.3)"
+                          ? "0 4px 12px rgba(114, 137, 218, 0.4)"
                           : "0 4px 12px rgba(0, 0, 0, 0.2)",
                     },
                     "&::before":
@@ -823,7 +820,7 @@ const BlogPostPage = ({ params }: BlogPostPageProps) => {
                   right: 0,
                   height: "1px",
                   background:
-                    "linear-gradient(90deg, transparent, rgba(227, 0, 0, 0.3), transparent)",
+                    "linear-gradient(90deg, transparent, rgba(114, 137, 218, 0.3), transparent)",
                   borderRadius: "3px 3px 0 0",
                 },
               }}
@@ -886,11 +883,11 @@ const BlogPostPage = ({ params }: BlogPostPageProps) => {
                         activeHeading === item.id ? "white" : "text.secondary",
                       backgroundColor:
                         activeHeading === item.id
-                          ? "secondary.main"
+                          ? "rgba(114, 137, 218, 0.8)"
                           : "rgba(255, 255, 255, 0.05)",
                       border:
                         activeHeading === item.id
-                          ? "1px solid rgba(227, 0, 0, 0.3)"
+                          ? "1px solid rgba(114, 137, 218, 0.5)"
                           : "1px solid transparent",
                       borderRadius: 2,
                       fontSize:
@@ -901,12 +898,12 @@ const BlogPostPage = ({ params }: BlogPostPageProps) => {
                       "&:hover": {
                         backgroundColor:
                           activeHeading === item.id
-                            ? "secondary.dark"
+                            ? "rgba(114, 137, 218, 0.9)"
                             : "rgba(255, 255, 255, 0.1)",
                         transform: "translateY(-1px)",
                         boxShadow:
                           activeHeading === item.id
-                            ? "0 4px 12px rgba(227, 0, 0, 0.3)"
+                            ? "0 4px 12px rgba(114, 137, 218, 0.4)"
                             : "0 4px 12px rgba(0, 0, 0, 0.2)",
                       },
                       "&::before":
