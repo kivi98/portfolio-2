@@ -207,7 +207,7 @@ export const CredlyBadgeCardSkeleton: React.FC = () => {
         paddingTop: 5,
       }}
     >
-      <CircularProgress />
+      <CircularProgress color="secondary" />
     </Box>
   );
 };

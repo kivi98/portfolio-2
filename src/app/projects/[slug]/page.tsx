@@ -158,7 +158,7 @@ const ProjectPage = ({ params }: ProjectPageProps) => {
 
     // Extract technology tags and contributors
     const technologies = projectData?.tags || [];
-    const contributors = projectData?.contributors || [];
+    const contributors: any[] = projectData?.contributors || [];
     const githubUrl = (projectData as any)?.githubUrl;
     const liveUrl = (projectData as any)?.liveUrl || (projectData as any)?.link;
 

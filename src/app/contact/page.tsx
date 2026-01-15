@@ -12,6 +12,8 @@ import {
   styled,
   Card,
   CardContent,
+  Alert,
+  Snackbar,
 } from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
 import FacebookIcon from "@mui/icons-material/Facebook";
@@ -25,7 +27,10 @@ import PhoneIcon from "@mui/icons-material/Phone";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import { keyframes } from "@emotion/react";
 import { useTheme } from "@mui/material/styles";
-import avatar from "@/public/my-images/avatar.webp";
+import avatar from "@/public/images/avatar-me.svg";
+import { useState } from "react";
+import { contactFormSchema, ContactFormData } from "@/lib/schemas";
+import axios from "axios";
 
 const iconBounce = keyframes`
   0%, 100% { transform: translateY(0); }
@@ -49,6 +54,79 @@ const StyledIconButton = styled(IconButton)(({ theme }) => ({
 
 const Contact = () => {
   const theme = useTheme();
+  const [formData, setFormData] = useState<ContactFormData>({
+    name: "",
+    email: "",
+    subject: "",
+    message: "",
+  });
+  const [errors, setErrors] = useState<Partial<ContactFormData>>({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<{
+    severity: "success" | "error";
+    message: string;
+    open: boolean;
+  }>({
+    severity: "success",
+    message: "",
+    open: false,
+  });
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+    // Clear error when user types
+    if (errors[name as keyof ContactFormData]) {
+      setErrors((prev) => ({ ...prev, [name]: undefined }));
+    }
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setErrors({});
+
+    // Validate form using Zod
+    const result = contactFormSchema.safeParse(formData);
+
+    if (!result.success) {
+      const fieldErrors: Partial<ContactFormData> = {};
+      const flattenedErrors = result.error.flatten().fieldErrors;
+
+      (Object.keys(flattenedErrors) as Array<keyof ContactFormData>).forEach((key) => {
+        const messages = flattenedErrors[key];
+        if (messages && messages.length > 0) {
+          fieldErrors[key] = messages[0];
+        }
+      });
+
+      setErrors(fieldErrors);
+      setIsSubmitting(false);
+      return;
+    }
+
+    try {
+      await axios.post("/api/send", formData);
+      setSubmitStatus({
+        open: true,
+        severity: "success",
+        message: "Message sent! I'll get back to you soon.",
+      });
+      setFormData({ name: "", email: "", subject: "", message: "" });
+    } catch (error) {
+      setSubmitStatus({
+        open: true,
+        severity: "error",
+        message: "Failed to send message. Please try again later.",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const handleCloseSnackbar = () => {
+    setSubmitStatus((prev) => ({ ...prev, open: false }));
+  };
   return (
     <Container
       maxWidth="lg"
@@ -80,11 +158,14 @@ const Contact = () => {
               height: 300,
               width: "100%",
               objectFit: "cover",
+              objectPosition: "top left",
               borderRadius: 5,
-              boxShadow: (theme) =>
-                theme.palette.mode === "dark"
-                  ? "0 8px 32px rgba(0, 0, 0, 0.3)"
-                  : "0 8px 32px rgba(0, 0, 0, 0.1)",
+              justifyContent: "flex-end",
+              alignItems: "flex-end",
+              // boxShadow: (theme) =>
+              //   theme.palette.mode === "dark"
+              //     ? "0 8px 32px rgba(0, 0, 0, 0.3)"
+              //     : "0 8px 32px rgba(0, 0, 0, 0.1)",
             }}
           />
         </Box>
@@ -130,7 +211,7 @@ const Contact = () => {
               variant="subtitle1"
               sx={{ color: "text.primary", mt: 2, height: "100%", flexGrow: 1 }}
             >
-              Ready to collaborate on your next project? I'm always excited to
+              Ready to collaborate on your next project? I&apos;m always excited to
               hear about new opportunities and innovative ideas. Whether you
               have a question, want to discuss a potential project, or just want
               to say hello, feel free to reach out.
@@ -156,7 +237,7 @@ const Contact = () => {
               fontSize: { xs: 24, md: 32 },
             }}
           >
-            Let's Connect
+            Let&apos;s Connect
           </Typography>
 
           <Stack spacing={3}>
@@ -316,15 +397,21 @@ const Contact = () => {
             >
               Send Message
             </Typography>
-            <form method="post" action="mailto:kiviamarakoon@gmail.com">
+            {/* Contact Form */}
+            <form onSubmit={handleSubmit}>
               <Stack spacing={3}>
                 <Stack direction={{ xs: "column", md: "row" }} spacing={2}>
                   <TextField
                     label="Name"
                     name="name"
+                    value={formData.name}
+                    onChange={handleChange}
+                    error={!!errors.name}
+                    helperText={errors.name}
                     size="medium"
                     fullWidth
                     required
+                    disabled={isSubmitting}
                     sx={{
                       "& .MuiInputBase-root": {
                         borderRadius: 2,
@@ -335,9 +422,14 @@ const Contact = () => {
                   <TextField
                     label="Email"
                     name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    error={!!errors.email}
+                    helperText={errors.email}
                     size="medium"
                     fullWidth
                     required
+                    disabled={isSubmitting}
                     sx={{
                       "& .MuiInputBase-root": {
                         borderRadius: 2,
@@ -349,9 +441,14 @@ const Contact = () => {
                 <TextField
                   label="Subject"
                   name="subject"
+                  value={formData.subject}
+                  onChange={handleChange}
+                  error={!!errors.subject}
+                  helperText={errors.subject}
                   size="medium"
                   fullWidth
                   required
+                  disabled={isSubmitting}
                   sx={{
                     "& .MuiInputBase-root": {
                       borderRadius: 2,
@@ -362,11 +459,16 @@ const Contact = () => {
                 <TextField
                   label="Message"
                   name="message"
+                  value={formData.message}
+                  onChange={handleChange}
+                  error={!!errors.message}
+                  helperText={errors.message}
                   size="medium"
                   fullWidth
                   multiline
                   rows={5}
                   required
+                  disabled={isSubmitting}
                   sx={{
                     "& .MuiInputBase-root": {
                       borderRadius: 2,
@@ -379,7 +481,8 @@ const Contact = () => {
                     type="submit"
                     variant="contained"
                     color="secondary"
-                    endIcon={<SendIcon />}
+                    endIcon={!isSubmitting && <SendIcon />}
+                    disabled={isSubmitting}
                     sx={{
                       px: 4,
                       py: 1.5,
@@ -394,7 +497,7 @@ const Contact = () => {
                       },
                     }}
                   >
-                    Send Message
+                    {isSubmitting ? "Sending..." : "Send Message"}
                   </Button>
                 </Box>
               </Stack>
@@ -624,7 +727,21 @@ const Contact = () => {
           </a>
         </Stack>
       </Box>
-    </Container>
+      <Snackbar
+        open={submitStatus.open}
+        autoHideDuration={6000}
+        onClose={handleCloseSnackbar}
+        anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+      >
+        <Alert
+          onClose={handleCloseSnackbar}
+          severity={submitStatus.severity}
+          sx={{ width: "100%" }}
+        >
+          {submitStatus.message}
+        </Alert>
+      </Snackbar>
+    </Container >
   );
 };
 
