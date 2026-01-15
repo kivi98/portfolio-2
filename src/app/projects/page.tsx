@@ -172,7 +172,7 @@ const Projects = () => {
               variant="subtitle1"
               sx={{ color: "text.primary", mt: 2, height: "100%", flexGrow: 1 }}
             >
-              A collection of innovative projects I've developed, showcasing my
+              A collection of innovative projects I&apos;ve developed, showcasing my
               expertise in software development, design principles, and
               cutting-edge technologies. From web applications to mobile
               solutions, each project represents a unique challenge and creative

@@ -53,8 +53,8 @@ const ContactCTA = () => {
                 color="text.secondary"
                 sx={{ mb: 6, maxWidth: "700px", fontWeight: 400 }}
             >
-                I'm always open to discussing new projects, creative ideas, or opportunities
-                to be part of your visions. Let's create something amazing together.
+                I&apos;m always open to discussing new projects, creative ideas, or opportunities
+                to be part of your visions. Let&apos;s create something amazing together.
             </Typography>
 
             {/* Button first, then details below for a cleaner hierarchy */}

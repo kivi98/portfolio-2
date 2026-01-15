@@ -20,13 +20,14 @@
     "@mui/material": "^5.15.10",
     "@mui/system": "^5.15.10",
     "@next/mdx": "^15.4.6",
+    "@react-email/components": "^1.0.4",
     "@tanstack/react-query": "^5.17.19",
     "@tanstack/react-query-devtools": "^5.17.19",
     "@types/mdx": "^2.0.13",
     "@types/react-syntax-highlighter": "^15.5.13",
     "axios": "^1.6.7",
     "clsx": "^2.1.0",
-    "next": "14.2.31",
+    "next": "^14.2.3",
     "next-seo": "^6.4.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -40,7 +41,9 @@
     "rehype-slug": "^6.0.0",
     "remark-gfm": "^4.0.0",
     "remark-math": "^6.0.0",
-    "sharp": "^0.34.3"
+    "resend": "^3.2.0",
+    "sharp": "^0.34.3",
+    "zod": "^3.23.8"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.0.2",
