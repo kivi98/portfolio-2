@@ -21,6 +21,7 @@ import {
     Modal,
     Backdrop,
     useTheme,
+    Snackbar,
 } from "@mui/material";
 import {
     Favorite,
@@ -35,6 +36,7 @@ import {
     BookmarkBorder,
     FormatListBulleted,
     Close,
+    Language,
 } from "@mui/icons-material";
 import { usePostBySlug } from "@/lib/queries";
 import { useRouter } from "next/navigation";
@@ -63,6 +65,7 @@ const ProjectPage = ({ params }: ProjectPageProps) => {
     const [tocItems, setTocItems] = useState<TocItem[]>([]);
     const [activeHeading, setActiveHeading] = useState<string>("");
     const [showMobileToc, setShowMobileToc] = useState(false);
+    const [showShareToast, setShowShareToast] = useState(false);
 
     useEffect(() => {
         const getSlug = async () => {
@@ -88,7 +91,6 @@ const ProjectPage = ({ params }: ProjectPageProps) => {
         };
 
         window.addEventListener("scroll", updateReadingProgress);
-        return () => window.removeEventListener("scroll", updateReadingProgress);
         return () => window.removeEventListener("scroll", updateReadingProgress);
     }, []);
 
@@ -220,20 +222,27 @@ const ProjectPage = ({ params }: ProjectPageProps) => {
         router.push("/projects");
     };
 
-    const handleShare = () => {
-        if (navigator.share) {
-            navigator.share({
-                title: projectData?.title,
-                text: projectData?.description || projectData?.content?.substring(0, 150),
-                url: window.location.href,
-            });
-        } else {
-            navigator.clipboard.writeText(window.location.href);
-        }
+    const scrollToTop = () => {
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth",
+        });
     };
 
-    const scrollToTop = () => {
-        window.scrollTo({ top: 0, behavior: "smooth" });
+    const handleShare = async () => {
+        if (navigator.share) {
+            try {
+                await navigator.share({
+                    title: projectData?.title || "Project by Kivi Amarakoon",
+                    url: window.location.href,
+                });
+            } catch (error) {
+                console.error("Error sharing:", error);
+            }
+        } else {
+            navigator.clipboard.writeText(window.location.href);
+            setShowShareToast(true);
+        }
     };
 
     const scrollToHeading = (headingId: string) => {
@@ -469,6 +478,17 @@ const ProjectPage = ({ params }: ProjectPageProps) => {
                                     {projectData?.likes || 0}
                                 </Typography>
                             </Stack>
+
+                            <Tooltip title="Share">
+                                <IconButton onClick={handleShare} size="small" sx={{ p: 0 }}>
+                                    <Stack direction="row" alignItems="center" spacing={1}>
+                                        <Share fontSize="small" color="secondary" />
+                                        <Typography variant="body2" color="text.secondary">
+                                            Share
+                                        </Typography>
+                                    </Stack>
+                                </IconButton>
+                            </Tooltip>
                         </Stack>
                     </Stack>
 
@@ -1004,6 +1024,14 @@ const ProjectPage = ({ params }: ProjectPageProps) => {
                     <KeyboardArrowUp />
                 </Fab>
             </Fade>
+
+            <Snackbar
+                open={showShareToast}
+                autoHideDuration={3000}
+                onClose={() => setShowShareToast(false)}
+                message="Link copied to clipboard"
+                anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+            />
         </>
     );
 };
