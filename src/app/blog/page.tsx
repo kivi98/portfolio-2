@@ -12,10 +12,10 @@ import {
   Pagination,
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
-import {useBlogs, usePosts, useSearchBlogs} from "@/lib/queries";
+import { useBlogs, usePosts, useSearchBlogs } from "@/lib/queries";
 import CustomCarousel from "../about/components/CustomCarousel";
 import BlogCard from "./components/BlogCard";
-import {ContentCategory, PostStatus} from "@/enum";
+import { ContentCategory, PostStatus } from "@/enum";
 
 const Blog = () => {
   const [search, setSearch] = useState("");
@@ -61,7 +61,7 @@ const Blog = () => {
             minHeight: "50vh",
           }}
         >
-          <CircularProgress size={60} />
+          <CircularProgress size={60} color="secondary" />
         </Box>
       </Container>
     );

@@ -40,6 +40,7 @@ import { useRouter } from "next/navigation";
 import { LoadingSpinner, ErrorMessage } from "@/lib/hooks";
 import { MdxRenderer } from "@/components/mdx/MdxRenderer";
 import Image from "next/image";
+import { color } from "@mui/system";
 
 interface BlogPostPageProps {
   params: Promise<{
@@ -256,6 +257,7 @@ const BlogPostPage = ({ params }: BlogPostPageProps) => {
           position: "fixed",
           top: { xs: 70, md: 80 },
           left: 0,
+          color: "secondary.main",
           right: 0,
           zIndex: 1000,
           height: 3,

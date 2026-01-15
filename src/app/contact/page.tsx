@@ -25,7 +25,7 @@ import PhoneIcon from "@mui/icons-material/Phone";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import { keyframes } from "@emotion/react";
 import { useTheme } from "@mui/material/styles";
-import avatar from "@/public/my-images/avatar.webp";
+import avatar from "@/public/images/avatar-me.svg";
 
 const iconBounce = keyframes`
   0%, 100% { transform: translateY(0); }
@@ -80,11 +80,14 @@ const Contact = () => {
               height: 300,
               width: "100%",
               objectFit: "cover",
+              objectPosition: "top left",
               borderRadius: 5,
-              boxShadow: (theme) =>
-                theme.palette.mode === "dark"
-                  ? "0 8px 32px rgba(0, 0, 0, 0.3)"
-                  : "0 8px 32px rgba(0, 0, 0, 0.1)",
+              justifyContent: "flex-end",
+              alignItems: "flex-end",
+              // boxShadow: (theme) =>
+              //   theme.palette.mode === "dark"
+              //     ? "0 8px 32px rgba(0, 0, 0, 0.3)"
+              //     : "0 8px 32px rgba(0, 0, 0, 0.1)",
             }}
           />
         </Box>

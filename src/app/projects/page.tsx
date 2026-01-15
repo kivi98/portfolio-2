@@ -18,10 +18,10 @@ import {
 } from "@mui/material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import SearchIcon from "@mui/icons-material/Search";
-import {usePosts, useProjects, useSearchProjects} from "@/lib/queries";
+import { usePosts, useProjects, useSearchProjects } from "@/lib/queries";
 import CustomCarousel from "../about/components/CustomCarousel";
 import ProjectCard from "./components/ProjectCard";
-import {ContentCategory, PostStatus} from "@/enum";
+import { ContentCategory, PostStatus } from "@/enum";
 
 const Projects = () => {
   const [search, setSearch] = useState("");
@@ -67,7 +67,7 @@ const Projects = () => {
             minHeight: "50vh",
           }}
         >
-          <CircularProgress size={60} />
+          <CircularProgress size={60} color="secondary" />
         </Box>
       </Container>
     );

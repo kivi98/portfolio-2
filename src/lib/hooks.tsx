@@ -13,7 +13,7 @@ export const LoadingSpinner = ({ size = 60 }: { size?: number }) => (
       minHeight: "50vh",
     }}
   >
-    <CircularProgress size={size} />
+    <CircularProgress size={size} color="secondary" />
   </Box>
 );
 
