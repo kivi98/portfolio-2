@@ -415,14 +415,13 @@ const ProjectPage = ({ params }: ProjectPageProps) => {
                     >
                         <Stack direction="row" alignItems="center" spacing={2}>
                             <Avatar
+                                src="/my-images/me.jpeg"
+                                alt="Kivi Amarakoon"
                                 sx={{
                                     width: 48,
                                     height: 48,
-                                    background: "linear-gradient(135deg, #e30000, #ff6b6b)",
                                 }}
-                            >
-                                <Person />
-                            </Avatar>
+                            />
                             <Box>
                                 <Typography variant="subtitle1" fontWeight={600}>
                                     {projectData?.owner?.firstName || "Kivi"}{" "}
