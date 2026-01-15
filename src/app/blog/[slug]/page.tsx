@@ -669,7 +669,10 @@ const BlogPostPage = ({ params }: BlogPostPageProps) => {
             sx={{
               display: { xs: "none", lg: "block" },
               position: "sticky",
-              top: 120,
+              top: 150,
+              marginTop: "0px",
+              alignSelf: "start",
+              zIndex: 10,
             }}
           >
             <Paper
