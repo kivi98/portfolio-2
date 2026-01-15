@@ -246,9 +246,9 @@ export function getTheme(mode: ColorMode): Theme {
               minHeight: "24px",
             },
             "&::-webkit-scrollbar-thumb:focus, & *::-webkit-scrollbar-thumb:focus":
-            {
-              backgroundColor: mode === "dark" ? "#555" : "#AAA",
-            },
+              {
+                backgroundColor: mode === "dark" ? "#555" : "#AAA",
+              },
           },
         },
       },

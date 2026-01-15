@@ -115,7 +115,11 @@ const BlogCard = ({ blog }: { blog: Post | Blog }) => {
     >
       <Box sx={{ position: "relative", overflow: "hidden", height: 240 }}>
         <Image
-          src={(blog.coverImage || blog.image || "/images/blog-placeholder.svg") as string}
+          src={
+            (blog.coverImage ||
+              blog.image ||
+              "/images/blog-placeholder.svg") as string
+          }
           alt={blog.title}
           fill
           className="blog-image"
@@ -242,7 +246,8 @@ const BlogCard = ({ blog }: { blog: Post | Blog }) => {
             color="text.secondary"
             sx={{ fontWeight: 500 }}
           >
-            {blog.owner?.firstName || (blog as any).blogOwner?.firstName} {blog.owner?.lastName || (blog as any).blogOwner?.lastName}
+            {blog.owner?.firstName || (blog as any).blogOwner?.firstName}{" "}
+            {blog.owner?.lastName || (blog as any).blogOwner?.lastName}
           </Typography>
           <Box
             sx={{
@@ -261,7 +266,9 @@ const BlogCard = ({ blog }: { blog: Post | Blog }) => {
               color="text.secondary"
               sx={{ fontWeight: 500 }}
             >
-              {new Date(blog.createdAt || blog.date || Date.now()).toLocaleDateString()}
+              {new Date(
+                blog.createdAt || blog.date || Date.now(),
+              ).toLocaleDateString()}
             </Typography>
           </Stack>
         </Stack>
@@ -289,8 +296,8 @@ const BlogCard = ({ blog }: { blog: Post | Blog }) => {
           sx={{ mb: 3, flexWrap: "wrap", gap: 1 }}
         >
           {(blog.tags || []).slice(0, 3).map((tag, index) => {
-            const tagName = typeof tag === 'string' ? tag : tag.name;
-            const tagKey = typeof tag === 'string' ? tag : tag.id;
+            const tagName = typeof tag === "string" ? tag : tag.name;
+            const tagKey = typeof tag === "string" ? tag : tag.id;
             return (
               <Chip
                 key={tagKey || index}

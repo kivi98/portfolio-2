@@ -436,7 +436,11 @@ const ProjectPage = ({ params }: ProjectPageProps) => {
                                     {projectData?.owner?.firstName || "Kivi"}{" "}
                                     {projectData?.owner?.lastName || "Amarakoon"}
                                 </Typography>
-                                <Typography variant="body2" color="text.secondary" textAlign="left">
+                                <Typography
+                                    variant="body2"
+                                    color="text.secondary"
+                                    textAlign="left"
+                                >
                                     {contributors.length > 1 ? "Lead Developer" : "Developer"}
                                 </Typography>
                             </Box>
@@ -479,15 +483,17 @@ const ProjectPage = ({ params }: ProjectPageProps) => {
                                 </Typography>
                             </Stack>
 
-                            <Tooltip title="Share">
-                                <IconButton onClick={handleShare} size="small" sx={{ p: 0 }}>
+                            <Tooltip title="Share" sx={{ cursor: "pointer" }}>
+                                <Box onClick={handleShare}>
                                     <Stack direction="row" alignItems="center" spacing={1}>
-                                        <Share fontSize="small" color="secondary" />
+                                        <IconButton size="small" >
+                                            <Share fontSize="small" color="secondary" />
+                                        </IconButton>
                                         <Typography variant="body2" color="text.secondary">
                                             Share
                                         </Typography>
                                     </Stack>
-                                </IconButton>
+                                </Box>
                             </Tooltip>
                         </Stack>
                     </Stack>
@@ -804,19 +810,21 @@ const ProjectPage = ({ params }: ProjectPageProps) => {
                                             background: "transparent",
                                         },
                                         "&::-webkit-scrollbar-thumb": {
-                                            background: theme.palette.mode === 'dark' ? "rgba(255,255,255,0.1)" : "rgba(0,0,0,0.1)",
+                                            background:
+                                                theme.palette.mode === "dark"
+                                                    ? "rgba(255,255,255,0.1)"
+                                                    : "rgba(0,0,0,0.1)",
                                             borderRadius: "4px",
                                         },
                                         "&::-webkit-scrollbar-thumb:hover": {
-                                            background: theme.palette.mode === 'dark' ? "rgba(255,255,255,0.2)" : "rgba(0,0,0,0.2)",
-                                        }
+                                            background:
+                                                theme.palette.mode === "dark"
+                                                    ? "rgba(255,255,255,0.2)"
+                                                    : "rgba(0,0,0,0.2)",
+                                        },
                                     }}
                                 >
-                                    <Typography
-                                        variant="h6"
-                                        fontWeight={600}
-                                        sx={{ mb: 2 }}
-                                    >
+                                    <Typography variant="h6" fontWeight={600} sx={{ mb: 2 }}>
                                         Table of Contents
                                     </Typography>
                                     <Stack spacing={1}>
@@ -833,7 +841,9 @@ const ProjectPage = ({ params }: ProjectPageProps) => {
                                                     py: 0.75,
                                                     minHeight: "auto",
                                                     color:
-                                                        activeHeading === item.id ? "white" : "text.secondary",
+                                                        activeHeading === item.id
+                                                            ? "white"
+                                                            : "text.secondary",
                                                     backgroundColor:
                                                         activeHeading === item.id
                                                             ? "rgba(114, 137, 218, 0.8)"
@@ -846,7 +856,9 @@ const ProjectPage = ({ params }: ProjectPageProps) => {
                                                         backgroundColor:
                                                             activeHeading === item.id
                                                                 ? "rgba(114, 137, 218, 0.9)"
-                                                                : theme.palette.mode === 'dark' ? "rgba(255, 255, 255, 0.05)" : "rgba(0, 0, 0, 0.05)",
+                                                                : theme.palette.mode === "dark"
+                                                                    ? "rgba(255, 255, 255, 0.05)"
+                                                                    : "rgba(0, 0, 0, 0.05)",
                                                     },
                                                     transition: "all 0.2s ease",
                                                 }}
@@ -933,7 +945,8 @@ const ProjectPage = ({ params }: ProjectPageProps) => {
                                     variant="h6"
                                     fontWeight={600}
                                     sx={{
-                                        color: theme.palette.mode === 'dark' ? "white" : "text.primary",
+                                        color:
+                                            theme.palette.mode === "dark" ? "white" : "text.primary",
                                         textTransform: "uppercase",
                                         letterSpacing: 1,
                                         fontSize: "1rem",
@@ -945,10 +958,17 @@ const ProjectPage = ({ params }: ProjectPageProps) => {
                                     onClick={() => setShowMobileToc(false)}
                                     size="small"
                                     sx={{
-                                        backgroundColor: theme.palette.mode === 'dark' ? "rgba(255, 255, 255, 0.1)" : "rgba(0, 0, 0, 0.05)",
-                                        color: theme.palette.mode === 'dark' ? "white" : "text.primary",
+                                        backgroundColor:
+                                            theme.palette.mode === "dark"
+                                                ? "rgba(255, 255, 255, 0.1)"
+                                                : "rgba(0, 0, 0, 0.05)",
+                                        color:
+                                            theme.palette.mode === "dark" ? "white" : "text.primary",
                                         "&:hover": {
-                                            backgroundColor: theme.palette.mode === 'dark' ? "rgba(255, 255, 255, 0.2)" : "rgba(0, 0, 0, 0.1)",
+                                            backgroundColor:
+                                                theme.palette.mode === "dark"
+                                                    ? "rgba(255, 255, 255, 0.2)"
+                                                    : "rgba(0, 0, 0, 0.1)",
                                             transform: "scale(1.1)",
                                         },
                                         transition: "all 0.2s ease",
@@ -988,7 +1008,9 @@ const ProjectPage = ({ params }: ProjectPageProps) => {
                                                 backgroundColor:
                                                     activeHeading === item.id
                                                         ? "rgba(114, 137, 218, 0.9)"
-                                                        : theme.palette.mode === 'dark' ? "rgba(255, 255, 255, 0.05)" : "rgba(0, 0, 0, 0.05)",
+                                                        : theme.palette.mode === "dark"
+                                                            ? "rgba(255, 255, 255, 0.05)"
+                                                            : "rgba(0, 0, 0, 0.05)",
                                             },
                                             transition: "all 0.2s ease",
                                         }}

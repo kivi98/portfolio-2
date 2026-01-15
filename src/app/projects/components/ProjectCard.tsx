@@ -34,14 +34,29 @@ const ProjectCard = ({ project }: { project: Project | any }) => {
   const [isBookmarked, setIsBookmarked] = useState(false);
 
   // Handle both Project and Post structures
-  const image = project.image || (project as any).coverImage || "/images/project-placeholder.svg";
-  const description = project.description || (project as any).content?.substring(0, 150) || "";
-  const contributors = project.contributors ||
-    ((project as any).owner ? [`${(project as any).owner.firstName} ${(project as any).owner.lastName}`] : ["Unknown"]);
-  const technologies = project.technologies ||
-    ((project as any).tags ? (project as any).tags.map((tag: any) => typeof tag === 'string' ? tag : tag.name) : []);
+  const image =
+    project.image ||
+    (project as any).coverImage ||
+    "/images/project-placeholder.svg";
+  const description =
+    project.description || (project as any).content?.substring(0, 150) || "";
+  const contributors =
+    project.contributors ||
+    ((project as any).owner
+      ? [
+          `${(project as any).owner.firstName} ${(project as any).owner.lastName}`,
+        ]
+      : ["Unknown"]);
+  const technologies =
+    project.technologies ||
+    ((project as any).tags
+      ? (project as any).tags.map((tag: any) =>
+          typeof tag === "string" ? tag : tag.name,
+        )
+      : []);
   const date = project.date || (project as any).createdAt;
-  const liveUrl = project.link || (project as any).liveUrl || (project as any).githubUrl;
+  const liveUrl =
+    project.link || (project as any).liveUrl || (project as any).githubUrl;
   const slug = project.slug || `project-${project.id}`;
 
   // Extract clean description
@@ -254,7 +269,9 @@ const ProjectCard = ({ project }: { project: Project | any }) => {
             color="text.secondary"
             sx={{ fontWeight: 500 }}
           >
-            {Array.isArray(contributors) ? contributors.join(", ") : contributors}
+            {Array.isArray(contributors)
+              ? contributors.join(", ")
+              : contributors}
           </Typography>
           <Box
             sx={{
@@ -273,9 +290,7 @@ const ProjectCard = ({ project }: { project: Project | any }) => {
               color="text.secondary"
               sx={{ fontWeight: 500 }}
             >
-              {date
-                ? new Date(date).toLocaleDateString()
-                : "Recent"}
+              {date ? new Date(date).toLocaleDateString() : "Recent"}
             </Typography>
           </Stack>
         </Stack>

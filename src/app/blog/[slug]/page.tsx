@@ -408,10 +408,16 @@ const BlogPostPage = ({ params }: BlogPostPageProps) => {
               />
               <Box>
                 <Typography variant="subtitle1" fontWeight={600}>
-                  {blogData?.owner?.firstName || (blogData as any)?.blogOwner?.firstName}{" "}
-                  {blogData?.owner?.lastName || (blogData as any)?.blogOwner?.lastName}
+                  {blogData?.owner?.firstName ||
+                    (blogData as any)?.blogOwner?.firstName}{" "}
+                  {blogData?.owner?.lastName ||
+                    (blogData as any)?.blogOwner?.lastName}
                 </Typography>
-                <Typography variant="body2" color="text.secondary" textAlign="left">
+                <Typography
+                  variant="body2"
+                  color="text.secondary"
+                  textAlign="left"
+                >
                   Author
                 </Typography>
               </Box>
@@ -452,15 +458,17 @@ const BlogPostPage = ({ params }: BlogPostPageProps) => {
                 </Typography>
               </Stack>
 
-              <Tooltip title="Share">
-                <IconButton onClick={handleShare} size="small" sx={{ p: 0 }}>
+              <Tooltip title="Share" sx={{ cursor: "pointer" }}>
+                <Box onClick={handleShare}>
                   <Stack direction="row" alignItems="center" spacing={1}>
-                    <Share fontSize="small" color="secondary" />
+                    <IconButton size="small">
+                      <Share fontSize="small" color="secondary" />
+                    </IconButton>
                     <Typography variant="body2" color="text.secondary">
                       Share
                     </Typography>
                   </Stack>
-                </IconButton>
+                </Box>
               </Tooltip>
             </Stack>
           </Stack>
@@ -475,8 +483,8 @@ const BlogPostPage = ({ params }: BlogPostPageProps) => {
               sx={{ gap: 1, mb: 4 }}
             >
               {(blogData.tags || []).map((tag, index) => {
-                const tagName = typeof tag === 'string' ? tag : tag.name;
-                const tagKey = typeof tag === 'string' ? tag : tag.id;
+                const tagName = typeof tag === "string" ? tag : tag.name;
+                const tagKey = typeof tag === "string" ? tag : tag.id;
                 return (
                   <Chip
                     key={tagKey || index}
@@ -685,19 +693,21 @@ const BlogPostPage = ({ params }: BlogPostPageProps) => {
                       background: "transparent",
                     },
                     "&::-webkit-scrollbar-thumb": {
-                      background: theme.palette.mode === 'dark' ? "rgba(255,255,255,0.1)" : "rgba(0,0,0,0.1)",
+                      background:
+                        theme.palette.mode === "dark"
+                          ? "rgba(255,255,255,0.1)"
+                          : "rgba(0,0,0,0.1)",
                       borderRadius: "4px",
                     },
                     "&::-webkit-scrollbar-thumb:hover": {
-                      background: theme.palette.mode === 'dark' ? "rgba(255,255,255,0.2)" : "rgba(0,0,0,0.2)",
-                    }
+                      background:
+                        theme.palette.mode === "dark"
+                          ? "rgba(255,255,255,0.2)"
+                          : "rgba(0,0,0,0.2)",
+                    },
                   }}
                 >
-                  <Typography
-                    variant="h6"
-                    fontWeight={600}
-                    sx={{ mb: 2 }}
-                  >
+                  <Typography variant="h6" fontWeight={600} sx={{ mb: 2 }}>
                     Table of Contents
                   </Typography>
                   <Stack spacing={1}>
@@ -714,7 +724,9 @@ const BlogPostPage = ({ params }: BlogPostPageProps) => {
                           py: 0.75,
                           minHeight: "auto",
                           color:
-                            activeHeading === item.id ? "white" : "text.secondary",
+                            activeHeading === item.id
+                              ? "white"
+                              : "text.secondary",
                           backgroundColor:
                             activeHeading === item.id
                               ? "rgba(114, 137, 218, 0.8)"
@@ -727,7 +739,9 @@ const BlogPostPage = ({ params }: BlogPostPageProps) => {
                             backgroundColor:
                               activeHeading === item.id
                                 ? "rgba(114, 137, 218, 0.9)"
-                                : theme.palette.mode === 'dark' ? "rgba(255, 255, 255, 0.05)" : "rgba(0, 0, 0, 0.05)",
+                                : theme.palette.mode === "dark"
+                                  ? "rgba(255, 255, 255, 0.05)"
+                                  : "rgba(0, 0, 0, 0.05)",
                           },
                           transition: "all 0.2s ease",
                         }}
@@ -869,7 +883,9 @@ const BlogPostPage = ({ params }: BlogPostPageProps) => {
                         backgroundColor:
                           activeHeading === item.id
                             ? "rgba(114, 137, 218, 0.9)"
-                            : theme.palette.mode === 'dark' ? "rgba(255, 255, 255, 0.05)" : "rgba(0, 0, 0, 0.05)",
+                            : theme.palette.mode === "dark"
+                              ? "rgba(255, 255, 255, 0.05)"
+                              : "rgba(0, 0, 0, 0.05)",
                       },
                       transition: "all 0.2s ease",
                     }}

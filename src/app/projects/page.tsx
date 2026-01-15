@@ -30,7 +30,12 @@ const Projects = () => {
 
   // Use search query if search term exists, otherwise use regular projects query
   const searchQuery = useSearchProjects(search, page, limit);
-  const projectsQuery = usePosts(page, limit, ContentCategory.Project, PostStatus.Published);
+  const projectsQuery = usePosts(
+    page,
+    limit,
+    ContentCategory.Project,
+    PostStatus.Published,
+  );
 
   // Use the appropriate query based on whether we're searching
   const query = search.trim() ? searchQuery : projectsQuery;
@@ -117,7 +122,10 @@ const Projects = () => {
           <CustomCarousel
             images={projects.map((project: any) => ({
               id: project.id,
-              src: project.image || project.coverImage || "/images/project-placeholder.jpg",
+              src:
+                project.image ||
+                project.coverImage ||
+                "/images/project-placeholder.jpg",
               alt: project.title,
             }))}
             height={300}
@@ -172,11 +180,11 @@ const Projects = () => {
               variant="subtitle1"
               sx={{ color: "text.primary", mt: 2, height: "100%", flexGrow: 1 }}
             >
-              A collection of innovative projects I&apos;ve developed, showcasing my
-              expertise in software development, design principles, and
-              cutting-edge technologies. From web applications to mobile
-              solutions, each project represents a unique challenge and creative
-              solution.
+              A collection of innovative projects I&apos;ve developed,
+              showcasing my expertise in software development, design
+              principles, and cutting-edge technologies. From web applications
+              to mobile solutions, each project represents a unique challenge
+              and creative solution.
             </Typography>
           </Box>
         </Box>

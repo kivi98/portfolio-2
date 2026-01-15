@@ -8,12 +8,12 @@
 }
 
 /* Reading width for better readability */
-.mdx-content>* {
+.mdx-content > * {
   max-width: none;
   width: 100%;
 }
 
-.mdx-content>.full-width {
+.mdx-content > .full-width {
   max-width: none;
 }
 
@@ -29,12 +29,12 @@
     sans-serif;
 }
 
-.mdx-content>h1,
-.mdx-content>h2,
-.mdx-content>h3,
-.mdx-content>h4,
-.mdx-content>h5,
-.mdx-content>h6 {
+.mdx-content > h1,
+.mdx-content > h2,
+.mdx-content > h3,
+.mdx-content > h4,
+.mdx-content > h5,
+.mdx-content > h6 {
   text-align: left;
   margin-left: 0;
   margin-right: 0;
@@ -123,13 +123,13 @@
   list-style: none;
 }
 
-.mdx-content ul>li {
+.mdx-content ul > li {
   position: relative;
   margin: 0.75rem 0;
   line-height: 1.7;
 }
 
-.mdx-content ul>li::before {
+.mdx-content ul > li::before {
   content: "▸";
   color: #e30000;
   font-weight: bold;
@@ -139,12 +139,12 @@
   font-size: 1.2em;
 }
 
-.mdx-content ol>li {
+.mdx-content ol > li {
   margin: 0.75rem 0;
   line-height: 1.7;
 }
 
-.mdx-content ol>li::marker {
+.mdx-content ol > li::marker {
   color: #e30000;
   font-weight: 700;
 }
@@ -233,9 +233,11 @@
 .mdx-content strong {
   font-weight: 700;
   color: inherit;
-  background: linear-gradient(135deg,
-      rgba(227, 0, 0, 0.1),
-      rgba(227, 0, 0, 0.05));
+  background: linear-gradient(
+    135deg,
+    rgba(227, 0, 0, 0.1),
+    rgba(227, 0, 0, 0.05)
+  );
   padding: 2px 4px;
   border-radius: 3px;
 }
@@ -247,7 +249,7 @@
 }
 
 /* Code styling enhancements */
-.mdx-content :not(pre)>code {
+.mdx-content :not(pre) > code {
   background: rgba(227, 0, 0, 0.08) !important;
   color: #c41e3a !important;
   padding: 3px 6px !important;
@@ -258,7 +260,7 @@
   border: 1px solid rgba(227, 0, 0, 0.2) !important;
 }
 
-[data-mui-color-scheme="dark"] .mdx-content :not(pre)>code {
+[data-mui-color-scheme="dark"] .mdx-content :not(pre) > code {
   background: rgba(227, 0, 0, 0.15) !important;
   color: #ff6b84 !important;
   border-color: rgba(227, 0, 0, 0.3) !important;
@@ -468,7 +470,7 @@
   border-bottom: 1px solid rgba(227, 0, 0, 0.2);
 }
 
-.mdx-content details>*:not(summary) {
+.mdx-content details > *:not(summary) {
   padding: 0 1rem 1rem 1rem;
 }
 
@@ -492,9 +494,11 @@
 
 /* Mark/highlight text */
 .mdx-content mark {
-  background: linear-gradient(135deg,
-      rgba(255, 235, 59, 0.3),
-      rgba(255, 193, 7, 0.2));
+  background: linear-gradient(
+    135deg,
+    rgba(255, 235, 59, 0.3),
+    rgba(255, 193, 7, 0.2)
+  );
   padding: 2px 4px;
   border-radius: 3px;
   color: inherit;

@@ -72,7 +72,9 @@ const Contact = () => {
     open: false,
   });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
     // Clear error when user types
@@ -93,12 +95,14 @@ const Contact = () => {
       const fieldErrors: Partial<ContactFormData> = {};
       const flattenedErrors = result.error.flatten().fieldErrors;
 
-      (Object.keys(flattenedErrors) as Array<keyof ContactFormData>).forEach((key) => {
-        const messages = flattenedErrors[key];
-        if (messages && messages.length > 0) {
-          fieldErrors[key] = messages[0];
-        }
-      });
+      (Object.keys(flattenedErrors) as Array<keyof ContactFormData>).forEach(
+        (key) => {
+          const messages = flattenedErrors[key];
+          if (messages && messages.length > 0) {
+            fieldErrors[key] = messages[0];
+          }
+        },
+      );
 
       setErrors(fieldErrors);
       setIsSubmitting(false);
@@ -211,8 +215,8 @@ const Contact = () => {
               variant="subtitle1"
               sx={{ color: "text.primary", mt: 2, height: "100%", flexGrow: 1 }}
             >
-              Ready to collaborate on your next project? I&apos;m always excited to
-              hear about new opportunities and innovative ideas. Whether you
+              Ready to collaborate on your next project? I&apos;m always excited
+              to hear about new opportunities and innovative ideas. Whether you
               have a question, want to discuss a potential project, or just want
               to say hello, feel free to reach out.
             </Typography>
@@ -741,7 +745,7 @@ const Contact = () => {
           {submitStatus.message}
         </Alert>
       </Snackbar>
-    </Container >
+    </Container>
   );
 };
 

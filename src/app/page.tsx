@@ -77,7 +77,7 @@ export default function Home() {
                   color: "text.primary",
                   mb: 3,
                   lineHeight: 1.7,
-                  fontSize: { xs: "0.95rem", md: "1rem" }
+                  fontSize: { xs: "0.95rem", md: "1rem" },
                 }}
               >
                 I&apos;m Kivi Amarakoon, a software enthusiast dedicated to

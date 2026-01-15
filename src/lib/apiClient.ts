@@ -1,5 +1,13 @@
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from "axios";
-import { Blog, Post, Project, PaginatedResponse, ApiResponse, PostContentCategory, PostStatus } from "@/types";
+import {
+  Blog,
+  Post,
+  Project,
+  PaginatedResponse,
+  ApiResponse,
+  PostContentCategory,
+  PostStatus,
+} from "@/types";
 import {
   mockBlogs,
   mockProjects,
@@ -293,14 +301,16 @@ export const postApi = {
   ): Promise<PaginatedResponse<Post>> => {
     try {
       // Try to get the content category ID by name
-      const categoryResponse = await apiClient.get<ApiResponse<PostContentCategory>>(
-        `${POST_CONTENT_CATEGORY_ENDPOINT}/${categoryName}`,
-      );
+      const categoryResponse = await apiClient.get<
+        ApiResponse<PostContentCategory>
+      >(`${POST_CONTENT_CATEGORY_ENDPOINT}/${categoryName}`);
       const categoryId = categoryResponse.data.data.id;
       return postApi.getAll(page, limit, categoryId, status);
     } catch (error) {
       // If content category endpoint doesn't exist or fails, just filter by status
-      console.warn(`Could not fetch content category '${categoryName}', fetching all posts with status filter`);
+      console.warn(
+        `Could not fetch content category '${categoryName}', fetching all posts with status filter`,
+      );
       return postApi.getAll(page, limit, undefined, status);
     }
   },
@@ -400,7 +410,12 @@ export const blogApi = {
   getAll: async (page = 1, limit = 10): Promise<PaginatedResponse<Blog>> => {
     // For now, just get published posts without content category filter
     // Once PostContentCategory is properly seeded in DB, we can add contentCategoryId filter
-    return postApi.getAll(page, limit, undefined, PostStatus.Published) as Promise<PaginatedResponse<Blog>>;
+    return postApi.getAll(
+      page,
+      limit,
+      undefined,
+      PostStatus.Published,
+    ) as Promise<PaginatedResponse<Blog>>;
   },
 
   getById: async (id: number): Promise<ApiResponse<Blog>> => {
@@ -416,7 +431,9 @@ export const blogApi = {
     page = 1,
     limit = 10,
   ): Promise<PaginatedResponse<Blog>> => {
-    return postApi.search(query, page, limit) as Promise<PaginatedResponse<Blog>>;
+    return postApi.search(query, page, limit) as Promise<
+      PaginatedResponse<Blog>
+    >;
   },
 
   getFeatured: async (): Promise<Blog[]> => {

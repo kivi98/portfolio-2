@@ -308,7 +308,10 @@ export default function Header() {
                           rel="noopener noreferrer"
                           aria-label="GitHub"
                           sx={{
-                            color: theme.palette.mode === "dark" ? "#FFFFFF" : "#171717",
+                            color:
+                              theme.palette.mode === "dark"
+                                ? "#FFFFFF"
+                                : "#171717",
                             transition: "all 0.3s ease",
                             "&:hover": {
                               color: theme.palette.secondary.main,
@@ -327,7 +330,10 @@ export default function Header() {
                           rel="noopener noreferrer"
                           aria-label="LinkedIn"
                           sx={{
-                            color: theme.palette.mode === "dark" ? "#FFFFFF" : "#171717",
+                            color:
+                              theme.palette.mode === "dark"
+                                ? "#FFFFFF"
+                                : "#171717",
                             transition: "all 0.3s ease",
                             "&:hover": {
                               color: theme.palette.secondary.main,
@@ -346,7 +352,10 @@ export default function Header() {
                           }}
                           aria-label="toggle dark mode"
                           sx={{
-                            color: theme.palette.mode === "dark" ? "#FFFFFF" : "#171717",
+                            color:
+                              theme.palette.mode === "dark"
+                                ? "#FFFFFF"
+                                : "#171717",
                             transition: "all 0.3s ease",
                             "&:hover": {
                               color: theme.palette.secondary.main,
