@@ -295,10 +295,10 @@ const BlogPostPage = ({ params }: BlogPostPageProps) => {
         value={readingProgress}
         sx={{
           position: "fixed",
-          top: { xs: 70, md: 80 },
+          top: { xs: '57px', md: 80 },
           left: 0,
           right: 0,
-          zIndex: 1000,
+          zIndex: 2000,
           height: 3,
           backgroundColor: "transparent",
           "& .MuiLinearProgress-bar": {
@@ -870,14 +870,17 @@ const BlogPostPage = ({ params }: BlogPostPageProps) => {
                 sx={{
                   mb: 3,
                   pb: 2,
-                  borderBottom: "1px solid rgba(255, 255, 255, 0.1)",
+                  borderBottom:
+                    theme.palette.mode === "dark"
+                      ? "1px solid rgba(255, 255, 255, 0.1)"
+                      : "1px solid rgba(0, 0, 0, 0.1)",
                 }}
               >
                 <Typography
                   variant="h6"
                   fontWeight={600}
                   sx={{
-                    color: "white",
+                    color: theme.palette.text.primary,
                     textTransform: "uppercase",
                     letterSpacing: 1,
                     fontSize: "1rem",
@@ -889,10 +892,16 @@ const BlogPostPage = ({ params }: BlogPostPageProps) => {
                   onClick={() => setShowMobileToc(false)}
                   size="small"
                   sx={{
-                    backgroundColor: "rgba(255, 255, 255, 0.1)",
-                    color: "white",
+                    backgroundColor:
+                      theme.palette.mode === "dark"
+                        ? "rgba(255, 255, 255, 0.1)"
+                        : "rgba(0, 0, 0, 0.05)",
+                    color: theme.palette.text.primary,
                     "&:hover": {
-                      backgroundColor: "rgba(255, 255, 255, 0.2)",
+                      backgroundColor:
+                        theme.palette.mode === "dark"
+                          ? "rgba(255, 255, 255, 0.2)"
+                          : "rgba(0, 0, 0, 0.1)",
                       transform: "scale(1.1)",
                     },
                     transition: "all 0.2s ease",

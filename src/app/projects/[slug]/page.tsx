@@ -302,10 +302,10 @@ const ProjectPage = ({ params }: ProjectPageProps) => {
                 value={readingProgress}
                 sx={{
                     position: "fixed",
-                    top: { xs: 70, md: 80 },
+                    top: { xs: '57px', md: 80 },
                     left: 0,
                     right: 0,
-                    zIndex: 1000,
+                    zIndex: 2000,
                     height: 3,
                     backgroundColor: "transparent",
                     "& .MuiLinearProgress-bar": {
@@ -987,15 +987,17 @@ const ProjectPage = ({ params }: ProjectPageProps) => {
                                 sx={{
                                     mb: 3,
                                     pb: 2,
-                                    borderBottom: "1px solid rgba(255, 255, 255, 0.1)",
+                                    borderBottom:
+                                        theme.palette.mode === "dark"
+                                            ? "1px solid rgba(255, 255, 255, 0.1)"
+                                            : "1px solid rgba(0, 0, 0, 0.1)",
                                 }}
                             >
                                 <Typography
                                     variant="h6"
                                     fontWeight={600}
                                     sx={{
-                                        color:
-                                            theme.palette.mode === "dark" ? "white" : "text.primary",
+                                        color: theme.palette.text.primary,
                                         textTransform: "uppercase",
                                         letterSpacing: 1,
                                         fontSize: "1rem",
@@ -1011,8 +1013,7 @@ const ProjectPage = ({ params }: ProjectPageProps) => {
                                             theme.palette.mode === "dark"
                                                 ? "rgba(255, 255, 255, 0.1)"
                                                 : "rgba(0, 0, 0, 0.05)",
-                                        color:
-                                            theme.palette.mode === "dark" ? "white" : "text.primary",
+                                        color: theme.palette.text.primary,
                                         "&:hover": {
                                             backgroundColor:
                                                 theme.palette.mode === "dark"

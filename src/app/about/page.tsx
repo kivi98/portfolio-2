@@ -1,15 +1,9 @@
 "use client";
 
-import React, {
-  useRef,
-  useState,
-  useEffect,
-  useMemo,
-  useCallback,
-} from "react";
+import React, { useRef, useState, useEffect, useMemo, useCallback } from "react";
 import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
-import Navigation from "./components/Navigation";
+// import Navigation from "./components/Navigation";
 import MobileNavigation from "./components/MobileNavigation";
 import WhoAmI from "./components/WhoAmI";
 import Education from "./components/Education";
@@ -101,6 +95,7 @@ const About = () => {
 
   return (
     <>
+
       {/* Navigation positioned absolutely/fixed outside the main container - DESKTOP */}
       {/* <Box
         sx={{
@@ -121,14 +116,7 @@ const About = () => {
       </Box> */}
 
       {/* Floating Navigation (Mobile & Desktop) */}
-      <Box
-        sx={{
-          width: "100%",
-          position: "fixed",
-          top: { xs: "90px", sm: "64px", md: "110px" },
-          zIndex: 1201,
-        }}
-      >
+      <Box sx={{ width: "100%", position: "fixed", top: { xs: "57px", sm: "64px", md: "110px" }, zIndex: 1201 }}>
         <MobileNavigation
           activeSection={activeSection}
           sectionRefs={sectionRefs}
@@ -145,7 +133,7 @@ const About = () => {
           justifyContent: "flex-start",
           alignItems: "center",
           width: "100%",
-          pt: { xs: "10rem", md: "12rem" }, // Padding after sticky nav
+          pt: { xs: "7.5rem", md: "12rem" }, // Padding after sticky nav
           px: { xs: 2, md: 3 },
         }}
       >
@@ -163,11 +151,7 @@ const About = () => {
             };
             const Component = ComponentMap[text];
             return (
-              <Box
-                key={id}
-                ref={ref}
-                sx={{ width: "100%", mb: { xs: 4, md: 6 } }}
-              >
+              <Box key={id} ref={ref} sx={{ width: "100%", mb: { xs: 4, md: 6 } }}>
                 {Component && <Component />}
               </Box>
             );
