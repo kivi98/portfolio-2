@@ -24,7 +24,12 @@ const Blog = () => {
 
   // Use search query if search term exists, otherwise use regular blogs query
   const searchQuery = useSearchBlogs(search, page, limit);
-  const blogsQuery = usePosts(page, limit, ContentCategory.Blog, PostStatus.Published);
+  const blogsQuery = usePosts(
+    page,
+    limit,
+    ContentCategory.Blog,
+    PostStatus.Published,
+  );
 
   // Use the appropriate query based on whether we're searching
   const query = search.trim() ? searchQuery : blogsQuery;
@@ -111,7 +116,8 @@ const Blog = () => {
           <CustomCarousel
             images={blogs.map((blog) => ({
               id: blog.id,
-              src: blog.coverImage || blog.image || "/images/blog-placeholder.jpg",
+              src:
+                blog.coverImage || blog.image || "/images/blog-placeholder.jpg",
               alt: blog.title,
             }))}
             height={300}

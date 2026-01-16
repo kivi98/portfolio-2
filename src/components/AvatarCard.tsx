@@ -70,9 +70,10 @@ const ProfileName = styled(Typography)(({ theme }) => ({
 const ProfileTitle = styled(Typography)(({ theme }) => ({
   fontWeight: 500,
   fontSize: 15,
-  color: theme.palette.mode === "dark"
-    ? theme.palette.text.primary // White text in dark mode
-    : theme.palette.common.white, // White text in light mode
+  color:
+    theme.palette.mode === "dark"
+      ? theme.palette.text.primary // White text in dark mode
+      : theme.palette.common.white, // White text in light mode
   background:
     theme.palette.mode === "dark"
       ? theme.palette.primary.dark // Dark background in dark mode

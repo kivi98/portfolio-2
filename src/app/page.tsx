@@ -17,7 +17,7 @@ export default function Home() {
     <Container
       maxWidth="lg"
       sx={{
-        pt: { xs: "90px", md: "130px" },
+        pt: { xs: "120px", md: "130px" },
         pb: { xs: 4, md: 6 },
         minHeight: "100vh",
         display: "flex",
@@ -77,7 +77,7 @@ export default function Home() {
                   color: "text.primary",
                   mb: 3,
                   lineHeight: 1.7,
-                  fontSize: { xs: "0.95rem", md: "1rem" }
+                  fontSize: { xs: "0.95rem", md: "1rem" },
                 }}
               >
                 I&apos;m Kivi Amarakoon, a software enthusiast dedicated to

@@ -17,7 +17,8 @@ export const queryKeys = {
     }) => [...queryKeys.posts.lists(), filters] as const,
     details: () => [...queryKeys.posts.all, "detail"] as const,
     detail: (id: number) => [...queryKeys.posts.details(), id] as const,
-    bySlug: (slug: string) => [...queryKeys.posts.details(), "slug", slug] as const,
+    bySlug: (slug: string) =>
+      [...queryKeys.posts.details(), "slug", slug] as const,
     featured: (contentCategoryId?: number) =>
       [...queryKeys.posts.all, "featured", contentCategoryId] as const,
   },
@@ -43,7 +44,8 @@ export const queryKeys = {
     }) => [...queryKeys.projects.lists(), filters] as const,
     details: () => [...queryKeys.projects.all, "detail"] as const,
     detail: (id: number) => [...queryKeys.projects.details(), id] as const,
-    bySlug: (slug: string) => [...queryKeys.projects.details(), "slug", slug] as const,
+    bySlug: (slug: string) =>
+      [...queryKeys.projects.details(), "slug", slug] as const,
     featured: () => [...queryKeys.projects.all, "featured"] as const,
   },
 };
@@ -53,7 +55,7 @@ export const usePosts = (
   page = 1,
   limit = 10,
   contentCategoryId?: number,
-  status?: PostStatus
+  status?: PostStatus,
 ) => {
   return useQuery({
     queryKey: queryKeys.posts.list({ page, limit, contentCategoryId, status }),
@@ -67,11 +69,17 @@ export const usePostsByContentCategory = (
   categoryName: string,
   page = 1,
   limit = 10,
-  status?: PostStatus
+  status?: PostStatus,
 ) => {
   return useQuery({
-    queryKey: queryKeys.posts.list({ page, limit, search: categoryName, status }),
-    queryFn: () => postApi.getByContentCategory(categoryName, page, limit, status),
+    queryKey: queryKeys.posts.list({
+      page,
+      limit,
+      search: categoryName,
+      status,
+    }),
+    queryFn: () =>
+      postApi.getByContentCategory(categoryName, page, limit, status),
     staleTime: 5 * 60 * 1000,
     gcTime: 10 * 60 * 1000,
   });
@@ -101,10 +109,15 @@ export const useSearchPosts = (
   query: string,
   page = 1,
   limit = 10,
-  contentCategoryId?: number
+  contentCategoryId?: number,
 ) => {
   return useQuery({
-    queryKey: queryKeys.posts.list({ page, limit, search: query, contentCategoryId }),
+    queryKey: queryKeys.posts.list({
+      page,
+      limit,
+      search: query,
+      contentCategoryId,
+    }),
     queryFn: () => postApi.search(query, page, limit, contentCategoryId),
     enabled: !!query.trim(),
     staleTime: 2 * 60 * 1000,

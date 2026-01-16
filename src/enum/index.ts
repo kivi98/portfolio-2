@@ -25,14 +25,14 @@ export enum DocumentCategory {
 
   // Legacy/General
   Product = 30,
-  
+
   // Miscellaneous
   Temporary = 99,
   Other = 100,
 }
 
 export enum ContentCategory {
-    Blog = 1,
-    Project = 2,
-    Article = 3
+  Blog = 1,
+  Project = 2,
+  Article = 3,
 }

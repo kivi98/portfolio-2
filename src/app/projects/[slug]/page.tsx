@@ -18,7 +18,10 @@ import {
     LinearProgress,
     Fab,
     Fade,
+    Modal,
+    Backdrop,
     useTheme,
+    Snackbar,
 } from "@mui/material";
 import {
     Favorite,
@@ -31,6 +34,9 @@ import {
     Launch,
     KeyboardArrowUp,
     BookmarkBorder,
+    FormatListBulleted,
+    Close,
+    Language,
 } from "@mui/icons-material";
 import { usePostBySlug } from "@/lib/queries";
 import { useRouter } from "next/navigation";
@@ -44,12 +50,22 @@ interface ProjectPageProps {
     }>;
 }
 
+interface TocItem {
+    id: string;
+    text: string;
+    level: number;
+}
+
 const ProjectPage = ({ params }: ProjectPageProps) => {
     const router = useRouter();
     const theme = useTheme();
     const [slug, setSlug] = useState<string>("");
     const [readingProgress, setReadingProgress] = useState(0);
     const [showScrollToTop, setShowScrollToTop] = useState(false);
+    const [tocItems, setTocItems] = useState<TocItem[]>([]);
+    const [activeHeading, setActiveHeading] = useState<string>("");
+    const [showMobileToc, setShowMobileToc] = useState(false);
+    const [showShareToast, setShowShareToast] = useState(false);
 
     useEffect(() => {
         const getSlug = async () => {
@@ -77,6 +93,72 @@ const ProjectPage = ({ params }: ProjectPageProps) => {
         window.addEventListener("scroll", updateReadingProgress);
         return () => window.removeEventListener("scroll", updateReadingProgress);
     }, []);
+
+    // Extract TOC from content and set up intersection observer
+    useEffect(() => {
+        if (!projectData?.content) return;
+
+        // Extract headings from content
+        const extractTocFromContent = () => {
+            // Wait for content to be rendered
+            setTimeout(() => {
+                const headings = document.querySelectorAll(
+                    ".mdx-content h1, .mdx-content h2, .mdx-content h3, .mdx-content h4, .mdx-content h5, .mdx-content h6",
+                );
+                const tocData: TocItem[] = [];
+
+                headings.forEach((heading, index) => {
+                    const level = parseInt(heading.tagName.charAt(1));
+                    const text = heading.textContent || "";
+                    const id = `heading-${index}`;
+
+                    // Add ID to heading if it doesn't have one
+                    heading.id = id;
+
+                    tocData.push({ id, text, level });
+                });
+
+                setTocItems(tocData);
+            }, 100);
+        };
+
+        extractTocFromContent();
+    }, [projectData?.content]);
+
+    // Intersection Observer for active heading tracking
+    useEffect(() => {
+        if (tocItems.length === 0) return;
+
+        const observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        setActiveHeading(entry.target.id);
+                    }
+                });
+            },
+            {
+                rootMargin: "-20% 0% -60% 0%",
+                threshold: 0,
+            },
+        );
+
+        tocItems.forEach(({ id }) => {
+            const element = document.getElementById(id);
+            if (element) {
+                observer.observe(element);
+            }
+        });
+
+        return () => {
+            tocItems.forEach(({ id }) => {
+                const element = document.getElementById(id);
+                if (element) {
+                    observer.unobserve(element);
+                }
+            });
+        };
+    }, [tocItems]);
 
     // Estimated reading time calculation
     const estimatedReadingTime = React.useMemo(() => {
@@ -140,20 +222,39 @@ const ProjectPage = ({ params }: ProjectPageProps) => {
         router.push("/projects");
     };
 
-    const handleShare = () => {
+    const scrollToTop = () => {
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth",
+        });
+    };
+
+    const handleShare = async () => {
         if (navigator.share) {
-            navigator.share({
-                title: projectData?.title,
-                text: projectData?.description || projectData?.content?.substring(0, 150),
-                url: window.location.href,
-            });
+            try {
+                await navigator.share({
+                    title: projectData?.title || "Project by Kivi Amarakoon",
+                    url: window.location.href,
+                });
+            } catch (error) {
+                console.error("Error sharing:", error);
+            }
         } else {
             navigator.clipboard.writeText(window.location.href);
+            setShowShareToast(true);
         }
     };
 
-    const scrollToTop = () => {
-        window.scrollTo({ top: 0, behavior: "smooth" });
+    const scrollToHeading = (headingId: string) => {
+        const element = document.getElementById(headingId);
+        if (element) {
+            const offset = 120; // Account for fixed header
+            const elementPosition = element.offsetTop - offset;
+            window.scrollTo({
+                top: elementPosition,
+                behavior: "smooth",
+            });
+        }
     };
 
     // Extract technology tags and contributors
@@ -217,6 +318,17 @@ const ProjectPage = ({ params }: ProjectPageProps) => {
                         </Button>
 
                         <Stack direction="row" spacing={1}>
+                            {tocItems.length > 0 && (
+                                <Tooltip title="Table of Contents">
+                                    <IconButton
+                                        size="small"
+                                        onClick={() => setShowMobileToc(true)}
+                                        sx={{ display: { xl: "none", lg: "none" } }}
+                                    >
+                                        <FormatListBulleted />
+                                    </IconButton>
+                                </Tooltip>
+                            )}
                             <Tooltip title="Bookmark">
                                 <IconButton size="small">
                                     <BookmarkBorder />
@@ -312,20 +424,23 @@ const ProjectPage = ({ params }: ProjectPageProps) => {
                     >
                         <Stack direction="row" alignItems="center" spacing={2}>
                             <Avatar
+                                src="/my-images/me.jpeg"
+                                alt="Kivi Amarakoon"
                                 sx={{
                                     width: 48,
                                     height: 48,
-                                    background: "linear-gradient(135deg, #e30000, #ff6b6b)",
                                 }}
-                            >
-                                <Person />
-                            </Avatar>
+                            />
                             <Box>
                                 <Typography variant="subtitle1" fontWeight={600}>
                                     {projectData?.owner?.firstName || "Kivi"}{" "}
                                     {projectData?.owner?.lastName || "Amarakoon"}
                                 </Typography>
-                                <Typography variant="body2" color="text.secondary">
+                                <Typography
+                                    variant="body2"
+                                    color="text.secondary"
+                                    textAlign="left"
+                                >
                                     {contributors.length > 1 ? "Lead Developer" : "Developer"}
                                 </Typography>
                             </Box>
@@ -367,6 +482,19 @@ const ProjectPage = ({ params }: ProjectPageProps) => {
                                     {projectData?.likes || 0}
                                 </Typography>
                             </Stack>
+
+                            <Tooltip title="Share" sx={{ cursor: "pointer" }}>
+                                <Box onClick={handleShare}>
+                                    <Stack direction="row" alignItems="center" spacing={1}>
+                                        <IconButton size="small" >
+                                            <Share fontSize="small" color="secondary" />
+                                        </IconButton>
+                                        <Typography variant="body2" color="text.secondary">
+                                            Share
+                                        </Typography>
+                                    </Stack>
+                                </Box>
+                            </Tooltip>
                         </Stack>
                     </Stack>
 
@@ -516,146 +644,385 @@ const ProjectPage = ({ params }: ProjectPageProps) => {
                         sx={{
                             display: { xs: "none", lg: "block" },
                             position: "sticky",
-                            top: 120,
+                            top: 150,
+                            marginTop: "0px",
+                            alignSelf: "start",
+                            zIndex: 10,
+                        }}
+                    >
+                        <Stack spacing={3}>
+                            <Paper
+                                elevation={0}
+                                sx={{
+                                    p: 3,
+                                    borderRadius: 3,
+                                    background:
+                                        theme.palette.mode === "dark"
+                                            ? "rgba(35, 39, 47, 0.4)"
+                                            : "rgba(255, 255, 255, 0.7)",
+                                    backdropFilter: "blur(20px)",
+                                    border:
+                                        theme.palette.mode === "dark"
+                                            ? "1px solid rgba(255, 255, 255, 0.1)"
+                                            : "1px solid rgba(0, 0, 0, 0.05)",
+                                }}
+                            >
+                                <Typography variant="h6" fontWeight={600} sx={{ mb: 3 }}>
+                                    Project Info
+                                </Typography>
+
+                                <Stack spacing={2}>
+                                    <Box>
+                                        <Typography
+                                            variant="body2"
+                                            color="text.secondary"
+                                            sx={{ mb: 1 }}
+                                        >
+                                            Reading Progress
+                                        </Typography>
+                                        <LinearProgress
+                                            variant="determinate"
+                                            value={readingProgress}
+                                            sx={{
+                                                height: 6,
+                                                borderRadius: 3,
+                                                backgroundColor: "rgba(0, 0, 0, 0.1)",
+                                                "& .MuiLinearProgress-bar": {
+                                                    borderRadius: 3,
+                                                    backgroundColor: "secondary.main",
+                                                },
+                                            }}
+                                        />
+                                        <Typography variant="caption" color="text.secondary">
+                                            {Math.round(readingProgress)}% completed
+                                        </Typography>
+                                    </Box>
+
+                                    <Divider />
+
+                                    <Box>
+                                        <Typography
+                                            variant="body2"
+                                            color="text.secondary"
+                                            sx={{ mb: 2 }}
+                                        >
+                                            Share this project
+                                        </Typography>
+                                        <Stack direction="row" spacing={1}>
+                                            <Tooltip title="Share">
+                                                <IconButton
+                                                    size="small"
+                                                    onClick={handleShare}
+                                                    sx={{
+                                                        backgroundColor: "secondary.main",
+                                                        color: "white",
+                                                        "&:hover": { backgroundColor: "secondary.dark" },
+                                                    }}
+                                                >
+                                                    <Share fontSize="small" />
+                                                </IconButton>
+                                            </Tooltip>
+                                            <Tooltip title="Bookmark">
+                                                <IconButton
+                                                    size="small"
+                                                    sx={{
+                                                        backgroundColor: (theme) =>
+                                                            theme.palette.mode === "dark"
+                                                                ? "rgba(255,255,255,0.1)"
+                                                                : "rgba(0,0,0,0.1)",
+                                                        "&:hover": {
+                                                            backgroundColor: "secondary.main",
+                                                            color: "white",
+                                                        },
+                                                    }}
+                                                >
+                                                    <BookmarkBorder fontSize="small" />
+                                                </IconButton>
+                                            </Tooltip>
+                                        </Stack>
+                                    </Box>
+
+                                    {contributors && contributors.length > 0 && (
+                                        <>
+                                            <Divider />
+                                            <Box>
+                                                <Typography
+                                                    variant="body2"
+                                                    color="text.secondary"
+                                                    sx={{ mb: 2 }}
+                                                >
+                                                    Contributors
+                                                </Typography>
+                                                <Stack spacing={1}>
+                                                    {contributors.map((contributor, index) => (
+                                                        <Stack
+                                                            key={index}
+                                                            direction="row"
+                                                            alignItems="center"
+                                                            spacing={1}
+                                                        >
+                                                            <Avatar
+                                                                sx={{
+                                                                    width: 32,
+                                                                    height: 32,
+                                                                    fontSize: "0.875rem",
+                                                                }}
+                                                            >
+                                                                {typeof contributor === "string"
+                                                                    ? contributor.charAt(0)
+                                                                    : contributor.firstName?.charAt(0) || "?"}
+                                                            </Avatar>
+                                                            <Typography variant="body2">
+                                                                {typeof contributor === "string"
+                                                                    ? contributor
+                                                                    : `${contributor.firstName} ${contributor.lastName}`}
+                                                            </Typography>
+                                                        </Stack>
+                                                    ))}
+                                                </Stack>
+                                            </Box>
+                                        </>
+                                    )}
+                                </Stack>
+                            </Paper>
+
+                            {tocItems.length > 0 && (
+                                <Paper
+                                    elevation={0}
+                                    sx={{
+                                        p: 3,
+                                        borderRadius: 3,
+                                        background:
+                                            theme.palette.mode === "dark"
+                                                ? "rgba(35, 39, 47, 0.4)"
+                                                : "rgba(255, 255, 255, 0.7)",
+                                        backdropFilter: "blur(20px)",
+                                        border:
+                                            theme.palette.mode === "dark"
+                                                ? "1px solid rgba(255, 255, 255, 0.1)"
+                                                : "1px solid rgba(0, 0, 0, 0.05)",
+                                        maxHeight: "calc(100vh - 500px)",
+                                        overflowY: "auto",
+                                        "&::-webkit-scrollbar": {
+                                            width: "4px",
+                                        },
+                                        "&::-webkit-scrollbar-track": {
+                                            background: "transparent",
+                                        },
+                                        "&::-webkit-scrollbar-thumb": {
+                                            background:
+                                                theme.palette.mode === "dark"
+                                                    ? "rgba(255,255,255,0.1)"
+                                                    : "rgba(0,0,0,0.1)",
+                                            borderRadius: "4px",
+                                        },
+                                        "&::-webkit-scrollbar-thumb:hover": {
+                                            background:
+                                                theme.palette.mode === "dark"
+                                                    ? "rgba(255,255,255,0.2)"
+                                                    : "rgba(0,0,0,0.2)",
+                                        },
+                                    }}
+                                >
+                                    <Typography variant="h6" fontWeight={600} sx={{ mb: 2 }}>
+                                        Table of Contents
+                                    </Typography>
+                                    <Stack spacing={1}>
+                                        {tocItems.map((item) => (
+                                            <Button
+                                                key={item.id}
+                                                onClick={() => scrollToHeading(item.id)}
+                                                sx={{
+                                                    justifyContent: "flex-start",
+                                                    textAlign: "left",
+                                                    textTransform: "none",
+                                                    pl: 1 + (item.level - 1) * 1.5,
+                                                    pr: 2,
+                                                    py: 0.75,
+                                                    minHeight: "auto",
+                                                    color:
+                                                        activeHeading === item.id
+                                                            ? "white"
+                                                            : "text.secondary",
+                                                    backgroundColor:
+                                                        activeHeading === item.id
+                                                            ? "rgba(114, 137, 218, 0.8)"
+                                                            : "transparent",
+                                                    border: "none",
+                                                    borderRadius: 2,
+                                                    fontSize: "0.85rem",
+                                                    fontWeight: activeHeading === item.id ? 600 : 400,
+                                                    "&:hover": {
+                                                        backgroundColor:
+                                                            activeHeading === item.id
+                                                                ? "rgba(114, 137, 218, 0.9)"
+                                                                : theme.palette.mode === "dark"
+                                                                    ? "rgba(255, 255, 255, 0.05)"
+                                                                    : "rgba(0, 0, 0, 0.05)",
+                                                    },
+                                                    transition: "all 0.2s ease",
+                                                }}
+                                            >
+                                                {item.text}
+                                            </Button>
+                                        ))}
+                                    </Stack>
+                                </Paper>
+                            )}
+                        </Stack>
+                    </Box>
+                </Box>
+            </Container>
+
+            {/* Mobile TOC Modal */}
+            <Modal
+                open={showMobileToc}
+                onClose={() => setShowMobileToc(false)}
+                closeAfterTransition
+                slots={{ backdrop: Backdrop }}
+                slotProps={{
+                    backdrop: {
+                        timeout: 500,
+                        sx: {
+                            backgroundColor: "rgba(0, 0, 0, 0.7)",
+                            backdropFilter: "blur(4px)",
+                        },
+                    },
+                }}
+            >
+                <Fade in={showMobileToc}>
+                    <Box
+                        sx={{
+                            position: "absolute",
+                            top: "50%",
+                            left: "50%",
+                            transform: "translate(-50%, -50%)",
+                            width: { xs: "90%", sm: "400px" },
+                            maxHeight: "80vh",
+                            overflowY: "auto",
+                            outline: "none",
                         }}
                     >
                         <Paper
-                            elevation={0}
+                            elevation={24}
                             sx={{
                                 p: 3,
                                 borderRadius: 3,
                                 background:
                                     theme.palette.mode === "dark"
-                                        ? "rgba(35, 39, 47, 0.4)"
-                                        : "rgba(255, 255, 255, 0.7)",
+                                        ? "linear-gradient(135deg, rgba(35, 39, 47, 0.98) 0%, rgba(45, 49, 57, 0.98) 100%)"
+                                        : "linear-gradient(135deg, rgba(255, 255, 255, 0.98) 0%, rgba(245, 245, 245, 0.98) 100%)",
                                 backdropFilter: "blur(20px)",
                                 border:
                                     theme.palette.mode === "dark"
                                         ? "1px solid rgba(255, 255, 255, 0.1)"
-                                        : "1px solid rgba(0, 0, 0, 0.05)",
+                                        : "1px solid rgba(0, 0, 0, 0.1)",
+                                position: "relative",
+                                "&::before": {
+                                    content: '""',
+                                    position: "absolute",
+                                    top: 0,
+                                    left: 0,
+                                    right: 0,
+                                    height: "1px",
+                                    background:
+                                        "linear-gradient(90deg, transparent, rgba(114, 137, 218, 0.3), transparent)",
+                                    borderRadius: "3px 3px 0 0",
+                                },
                             }}
                         >
-                            <Typography variant="h6" fontWeight={600} sx={{ mb: 3 }}>
-                                Project Info
-                            </Typography>
+                            <Stack
+                                direction="row"
+                                justifyContent="space-between"
+                                alignItems="center"
+                                sx={{
+                                    mb: 3,
+                                    pb: 2,
+                                    borderBottom: "1px solid rgba(255, 255, 255, 0.1)",
+                                }}
+                            >
+                                <Typography
+                                    variant="h6"
+                                    fontWeight={600}
+                                    sx={{
+                                        color:
+                                            theme.palette.mode === "dark" ? "white" : "text.primary",
+                                        textTransform: "uppercase",
+                                        letterSpacing: 1,
+                                        fontSize: "1rem",
+                                    }}
+                                >
+                                    Table of Contents
+                                </Typography>
+                                <IconButton
+                                    onClick={() => setShowMobileToc(false)}
+                                    size="small"
+                                    sx={{
+                                        backgroundColor:
+                                            theme.palette.mode === "dark"
+                                                ? "rgba(255, 255, 255, 0.1)"
+                                                : "rgba(0, 0, 0, 0.05)",
+                                        color:
+                                            theme.palette.mode === "dark" ? "white" : "text.primary",
+                                        "&:hover": {
+                                            backgroundColor:
+                                                theme.palette.mode === "dark"
+                                                    ? "rgba(255, 255, 255, 0.2)"
+                                                    : "rgba(0, 0, 0, 0.1)",
+                                            transform: "scale(1.1)",
+                                        },
+                                        transition: "all 0.2s ease",
+                                    }}
+                                >
+                                    <Close />
+                                </IconButton>
+                            </Stack>
 
-                            <Stack spacing={2}>
-                                <Box>
-                                    <Typography
-                                        variant="body2"
-                                        color="text.secondary"
-                                        sx={{ mb: 1 }}
-                                    >
-                                        Reading Progress
-                                    </Typography>
-                                    <LinearProgress
-                                        variant="determinate"
-                                        value={readingProgress}
-                                        sx={{
-                                            height: 6,
-                                            borderRadius: 3,
-                                            backgroundColor: "rgba(0, 0, 0, 0.1)",
-                                            "& .MuiLinearProgress-bar": {
-                                                borderRadius: 3,
-                                                backgroundColor: "secondary.main",
-                                            },
+                            <Stack spacing={1}>
+                                {tocItems.map((item) => (
+                                    <Button
+                                        key={item.id}
+                                        onClick={() => {
+                                            scrollToHeading(item.id);
+                                            setShowMobileToc(false);
                                         }}
-                                    />
-                                    <Typography variant="caption" color="text.secondary">
-                                        {Math.round(readingProgress)}% completed
-                                    </Typography>
-                                </Box>
-
-                                <Divider />
-
-                                <Box>
-                                    <Typography
-                                        variant="body2"
-                                        color="text.secondary"
-                                        sx={{ mb: 2 }}
+                                        sx={{
+                                            justifyContent: "flex-start",
+                                            textAlign: "left",
+                                            textTransform: "none",
+                                            pl: 1 + (item.level - 1) * 1.5,
+                                            pr: 2,
+                                            py: 0.75,
+                                            minHeight: "auto",
+                                            color:
+                                                activeHeading === item.id ? "white" : "text.secondary",
+                                            backgroundColor:
+                                                activeHeading === item.id
+                                                    ? "rgba(114, 137, 218, 0.8)"
+                                                    : "transparent",
+                                            border: "none",
+                                            borderRadius: 2,
+                                            fontSize: "0.85rem",
+                                            fontWeight: activeHeading === item.id ? 600 : 400,
+                                            "&:hover": {
+                                                backgroundColor:
+                                                    activeHeading === item.id
+                                                        ? "rgba(114, 137, 218, 0.9)"
+                                                        : theme.palette.mode === "dark"
+                                                            ? "rgba(255, 255, 255, 0.05)"
+                                                            : "rgba(0, 0, 0, 0.05)",
+                                            },
+                                            transition: "all 0.2s ease",
+                                        }}
                                     >
-                                        Share this project
-                                    </Typography>
-                                    <Stack direction="row" spacing={1}>
-                                        <Tooltip title="Share">
-                                            <IconButton
-                                                size="small"
-                                                onClick={handleShare}
-                                                sx={{
-                                                    backgroundColor: "secondary.main",
-                                                    color: "white",
-                                                    "&:hover": { backgroundColor: "secondary.dark" },
-                                                }}
-                                            >
-                                                <Share fontSize="small" />
-                                            </IconButton>
-                                        </Tooltip>
-                                        <Tooltip title="Bookmark">
-                                            <IconButton
-                                                size="small"
-                                                sx={{
-                                                    backgroundColor: (theme) =>
-                                                        theme.palette.mode === "dark"
-                                                            ? "rgba(255,255,255,0.1)"
-                                                            : "rgba(0,0,0,0.1)",
-                                                    "&:hover": {
-                                                        backgroundColor: "secondary.main",
-                                                        color: "white",
-                                                    },
-                                                }}
-                                            >
-                                                <BookmarkBorder fontSize="small" />
-                                            </IconButton>
-                                        </Tooltip>
-                                    </Stack>
-                                </Box>
-
-                                {contributors && contributors.length > 0 && (
-                                    <>
-                                        <Divider />
-                                        <Box>
-                                            <Typography
-                                                variant="body2"
-                                                color="text.secondary"
-                                                sx={{ mb: 2 }}
-                                            >
-                                                Contributors
-                                            </Typography>
-                                            <Stack spacing={1}>
-                                                {contributors.map((contributor, index) => (
-                                                    <Stack
-                                                        key={index}
-                                                        direction="row"
-                                                        alignItems="center"
-                                                        spacing={1}
-                                                    >
-                                                        <Avatar
-                                                            sx={{
-                                                                width: 32,
-                                                                height: 32,
-                                                                fontSize: "0.875rem",
-                                                            }}
-                                                        >
-                                                            {typeof contributor === "string"
-                                                                ? contributor.charAt(0)
-                                                                : contributor.firstName?.charAt(0) || "?"}
-                                                        </Avatar>
-                                                        <Typography variant="body2">
-                                                            {typeof contributor === "string"
-                                                                ? contributor
-                                                                : `${contributor.firstName} ${contributor.lastName}`}
-                                                        </Typography>
-                                                    </Stack>
-                                                ))}
-                                            </Stack>
-                                        </Box>
-                                    </>
-                                )}
+                                        {item.text}
+                                    </Button>
+                                ))}
                             </Stack>
                         </Paper>
                     </Box>
-                </Box>
-            </Container>
+                </Fade>
+            </Modal>
 
             {/* Scroll to Top FAB */}
             <Fade in={showScrollToTop}>
@@ -679,6 +1046,14 @@ const ProjectPage = ({ params }: ProjectPageProps) => {
                     <KeyboardArrowUp />
                 </Fab>
             </Fade>
+
+            <Snackbar
+                open={showShareToast}
+                autoHideDuration={3000}
+                onClose={() => setShowShareToast(false)}
+                message="Link copied to clipboard"
+                anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+            />
         </>
     );
 };

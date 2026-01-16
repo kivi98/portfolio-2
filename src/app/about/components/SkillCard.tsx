@@ -31,16 +31,17 @@ const SkillCard = ({
         justifyContent: "space-between",
         alignItems: "stretch",
         borderRadius: "10px",
-        backgroundColor: theme.palette.mode === "dark"
-          ? "transparentLevels.3"
-          : "background.paper", // White cards in light mode
-        boxShadow: theme.palette.mode === "dark"
-          ? "0px 0px 12px rgba(0,0,0,0.3)"
-          : "0px 2px 8px rgba(0,0,0,0.08)", // Softer shadow in light mode
+        backgroundColor:
+          theme.palette.mode === "dark"
+            ? "transparentLevels.3"
+            : "background.paper", // White cards in light mode
+        boxShadow:
+          theme.palette.mode === "dark"
+            ? "0px 0px 12px rgba(0,0,0,0.3)"
+            : "0px 2px 8px rgba(0,0,0,0.08)", // Softer shadow in light mode
         border: "1px solid",
-        borderColor: theme.palette.mode === "dark"
-          ? "divider"
-          : "rgba(0,0,0,0.08)", // Subtle border in light mode
+        borderColor:
+          theme.palette.mode === "dark" ? "divider" : "rgba(0,0,0,0.08)", // Subtle border in light mode
         marginInline: "2rem",
         position: "relative",
         transition: "transform 0.3s ease, box-shadow 0.3s ease",
@@ -48,9 +49,10 @@ const SkillCard = ({
         ...(zoomInAnimation && {
           "&:hover": {
             transform: "scale(1.05)",
-            boxShadow: theme.palette.mode === "dark"
-              ? "0px 0px 16px rgba(227,0,0,0.3)"
-              : "0px 4px 16px rgba(0,0,0,0.12)",
+            boxShadow:
+              theme.palette.mode === "dark"
+                ? "0px 0px 16px rgba(227,0,0,0.3)"
+                : "0px 4px 16px rgba(0,0,0,0.12)",
           },
         }),
       })}

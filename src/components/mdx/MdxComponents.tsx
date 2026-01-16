@@ -78,7 +78,7 @@ const InlineCode = styled("code")(({ theme }) => ({
 }));
 
 const StyledBlockquote = styled("blockquote")(({ theme }) => ({
-  borderLeft: `4px solid ${theme.palette.secondary.main}`,
+  borderLeft: `4px solid ${theme.palette.primary.main}`,
   backgroundColor:
     theme.palette.mode === "dark"
       ? "rgba(255, 255, 255, 0.02)"
@@ -91,7 +91,7 @@ const StyledBlockquote = styled("blockquote")(({ theme }) => ({
   "&::before": {
     content: '"""',
     fontSize: "3rem",
-    color: theme.palette.secondary.main,
+    color: theme.palette.primary.main,
     position: "absolute",
     top: theme.spacing(1),
     left: theme.spacing(1),
@@ -411,7 +411,7 @@ export const mdxComponents = {
           color: "text.secondary",
         },
         "& li::marker": {
-          color: "secondary.main",
+          color: "primary.main",
         },
       }}
       {...props}
@@ -429,7 +429,7 @@ export const mdxComponents = {
           color: "text.secondary",
         },
         "& li::marker": {
-          color: "secondary.main",
+          color: "primary.main",
           fontWeight: 600,
         },
       }}
@@ -441,13 +441,13 @@ export const mdxComponents = {
   a: (props: any) => (
     <Link
       sx={{
-        color: "secondary.main",
+        color: "primary.light",
         textDecoration: "none",
         fontWeight: 500,
         borderBottom: "1px solid transparent",
         transition: "all 0.2s ease",
         "&:hover": {
-          borderBottomColor: "secondary.main",
+          borderBottomColor: "primary.light",
           textDecoration: "none",
         },
       }}
@@ -472,7 +472,7 @@ export const mdxComponents = {
         my: 4,
         borderColor: "divider",
         "&::before, &::after": {
-          borderColor: "secondary.main",
+          borderColor: "primary.main",
         },
       }}
       {...props}

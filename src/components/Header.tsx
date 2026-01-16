@@ -8,6 +8,7 @@ import Typography from "@mui/material/Typography";
 import Brightness4Icon from "@mui/icons-material/Brightness4";
 import Brightness7Icon from "@mui/icons-material/Brightness7";
 import Box from "@mui/material/Box";
+import Portal from "@mui/material/Portal";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -37,6 +38,7 @@ export default function Header() {
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const mobileMenuRef = useRef<HTMLDivElement | null>(null);
+  const menuContentRef = useRef<HTMLDivElement | null>(null);
 
   // Close mobile menu when clicking outside
   React.useEffect(() => {
@@ -44,7 +46,9 @@ export default function Header() {
     function handleClick(event: MouseEvent) {
       if (
         mobileMenuRef.current &&
-        !mobileMenuRef.current.contains(event.target as Node)
+        !mobileMenuRef.current.contains(event.target as Node) &&
+        menuContentRef.current &&
+        !menuContentRef.current.contains(event.target as Node)
       ) {
         setMobileMenuOpen(false);
       }
@@ -252,108 +256,128 @@ export default function Header() {
             sx={{ display: "flex", alignItems: "center" }}
           >
             <IconButton
-              color="inherit"
               aria-label="open navigation menu"
               onClick={() => setMobileMenuOpen((prev) => !prev)}
               edge="end"
+              sx={{
+                color: theme.palette.mode === "dark" ? "#FFFFFF" : "#171717",
+                transition: "all 0.3s ease",
+                "&:hover": {
+                  color: theme.palette.secondary.main,
+                  transform: "scale(1.1)",
+                },
+              }}
             >
               <MenuIcon />
             </IconButton>
             {mobileMenuOpen && (
-              <Box
-                sx={{
-                  position: "absolute",
-                  top: "100%",
-                  left: 0,
-                  width: "100%",
-                  background:
-                    theme.palette.mode === "light"
-                      ? "rgba(255, 255, 255, 0.97)"
-                      : "rgba(30, 30, 30, 0.97)",
-                  backdropFilter: "blur(16px) saturate(180%)",
-                  WebkitBackdropFilter: "blur(16px) saturate(180%)",
-                  boxShadow: "0 8px 32px rgba(0,0,0,0.1)",
-                  borderBottomLeftRadius: "10px",
-                  borderBottomRightRadius: "10px",
-                  borderTopRightRadius: "10px",
-                  borderTopLeftRadius: "10px",
-                  border:
-                    theme.palette.mode === "light"
-                      ? "1px solid rgba(200, 200, 200, 0.18)"
-                      : "1px solid rgba(255, 255, 255, 0.10)",
-                  zIndex: 1202,
-                  p: 3,
-                  mt: 1,
-                }}
-              >
-                <Stack spacing={2}>
-                  {renderNavButtons(() => setMobileMenuOpen(false))}
-                  <Divider />
-                  <Stack direction="row" spacing={1} justifyContent="center">
-                    <Tooltip title="GitHub">
-                      <IconButton
-                        component="a"
-                        href="https://github.com/"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        aria-label="GitHub"
-                        sx={{
-                          color: theme.palette.mode === "dark" ? "#FFFFFF" : "#171717",
-                          transition: "all 0.3s ease",
-                          "&:hover": {
-                            color: theme.palette.secondary.main,
-                            transform: "scale(1.1)",
-                          },
-                        }}
-                      >
-                        <GitHubIcon />
-                      </IconButton>
-                    </Tooltip>
-                    <Tooltip title="LinkedIn">
-                      <IconButton
-                        component="a"
-                        href="https://linkedin.com/"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        aria-label="LinkedIn"
-                        sx={{
-                          color: theme.palette.mode === "dark" ? "#FFFFFF" : "#171717",
-                          transition: "all 0.3s ease",
-                          "&:hover": {
-                            color: theme.palette.secondary.main,
-                            transform: "scale(1.1)",
-                          },
-                        }}
-                      >
-                        <LinkedInIcon />
-                      </IconButton>
-                    </Tooltip>
-                    <Tooltip title="Toggle light/dark theme">
-                      <IconButton
-                        onClick={() => {
-                          toggleColorMode();
-                          setMobileMenuOpen(false);
-                        }}
-                        aria-label="toggle dark mode"
-                        sx={{
-                          color: theme.palette.mode === "dark" ? "#FFFFFF" : "#171717",
-                          transition: "all 0.3s ease",
-                          "&:hover": {
-                            color: theme.palette.secondary.main,
-                            transform: "rotate(180deg) scale(1.1)",
-                          },
-                        }}
-                      >
-                        {mode === "dark" ? (
-                          <Brightness7Icon />
-                        ) : (
-                          <Brightness4Icon />
-                        )}
-                      </IconButton>
-                    </Tooltip>
+              <Portal>
+                <Box
+                  ref={menuContentRef}
+                  sx={{
+                    position: "fixed",
+                    top: {
+                      xs: "calc(0.5rem + 1rem + 56px + 8px)",
+                      sm: "calc(0.5rem + 1rem + 64px + 8px)",
+                    },
+                    left: 0,
+                    right: 0,
+                    margin: { xs: "0 1rem", sm: "0 auto" },
+                    maxWidth: { xs: "92%", sm: "90%" },
+                    background:
+                      theme.palette.mode === "light"
+                        ? "rgba(255, 255, 255, 0.97)"
+                        : "rgba(30, 30, 30, 0.97)",
+                    backdropFilter: "blur(16px) saturate(180%)",
+                    WebkitBackdropFilter: "blur(16px) saturate(180%)",
+                    boxShadow: "0 8px 32px rgba(0,0,0,0.1)",
+                    borderRadius: "10px",
+                    border:
+                      theme.palette.mode === "light"
+                        ? "1px solid rgba(200, 200, 200, 0.18)"
+                        : "1px solid rgba(255, 255, 255, 0.10)",
+                    zIndex: 1301,
+                    p: 3,
+                  }}
+                >
+                  <Stack spacing={2}>
+                    {renderNavButtons(() => setMobileMenuOpen(false))}
+                    <Divider />
+                    <Stack direction="row" spacing={1} justifyContent="center">
+                      <Tooltip title="GitHub">
+                        <IconButton
+                          component="a"
+                          href="https://github.com/"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          aria-label="GitHub"
+                          sx={{
+                            color:
+                              theme.palette.mode === "dark"
+                                ? "#FFFFFF"
+                                : "#171717",
+                            transition: "all 0.3s ease",
+                            "&:hover": {
+                              color: theme.palette.secondary.main,
+                              transform: "scale(1.1)",
+                            },
+                          }}
+                        >
+                          <GitHubIcon />
+                        </IconButton>
+                      </Tooltip>
+                      <Tooltip title="LinkedIn">
+                        <IconButton
+                          component="a"
+                          href="https://linkedin.com/"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          aria-label="LinkedIn"
+                          sx={{
+                            color:
+                              theme.palette.mode === "dark"
+                                ? "#FFFFFF"
+                                : "#171717",
+                            transition: "all 0.3s ease",
+                            "&:hover": {
+                              color: theme.palette.secondary.main,
+                              transform: "scale(1.1)",
+                            },
+                          }}
+                        >
+                          <LinkedInIcon />
+                        </IconButton>
+                      </Tooltip>
+                      <Tooltip title="Toggle light/dark theme">
+                        <IconButton
+                          onClick={() => {
+                            toggleColorMode();
+                            setMobileMenuOpen(false);
+                          }}
+                          aria-label="toggle dark mode"
+                          sx={{
+                            color:
+                              theme.palette.mode === "dark"
+                                ? "#FFFFFF"
+                                : "#171717",
+                            transition: "all 0.3s ease",
+                            "&:hover": {
+                              color: theme.palette.secondary.main,
+                              transform: "rotate(180deg) scale(1.1)",
+                            },
+                          }}
+                        >
+                          {mode === "dark" ? (
+                            <Brightness7Icon />
+                          ) : (
+                            <Brightness4Icon />
+                          )}
+                        </IconButton>
+                      </Tooltip>
+                    </Stack>
                   </Stack>
-                </Stack>
-              </Box>
+                </Box>
+              </Portal>
             )}
           </Box>
         )}

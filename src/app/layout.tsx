@@ -83,7 +83,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${outfit.variable} ${plusJakartaSans.variable} ${jetbrainsMono.variable}`}>
+      <body
+        className={`${outfit.variable} ${plusJakartaSans.variable} ${jetbrainsMono.variable}`}
+      >
         <Providers>
           <ThemeProvider>
             <ParticleBackground />
