@@ -319,9 +319,9 @@ const ProjectClientPage = ({ params }: ProjectPageProps) => {
                 sx={{
                     maxWidth: "1200px",
                     mx: "auto",
-                    py: { xs: 4, md: 6 },
-                    pt: { xs: "100px", md: "120px" },
-                    px: { xs: 2, md: 4 },
+                    py: { xs: 3, md: 4 },
+                    pt: { xs: "90px", md: "110px" },
+                    px: { xs: 2, md: 3 },
                 }}
             >
                 {/* Navigation Header */}
@@ -708,7 +708,7 @@ const ProjectClientPage = ({ params }: ProjectPageProps) => {
                     <Paper
                         elevation={0}
                         sx={{
-                            p: { xs: 3, sm: 4, md: 6 },
+                            p: { xs: 3, sm: 4, md: 5 },
                             borderRadius: 3,
                             background:
                                 theme.palette.mode === "dark"
@@ -740,7 +740,7 @@ const ProjectClientPage = ({ params }: ProjectPageProps) => {
                             <Paper
                                 elevation={0}
                                 sx={{
-                                    p: 3,
+                                    p: 2.5,
                                     borderRadius: 3,
                                     background:
                                         theme.palette.mode === "dark"
