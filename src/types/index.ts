@@ -132,6 +132,7 @@ export interface Project {
   githubUrl?: string;
   liveUrl?: string;
   featured?: boolean;
+  excerpt?: string;
   // Post-compatible properties
   coverImage?: string;
   content?: string;
