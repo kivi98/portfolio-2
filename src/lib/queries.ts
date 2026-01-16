@@ -287,3 +287,26 @@ export const useDeleteBlog = () => {
     },
   });
 };
+
+export const useAddLike = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: ({ id, likes }: { id: number; likes: number }) => {
+      return postApi.addLike(id, likes);
+    },
+    onSuccess: (_, variables) => {
+      // Invalidate detail queries to refresh like count
+      queryClient.invalidateQueries({
+        queryKey: queryKeys.posts.detail(variables.id),
+      });
+      // Also invalidate blog/project specific keys if they exist separately
+      queryClient.invalidateQueries({
+        queryKey: queryKeys.blogs.detail(variables.id),
+      });
+      queryClient.invalidateQueries({
+        queryKey: queryKeys.projects.detail(variables.id),
+      });
+    },
+  });
+};

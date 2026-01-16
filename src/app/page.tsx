@@ -11,6 +11,7 @@ import DoubleArrowIcon from "@mui/icons-material/DoubleArrow";
 import Link from "next/link";
 import AvatarCard from "@/components/AvatarCard";
 import DownloadIcon from "@mui/icons-material/Download";
+import EmailIcon from "@mui/icons-material/Email";
 
 export default function Home() {
   return (
@@ -120,7 +121,32 @@ export default function Home() {
                     About Me
                   </Button>
                 </Link>
-                <Button
+                <Link href="/contact">
+                  <Button
+                    variant="outlined"
+                    sx={{
+                      backgroundColor: "rgba(227, 0, 0, 0.05)",
+                      color: "text.light",
+                      minWidth: { xs: "100%", sm: "10rem" },
+                      height: { xs: "2.5rem", md: "3rem" },
+                      borderRadius: "1rem",
+                      boxShadow: "0px 0px 10px rgba(227, 0, 0, 0.18)",
+                      border: "1px solid rgba(227, 0, 0, 0.32)",
+                      fontWeight: 700,
+                      "&:hover": {
+                        backgroundColor: "rgba(227, 0, 0, 0.77)",
+                        border: "1px solid rgba(227, 0, 0, 0.77)",
+                        boxShadow: "0px 0px 10px rgba(227, 0, 0, 0.8)",
+                        transform: "translateY(-2px)",
+                      },
+                      transition: "all 0.3s ease",
+                    }}
+                    endIcon={<EmailIcon />}
+                  >
+                    Contact Me
+                  </Button>
+                </Link>
+                {/* <Button
                   variant="outlined"
                   sx={{
                     backgroundColor: "rgba(227, 0, 0, 0.05)",
@@ -142,7 +168,7 @@ export default function Home() {
                   endIcon={<DownloadIcon />}
                 >
                   Download CV
-                </Button>
+                </Button> */}
               </Box>
             </Box>
           </Grid>

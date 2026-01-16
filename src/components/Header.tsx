@@ -307,7 +307,7 @@ export default function Header() {
                       <Tooltip title="GitHub">
                         <IconButton
                           component="a"
-                          href="https://github.com/"
+                          href="https://github.com/kivi98"
                           target="_blank"
                           rel="noopener noreferrer"
                           aria-label="GitHub"
@@ -329,7 +329,7 @@ export default function Header() {
                       <Tooltip title="LinkedIn">
                         <IconButton
                           component="a"
-                          href="https://linkedin.com/"
+                          href="https://linkedin.com/in/kivi-amarakoon-543a84195"
                           target="_blank"
                           rel="noopener noreferrer"
                           aria-label="LinkedIn"
