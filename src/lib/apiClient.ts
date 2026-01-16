@@ -45,10 +45,12 @@ const createApiClient = (): AxiosInstance => {
   // Request interceptor for adding auth tokens, etc.
   client.interceptors.request.use(
     (config) => {
-      // Add auth token if available
-      const token = localStorage.getItem(TOKEN_KEY);
-      if (token) {
-        config.headers.Authorization = `Bearer ${token}`;
+      // Add auth token if available (only in browser)
+      if (typeof window !== "undefined") {
+        const token = localStorage.getItem(TOKEN_KEY);
+        if (token) {
+          config.headers.Authorization = `Bearer ${token}`;
+        }
       }
 
       // Add .NET specific headers
@@ -70,9 +72,9 @@ const createApiClient = (): AxiosInstance => {
       // Handle .NET backend specific errors
       if (error.response?.status === 401) {
         // Handle unauthorized - clear token
-        localStorage.removeItem(TOKEN_KEY);
-        // Optionally redirect to login
         if (typeof window !== "undefined") {
+          localStorage.removeItem(TOKEN_KEY);
+          // Optionally redirect to login
           window.location.href = "/login";
         }
       }
