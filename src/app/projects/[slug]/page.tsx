@@ -486,7 +486,8 @@ const ProjectPage = ({ params }: ProjectPageProps) => {
                         <Stack direction="row" spacing={3}>
                             <Stack direction="row" alignItems="center" spacing={1}>
                                 <CalendarToday fontSize="small" color="action" />
-                                <Typography variant="body2" color="text.secondary">
+                                <Typography variant="body2" color="text.secondary"
+                                    fontSize={{ xs: "11px", md: "14px" }}>
                                     {new Date(projectData?.createdAt || "").toLocaleDateString(
                                         "en-US",
                                         {
@@ -501,7 +502,8 @@ const ProjectPage = ({ params }: ProjectPageProps) => {
                             {projectData?.content && (
                                 <Stack direction="row" alignItems="center" spacing={1}>
                                     <AccessTime fontSize="small" color="action" />
-                                    <Typography variant="body2" color="text.secondary">
+                                    <Typography variant="body2" color="text.secondary"
+                                        fontSize={{ xs: "11px", md: "14px" }}>
                                         {estimatedReadingTime} min read
                                     </Typography>
                                 </Stack>
@@ -527,7 +529,8 @@ const ProjectPage = ({ params }: ProjectPageProps) => {
                                         color: hasLiked ? "red" : undefined,
                                     }}
                                 />
-                                <Typography variant="body2" color="text.secondary">
+                                <Typography variant="body2" color="text.secondary"
+                                    fontSize={{ xs: "11px", md: "14px" }}>
                                     {likeCount}
                                 </Typography>
                             </Stack>
@@ -538,7 +541,8 @@ const ProjectPage = ({ params }: ProjectPageProps) => {
                                         <IconButton size="small" >
                                             <Share fontSize="small" />
                                         </IconButton>
-                                        <Typography variant="body2" color="text.secondary">
+                                        <Typography variant="body2" color="text.secondary"
+                                            fontSize={{ xs: "11px", md: "14px" }}>
                                             Share
                                         </Typography>
                                     </Stack>

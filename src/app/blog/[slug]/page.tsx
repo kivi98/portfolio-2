@@ -402,7 +402,7 @@ const BlogPostPage = ({ params }: BlogPostPageProps) => {
             variant="h1"
             component="h1"
             sx={{
-              fontSize: { xs: "1.5rem", sm: "2rem", md: "3rem" },
+              fontSize: { xs: "2rem", sm: "2.5rem", md: "3.5rem" },
               fontWeight: 800,
               lineHeight: 1.2,
               mb: 3,
@@ -463,7 +463,8 @@ const BlogPostPage = ({ params }: BlogPostPageProps) => {
             <Stack direction="row" spacing={3}>
               <Stack direction="row" alignItems="center" spacing={1}>
                 <CalendarToday fontSize="small" color="action" />
-                <Typography variant="body2" color="text.secondary">
+                <Typography variant="body2" color="text.secondary"
+                  fontSize={{ xs: "11px", md: "14px" }}>
                   {new Date(blogData?.createdAt || "").toLocaleDateString(
                     "en-US",
                     {
@@ -477,7 +478,8 @@ const BlogPostPage = ({ params }: BlogPostPageProps) => {
 
               <Stack direction="row" alignItems="center" spacing={1}>
                 <AccessTime fontSize="small" color="action" />
-                <Typography variant="body2" color="text.secondary">
+                <Typography variant="body2" color="text.secondary"
+                  fontSize={{ xs: "11px", md: "14px" }}>
                   {estimatedReadingTime} min read
                 </Typography>
               </Stack>
@@ -502,7 +504,8 @@ const BlogPostPage = ({ params }: BlogPostPageProps) => {
                     color: hasLiked ? "red" : undefined,
                   }}
                 />
-                <Typography variant="body2" color="text.secondary">
+                <Typography variant="body2" color="text.secondary"
+                  fontSize={{ xs: "11px", md: "14px" }}>
                   {likeCount}
                 </Typography>
               </Stack>
@@ -513,7 +516,8 @@ const BlogPostPage = ({ params }: BlogPostPageProps) => {
                     <IconButton size="small">
                       <Share fontSize="small" />
                     </IconButton>
-                    <Typography variant="body2" color="text.secondary">
+                    <Typography variant="body2" color="text.secondary"
+                      fontSize={{ xs: "11px", md: "14px" }}>
                       Share
                     </Typography>
                   </Stack>
