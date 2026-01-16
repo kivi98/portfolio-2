@@ -31,7 +31,7 @@ const StyledImage = styled(Image)(({ theme }) => ({
   maxWidth: "100%",
   height: "auto",
   display: "block",
-  margin: `${theme.spacing(3)} auto`,
+  margin: `${theme.spacing(2)} auto`,
   transition: "all 0.3s ease",
   "&:hover": {
     transform: "scale(1.02)",
@@ -46,8 +46,8 @@ const CodeBlock = styled(Paper)(({ theme }) => ({
       : "rgba(0, 0, 0, 0.03)",
   borderRadius: theme.spacing(2),
   padding: theme.spacing(2),
-  marginTop: theme.spacing(2),
-  marginBottom: theme.spacing(2),
+  marginTop: theme.spacing(1.5),
+  marginBottom: theme.spacing(1.5),
   overflow: "auto",
   border: `1px solid ${theme.palette.divider}`,
   "& pre": {
@@ -83,7 +83,7 @@ const StyledBlockquote = styled("blockquote")(({ theme }) => ({
     theme.palette.mode === "dark"
       ? "rgba(255, 255, 255, 0.02)"
       : "rgba(0, 0, 0, 0.02)",
-  margin: `${theme.spacing(3)} 0`,
+  margin: `${theme.spacing(2)} 0`,
   padding: `${theme.spacing(2)} ${theme.spacing(3)}`,
   borderRadius: `0 ${theme.spacing(1)} ${theme.spacing(1)} 0`,
   fontStyle: "italic",
@@ -106,8 +106,8 @@ const StyledBlockquote = styled("blockquote")(({ theme }) => ({
 }));
 
 const StyledTable = styled(TableContainer)(({ theme }) => ({
-  marginTop: theme.spacing(3),
-  marginBottom: theme.spacing(3),
+  marginTop: theme.spacing(2),
+  marginBottom: theme.spacing(2),
   borderRadius: theme.spacing(2),
   border: `1px solid ${theme.palette.divider}`,
   "& .MuiTable-root": {
@@ -304,8 +304,8 @@ export const mdxComponents = {
       component="h1"
       sx={{
         fontWeight: 700,
-        mt: { xs: 4, md: 6 },
-        mb: 3,
+        mt: { xs: 3, md: 4 },
+        mb: 2,
         fontSize: { xs: "1.5rem", md: "inherit" },
         color: "text.primary",
         lineHeight: 1.2,
@@ -315,12 +315,12 @@ export const mdxComponents = {
   ),
   h2: (props: any) => (
     <Typography
-      variant="h4"
+      variant="h2"
       component="h2"
       sx={{
         fontWeight: 600,
-        mt: { xs: 3, md: 5 },
-        mb: 2,
+        mt: { xs: 2.5, md: 3.5 },
+        mb: 1.5,
         fontSize: { xs: "1.25rem", md: "inherit" },
         color: "text.primary",
         lineHeight: 1.3,
@@ -330,14 +330,14 @@ export const mdxComponents = {
   ),
   h3: (props: any) => (
     <Typography
-      variant="h5"
+      variant="h1"
       component="h3"
       sx={{
         fontWeight: 600,
-        mt: 4,
-        mb: 2,
+        mt: 3,
+        mb: 1.5,
         color: "text.primary",
-        lineHeight: 1.4,
+        lineHeight: 1.3,
       }}
       {...props}
     />
@@ -348,10 +348,10 @@ export const mdxComponents = {
       component="h4"
       sx={{
         fontWeight: 600,
-        mt: 3,
-        mb: 1.5,
+        mt: 2.5,
+        mb: 1,
         color: "text.primary",
-        lineHeight: 1.4,
+        lineHeight: 1.3,
       }}
       {...props}
     />
@@ -362,10 +362,10 @@ export const mdxComponents = {
       component="h5"
       sx={{
         fontWeight: 600,
-        mt: 3,
-        mb: 1.5,
+        mt: 2.5,
+        mb: 1,
         color: "text.primary",
-        lineHeight: 1.4,
+        lineHeight: 1.3,
       }}
       {...props}
     />
@@ -376,10 +376,10 @@ export const mdxComponents = {
       component="h6"
       sx={{
         fontWeight: 600,
-        mt: 2,
-        mb: 1,
+        mt: 1.5,
+        mb: 0.75,
         color: "text.primary",
-        lineHeight: 1.4,
+        lineHeight: 1.3,
       }}
       {...props}
     />
@@ -391,10 +391,10 @@ export const mdxComponents = {
       variant="body1"
       component="p"
       sx={{
-        lineHeight: { xs: 1.6, md: 1.8 },
-        mb: 2.5,
+        lineHeight: { xs: 1.6, md: 1.7 },
+        mb: 2,
         color: "text.secondary",
-        fontSize: { xs: "1rem", md: "1.1rem" },
+        fontSize: { xs: "1rem", md: "1.05rem" },
       }}
       {...props}
     />
@@ -405,8 +405,8 @@ export const mdxComponents = {
     <Box
       component="ul"
       sx={{
-        pl: 4,
-        mb: 2.5,
+        pl: 3,
+        mb: 2,
         "& li": {
           mb: 1,
           lineHeight: 1.7,
@@ -423,8 +423,8 @@ export const mdxComponents = {
     <Box
       component="ol"
       sx={{
-        pl: 4,
-        mb: 2.5,
+        pl: 3,
+        mb: 2,
         "& li": {
           mb: 1,
           lineHeight: 1.7,
@@ -471,7 +471,7 @@ export const mdxComponents = {
   hr: (props: any) => (
     <Divider
       sx={{
-        my: 4,
+        my: 3,
         borderColor: "divider",
         "&::before, &::after": {
           borderColor: "primary.main",
