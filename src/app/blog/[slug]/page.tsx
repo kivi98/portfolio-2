@@ -295,7 +295,7 @@ const BlogPostPage = ({ params }: BlogPostPageProps) => {
         value={readingProgress}
         sx={{
           position: "fixed",
-          top: { xs: '57px', md: 80 },
+          top: { xs: '57px', md: 0 },
           left: 0,
           right: 0,
           zIndex: 2000,
@@ -402,7 +402,7 @@ const BlogPostPage = ({ params }: BlogPostPageProps) => {
             variant="h1"
             component="h1"
             sx={{
-              fontSize: { xs: "2rem", sm: "2.5rem", md: "3.5rem" },
+              fontSize: { xs: "1.5rem", sm: "2rem", md: "3rem" },
               fontWeight: 800,
               lineHeight: 1.2,
               mb: 3,
@@ -511,7 +511,7 @@ const BlogPostPage = ({ params }: BlogPostPageProps) => {
                 <Box onClick={handleShare}>
                   <Stack direction="row" alignItems="center" spacing={1}>
                     <IconButton size="small">
-                      <Share fontSize="small" color="secondary" />
+                      <Share fontSize="small" />
                     </IconButton>
                     <Typography variant="body2" color="text.secondary">
                       Share

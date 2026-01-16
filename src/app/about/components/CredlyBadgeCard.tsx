@@ -17,19 +17,24 @@ import { CredlyBadgeDisplay } from "@/types/credly";
 import { formatCredlyDate } from "@/lib/credlyApi";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 import VerifiedIcon from "@mui/icons-material/Verified";
+import { useTheme } from "@mui/material";
 
 interface CredlyBadgeCardProps {
   badge: CredlyBadgeDisplay;
 }
 
 export const CredlyBadgeCard: React.FC<CredlyBadgeCardProps> = ({ badge }) => {
+  const theme = useTheme();
   return (
     <Card
       sx={{
         height: "100%",
         display: "flex",
         flexDirection: "column",
+        border: "1px solid",
+        borderColor: "transparentLevelsWhite.1",
         transition: "all 0.3s ease-in-out",
+        boxShadow: "none",
         "&:hover": {
           transform: "translateY(-8px)",
           boxShadow: 6,
@@ -75,17 +80,17 @@ export const CredlyBadgeCard: React.FC<CredlyBadgeCardProps> = ({ badge }) => {
           />
           {/* Verified Icon Overlay */}
           <Box
-            sx={{
+            sx={(theme) => ({
               position: "absolute",
               top: 8,
               right: 8,
-              backgroundColor: "primary.main",
+              backgroundColor: theme.palette.mode === "light" ? "success.main" : "primary.main",
               borderRadius: "50%",
               padding: 0.5,
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
-            }}
+            })}
           >
             <Tooltip title="Verified Badge">
               <VerifiedIcon sx={{ color: "white", fontSize: 20 }} />

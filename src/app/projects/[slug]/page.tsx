@@ -302,7 +302,7 @@ const ProjectPage = ({ params }: ProjectPageProps) => {
                 value={readingProgress}
                 sx={{
                     position: "fixed",
-                    top: { xs: '57px', md: 80 },
+                    top: { xs: '57px', md: 0 },
                     left: 0,
                     right: 0,
                     zIndex: 2000,
@@ -536,7 +536,7 @@ const ProjectPage = ({ params }: ProjectPageProps) => {
                                 <Box onClick={handleShare}>
                                     <Stack direction="row" alignItems="center" spacing={1}>
                                         <IconButton size="small" >
-                                            <Share fontSize="small" color="secondary" />
+                                            <Share fontSize="small" />
                                         </IconButton>
                                         <Typography variant="body2" color="text.secondary">
                                             Share

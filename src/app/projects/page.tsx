@@ -143,7 +143,7 @@ const Projects = () => {
             width: { xs: "100%", md: "60%" },
             px: { xs: 0, md: 0 },
             justifyContent: "flex-start",
-            height: 300,
+            height: { xs: "auto", md: 300 },
             display: "flex",
             flexDirection: "column",
             flexGrow: 1,
