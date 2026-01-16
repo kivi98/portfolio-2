@@ -178,7 +178,7 @@ const Contact = () => {
             width: { xs: "100%", md: "60%" },
             px: { xs: 0, md: 0 },
             justifyContent: "flex-start",
-            height: 300,
+            height: { xs: "170px", md: "100%" },
             display: "flex",
             flexDirection: "column",
             flexGrow: 1,
@@ -186,7 +186,7 @@ const Contact = () => {
         >
           <Box
             sx={{
-              height: "100%",
+              height: { xs: "auto", md: "100%" },
               display: "flex",
               flexDirection: "column",
               justifyContent: "space-between",
@@ -265,6 +265,7 @@ const Contact = () => {
                       ? "0 8px 32px rgba(227, 0, 0, 0.2)"
                       : "0 8px 32px rgba(0, 0, 0, 0.1)",
                 },
+                boxShadow: "none",
               }}
             >
               <CardContent>
@@ -307,6 +308,7 @@ const Contact = () => {
                       ? "0 8px 32px rgba(227, 0, 0, 0.2)"
                       : "0 8px 32px rgba(0, 0, 0, 0.1)",
                 },
+                boxShadow: "none",
               }}
             >
               <CardContent>
@@ -349,6 +351,7 @@ const Contact = () => {
                       ? "0 8px 32px rgba(227, 0, 0, 0.2)"
                       : "0 8px 32px rgba(0, 0, 0, 0.1)",
                 },
+                boxShadow: "none",
               }}
             >
               <CardContent>
@@ -388,6 +391,7 @@ const Contact = () => {
                   : "1px solid rgba(0, 0, 0, 0.08)",
               borderRadius: 3,
               p: 4,
+              boxShadow: "none",
             }}
           >
             <Typography

@@ -304,8 +304,9 @@ export const mdxComponents = {
       component="h1"
       sx={{
         fontWeight: 700,
-        mt: 6,
+        mt: { xs: 4, md: 6 },
         mb: 3,
+        fontSize: { xs: "1.5rem", md: "inherit" },
         color: "text.primary",
         lineHeight: 1.2,
       }}
@@ -318,8 +319,9 @@ export const mdxComponents = {
       component="h2"
       sx={{
         fontWeight: 600,
-        mt: 5,
+        mt: { xs: 3, md: 5 },
         mb: 2,
+        fontSize: { xs: "1.25rem", md: "inherit" },
         color: "text.primary",
         lineHeight: 1.3,
       }}
@@ -389,10 +391,10 @@ export const mdxComponents = {
       variant="body1"
       component="p"
       sx={{
-        lineHeight: 1.8,
+        lineHeight: { xs: 1.6, md: 1.8 },
         mb: 2.5,
         color: "text.secondary",
-        fontSize: "1.1rem",
+        fontSize: { xs: "1rem", md: "1.1rem" },
       }}
       {...props}
     />

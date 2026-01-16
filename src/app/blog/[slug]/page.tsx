@@ -295,10 +295,10 @@ const BlogPostPage = ({ params }: BlogPostPageProps) => {
         value={readingProgress}
         sx={{
           position: "fixed",
-          top: { xs: 70, md: 80 },
+          top: { xs: '57px', md: 0 },
           left: 0,
           right: 0,
-          zIndex: 1000,
+          zIndex: 2000,
           height: 3,
           backgroundColor: "transparent",
           "& .MuiLinearProgress-bar": {
@@ -402,7 +402,7 @@ const BlogPostPage = ({ params }: BlogPostPageProps) => {
             variant="h1"
             component="h1"
             sx={{
-              fontSize: { xs: "2rem", sm: "2.5rem", md: "3.5rem" },
+              fontSize: { xs: "1.5rem", sm: "2rem", md: "3rem" },
               fontWeight: 800,
               lineHeight: 1.2,
               mb: 3,
@@ -511,7 +511,7 @@ const BlogPostPage = ({ params }: BlogPostPageProps) => {
                 <Box onClick={handleShare}>
                   <Stack direction="row" alignItems="center" spacing={1}>
                     <IconButton size="small">
-                      <Share fontSize="small" color="secondary" />
+                      <Share fontSize="small" />
                     </IconButton>
                     <Typography variant="body2" color="text.secondary">
                       Share
@@ -870,14 +870,17 @@ const BlogPostPage = ({ params }: BlogPostPageProps) => {
                 sx={{
                   mb: 3,
                   pb: 2,
-                  borderBottom: "1px solid rgba(255, 255, 255, 0.1)",
+                  borderBottom:
+                    theme.palette.mode === "dark"
+                      ? "1px solid rgba(255, 255, 255, 0.1)"
+                      : "1px solid rgba(0, 0, 0, 0.1)",
                 }}
               >
                 <Typography
                   variant="h6"
                   fontWeight={600}
                   sx={{
-                    color: "white",
+                    color: theme.palette.text.primary,
                     textTransform: "uppercase",
                     letterSpacing: 1,
                     fontSize: "1rem",
@@ -889,10 +892,16 @@ const BlogPostPage = ({ params }: BlogPostPageProps) => {
                   onClick={() => setShowMobileToc(false)}
                   size="small"
                   sx={{
-                    backgroundColor: "rgba(255, 255, 255, 0.1)",
-                    color: "white",
+                    backgroundColor:
+                      theme.palette.mode === "dark"
+                        ? "rgba(255, 255, 255, 0.1)"
+                        : "rgba(0, 0, 0, 0.05)",
+                    color: theme.palette.text.primary,
                     "&:hover": {
-                      backgroundColor: "rgba(255, 255, 255, 0.2)",
+                      backgroundColor:
+                        theme.palette.mode === "dark"
+                          ? "rgba(255, 255, 255, 0.2)"
+                          : "rgba(0, 0, 0, 0.1)",
                       transform: "scale(1.1)",
                     },
                     transition: "all 0.2s ease",

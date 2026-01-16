@@ -131,18 +131,26 @@ export default function Header() {
             : "rgba(30,30,30,0.35)",
         boxShadow: "0 4px 30px rgba(0, 0, 0, 0.19)",
         zIndex: 1201,
-        maxWidth: { xs: "92%", sm: "90%", md: "80%", lg: "1000px" },
-        margin: { xs: "1rem 1rem 0 1rem", md: "24px auto 0 auto" },
-        borderRadius: "1.5rem",
+        maxWidth: { xs: "100%", sm: "100%", md: "80%", lg: "1000px" },
+        margin: { xs: 0, md: "24px auto 0 auto" },
+        borderRadius: { xs: 0, md: "1.5rem" },
         left: 0,
         right: 0,
-        top: { xs: "0.5rem", md: "1rem" },
+        top: { xs: 0, md: "1rem" },
         backdropFilter: "blur(16px) saturate(180%)",
         WebkitBackdropFilter: "blur(16px) saturate(180%)",
         border:
           theme.palette.mode === "light"
             ? "1px solid rgba(200, 200, 200, 0.18)"
             : "1px solid rgba(255, 255, 255, 0.10)",
+        borderBottom: {
+          xs:
+            theme.palette.mode === "light"
+              ? "1px solid rgba(200, 200, 200, 0.18)"
+              : "1px solid rgba(255, 255, 255, 0.10)"
+          , md: "1px solid rgba(255, 255, 255, 0.10)"
+        }, // Ensure bottom border on mobile if needed, or rely on full border
+        borderWidth: { xs: "0 0 1px 0", md: "1px" }, // Only bottom border on mobile? Or keep full border. Let's keep simpler.
       }}
     >
       <Toolbar
@@ -277,13 +285,13 @@ export default function Header() {
                   sx={{
                     position: "fixed",
                     top: {
-                      xs: "calc(0.5rem + 1rem + 56px + 8px)",
-                      sm: "calc(0.5rem + 1rem + 64px + 8px)",
+                      xs: "56px",
+                      sm: "64px",
                     },
                     left: 0,
                     right: 0,
-                    margin: { xs: "0 1rem", sm: "0 auto" },
-                    maxWidth: { xs: "92%", sm: "90%" },
+                    margin: 0,
+                    maxWidth: "100%",
                     background:
                       theme.palette.mode === "light"
                         ? "rgba(255, 255, 255, 0.97)"
@@ -291,7 +299,7 @@ export default function Header() {
                     backdropFilter: "blur(16px) saturate(180%)",
                     WebkitBackdropFilter: "blur(16px) saturate(180%)",
                     boxShadow: "0 8px 32px rgba(0,0,0,0.1)",
-                    borderRadius: "10px",
+                    borderRadius: "0 0 10px 10px",
                     border:
                       theme.palette.mode === "light"
                         ? "1px solid rgba(200, 200, 200, 0.18)"
