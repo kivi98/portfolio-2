@@ -38,6 +38,7 @@ export default function Header() {
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const mobileMenuRef = useRef<HTMLDivElement | null>(null);
+  const menuContentRef = useRef<HTMLDivElement | null>(null);
 
   // Close mobile menu when clicking outside
   React.useEffect(() => {
@@ -45,7 +46,9 @@ export default function Header() {
     function handleClick(event: MouseEvent) {
       if (
         mobileMenuRef.current &&
-        !mobileMenuRef.current.contains(event.target as Node)
+        !mobileMenuRef.current.contains(event.target as Node) &&
+        menuContentRef.current &&
+        !menuContentRef.current.contains(event.target as Node)
       ) {
         setMobileMenuOpen(false);
       }
@@ -270,6 +273,7 @@ export default function Header() {
             {mobileMenuOpen && (
               <Portal>
                 <Box
+                  ref={menuContentRef}
                   sx={{
                     position: "fixed",
                     top: {
