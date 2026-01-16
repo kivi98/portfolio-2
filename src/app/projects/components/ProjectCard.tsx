@@ -44,15 +44,15 @@ const ProjectCard = ({ project }: { project: Project | any }) => {
     project.contributors ||
     ((project as any).owner
       ? [
-          `${(project as any).owner.firstName} ${(project as any).owner.lastName}`,
-        ]
+        `${(project as any).owner.firstName} ${(project as any).owner.lastName}`,
+      ]
       : ["Unknown"]);
   const technologies =
     project.technologies ||
     ((project as any).tags
       ? (project as any).tags.map((tag: any) =>
-          typeof tag === "string" ? tag : tag.name,
-        )
+        typeof tag === "string" ? tag : tag.name,
+      )
       : []);
   const date = project.date || (project as any).createdAt;
   const liveUrl =
@@ -205,32 +205,7 @@ const ProjectCard = ({ project }: { project: Project | any }) => {
           </Box>
         </Fade>
 
-        {/* Likes indicator */}
-        <Box
-          sx={{
-            position: "absolute",
-            bottom: 12,
-            left: 12,
-            background: "rgba(0, 0, 0, 0.7)",
-            backdropFilter: "blur(8px)",
-            borderRadius: 3,
-            px: 1.5,
-            py: 0.5,
-            border: `1px solid rgba(255, 255, 255, 0.1)`,
-          }}
-        >
-          <Stack direction="row" alignItems="center" spacing={0.5}>
-            <FavoriteIcon
-              sx={{ fontSize: 16, color: theme.palette.secondary.main }}
-            />
-            <Typography
-              variant="caption"
-              sx={{ color: "white", fontWeight: 600, fontSize: "0.75rem" }}
-            >
-              {project.likes || 0}
-            </Typography>
-          </Stack>
-        </Box>
+
       </Box>
 
       <CardContent
@@ -291,6 +266,35 @@ const ProjectCard = ({ project }: { project: Project | any }) => {
               sx={{ fontWeight: 500 }}
             >
               {date ? new Date(date).toLocaleDateString() : "Recent"}
+            </Typography>
+          </Stack>
+          <Box
+            sx={{
+              width: 4,
+              height: 4,
+              borderRadius: "50%",
+              background: theme.palette.text.secondary,
+            }}
+          />
+          <Stack
+            direction="row"
+            alignItems="center"
+            spacing={0.5}
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+            }}
+            sx={{ cursor: "default" }}
+          >
+            <FavoriteIcon
+              sx={{ fontSize: 12, color: theme.palette.secondary.main }}
+            />
+            <Typography
+              variant="caption"
+              color="text.secondary"
+              sx={{ fontWeight: 500 }}
+            >
+              {project.likes || 0}
             </Typography>
           </Stack>
         </Stack>

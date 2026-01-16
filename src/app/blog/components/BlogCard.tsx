@@ -182,32 +182,7 @@ const BlogCard = ({ blog }: { blog: Post | Blog }) => {
           </Box>
         </Fade>
 
-        {/* Likes indicator */}
-        <Box
-          sx={{
-            position: "absolute",
-            bottom: 12,
-            left: 12,
-            background: "rgba(0, 0, 0, 0.7)",
-            backdropFilter: "blur(8px)",
-            borderRadius: 3,
-            px: 1.5,
-            py: 0.5,
-            border: `1px solid rgba(255, 255, 255, 0.1)`,
-          }}
-        >
-          <Stack direction="row" alignItems="center" spacing={0.5}>
-            <FavoriteIcon
-              sx={{ fontSize: 16, color: theme.palette.secondary.main }}
-            />
-            <Typography
-              variant="caption"
-              sx={{ color: "white", fontWeight: 600, fontSize: "0.75rem" }}
-            >
-              {blog.likes}
-            </Typography>
-          </Stack>
-        </Box>
+
       </Box>
 
       <CardContent
@@ -269,6 +244,36 @@ const BlogCard = ({ blog }: { blog: Post | Blog }) => {
               {new Date(
                 blog.createdAt || blog.date || Date.now(),
               ).toLocaleDateString()}
+            </Typography>
+          </Stack>
+          <Box
+            sx={{
+              width: 4,
+              height: 4,
+              borderRadius: "50%",
+              background: theme.palette.text.secondary,
+            }}
+          />
+          <Stack
+            direction="row"
+            alignItems="center"
+            spacing={0.5}
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              // Add like logic here if needed, for now just display
+            }}
+            sx={{ cursor: "default" }}
+          >
+            <FavoriteIcon
+              sx={{ fontSize: 12, color: theme.palette.secondary.main }}
+            />
+            <Typography
+              variant="caption"
+              color="text.secondary"
+              sx={{ fontWeight: 500 }}
+            >
+              {blog.likes || 0}
             </Typography>
           </Stack>
         </Stack>

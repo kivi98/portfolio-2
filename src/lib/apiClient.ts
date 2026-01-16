@@ -384,6 +384,13 @@ export const postApi = {
   delete: async (id: number): Promise<void> => {
     await apiClient.delete(`${POST_ENDPOINT}/${id}`);
   },
+
+  // Add like to post
+  addLike: async (guId: number, likes: number = 1): Promise<void> => {
+    // Backend expects { guId: number, likes: number }
+    // Note: Backend calls it 'GuId' but it's a long (id), not a Guid.
+    await apiClient.patch(`${POST_ENDPOINT}/like`, { guId, likes });
+  },
 };
 
 // Post Content Category API methods

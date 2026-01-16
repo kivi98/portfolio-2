@@ -38,7 +38,7 @@ import {
     Close,
     Language,
 } from "@mui/icons-material";
-import { usePostBySlug } from "@/lib/queries";
+import { usePostBySlug, useAddLike } from "@/lib/queries";
 import { useRouter } from "next/navigation";
 import { LoadingSpinner, ErrorMessage } from "@/lib/hooks";
 import { MdxRenderer } from "@/components/mdx/MdxRenderer";
@@ -67,6 +67,11 @@ const ProjectPage = ({ params }: ProjectPageProps) => {
     const [showMobileToc, setShowMobileToc] = useState(false);
     const [showShareToast, setShowShareToast] = useState(false);
 
+    // Like functionality
+    const addLikeMutation = useAddLike();
+    const [hasLiked, setHasLiked] = useState(false);
+    const [likeCount, setLikeCount] = useState<number | null>(null);
+
     useEffect(() => {
         const getSlug = async () => {
             const resolvedParams = await params;
@@ -77,6 +82,17 @@ const ProjectPage = ({ params }: ProjectPageProps) => {
 
     const { data: project, isLoading, isError, error } = usePostBySlug(slug);
     const projectData = project?.data;
+
+    // Initialize like count and check local storage
+    useEffect(() => {
+        if (projectData) {
+            setLikeCount(projectData.likes || 0);
+            const likedPosts = JSON.parse(localStorage.getItem("liked_posts") || "[]");
+            if (likedPosts.includes(projectData.id)) {
+                setHasLiked(true);
+            }
+        }
+    }, [projectData]);
 
     // Reading progress and scroll tracking
     useEffect(() => {
@@ -243,6 +259,21 @@ const ProjectPage = ({ params }: ProjectPageProps) => {
             navigator.clipboard.writeText(window.location.href);
             setShowShareToast(true);
         }
+    };
+
+    const handleLike = () => {
+        if (hasLiked || !projectData) return;
+
+        // Optimistic update
+        setHasLiked(true);
+        setLikeCount((prev) => (prev || 0) + 1);
+
+        // Persist to local storage
+        const likedPosts = JSON.parse(localStorage.getItem("liked_posts") || "[]");
+        localStorage.setItem("liked_posts", JSON.stringify([...likedPosts, projectData.id]));
+
+        // API call
+        addLikeMutation.mutate({ id: projectData.id, likes: 1 });
     };
 
     const scrollToHeading = (headingId: string) => {
@@ -476,10 +507,28 @@ const ProjectPage = ({ params }: ProjectPageProps) => {
                                 </Stack>
                             )}
 
-                            <Stack direction="row" alignItems="center" spacing={1}>
-                                <Favorite fontSize="small" color="secondary" />
+                            <Stack
+                                direction="row"
+                                alignItems="center"
+                                spacing={1}
+                                sx={{
+                                    cursor: "pointer",
+                                    "&:hover": {
+                                        transform: "scale(1.1)",
+                                    },
+                                    transition: "all 0.2s ease",
+                                }}
+                                onClick={handleLike}
+                            >
+                                <Favorite
+                                    fontSize="small"
+                                    color={hasLiked ? "error" : "action"}
+                                    sx={{
+                                        color: hasLiked ? "red" : undefined,
+                                    }}
+                                />
                                 <Typography variant="body2" color="text.secondary">
-                                    {projectData?.likes || 0}
+                                    {likeCount}
                                 </Typography>
                             </Stack>
 

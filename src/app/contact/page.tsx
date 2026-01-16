@@ -322,7 +322,7 @@ const Contact = () => {
                       Phone
                     </Typography>
                     <Typography variant="body2" color="text.secondary">
-                      +94 71 123 4567
+                      +94 71 932 0164
                     </Typography>
                   </Box>
                 </Stack>

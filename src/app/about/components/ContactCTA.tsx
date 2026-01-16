@@ -124,7 +124,7 @@ const ContactCTA = () => {
               transition: "color 0.2s",
             }}
           >
-            +94 71 123 4567
+            +94 71 932 0164
           </Typography>
         </Stack>
       </Stack>
