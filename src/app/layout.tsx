@@ -1,5 +1,10 @@
 import type { Metadata } from "next";
-import { Outfit, Plus_Jakarta_Sans, JetBrains_Mono, Playfair_Display } from "next/font/google";
+import {
+  Outfit,
+  Plus_Jakarta_Sans,
+  JetBrains_Mono,
+  Playfair_Display,
+} from "next/font/google";
 import "./globals.css";
 import "../styles/syntax-highlighting.css";
 import "../styles/mdx-typography.css";

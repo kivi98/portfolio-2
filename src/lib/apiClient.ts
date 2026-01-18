@@ -246,11 +246,17 @@ const mockApi = {
       limit = 10,
     ): Promise<PaginatedResponse<Project>> => {
       await mockApi.delay();
-      const filteredProjects = mockProjects.filter((project) =>
-        project.technologies?.some((tech) =>
+      const filteredProjects = mockProjects.filter((project) => {
+        const techs = Array.isArray(project.technologies)
+          ? project.technologies
+          : typeof project.technologies === "string"
+            ? [project.technologies]
+            : [];
+
+        return techs.some((tech) =>
           tech.toLowerCase().includes(technology.toLowerCase()),
-        ),
-      );
+        );
+      });
       return createPaginatedResponse(
         filteredProjects,
         page,

@@ -84,7 +84,10 @@ export const CredlyBadgeCard: React.FC<CredlyBadgeCardProps> = ({ badge }) => {
               position: "absolute",
               top: 8,
               right: 8,
-              backgroundColor: theme.palette.mode === "light" ? "success.main" : "primary.main",
+              backgroundColor:
+                theme.palette.mode === "light"
+                  ? "success.main"
+                  : "primary.main",
               borderRadius: "50%",
               padding: 0.5,
               display: "flex",

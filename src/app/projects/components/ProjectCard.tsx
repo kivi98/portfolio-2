@@ -45,21 +45,20 @@ const ProjectCard = ({ project }: { project: Project | any }) => {
     project.contributors ||
     ((project as any).owner
       ? [
-        `${(project as any).owner.firstName} ${(project as any).owner.lastName}`,
-      ]
+          `${(project as any).owner.firstName} ${(project as any).owner.lastName}`,
+        ]
       : ["Unknown"]);
   const technologies =
-    (typeof project.technologies === 'string'
-      ? project.technologies.split(',').map((t: string) => t.trim())
+    (typeof project.technologies === "string"
+      ? project.technologies.split(",").map((t: string) => t.trim())
       : project.technologies) ||
     ((project as any).tags
       ? (project as any).tags.map((tag: any) =>
-        typeof tag === "string" ? tag : tag.name,
-      )
+          typeof tag === "string" ? tag : tag.name,
+        )
       : []);
   const date = project.date || (project as any).createdAt;
-  const liveUrl =
-    project.link || project.liveUrl;
+  const liveUrl = project.link || project.liveUrl;
   const githubUrl = project.githubUrl;
   const slug = project.slug || `project-${project.id}`;
 
@@ -208,8 +207,6 @@ const ProjectCard = ({ project }: { project: Project | any }) => {
             </Tooltip>
           </Box>
         </Fade>
-
-
       </Box>
 
       <CardContent

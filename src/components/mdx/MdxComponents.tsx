@@ -150,6 +150,7 @@ const MdxImage = ({ src, alt, width, height, title, ...props }: any) => {
   ) {
     return (
       <Box sx={{ textAlign: "center", my: 3 }}>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={src}
           alt={alt || "Image"}
@@ -223,6 +224,7 @@ const MdxImage = ({ src, alt, width, height, title, ...props }: any) => {
     // Fallback to regular img tag if Next.js Image fails
     return (
       <Box sx={{ textAlign: "center", my: 3 }}>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={src}
           alt={alt || "Image"}

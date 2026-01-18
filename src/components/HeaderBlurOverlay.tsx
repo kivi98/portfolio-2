@@ -31,7 +31,7 @@ const HeaderBlurOverlay: React.FC = () => {
           "linear-gradient(to bottom, black 0%, black 30%, transparent 100%)",
         WebkitMaskImage:
           "linear-gradient(to bottom, black 0%, black 30%, transparent 100%)",
-        display: { xs: "none", md: "block" }
+        display: { xs: "none", md: "block" },
       }}
     />
   );

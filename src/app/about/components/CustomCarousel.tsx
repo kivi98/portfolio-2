@@ -26,15 +26,15 @@ const CustomCarousel = ({
 }: CustomCarouselProps) => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  const nextImage = () => {
+  const nextImage = React.useCallback(() => {
     setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
-  };
+  }, [images.length]);
 
-  const prevImage = () => {
+  const prevImage = React.useCallback(() => {
     setCurrentIndex(
       (prevIndex) => (prevIndex - 1 + images.length) % images.length,
     );
-  };
+  }, [images.length]);
 
   // Auto-transition effect
   useEffect(() => {
