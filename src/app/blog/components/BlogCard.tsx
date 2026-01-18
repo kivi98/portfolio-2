@@ -181,8 +181,6 @@ const BlogCard = ({ blog }: { blog: Post | Blog }) => {
             </Tooltip>
           </Box>
         </Fade>
-
-
       </Box>
 
       <CardContent

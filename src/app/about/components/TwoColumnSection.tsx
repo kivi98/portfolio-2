@@ -47,7 +47,10 @@ const TwoColumnSection = ({
                 width: { xs: "70%", md: "50%" },
                 height: 2,
                 my: 2,
-                boxShadow: theme.palette.mode === "dark" ? "0px 0px 12px #E30000" : "none",
+                boxShadow:
+                  theme.palette.mode === "dark"
+                    ? "0px 0px 12px #E30000"
+                    : "none",
                 borderRadius: 10,
               }}
             />

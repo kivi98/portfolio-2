@@ -140,7 +140,7 @@ const AvatarCard: React.FC = () => {
   const [displayText, setDisplayText] = useState("");
   const [index, setIndex] = useState(0);
   const [phase, setPhase] = useState<"typing" | "deleting">("typing");
-  const words = ["Developer", "Designer", "Engineer"];
+  const words = React.useMemo(() => ["Developer", "Designer", "Engineer"], []);
   const typingSpeed = 150;
   const deletingSpeed = 100;
   const pauseDuration = 1000;

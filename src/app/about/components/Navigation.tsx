@@ -8,6 +8,7 @@ import {
 } from "@mui/material";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import React from "react";
+import Image from "next/image";
 import PersonIcon from "@mui/icons-material/Person";
 import SchoolIcon from "@mui/icons-material/School";
 import CodeIcon from "@mui/icons-material/Code";
@@ -131,8 +132,8 @@ export const Navigation = ({
     >
       <Box>
         {/* portrait image*/}
-        <img
-          src={me.src}
+        <Image
+          src={me}
           alt="Portrait"
           style={{
             width: "100%",
@@ -140,6 +141,7 @@ export const Navigation = ({
             borderRadius: "1.5rem",
             // marginBottom: "1rem",
           }}
+          placeholder="blur"
         />
       </Box>
       <List>

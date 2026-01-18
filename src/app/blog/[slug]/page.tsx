@@ -8,7 +8,9 @@ interface PageProps {
   }>;
 }
 
-export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: PageProps): Promise<Metadata> {
   const { slug } = await params;
 
   try {
@@ -25,7 +27,10 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     }
 
     const title = post.title;
-    const description = post.description || post.excerpt || "Read this blog post by Kivi Amarakoon";
+    const description =
+      post.description ||
+      post.excerpt ||
+      "Read this blog post by Kivi Amarakoon";
     const coverImage = post.coverImage || "/default-og.jpg"; // You might want a default image
 
     return {

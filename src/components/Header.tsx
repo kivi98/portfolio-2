@@ -147,8 +147,8 @@ export default function Header() {
           xs:
             theme.palette.mode === "light"
               ? "1px solid rgba(200, 200, 200, 0.18)"
-              : "1px solid rgba(255, 255, 255, 0.10)"
-          , md: "1px solid rgba(255, 255, 255, 0.10)"
+              : "1px solid rgba(255, 255, 255, 0.10)",
+          md: "1px solid rgba(255, 255, 255, 0.10)",
         }, // Ensure bottom border on mobile if needed, or rely on full border
         borderWidth: { xs: "0 0 1px 0", md: "1px" }, // Only bottom border on mobile? Or keep full border. Let's keep simpler.
       }}

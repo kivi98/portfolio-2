@@ -87,7 +87,9 @@ const BlogPostClientPage = ({ params }: BlogPostPageProps) => {
   useEffect(() => {
     if (blogData) {
       setLikeCount(blogData.likes || 0);
-      const likedPosts = JSON.parse(localStorage.getItem("liked_posts") || "[]");
+      const likedPosts = JSON.parse(
+        localStorage.getItem("liked_posts") || "[]",
+      );
       if (likedPosts.includes(blogData.id)) {
         setHasLiked(true);
       }
@@ -270,7 +272,10 @@ const BlogPostClientPage = ({ params }: BlogPostPageProps) => {
 
     // Persist to local storage
     const likedPosts = JSON.parse(localStorage.getItem("liked_posts") || "[]");
-    localStorage.setItem("liked_posts", JSON.stringify([...likedPosts, blogData.id]));
+    localStorage.setItem(
+      "liked_posts",
+      JSON.stringify([...likedPosts, blogData.id]),
+    );
 
     // API call
     addLikeMutation.mutate({ id: blogData.id, likes: 1 });
@@ -296,7 +301,7 @@ const BlogPostClientPage = ({ params }: BlogPostPageProps) => {
         value={readingProgress}
         sx={{
           position: "fixed",
-          top: { xs: '57px', md: 0 },
+          top: { xs: "57px", md: 0 },
           left: 0,
           right: 0,
           zIndex: 2000,
@@ -498,8 +503,11 @@ const BlogPostClientPage = ({ params }: BlogPostPageProps) => {
             >
               <Stack direction="row" alignItems="center" spacing={1}>
                 <CalendarToday fontSize="small" color="action" />
-                <Typography variant="body2" color="text.secondary"
-                  fontSize={{ xs: "11px", md: "14px" }}>
+                <Typography
+                  variant="body2"
+                  color="text.secondary"
+                  fontSize={{ xs: "11px", md: "14px" }}
+                >
                   {new Date(blogData?.createdAt || "").toLocaleDateString(
                     "en-US",
                     {
@@ -513,8 +521,11 @@ const BlogPostClientPage = ({ params }: BlogPostPageProps) => {
 
               <Stack direction="row" alignItems="center" spacing={1}>
                 <AccessTime fontSize="small" color="action" />
-                <Typography variant="body2" color="text.secondary"
-                  fontSize={{ xs: "11px", md: "14px" }}>
+                <Typography
+                  variant="body2"
+                  color="text.secondary"
+                  fontSize={{ xs: "11px", md: "14px" }}
+                >
                   {estimatedReadingTime} min read
                 </Typography>
               </Stack>
@@ -539,8 +550,11 @@ const BlogPostClientPage = ({ params }: BlogPostPageProps) => {
                     color: hasLiked ? "red" : undefined,
                   }}
                 />
-                <Typography variant="body2" color="text.secondary"
-                  fontSize={{ xs: "11px", md: "14px" }}>
+                <Typography
+                  variant="body2"
+                  color="text.secondary"
+                  fontSize={{ xs: "11px", md: "14px" }}
+                >
                   {likeCount}
                 </Typography>
               </Stack>
@@ -551,8 +565,11 @@ const BlogPostClientPage = ({ params }: BlogPostPageProps) => {
                     <IconButton size="small">
                       <Share fontSize="small" />
                     </IconButton>
-                    <Typography variant="body2" color="text.secondary"
-                      fontSize={{ xs: "11px", md: "14px" }}>
+                    <Typography
+                      variant="body2"
+                      color="text.secondary"
+                      fontSize={{ xs: "11px", md: "14px" }}
+                    >
                       Share
                     </Typography>
                   </Stack>
@@ -595,7 +612,7 @@ const BlogPostClientPage = ({ params }: BlogPostPageProps) => {
               spacing={1}
               justifyContent="center"
               flexWrap="wrap"
-              sx={{ gap: 1, mt: 4, display: { xs: 'flex', lg: 'none' } }}
+              sx={{ gap: 1, mt: 4, display: { xs: "flex", lg: "none" } }}
             >
               {(blogData.tags || []).map((tag, index) => {
                 const tagName = typeof tag === "string" ? tag : tag.name;
@@ -607,21 +624,21 @@ const BlogPostClientPage = ({ params }: BlogPostPageProps) => {
                     size="small"
                     sx={{
                       backgroundColor: (theme) =>
-                        theme.palette.mode === 'dark'
-                          ? 'rgba(255, 255, 255, 0.1)'
-                          : 'rgba(0, 0, 0, 0.05)',
-                      border: '1px solid',
+                        theme.palette.mode === "dark"
+                          ? "rgba(255, 255, 255, 0.1)"
+                          : "rgba(0, 0, 0, 0.05)",
+                      border: "1px solid",
                       borderColor: (theme) =>
-                        theme.palette.mode === 'dark'
-                          ? 'rgba(255, 255, 255, 0.1)'
-                          : 'rgba(0, 0, 0, 0.1)',
-                      color: 'text.primary',
+                        theme.palette.mode === "dark"
+                          ? "rgba(255, 255, 255, 0.1)"
+                          : "rgba(0, 0, 0, 0.1)",
+                      color: "text.primary",
                       fontWeight: 500,
                       "&:hover": {
                         backgroundColor: (theme) =>
-                          theme.palette.mode === 'dark'
-                            ? 'rgba(255, 255, 255, 0.15)'
-                            : 'rgba(0, 0, 0, 0.1)',
+                          theme.palette.mode === "dark"
+                            ? "rgba(255, 255, 255, 0.15)"
+                            : "rgba(0, 0, 0, 0.1)",
                         transform: "translateY(-1px)",
                       },
                       transition: "all 0.2s ease",
@@ -734,10 +751,12 @@ const BlogPostClientPage = ({ params }: BlogPostPageProps) => {
                         >
                           Tags
                         </Typography>
-                        <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
+                        <Box sx={{ display: "flex", flexWrap: "wrap", gap: 1 }}>
                           {(blogData.tags || []).map((tag, index) => {
-                            const tagName = typeof tag === "string" ? tag : tag.name;
-                            const tagKey = typeof tag === "string" ? tag : tag.id;
+                            const tagName =
+                              typeof tag === "string" ? tag : tag.name;
+                            const tagKey =
+                              typeof tag === "string" ? tag : tag.id;
                             return (
                               <Chip
                                 key={tagKey || index}
@@ -745,15 +764,15 @@ const BlogPostClientPage = ({ params }: BlogPostPageProps) => {
                                 size="small"
                                 sx={{
                                   backgroundColor: (theme) =>
-                                    theme.palette.mode === 'dark'
-                                      ? 'rgba(255, 255, 255, 0.1)'
-                                      : 'rgba(0, 0, 0, 0.05)',
-                                  border: '1px solid',
+                                    theme.palette.mode === "dark"
+                                      ? "rgba(255, 255, 255, 0.1)"
+                                      : "rgba(0, 0, 0, 0.05)",
+                                  border: "1px solid",
                                   borderColor: (theme) =>
-                                    theme.palette.mode === 'dark'
-                                      ? 'rgba(255, 255, 255, 0.1)'
-                                      : 'rgba(0, 0, 0, 0.1)',
-                                  color: 'text.primary',
+                                    theme.palette.mode === "dark"
+                                      ? "rgba(255, 255, 255, 0.1)"
+                                      : "rgba(0, 0, 0, 0.1)",
+                                  color: "text.primary",
                                   fontWeight: 500,
                                   fontSize: "0.75rem",
                                 }}
