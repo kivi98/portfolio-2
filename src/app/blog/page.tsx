@@ -117,7 +117,7 @@ const Blog = () => {
             images={blogs.map((blog) => ({
               id: blog.id,
               src:
-                blog.coverImage || blog.image || "/images/blog-placeholder.jpg",
+                blog.coverImage || blog.image || "/images/blog-placeholder.svg",
               alt: blog.title,
             }))}
             height={300}
@@ -127,6 +127,8 @@ const Blog = () => {
             imageHeight={300}
             imageSx={{
               borderRadius: 5,
+              objectFit: "cover",
+              objectPosition: "center",
             }}
           />
         </Box>

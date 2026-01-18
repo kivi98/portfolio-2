@@ -125,7 +125,7 @@ const Projects = () => {
               src:
                 project.image ||
                 project.coverImage ||
-                "/images/project-placeholder.jpg",
+                "/images/project-placeholder.svg",
               alt: project.title,
             }))}
             height={300}
@@ -135,6 +135,8 @@ const Projects = () => {
             imageHeight={300}
             imageSx={{
               borderRadius: 5,
+              objectFit: "cover",
+              objectPosition: "center",
             }}
           />
         </Box>
