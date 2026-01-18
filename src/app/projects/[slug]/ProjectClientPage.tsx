@@ -289,10 +289,12 @@ const ProjectClientPage = ({ params }: ProjectPageProps) => {
     };
 
     // Extract technology tags and contributors
-    const technologies = projectData?.tags || [];
+    const technologies = projectData?.technologies
+        ? (typeof projectData.technologies === 'string' ? projectData.technologies.split(',').map((t: string) => t.trim()) : projectData.technologies)
+        : (projectData?.tags || []);
     const contributors: any[] = projectData?.contributors || [];
-    const githubUrl = (projectData as any)?.githubUrl;
-    const liveUrl = (projectData as any)?.liveUrl || (projectData as any)?.link;
+    const githubUrl = projectData?.githubUrl;
+    const liveUrl = projectData?.liveUrl || (projectData as any)?.link;
 
     return (
         <>
@@ -445,6 +447,20 @@ const ProjectClientPage = ({ params }: ProjectPageProps) => {
                         </Typography>
                     )}
 
+                    <Divider
+                        flexItem
+                        orientation="horizontal"
+                        sx={{
+                            display: { xs: "none", sm: "block" },
+                            width: "100%",
+                            mb: 2,
+                            borderColor: (theme) =>
+                                theme.palette.mode === "dark"
+                                    ? "rgba(255, 255, 255, 0.1)"
+                                    : "rgba(0, 0, 0, 0.1)",
+                        }}
+                    />
+
                     {/* Author and Meta Info */}
                     <Stack
                         direction={{ xs: "column", sm: "row" }}
@@ -584,45 +600,74 @@ const ProjectClientPage = ({ params }: ProjectPageProps) => {
                         />
                     </Stack>
 
+                    <Divider
+                        flexItem
+                        orientation="horizontal"
+                        sx={{
+                            display: { xs: "none", sm: "block" },
+                            width: "100%",
+                            mt: 2,
+                            borderColor: (theme) =>
+                                theme.palette.mode === "dark"
+                                    ? "rgba(255, 255, 255, 0.1)"
+                                    : "rgba(0, 0, 0, 0.1)",
+                        }}
+                    />
+
                     {/* Technologies/Tags */}
                     {technologies && technologies.length > 0 && (
-                        <Stack
-                            direction="row"
-                            spacing={1}
-                            justifyContent="center"
-                            flexWrap="wrap"
-                            sx={{ gap: 1, mb: 4 }}
-                        >
-                            {technologies.map((tag, index) => {
-                                const tagName = typeof tag === "string" ? tag : tag.name;
-                                const tagKey = typeof tag === "string" ? tag : tag.id;
-                                return (
-                                    <Chip
-                                        key={tagKey || index}
-                                        label={tagName}
-                                        size="medium"
-                                        sx={{
-                                            backgroundColor: "secondary.main",
-                                            color: "white",
-                                            fontWeight: 600,
-                                            fontSize: "0.875rem",
-                                            "&:hover": {
-                                                backgroundColor: "secondary.dark",
-                                                transform: "translateY(-2px)",
-                                            },
-                                            transition: "all 0.2s ease",
-                                        }}
-                                    />
-                                );
-                            })}
-                        </Stack>
+                        <Box sx={{ mt: { xs: 2, md: 2 }, mb: { xs: 2, md: 2 }, display: 'flex', justifyContent: 'center' }}>
+                            <Stack
+                                direction="row"
+                                spacing={1}
+                                sx={{
+                                    gap: 1,
+                                    flexWrap: 'wrap',
+                                    justifyContent: 'center',
+                                    maxWidth: '600px',
+                                }}
+                            >
+                                {technologies.map((tag: any, index: number) => {
+                                    const tagName = typeof tag === "string" ? tag : tag.name;
+                                    const tagKey = typeof tag === "string" ? tag : tag.id;
+                                    return (
+                                        <Chip
+                                            key={tagKey || index}
+                                            label={tagName}
+                                            size="small"
+                                            sx={{
+                                                backgroundColor: (theme) =>
+                                                    theme.palette.mode === 'dark'
+                                                        ? 'rgba(255, 255, 255, 0.1)'
+                                                        : 'rgba(0, 0, 0, 0.05)',
+                                                border: '1px solid',
+                                                borderColor: (theme) =>
+                                                    theme.palette.mode === 'dark'
+                                                        ? 'rgba(255, 255, 255, 0.1)'
+                                                        : 'rgba(0, 0, 0, 0.1)',
+                                                color: 'text.primary',
+                                                fontWeight: 500,
+                                                fontSize: "0.85rem",
+                                                "&:hover": {
+                                                    backgroundColor: (theme) =>
+                                                        theme.palette.mode === 'dark'
+                                                            ? 'rgba(255, 255, 255, 0.15)'
+                                                            : 'rgba(0, 0, 0, 0.1)',
+                                                },
+                                            }}
+                                        />
+                                    );
+                                })}
+                            </Stack>
+                        </Box>
                     )}
 
                     {/* Action Buttons */}
                     <Stack
-                        direction={{ xs: "column", sm: "row" }}
+                        direction="row"
                         spacing={2}
                         justifyContent="center"
+                        alignItems="center"
                         sx={{ mb: 4 }}
                     >
                         {liveUrl && (
@@ -632,37 +677,54 @@ const ProjectClientPage = ({ params }: ProjectPageProps) => {
                                 href={liveUrl}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                endIcon={<Launch />}
+                                startIcon={<Launch />}
                                 sx={{
-                                    borderRadius: 3,
-                                    px: 4,
-                                    py: 1.5,
-                                    fontWeight: 700,
+                                    borderRadius: 100,
+                                    px: 3,
+                                    py: 1,
+                                    fontWeight: 600,
                                     textTransform: "none",
-                                    fontSize: "1rem",
+                                    fontSize: "0.95rem",
+                                    boxShadow: 'none',
+                                    "&:hover": {
+                                        boxShadow: '0 4px 12px rgba(0,0,0,0.2)',
+                                        transform: 'translateY(-1px)',
+                                    }
                                 }}
                             >
-                                View Live Demo
+                                Live Demo
                             </Button>
                         )}
                         {githubUrl && (
                             <Button
                                 variant="outlined"
-                                color="secondary"
+                                color="inherit"
                                 href={githubUrl}
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 startIcon={<GitHub />}
                                 sx={{
-                                    borderRadius: 3,
-                                    px: 4,
-                                    py: 1.5,
+                                    borderRadius: 100,
+                                    px: 3,
+                                    py: 1,
                                     fontWeight: 600,
                                     textTransform: "none",
-                                    fontSize: "1rem",
+                                    fontSize: "0.95rem",
+                                    borderColor: (theme) =>
+                                        theme.palette.mode === 'dark'
+                                            ? 'rgba(255, 255, 255, 0.3)'
+                                            : 'rgba(0, 0, 0, 0.2)',
+                                    color: 'text.primary',
+                                    "&:hover": {
+                                        borderColor: 'text.primary',
+                                        backgroundColor: (theme) =>
+                                            theme.palette.mode === 'dark'
+                                                ? 'rgba(255, 255, 255, 0.05)'
+                                                : 'rgba(0, 0, 0, 0.05)',
+                                    }
                                 }}
                             >
-                                View on GitHub
+                                Source Code
                             </Button>
                         )}
                     </Stack>
