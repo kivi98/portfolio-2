@@ -264,6 +264,21 @@ export default function Header() {
             sx={{ display: "flex", alignItems: "center" }}
           >
             <IconButton
+              onClick={toggleColorMode}
+              aria-label="toggle dark mode"
+              sx={{
+                color: theme.palette.mode === "dark" ? "#FFFFFF" : "#171717",
+                transition: "all 0.3s ease",
+                mr: 1,
+                "&:hover": {
+                  color: theme.palette.secondary.main,
+                  transform: "rotate(180deg) scale(1.1)",
+                },
+              }}
+            >
+              {mode === "dark" ? <Brightness7Icon /> : <Brightness4Icon />}
+            </IconButton>
+            <IconButton
               aria-label="open navigation menu"
               onClick={() => setMobileMenuOpen((prev) => !prev)}
               edge="end"

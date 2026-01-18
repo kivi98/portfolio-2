@@ -125,7 +125,7 @@ const Projects = () => {
               src:
                 project.image ||
                 project.coverImage ||
-                "/images/project-placeholder.jpg",
+                "/images/project-placeholder.svg",
               alt: project.title,
             }))}
             height={300}
@@ -135,6 +135,8 @@ const Projects = () => {
             imageHeight={300}
             imageSx={{
               borderRadius: 5,
+              objectFit: "cover",
+              objectPosition: "center",
             }}
           />
         </Box>
@@ -213,7 +215,6 @@ const Projects = () => {
               "& .MuiInputBase-root": {
                 backdropFilter: "blur(8px)",
                 borderRadius: "1rem",
-                boxShadow: "0 4px 30px rgba(0,0,0,0.1)",
               },
             }}
           />

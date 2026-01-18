@@ -108,6 +108,9 @@ export interface Post {
   createdAt?: string;
   updatedAt?: string;
   excerpt?: string;
+  technologies?: string | string[];
+  githubUrl?: string;
+  liveUrl?: string;
   // Legacy properties for backward compatibility
   author?: string;
   date?: string;
@@ -128,7 +131,7 @@ export interface Project {
   contributors?: string[];
   likes?: number;
   date?: string;
-  technologies?: string[];
+  technologies?: string | string[];
   githubUrl?: string;
   liveUrl?: string;
   featured?: boolean;

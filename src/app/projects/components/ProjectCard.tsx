@@ -22,6 +22,7 @@ import {
   Bookmark,
   BookmarkBorder,
   ArrowForward,
+  GitHub,
 } from "@mui/icons-material";
 import Image from "next/image";
 import { useState } from "react";
@@ -48,7 +49,9 @@ const ProjectCard = ({ project }: { project: Project | any }) => {
       ]
       : ["Unknown"]);
   const technologies =
-    project.technologies ||
+    (typeof project.technologies === 'string'
+      ? project.technologies.split(',').map((t: string) => t.trim())
+      : project.technologies) ||
     ((project as any).tags
       ? (project as any).tags.map((tag: any) =>
         typeof tag === "string" ? tag : tag.name,
@@ -56,7 +59,8 @@ const ProjectCard = ({ project }: { project: Project | any }) => {
       : []);
   const date = project.date || (project as any).createdAt;
   const liveUrl =
-    project.link || (project as any).liveUrl || (project as any).githubUrl;
+    project.link || project.liveUrl;
+  const githubUrl = project.githubUrl;
   const slug = project.slug || `project-${project.id}`;
 
   // Extract clean description
@@ -418,6 +422,32 @@ const ProjectCard = ({ project }: { project: Project | any }) => {
                 }}
               >
                 Live Demo
+              </Button>
+            )}
+            {githubUrl && (
+              <Button
+                variant="outlined"
+                color="secondary"
+                href={githubUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={handleLiveDemoClick}
+                startIcon={<GitHub sx={{ fontSize: 16 }} />}
+                fullWidth
+                sx={{
+                  borderRadius: 3,
+                  fontWeight: 600,
+                  py: 1,
+                  textTransform: "none",
+                  fontSize: "0.85rem",
+                  borderWidth: 2,
+                  "&:hover": {
+                    borderWidth: 2,
+                    transform: "translateY(-1px)",
+                  },
+                }}
+              >
+                GitHub
               </Button>
             )}
           </Stack>

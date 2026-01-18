@@ -18,7 +18,7 @@ export default function Home() {
     <Container
       maxWidth="lg"
       sx={{
-        pt: { xs: "120px", md: "130px" },
+        pt: { xs: "110px", md: "130px" },
         pb: { xs: 4, md: 6 },
         minHeight: "100vh",
         display: "flex",
@@ -68,7 +68,7 @@ export default function Home() {
                   width: { xs: "100%", md: "50%" },
                   height: 2,
                   my: 2,
-                  boxShadow: "0px 0px 12px #E30000",
+                  // boxShadow: "0px 0px 12px #E30000",
                   borderRadius: 10,
                 }}
               />

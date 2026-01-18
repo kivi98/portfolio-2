@@ -7,31 +7,21 @@ const WhoAmI = () => {
   const imageArray: ImageItem[] = [
     {
       id: 1,
-      src: "/my-images/my-image-2.jpg",
-      alt: "my-image1",
-    },
-    {
-      id: 2,
-      src: "/my-images/my-image-4.jpg",
-      alt: "my-image4",
-    },
-    {
-      id: 3,
       src: "/my-images/my-image-5.jpg",
       alt: "my-image5",
     },
     {
-      id: 4,
+      id: 2,
       src: "/my-images/my-image-6.jpg",
       alt: "my-image6",
     },
     {
-      id: 5,
+      id: 3,
       src: "/my-images/my-image-9.jpg",
       alt: "my-image9",
     },
     {
-      id: 6,
+      id: 4,
       src: "/my-images/my-image-12.jpg",
       alt: "my-image12",
     },

@@ -12,7 +12,7 @@ import {
   useTheme,
 } from "@mui/material";
 import { GitHub, LinkedIn, Code } from "@mui/icons-material";
-import me from "@/public/my-images/me.jpeg";
+import me from "@/public/my-images/me.svg";
 
 const CardWrapper = styled(Box)(() => ({
   margin: "auto",
@@ -180,7 +180,7 @@ const AvatarCard: React.FC = () => {
     avatarUrl: "https://i.pravatar.cc/300?img=13", // Placeholder avatar
     github: "https://github.com/kivi98",
     linkedin: "https://linkedin.com/in/kiviamarakoon",
-    portfolio: "https://yourportfolio.com",
+    portfolio: "https://kiviamarakoon.me",
   };
 
   const handleSocialClick = (url: string) => {

@@ -117,7 +117,7 @@ const Blog = () => {
             images={blogs.map((blog) => ({
               id: blog.id,
               src:
-                blog.coverImage || blog.image || "/images/blog-placeholder.jpg",
+                blog.coverImage || blog.image || "/images/blog-placeholder.svg",
               alt: blog.title,
             }))}
             height={300}
@@ -127,6 +127,8 @@ const Blog = () => {
             imageHeight={300}
             imageSx={{
               borderRadius: 5,
+              objectFit: "cover",
+              objectPosition: "center",
             }}
           />
         </Box>
@@ -210,7 +212,7 @@ const Blog = () => {
               "& .MuiInputBase-root": {
                 backdropFilter: "blur(8px)",
                 borderRadius: "1rem",
-                boxShadow: "0 4px 30px rgba(0,0,0,0.1)",
+                // boxShadow: "0 4px 30px rgba(0,0,0,0.1)",
               },
             }}
           />

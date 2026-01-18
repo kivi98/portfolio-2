@@ -38,6 +38,7 @@ import {
     Close,
     Language,
 } from "@mui/icons-material";
+import ContactCTA from "../../../components/ContactCTA";
 import { usePostBySlug, useAddLike } from "@/lib/queries";
 import { useRouter } from "next/navigation";
 import { LoadingSpinner, ErrorMessage } from "@/lib/hooks";
@@ -289,10 +290,12 @@ const ProjectClientPage = ({ params }: ProjectPageProps) => {
     };
 
     // Extract technology tags and contributors
-    const technologies = projectData?.tags || [];
+    const technologies = projectData?.technologies
+        ? (typeof projectData.technologies === 'string' ? projectData.technologies.split(',').map((t: string) => t.trim()) : projectData.technologies)
+        : (projectData?.tags || []);
     const contributors: any[] = projectData?.contributors || [];
-    const githubUrl = (projectData as any)?.githubUrl;
-    const liveUrl = (projectData as any)?.liveUrl || (projectData as any)?.link;
+    const githubUrl = projectData?.githubUrl;
+    const liveUrl = projectData?.liveUrl || (projectData as any)?.link;
 
     return (
         <>
@@ -445,6 +448,20 @@ const ProjectClientPage = ({ params }: ProjectPageProps) => {
                         </Typography>
                     )}
 
+                    <Divider
+                        flexItem
+                        orientation="horizontal"
+                        sx={{
+                            display: { xs: "none", sm: "block" },
+                            width: "100%",
+                            mb: 2,
+                            borderColor: (theme) =>
+                                theme.palette.mode === "dark"
+                                    ? "rgba(255, 255, 255, 0.1)"
+                                    : "rgba(0, 0, 0, 0.1)",
+                        }}
+                    />
+
                     {/* Author and Meta Info */}
                     <Stack
                         direction={{ xs: "column", sm: "row" }}
@@ -584,88 +601,139 @@ const ProjectClientPage = ({ params }: ProjectPageProps) => {
                         />
                     </Stack>
 
-                    {/* Technologies/Tags */}
-                    {technologies && technologies.length > 0 && (
+                    <Divider
+                        flexItem
+                        orientation="horizontal"
+                        sx={{
+                            width: "100%",
+                            display: { xs: "none", sm: "block" },
+                            mt: 2,
+                            borderColor: (theme) =>
+                                theme.palette.mode === "dark"
+                                    ? "rgba(255, 255, 255, 0.1)"
+                                    : "rgba(0, 0, 0, 0.1)",
+                        }}
+                    />
+
+                    {/* Technologies and Actions - Mobile/Tablet Only */}
+                    <Box sx={{ display: { xs: 'block', lg: 'none' } }}>
+
+
+                        {/* Technologies/Tags */}
+                        {technologies && technologies.length > 0 && (
+                            <Box sx={{ mt: { xs: 2, md: 2 }, mb: { xs: 2, md: 2 }, display: 'flex', justifyContent: 'center' }}>
+                                <Stack
+                                    direction="row"
+                                    spacing={1}
+                                    sx={{
+                                        gap: 1,
+                                        flexWrap: 'wrap',
+                                        justifyContent: 'center',
+                                        maxWidth: '600px',
+                                    }}
+                                >
+                                    {technologies.map((tag: any, index: number) => {
+                                        const tagName = typeof tag === "string" ? tag : tag.name;
+                                        const tagKey = typeof tag === "string" ? tag : tag.id;
+                                        return (
+                                            <Chip
+                                                key={tagKey || index}
+                                                label={tagName}
+                                                size="small"
+                                                sx={{
+                                                    backgroundColor: (theme) =>
+                                                        theme.palette.mode === 'dark'
+                                                            ? 'rgba(255, 255, 255, 0.1)'
+                                                            : 'rgba(0, 0, 0, 0.05)',
+                                                    border: '1px solid',
+                                                    borderColor: (theme) =>
+                                                        theme.palette.mode === 'dark'
+                                                            ? 'rgba(255, 255, 255, 0.1)'
+                                                            : 'rgba(0, 0, 0, 0.1)',
+                                                    color: 'text.primary',
+                                                    fontWeight: 500,
+                                                    fontSize: "0.85rem",
+                                                    "&:hover": {
+                                                        backgroundColor: (theme) =>
+                                                            theme.palette.mode === 'dark'
+                                                                ? 'rgba(255, 255, 255, 0.15)'
+                                                                : 'rgba(0, 0, 0, 0.1)',
+                                                    },
+                                                }}
+                                            />
+                                        );
+                                    })}
+                                </Stack>
+                            </Box>
+                        )}
+
+                        {/* Action Buttons */}
                         <Stack
                             direction="row"
-                            spacing={1}
+                            spacing={2}
                             justifyContent="center"
-                            flexWrap="wrap"
-                            sx={{ gap: 1, mb: 4 }}
+                            alignItems="center"
+                            sx={{ mb: 4 }}
                         >
-                            {technologies.map((tag, index) => {
-                                const tagName = typeof tag === "string" ? tag : tag.name;
-                                const tagKey = typeof tag === "string" ? tag : tag.id;
-                                return (
-                                    <Chip
-                                        key={tagKey || index}
-                                        label={tagName}
-                                        size="medium"
-                                        sx={{
-                                            backgroundColor: "secondary.main",
-                                            color: "white",
-                                            fontWeight: 600,
-                                            fontSize: "0.875rem",
-                                            "&:hover": {
-                                                backgroundColor: "secondary.dark",
-                                                transform: "translateY(-2px)",
-                                            },
-                                            transition: "all 0.2s ease",
-                                        }}
-                                    />
-                                );
-                            })}
+                            {liveUrl && (
+                                <Button
+                                    variant="contained"
+                                    color="secondary"
+                                    href={liveUrl}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    startIcon={<Launch />}
+                                    sx={{
+                                        borderRadius: 100,
+                                        px: 3,
+                                        py: 1,
+                                        fontWeight: 600,
+                                        textTransform: "none",
+                                        fontSize: "0.95rem",
+                                        boxShadow: 'none',
+                                        "&:hover": {
+                                            boxShadow: '0 4px 12px rgba(0,0,0,0.2)',
+                                            transform: 'translateY(-1px)',
+                                        }
+                                    }}
+                                >
+                                    Live Demo
+                                </Button>
+                            )}
+                            {githubUrl && (
+                                <Button
+                                    variant="outlined"
+                                    color="inherit"
+                                    href={githubUrl}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    startIcon={<GitHub />}
+                                    sx={{
+                                        borderRadius: 100,
+                                        px: 3,
+                                        py: 1,
+                                        fontWeight: 600,
+                                        textTransform: "none",
+                                        fontSize: "0.95rem",
+                                        borderColor: (theme) =>
+                                            theme.palette.mode === 'dark'
+                                                ? 'rgba(255, 255, 255, 0.3)'
+                                                : 'rgba(0, 0, 0, 0.2)',
+                                        color: 'text.primary',
+                                        "&:hover": {
+                                            borderColor: 'text.primary',
+                                            backgroundColor: (theme) =>
+                                                theme.palette.mode === 'dark'
+                                                    ? 'rgba(255, 255, 255, 0.05)'
+                                                    : 'rgba(0, 0, 0, 0.05)',
+                                        }
+                                    }}
+                                >
+                                    Source Code
+                                </Button>
+                            )}
                         </Stack>
-                    )}
-
-                    {/* Action Buttons */}
-                    <Stack
-                        direction={{ xs: "column", sm: "row" }}
-                        spacing={2}
-                        justifyContent="center"
-                        sx={{ mb: 4 }}
-                    >
-                        {liveUrl && (
-                            <Button
-                                variant="contained"
-                                color="secondary"
-                                href={liveUrl}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                endIcon={<Launch />}
-                                sx={{
-                                    borderRadius: 3,
-                                    px: 4,
-                                    py: 1.5,
-                                    fontWeight: 700,
-                                    textTransform: "none",
-                                    fontSize: "1rem",
-                                }}
-                            >
-                                View Live Demo
-                            </Button>
-                        )}
-                        {githubUrl && (
-                            <Button
-                                variant="outlined"
-                                color="secondary"
-                                href={githubUrl}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                startIcon={<GitHub />}
-                                sx={{
-                                    borderRadius: 3,
-                                    px: 4,
-                                    py: 1.5,
-                                    fontWeight: 600,
-                                    textTransform: "none",
-                                    fontSize: "1rem",
-                                }}
-                            >
-                                View on GitHub
-                            </Button>
-                        )}
-                    </Stack>
+                    </Box>
                 </Box>
 
                 {/* Featured Image */}
@@ -701,6 +769,7 @@ const ProjectClientPage = ({ params }: ProjectPageProps) => {
                         display: "grid",
                         gridTemplateColumns: { xs: "1fr", lg: "1fr 300px" },
                         gap: 4,
+                        mt: { xs: -2, md: 0 },
                         alignItems: "start",
                     }}
                 >
@@ -758,6 +827,109 @@ const ProjectClientPage = ({ params }: ProjectPageProps) => {
                                 </Typography>
 
                                 <Stack spacing={2}>
+                                    {/* Actions & Technologies for Desktop */}
+                                    {(liveUrl || githubUrl) && (
+                                        <>
+                                            <Stack spacing={2}>
+                                                {liveUrl && (
+                                                    <Button
+                                                        variant="contained"
+                                                        color="secondary"
+                                                        href={liveUrl}
+                                                        target="_blank"
+                                                        rel="noopener noreferrer"
+                                                        startIcon={<Launch />}
+                                                        fullWidth
+                                                        sx={{
+                                                            borderRadius: 2,
+                                                            fontWeight: 600,
+                                                            textTransform: "none",
+                                                            boxShadow: 'none',
+                                                            "&:hover": {
+                                                                boxShadow: '0 4px 12px rgba(0,0,0,0.2)',
+                                                                transform: 'translateY(-1px)',
+                                                            }
+                                                        }}
+                                                    >
+                                                        Live Demo
+                                                    </Button>
+                                                )}
+                                                {githubUrl && (
+                                                    <Button
+                                                        variant="outlined"
+                                                        color="inherit"
+                                                        href={githubUrl}
+                                                        target="_blank"
+                                                        rel="noopener noreferrer"
+                                                        startIcon={<GitHub />}
+                                                        fullWidth
+                                                        sx={{
+                                                            borderRadius: 2,
+                                                            fontWeight: 600,
+                                                            textTransform: "none",
+                                                            borderColor: (theme) =>
+                                                                theme.palette.mode === 'dark'
+                                                                    ? 'rgba(255, 255, 255, 0.3)'
+                                                                    : 'rgba(0, 0, 0, 0.2)',
+                                                            color: 'text.primary',
+                                                            "&:hover": {
+                                                                borderColor: 'text.primary',
+                                                                backgroundColor: (theme) =>
+                                                                    theme.palette.mode === 'dark'
+                                                                        ? 'rgba(255, 255, 255, 0.05)'
+                                                                        : 'rgba(0, 0, 0, 0.05)',
+                                                            }
+                                                        }}
+                                                    >
+                                                        Source Code
+                                                    </Button>
+                                                )}
+                                            </Stack>
+                                            <Divider />
+                                        </>
+                                    )}
+
+                                    {technologies && technologies.length > 0 && (
+                                        <>
+                                            <Box>
+                                                <Typography
+                                                    variant="body2"
+                                                    color="text.secondary"
+                                                    sx={{ mb: 1.5 }}
+                                                >
+                                                    Technologies
+                                                </Typography>
+                                                <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
+                                                    {technologies.map((tag: any, index: number) => {
+                                                        const tagName = typeof tag === "string" ? tag : tag.name;
+                                                        const tagKey = typeof tag === "string" ? tag : tag.id;
+                                                        return (
+                                                            <Chip
+                                                                key={tagKey || index}
+                                                                label={tagName}
+                                                                size="small"
+                                                                sx={{
+                                                                    backgroundColor: (theme) =>
+                                                                        theme.palette.mode === 'dark'
+                                                                            ? 'rgba(255, 255, 255, 0.1)'
+                                                                            : 'rgba(0, 0, 0, 0.05)',
+                                                                    border: '1px solid',
+                                                                    borderColor: (theme) =>
+                                                                        theme.palette.mode === 'dark'
+                                                                            ? 'rgba(255, 255, 255, 0.1)'
+                                                                            : 'rgba(0, 0, 0, 0.1)',
+                                                                    color: 'text.primary',
+                                                                    fontWeight: 500,
+                                                                    fontSize: "0.75rem",
+                                                                }}
+                                                            />
+                                                        );
+                                                    })}
+                                                </Box>
+                                            </Box>
+                                            <Divider />
+                                        </>
+                                    )}
                                     <Box>
                                         <Typography
                                             variant="body2"
@@ -957,6 +1129,9 @@ const ProjectClientPage = ({ params }: ProjectPageProps) => {
                             )}
                         </Stack>
                     </Box>
+                </Box>
+                <Box sx={{ mt: 8 }}>
+                    <ContactCTA />
                 </Box>
             </Container>
 
