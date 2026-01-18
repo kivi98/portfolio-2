@@ -420,6 +420,20 @@ const BlogPostClientPage = ({ params }: BlogPostPageProps) => {
             {blogData?.title}
           </Typography>
 
+          <Divider
+            flexItem
+            orientation="horizontal"
+            sx={{
+              width: "100%",
+              display: { xs: "none", sm: "block" },
+              mb: 2,
+              borderColor: (theme) =>
+                theme.palette.mode === "dark"
+                  ? "rgba(255, 255, 255, 0.1)"
+                  : "rgba(0, 0, 0, 0.1)",
+            }}
+          />
+
           {/* Author and Meta Info */}
           <Stack
             direction={{ xs: "column", sm: "row" }}
@@ -558,6 +572,20 @@ const BlogPostClientPage = ({ params }: BlogPostPageProps) => {
               }}
             />
           </Stack>
+
+          <Divider
+            flexItem
+            orientation="horizontal"
+            sx={{
+              width: "100%",
+              display: { xs: "none", sm: "block" },
+              mt: 4,
+              borderColor: (theme) =>
+                theme.palette.mode === "dark"
+                  ? "rgba(255, 255, 255, 0.1)"
+                  : "rgba(0, 0, 0, 0.1)",
+            }}
+          />
 
           {/* Tags */}
           {blogData?.tags && blogData?.tags.length > 0 && (
