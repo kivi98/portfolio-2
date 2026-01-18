@@ -594,7 +594,7 @@ const BlogPostClientPage = ({ params }: BlogPostPageProps) => {
               spacing={1}
               justifyContent="center"
               flexWrap="wrap"
-              sx={{ gap: 1, mb: 4 }}
+              sx={{ gap: 1, mt: 4, display: { xs: 'flex', lg: 'none' } }}
             >
               {(blogData.tags || []).map((tag, index) => {
                 const tagName = typeof tag === "string" ? tag : tag.name;
@@ -605,11 +605,22 @@ const BlogPostClientPage = ({ params }: BlogPostPageProps) => {
                     label={tagName}
                     size="small"
                     sx={{
-                      backgroundColor: "secondary.main",
-                      color: "white",
+                      backgroundColor: (theme) =>
+                        theme.palette.mode === 'dark'
+                          ? 'rgba(255, 255, 255, 0.1)'
+                          : 'rgba(0, 0, 0, 0.05)',
+                      border: '1px solid',
+                      borderColor: (theme) =>
+                        theme.palette.mode === 'dark'
+                          ? 'rgba(255, 255, 255, 0.1)'
+                          : 'rgba(0, 0, 0, 0.1)',
+                      color: 'text.primary',
                       fontWeight: 500,
                       "&:hover": {
-                        backgroundColor: "secondary.dark",
+                        backgroundColor: (theme) =>
+                          theme.palette.mode === 'dark'
+                            ? 'rgba(255, 255, 255, 0.15)'
+                            : 'rgba(0, 0, 0, 0.1)',
                         transform: "translateY(-1px)",
                       },
                       transition: "all 0.2s ease",
@@ -663,6 +674,7 @@ const BlogPostClientPage = ({ params }: BlogPostPageProps) => {
             sx={{
               p: { xs: 3, sm: 4, md: 5 },
               borderRadius: 3,
+              mt: { xs: -4, sm: -4, md: -2 },
               background:
                 theme.palette.mode === "dark"
                   ? "rgba(35, 39, 47, 0.4)"
@@ -684,7 +696,7 @@ const BlogPostClientPage = ({ params }: BlogPostPageProps) => {
               display: { xs: "none", lg: "block" },
               position: "sticky",
               top: 150,
-              marginTop: "0px",
+              marginTop: "-15px",
               alignSelf: "start",
               zIndex: 10,
             }}
@@ -711,6 +723,47 @@ const BlogPostClientPage = ({ params }: BlogPostPageProps) => {
                 </Typography>
 
                 <Stack spacing={2}>
+                  {blogData?.tags && blogData.tags.length > 0 && (
+                    <>
+                      <Box>
+                        <Typography
+                          variant="body2"
+                          color="text.secondary"
+                          sx={{ mb: 1.5 }}
+                        >
+                          Tags
+                        </Typography>
+                        <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
+                          {(blogData.tags || []).map((tag, index) => {
+                            const tagName = typeof tag === "string" ? tag : tag.name;
+                            const tagKey = typeof tag === "string" ? tag : tag.id;
+                            return (
+                              <Chip
+                                key={tagKey || index}
+                                label={tagName}
+                                size="small"
+                                sx={{
+                                  backgroundColor: (theme) =>
+                                    theme.palette.mode === 'dark'
+                                      ? 'rgba(255, 255, 255, 0.1)'
+                                      : 'rgba(0, 0, 0, 0.05)',
+                                  border: '1px solid',
+                                  borderColor: (theme) =>
+                                    theme.palette.mode === 'dark'
+                                      ? 'rgba(255, 255, 255, 0.1)'
+                                      : 'rgba(0, 0, 0, 0.1)',
+                                  color: 'text.primary',
+                                  fontWeight: 500,
+                                  fontSize: "0.75rem",
+                                }}
+                              />
+                            );
+                          })}
+                        </Box>
+                      </Box>
+                      <Divider />
+                    </>
+                  )}
                   <Box>
                     <Typography
                       variant="body2"

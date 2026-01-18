@@ -768,6 +768,7 @@ const ProjectClientPage = ({ params }: ProjectPageProps) => {
                         display: "grid",
                         gridTemplateColumns: { xs: "1fr", lg: "1fr 300px" },
                         gap: 4,
+                        mt: { xs: -2, md: 0 },
                         alignItems: "start",
                     }}
                 >
