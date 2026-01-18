@@ -13,7 +13,7 @@ import Certifications from "./components/Certifications";
 import Volunteering from "./components/Volunteering";
 import Experience from "./components/Experience";
 import CredlyBadges from "./components/CredlyBadges";
-import ContactCTA from "./components/ContactCTA";
+import ContactCTA from "../../components/ContactCTA";
 
 const About = () => {
   const [activeSection, setActiveSection] = useState(1);

@@ -38,6 +38,7 @@ import {
     Close,
     Language,
 } from "@mui/icons-material";
+import ContactCTA from "../../../components/ContactCTA";
 import { usePostBySlug, useAddLike } from "@/lib/queries";
 import { useRouter } from "next/navigation";
 import { LoadingSpinner, ErrorMessage } from "@/lib/hooks";
@@ -1128,6 +1129,9 @@ const ProjectClientPage = ({ params }: ProjectPageProps) => {
                             )}
                         </Stack>
                     </Box>
+                </Box>
+                <Box sx={{ mt: 8 }}>
+                    <ContactCTA />
                 </Box>
             </Container>
 

@@ -42,6 +42,7 @@ import { useRouter } from "next/navigation";
 import { LoadingSpinner, ErrorMessage } from "@/lib/hooks";
 import { MdxRenderer } from "@/components/mdx/MdxRenderer";
 import Image from "next/image";
+import ContactCTA from "../../../components/ContactCTA";
 
 interface BlogPostPageProps {
   params: Promise<{
@@ -921,6 +922,9 @@ const BlogPostClientPage = ({ params }: BlogPostPageProps) => {
               )}
             </Stack>
           </Box>
+        </Box>
+        <Box sx={{ mt: 8 }}>
+          <ContactCTA />
         </Box>
       </Container>
 

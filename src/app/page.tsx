@@ -68,7 +68,7 @@ export default function Home() {
                   width: { xs: "100%", md: "50%" },
                   height: 2,
                   my: 2,
-                  boxShadow: "0px 0px 12px #E30000",
+                  // boxShadow: "0px 0px 12px #E30000",
                   borderRadius: 10,
                 }}
               />
