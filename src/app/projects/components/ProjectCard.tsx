@@ -39,8 +39,26 @@ const ProjectCard = ({ project }: { project: Project | any }) => {
     project.image ||
     (project as any).coverImage ||
     "/images/project-placeholder.svg";
-  const description =
-    project.description || (project as any).content?.substring(0, 150) || "";
+
+  // Clean description helper
+  const cleanDescription = (desc: string) => {
+    if (!desc) return "";
+    return desc
+      .replace(/!\[.*?\]\(.*?\)/g, "") // Remove images
+      .replace(/\[([^\]]+)\]\(.*?\)/g, "$1") // Keep link text, remove url
+      .replace(/#{1,6}\s?/g, "") // Remove headers
+      .replace(/(\*\*|__)(.*?)\1/g, "$2") // Remove bold
+      .replace(/(\*|_)(.*?)\1/g, "$2") // Remove italic
+      .replace(/`{3}[\s\S]*?`{3}/g, "") // Remove code blocks
+      .replace(/`(.+?)`/g, "$1") // Remove inline code
+      .replace(/>\s?/g, "") // Remove blockquotes
+      .replace(/\n+/g, " ") // Replace newlines with spaces
+      .trim();
+  };
+
+  const rawDescription = project.description || (project as any).content || "";
+  const description = cleanDescription(rawDescription).substring(0, 150);
+
   const contributors =
     project.contributors ||
     ((project as any).owner
@@ -62,12 +80,6 @@ const ProjectCard = ({ project }: { project: Project | any }) => {
   const githubUrl = project.githubUrl;
   const slug = project.slug || `project-${project.id}`;
 
-  // Extract clean description
-  const getDescription = (desc: string, maxLength: number = 150) => {
-    if (!desc) return "";
-    return desc.length > maxLength ? desc.slice(0, maxLength) + "..." : desc;
-  };
-
   const handleCardClick = () => {
     router.push(`/projects/${slug}`);
   };
@@ -78,9 +90,10 @@ const ProjectCard = ({ project }: { project: Project | any }) => {
     setIsBookmarked(!isBookmarked);
   };
 
-  const handleLiveDemoClick = (e: React.MouseEvent) => {
+  const handleExternalLink = (e: React.MouseEvent, url: string) => {
     e.preventDefault();
     e.stopPropagation();
+    window.open(url, "_blank", "noopener,noreferrer");
   };
 
   return (
@@ -96,54 +109,36 @@ const ProjectCard = ({ project }: { project: Project | any }) => {
         boxShadow: (theme) =>
           theme.palette.mode === "dark"
             ? "0 8px 32px rgba(0, 0, 0, 0.3)"
-            : "0 8px 32px rgba(0, 0, 0, 0.1)",
+            : "0 8px 32px rgba(0, 0, 0, 0.05)",
         display: "flex",
         flexDirection: "column",
         height: "100%",
         background: (theme) =>
           theme.palette.mode === "dark"
-            ? "rgba(35, 39, 47, 0.4)"
-            : "rgba(255,255,255,0.95)",
-        backdropFilter: "blur(16px)",
+            ? "rgba(30, 30, 30, 0.6)"
+            : "rgba(255,255,255,0.8)",
+        backdropFilter: "blur(20px)",
         border: (theme) =>
           theme.palette.mode === "dark"
-            ? "1px solid rgba(255, 255, 255, 0.12)"
-            : "1px solid rgba(0, 0, 0, 0.08)",
+            ? "1px solid rgba(255, 255, 255, 0.08)"
+            : "1px solid rgba(255, 255, 255, 0.5)",
         transition: "all 0.4s cubic-bezier(0.4, 0, 0.2, 1)",
         cursor: "pointer",
         position: "relative",
         overflow: "hidden",
         "&:hover": {
-          transform: "translateY(-8px) scale(1.02)",
+          transform: "translateY(-8px)",
           boxShadow: (theme) =>
             theme.palette.mode === "dark"
-              ? "0 20px 60px rgba(227, 0, 0, 0.25)"
-              : "0 20px 60px rgba(0, 0, 0, 0.15)",
+              ? "0 20px 40px rgba(0, 0, 0, 0.4)"
+              : "0 20px 40px rgba(0, 0, 0, 0.1)",
           "& .project-image": {
-            transform: "scale(1.1)",
+            transform: "scale(1.05)",
           },
-          "& .project-overlay": {
-            opacity: 1,
-          },
-        },
-        "&::before": {
-          content: '""',
-          position: "absolute",
-          top: 0,
-          left: 0,
-          right: 0,
-          height: 4,
-          background: `linear-gradient(90deg, ${theme.palette.secondary.main}, ${theme.palette.primary.main})`,
-          transform: "scaleX(0)",
-          transformOrigin: "left",
-          transition: "transform 0.3s ease",
-        },
-        "&:hover::before": {
-          transform: "scaleX(1)",
         },
       }}
     >
-      <Box sx={{ position: "relative", overflow: "hidden", height: 240 }}>
+      <Box sx={{ position: "relative", overflow: "hidden", height: 220 }}>
         <Image
           src={image}
           alt={project.title}
@@ -156,9 +151,8 @@ const ProjectCard = ({ project }: { project: Project | any }) => {
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
         />
 
-        {/* Gradient overlay */}
+        {/* Gradient overlay - subtle */}
         <Box
-          className="project-overlay"
           sx={{
             position: "absolute",
             top: 0,
@@ -166,288 +160,160 @@ const ProjectCard = ({ project }: { project: Project | any }) => {
             right: 0,
             bottom: 0,
             background:
-              "linear-gradient(to bottom, transparent 0%, transparent 40%, rgba(0,0,0,0.7) 100%)",
-            opacity: 0,
-            transition: "opacity 0.3s ease",
+              "linear-gradient(to bottom, transparent 50%, rgba(0,0,0,0.6) 100%)",
+            opacity: 0.8,
           }}
         />
 
-        {/* Bookmark button */}
+        {/* Floating Actions (Bookmark + Links) */}
         <Fade in={isHovered}>
-          <Box
-            sx={{
-              position: "absolute",
-              top: 12,
-              right: 12,
-            }}
+          <Stack
+            direction="row"
+            spacing={1}
+            sx={{ position: "absolute", top: 12, right: 12 }}
           >
-            <Tooltip title={isBookmarked ? "Remove bookmark" : "Bookmark"}>
-              <IconButton
-                onClick={handleBookmarkClick}
-                sx={{
-                  background: "rgba(0, 0, 0, 0.6)",
-                  backdropFilter: "blur(8px)",
-                  color: "white",
-                  "&:hover": {
-                    background: "rgba(0, 0, 0, 0.8)",
-                    transform: "scale(1.1)",
-                  },
-                  transition: "all 0.2s ease",
-                }}
-                size="small"
-              >
-                {isBookmarked ? (
-                  <Bookmark
-                    sx={{ fontSize: 18, color: theme.palette.secondary.main }}
-                  />
-                ) : (
-                  <BookmarkBorder sx={{ fontSize: 18 }} />
-                )}
-              </IconButton>
-            </Tooltip>
-          </Box>
+            {liveUrl && (
+              <Tooltip title="Live Demo">
+                <IconButton
+                  onClick={(e) => handleExternalLink(e, liveUrl)}
+                  size="small"
+                  sx={{
+                    background: "rgba(255, 255, 255, 0.9)",
+                    color: "black",
+                    "&:hover": { background: "white" },
+                  }}
+                >
+                  <Launch sx={{ fontSize: 16 }} />
+                </IconButton>
+              </Tooltip>
+            )}
+            {githubUrl && (
+              <Tooltip title="GitHub">
+                <IconButton
+                  onClick={(e) => handleExternalLink(e, githubUrl)}
+                  size="small"
+                  sx={{
+                    background: "rgba(255, 255, 255, 0.9)",
+                    color: "black",
+                    "&:hover": { background: "white" },
+                  }}
+                >
+                  <GitHub sx={{ fontSize: 16 }} />
+                </IconButton>
+              </Tooltip>
+            )}
+          </Stack>
         </Fade>
       </Box>
 
       <CardContent
-        sx={{ p: 3, flexGrow: 1, display: "flex", flexDirection: "column" }}
+        sx={{
+          p: 3,
+          flexGrow: 1,
+          display: "flex",
+          flexDirection: "column",
+          gap: 1.5,
+        }}
       >
-        <Typography
-          variant="h6"
-          fontWeight={700}
-          sx={{
-            fontSize: 18,
-            lineHeight: 1.3,
-            mb: 2,
-            color: theme.palette.text.primary,
-            display: "-webkit-box",
-            WebkitLineClamp: 2,
-            WebkitBoxOrient: "vertical",
-            overflow: "hidden",
-          }}
-        >
-          {project.title}
-        </Typography>
-
-        <Stack direction="row" alignItems="center" spacing={1} sx={{ mb: 2 }}>
-          <Avatar
-            sx={{
-              width: 24,
-              height: 24,
-              fontSize: "0.75rem",
-              background: theme.palette.secondary.main,
-            }}
-          >
-            <Person sx={{ fontSize: 14 }} />
-          </Avatar>
+        <Stack spacing={1}>
           <Typography
             variant="caption"
-            color="text.secondary"
-            sx={{ fontWeight: 500 }}
+            sx={{
+              color: theme.palette.secondary.main,
+              fontWeight: 700,
+              textTransform: "uppercase",
+              letterSpacing: 1,
+              fontSize: "0.7rem",
+            }}
           >
-            {Array.isArray(contributors)
-              ? contributors.join(", ")
-              : contributors}
+            {date
+              ? new Date(date).toLocaleDateString(undefined, {
+                  year: "numeric",
+                  month: "short",
+                })
+              : "Recent"}
           </Typography>
-          <Box
+
+          <Typography
+            variant="h6"
+            fontWeight={700}
             sx={{
-              width: 4,
-              height: 4,
-              borderRadius: "50%",
-              background: theme.palette.text.secondary,
+              fontSize: "1.1rem",
+              lineHeight: 1.3,
+              color: theme.palette.text.primary,
+              display: "-webkit-box",
+              WebkitLineClamp: 2,
+              WebkitBoxOrient: "vertical",
+              overflow: "hidden",
             }}
-          />
-          <Stack direction="row" alignItems="center" spacing={0.5}>
-            <CalendarToday
-              sx={{ fontSize: 12, color: theme.palette.text.secondary }}
-            />
-            <Typography
-              variant="caption"
-              color="text.secondary"
-              sx={{ fontWeight: 500 }}
-            >
-              {date ? new Date(date).toLocaleDateString() : "Recent"}
-            </Typography>
-          </Stack>
-          <Box
-            sx={{
-              width: 4,
-              height: 4,
-              borderRadius: "50%",
-              background: theme.palette.text.secondary,
-            }}
-          />
-          <Stack
-            direction="row"
-            alignItems="center"
-            spacing={0.5}
-            onClick={(e) => {
-              e.preventDefault();
-              e.stopPropagation();
-            }}
-            sx={{ cursor: "default" }}
           >
-            <FavoriteIcon
-              sx={{ fontSize: 12, color: theme.palette.secondary.main }}
-            />
-            <Typography
-              variant="caption"
-              color="text.secondary"
-              sx={{ fontWeight: 500 }}
-            >
-              {project.likes || 0}
-            </Typography>
-          </Stack>
+            {project.title}
+          </Typography>
         </Stack>
 
         <Typography
           variant="body2"
           color="text.secondary"
           sx={{
-            mb: 3,
-            lineHeight: 1.7,
+            lineHeight: 1.6,
             display: "-webkit-box",
             WebkitLineClamp: 3,
             WebkitBoxOrient: "vertical",
             overflow: "hidden",
             flexGrow: 1,
-            fontSize: "0.95rem",
+            fontSize: "0.9rem",
           }}
         >
-          {getDescription(description)}
+          {description}
         </Typography>
 
-        <Stack
-          direction="row"
-          spacing={1}
-          sx={{ mb: 3, flexWrap: "wrap", gap: 1 }}
-        >
+        <Stack direction="row" spacing={1} sx={{ flexWrap: "wrap", gap: 1 }}>
           {technologies?.slice(0, 3).map((tech: string, index: number) => (
             <Chip
               key={tech || index}
               label={tech}
               size="small"
-              color="secondary"
               sx={{
                 fontSize: "0.7rem",
                 height: 24,
                 fontWeight: 600,
-                "& .MuiChip-label": {
-                  px: 1,
-                },
+                borderRadius: "6px",
+                background:
+                  theme.palette.mode === "dark"
+                    ? "rgba(255,255,255,0.05)"
+                    : "rgba(0,0,0,0.05)",
+                color: theme.palette.text.secondary,
               }}
             />
           ))}
           {technologies && technologies.length > 3 && (
-            <Chip
-              label={`+${technologies.length - 3}`}
-              size="small"
-              variant="outlined"
-              sx={{
-                fontSize: "0.7rem",
-                height: 24,
-                color: theme.palette.text.secondary,
-                borderColor: theme.palette.text.secondary,
-              }}
-            />
+            <Typography
+              variant="caption"
+              color="text.secondary"
+              sx={{ alignSelf: "center" }}
+            >
+              +{technologies.length - 3}
+            </Typography>
           )}
         </Stack>
 
-        <Box sx={{ mt: "auto" }}>
-          <Stack spacing={1.5}>
-            <Button
-              variant="contained"
-              color="secondary"
-              onClick={handleCardClick}
-              endIcon={<ArrowForward sx={{ fontSize: 18 }} />}
-              fullWidth
-              sx={{
-                borderRadius: 3,
-                fontWeight: 700,
-                py: 1.5,
-                textTransform: "none",
-                fontSize: "0.9rem",
-                background: `linear-gradient(45deg, ${theme.palette.secondary.main}, ${theme.palette.secondary.dark})`,
-                boxShadow: `0 4px 12px ${theme.palette.secondary.main}40`,
-                border: "none",
-                position: "relative",
-                overflow: "hidden",
-                "&:hover": {
-                  background: `linear-gradient(45deg, ${theme.palette.secondary.dark}, ${theme.palette.secondary.main})`,
-                  boxShadow: `0 6px 20px ${theme.palette.secondary.main}50`,
-                  transform: "translateY(-2px)",
-                },
-                "&::before": {
-                  content: '""',
-                  position: "absolute",
-                  top: 0,
-                  left: "-100%",
-                  width: "100%",
-                  height: "100%",
-                  background:
-                    "linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent)",
-                  transition: "left 0.5s ease",
-                },
-                "&:hover::before": {
-                  left: "100%",
-                },
-              }}
-            >
-              View Details
-            </Button>
-            {liveUrl && (
-              <Button
-                variant="outlined"
-                color="secondary"
-                href={liveUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={handleLiveDemoClick}
-                endIcon={<Launch sx={{ fontSize: 16 }} />}
-                fullWidth
-                sx={{
-                  borderRadius: 3,
-                  fontWeight: 600,
-                  py: 1,
-                  textTransform: "none",
-                  fontSize: "0.85rem",
-                  borderWidth: 2,
-                  "&:hover": {
-                    borderWidth: 2,
-                    transform: "translateY(-1px)",
-                  },
-                }}
-              >
-                Live Demo
-              </Button>
-            )}
-            {githubUrl && (
-              <Button
-                variant="outlined"
-                color="secondary"
-                href={githubUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={handleLiveDemoClick}
-                startIcon={<GitHub sx={{ fontSize: 16 }} />}
-                fullWidth
-                sx={{
-                  borderRadius: 3,
-                  fontWeight: 600,
-                  py: 1,
-                  textTransform: "none",
-                  fontSize: "0.85rem",
-                  borderWidth: 2,
-                  "&:hover": {
-                    borderWidth: 2,
-                    transform: "translateY(-1px)",
-                  },
-                }}
-              >
-                GitHub
-              </Button>
-            )}
-          </Stack>
+        <Box sx={{ mt: 1 }}>
+          <Typography
+            variant="button"
+            color="secondary"
+            sx={{
+              textTransform: "none",
+              fontWeight: 700,
+              display: "flex",
+              alignItems: "center",
+              fontSize: "0.85rem",
+              opacity: isHovered ? 1 : 0.8,
+              transform: isHovered ? "translateX(4px)" : "none",
+              transition: "all 0.3s ease",
+            }}
+          >
+            Read Case Study <ArrowForward sx={{ fontSize: 16, ml: 0.5 }} />
+          </Typography>
         </Box>
       </CardContent>
     </Card>

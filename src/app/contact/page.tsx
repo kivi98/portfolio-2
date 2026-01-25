@@ -245,91 +245,101 @@ const Contact = () => {
           </Typography>
 
           <Stack spacing={3}>
-            <Card
-              sx={{
-                background: (theme) =>
-                  theme.palette.mode === "dark"
-                    ? "rgba(35, 39, 47, 0.33)"
-                    : "rgba(255,255,255,0.9)",
-                backdropFilter: "blur(12px)",
-                border: (theme) =>
-                  theme.palette.mode === "dark"
-                    ? "1px solid rgba(255, 255, 255, 0.1)"
-                    : "1px solid rgba(0, 0, 0, 0.08)",
-                borderRadius: 3,
-                transition: "all 0.3s ease",
-                "&:hover": {
-                  transform: "translateY(-2px)",
-                  boxShadow: (theme) =>
-                    theme.palette.mode === "dark"
-                      ? "0 8px 32px rgba(227, 0, 0, 0.2)"
-                      : "0 8px 32px rgba(0, 0, 0, 0.1)",
-                },
-                boxShadow: "none",
-              }}
+            <a
+              href="mailto:kiviamarakoon@gmail.com"
+              style={{ textDecoration: "none", display: "block" }}
             >
-              <CardContent>
-                <Stack direction="row" alignItems="center" spacing={2}>
-                  <EmailIcon
-                    sx={{
-                      color: "secondary.main",
-                      fontSize: 24,
-                    }}
-                  />
-                  <Box>
-                    <Typography variant="h6" fontWeight={600}>
-                      Email
-                    </Typography>
-                    <Typography variant="body2" color="text.secondary">
-                      kiviamarakoon@gmail.com
-                    </Typography>
-                  </Box>
-                </Stack>
-              </CardContent>
-            </Card>
+              <Card
+                sx={{
+                  background: (theme) =>
+                    theme.palette.mode === "dark"
+                      ? "rgba(35, 39, 47, 0.33)"
+                      : "rgba(255,255,255,0.9)",
+                  backdropFilter: "blur(12px)",
+                  border: (theme) =>
+                    theme.palette.mode === "dark"
+                      ? "1px solid rgba(255, 255, 255, 0.1)"
+                      : "1px solid rgba(0, 0, 0, 0.08)",
+                  borderRadius: 3,
+                  transition: "all 0.3s ease",
+                  "&:hover": {
+                    transform: "translateY(-2px)",
+                    boxShadow: (theme) =>
+                      theme.palette.mode === "dark"
+                        ? "0 8px 32px rgba(227, 0, 0, 0.2)"
+                        : "0 8px 32px rgba(0, 0, 0, 0.1)",
+                  },
+                  boxShadow: "none",
+                }}
+              >
+                <CardContent>
+                  <Stack direction="row" alignItems="center" spacing={2}>
+                    <EmailIcon
+                      sx={{
+                        color: "secondary.main",
+                        fontSize: 24,
+                      }}
+                    />
+                    <Box>
+                      <Typography variant="h6" fontWeight={600}>
+                        Email
+                      </Typography>
+                      <Typography variant="body2" color="text.secondary">
+                        kiviamarakoon@gmail.com
+                      </Typography>
+                    </Box>
+                  </Stack>
+                </CardContent>
+              </Card>
+            </a>
 
-            <Card
-              sx={{
-                background: (theme) =>
-                  theme.palette.mode === "dark"
-                    ? "rgba(35, 39, 47, 0.33)"
-                    : "rgba(255,255,255,0.9)",
-                backdropFilter: "blur(12px)",
-                border: (theme) =>
-                  theme.palette.mode === "dark"
-                    ? "1px solid rgba(255, 255, 255, 0.1)"
-                    : "1px solid rgba(0, 0, 0, 0.08)",
-                borderRadius: 3,
-                transition: "all 0.3s ease",
-                "&:hover": {
-                  transform: "translateY(-2px)",
-                  boxShadow: (theme) =>
-                    theme.palette.mode === "dark"
-                      ? "0 8px 32px rgba(227, 0, 0, 0.2)"
-                      : "0 8px 32px rgba(0, 0, 0, 0.1)",
-                },
-                boxShadow: "none",
-              }}
+            <a
+              href="tel:+94719320164"
+              style={{ textDecoration: "none", display: "block" }}
             >
-              <CardContent>
-                <Stack direction="row" alignItems="center" spacing={2}>
-                  <PhoneIcon
-                    sx={{
-                      color: "secondary.main",
-                      fontSize: 24,
-                    }}
-                  />
-                  <Box>
-                    <Typography variant="h6" fontWeight={600}>
-                      Phone
-                    </Typography>
-                    <Typography variant="body2" color="text.secondary">
-                      +94 71 932 0164
-                    </Typography>
-                  </Box>
-                </Stack>
-              </CardContent>
-            </Card>
+              <Card
+                sx={{
+                  background: (theme) =>
+                    theme.palette.mode === "dark"
+                      ? "rgba(35, 39, 47, 0.33)"
+                      : "rgba(255,255,255,0.9)",
+                  backdropFilter: "blur(12px)",
+                  border: (theme) =>
+                    theme.palette.mode === "dark"
+                      ? "1px solid rgba(255, 255, 255, 0.1)"
+                      : "1px solid rgba(0, 0, 0, 0.08)",
+                  borderRadius: 3,
+                  transition: "all 0.3s ease",
+                  "&:hover": {
+                    transform: "translateY(-2px)",
+                    boxShadow: (theme) =>
+                      theme.palette.mode === "dark"
+                        ? "0 8px 32px rgba(227, 0, 0, 0.2)"
+                        : "0 8px 32px rgba(0, 0, 0, 0.1)",
+                  },
+                  boxShadow: "none",
+                }}
+              >
+                <CardContent>
+                  <Stack direction="row" alignItems="center" spacing={2}>
+                    <PhoneIcon
+                      sx={{
+                        color: "secondary.main",
+                        fontSize: 24,
+                      }}
+                    />
+                    <Box>
+                      <Typography variant="h6" fontWeight={600}>
+                        Phone
+                      </Typography>
+                      <Typography variant="body2" color="text.secondary">
+                        +94 71 932 0164
+                      </Typography>
+                    </Box>
+                  </Stack>
+                </CardContent>
+              </Card>
+            </a>
 
             <Card
               sx={{

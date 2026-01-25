@@ -301,7 +301,7 @@ const BlogPostClientPage = ({ params }: BlogPostPageProps) => {
         value={readingProgress}
         sx={{
           position: "fixed",
-          top: { xs: "57px", md: 0 },
+          top: { xs: "66px", md: 0 },
           left: 0,
           right: 0,
           zIndex: 2000,
@@ -319,7 +319,7 @@ const BlogPostClientPage = ({ params }: BlogPostPageProps) => {
           maxWidth: "1200px",
           mx: "auto",
           py: { xs: 3, md: 4 },
-          pt: { xs: "90px", md: "110px" },
+          pt: { xs: "90px", md: "130px" },
           px: { xs: 2, md: 3 },
         }}
       >
