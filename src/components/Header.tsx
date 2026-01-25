@@ -162,7 +162,8 @@ export default function Header() {
           <Box
             className="logo-container"
             sx={{
-              backgroundColor: theme.palette.mode === "dark" ? "#fff" : "transparent",
+              backgroundColor:
+                theme.palette.mode === "dark" ? "#fff" : "transparent",
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
@@ -196,7 +197,16 @@ export default function Header() {
           <Stack direction="row" alignItems="center" spacing={1}>
             {renderNavButtons()}
 
-            <Divider orientation="vertical" flexItem sx={{ height: 24, alignSelf: 'center', mx: 1.5, borderColor: theme.palette.divider }} />
+            <Divider
+              orientation="vertical"
+              flexItem
+              sx={{
+                height: 24,
+                alignSelf: "center",
+                mx: 1.5,
+                borderColor: theme.palette.divider,
+              }}
+            />
 
             <Stack direction="row" spacing={0.5}>
               <Tooltip title="GitHub">
@@ -247,7 +257,11 @@ export default function Header() {
                     },
                   }}
                 >
-                  {mode === "dark" ? <Brightness7Icon fontSize="small" /> : <Brightness4Icon fontSize="small" />}
+                  {mode === "dark" ? (
+                    <Brightness7Icon fontSize="small" />
+                  ) : (
+                    <Brightness4Icon fontSize="small" />
+                  )}
                 </IconButton>
               </Tooltip>
             </Stack>
@@ -256,7 +270,10 @@ export default function Header() {
 
         {/* Mobile Hamburger */}
         {isMobile && (
-          <Box ref={mobileMenuRef} sx={{ display: "flex", alignItems: "center" }}>
+          <Box
+            ref={mobileMenuRef}
+            sx={{ display: "flex", alignItems: "center" }}
+          >
             <IconButton
               onClick={toggleColorMode}
               sx={{
@@ -264,7 +281,11 @@ export default function Header() {
                 mr: 1,
               }}
             >
-              {mode === "dark" ? <Brightness7Icon fontSize="small" /> : <Brightness4Icon fontSize="small" />}
+              {mode === "dark" ? (
+                <Brightness7Icon fontSize="small" />
+              ) : (
+                <Brightness4Icon fontSize="small" />
+              )}
             </IconButton>
             <IconButton
               onClick={() => setMobileMenuOpen((prev) => !prev)}
@@ -288,9 +309,10 @@ export default function Header() {
                     left: 0,
                     right: 0,
                     p: 2,
-                    background: theme.palette.mode === "light"
-                      ? "rgba(255, 255, 255, 0.95)"
-                      : "rgba(18, 18, 18, 0.95)",
+                    background:
+                      theme.palette.mode === "light"
+                        ? "rgba(255, 255, 255, 0.95)"
+                        : "rgba(18, 18, 18, 0.95)",
                     backdropFilter: "blur(20px)",
                     borderBottom: `1px solid ${theme.palette.divider}`,
                     boxShadow: "0 10px 40px rgba(0,0,0,0.1)",
@@ -299,13 +321,20 @@ export default function Header() {
                     "@keyframes slideDown": {
                       "0%": { opacity: 0, transform: "translateY(-10px)" },
                       "100%": { opacity: 1, transform: "translateY(0)" },
-                    }
+                    },
                   }}
                 >
                   <Stack spacing={1}>
                     {renderNavButtons(() => setMobileMenuOpen(false))}
-                    <HtmlDivider sx={{ my: 1.5, borderColor: theme.palette.divider }} />
-                    <Stack direction="row" spacing={2} justifyContent="center" sx={{ pt: 1 }}>
+                    <HtmlDivider
+                      sx={{ my: 1.5, borderColor: theme.palette.divider }}
+                    />
+                    <Stack
+                      direction="row"
+                      spacing={2}
+                      justifyContent="center"
+                      sx={{ pt: 1 }}
+                    >
                       <IconButton
                         component="a"
                         href="https://github.com/kivi98"
@@ -334,6 +363,6 @@ export default function Header() {
   );
 }
 
-// Helper for divider to avoid naming conflict if needed, 
+// Helper for divider to avoid naming conflict if needed,
 // though we imported Divider above. Redefining just in case or using standard Divider.
 const HtmlDivider = Divider;
