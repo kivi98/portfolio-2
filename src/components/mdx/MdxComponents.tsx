@@ -110,8 +110,31 @@ const StyledTable = styled(TableContainer)(({ theme }) => ({
   marginBottom: theme.spacing(2),
   borderRadius: theme.spacing(2),
   border: `1px solid ${theme.palette.divider}`,
+  // Enable horizontal scrolling for mobile
+  overflowX: "auto",
+  WebkitOverflowScrolling: "touch", // Smooth scrolling on iOS
+  // Optional: Add scrollbar styling
+  "&::-webkit-scrollbar": {
+    height: 6,
+  },
+  "&::-webkit-scrollbar-track": {
+    backgroundColor:
+      theme.palette.mode === "dark"
+        ? "rgba(255, 255, 255, 0.05)"
+        : "rgba(0, 0, 0, 0.05)",
+    borderRadius: 3,
+  },
+  "&::-webkit-scrollbar-thumb": {
+    backgroundColor: theme.palette.primary.main,
+    borderRadius: 3,
+    "&:hover": {
+      backgroundColor: theme.palette.primary.dark,
+    },
+  },
   "& .MuiTable-root": {
-    minWidth: 650,
+    // Remove fixed minWidth to allow natural sizing
+    // Table will scroll horizontally if content exceeds container
+    minWidth: "max-content",
   },
   "& .MuiTableHead-root": {
     backgroundColor:
@@ -119,9 +142,22 @@ const StyledTable = styled(TableContainer)(({ theme }) => ({
         ? "rgba(255, 255, 255, 0.05)"
         : "rgba(0, 0, 0, 0.03)",
   },
+  "& .MuiTableCell-root": {
+    // Responsive cell padding
+    padding: theme.spacing(1.5),
+    [theme.breakpoints.down("sm")]: {
+      padding: theme.spacing(1),
+      fontSize: "0.85rem",
+    },
+    // Allow text wrapping in cells while maintaining min-width
+    minWidth: 100,
+    wordBreak: "break-word",
+    whiteSpace: "normal",
+  },
   "& .MuiTableCell-head": {
     fontWeight: 700,
     color: theme.palette.text.primary,
+    whiteSpace: "nowrap", // Keep headers on one line
   },
   "& .MuiTableRow-root:nth-of-type(even)": {
     backgroundColor:

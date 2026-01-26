@@ -10,7 +10,7 @@ import {
 import DoubleArrowIcon from "@mui/icons-material/DoubleArrow";
 import Link from "next/link";
 import AvatarCard from "@/components/AvatarCard";
-import DownloadIcon from "@mui/icons-material/Download";
+// import DownloadIcon from "@mui/icons-material/Download";
 import EmailIcon from "@mui/icons-material/Email";
 
 export default function Home() {
