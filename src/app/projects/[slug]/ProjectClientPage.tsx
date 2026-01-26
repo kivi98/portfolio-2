@@ -312,7 +312,7 @@ const ProjectClientPage = ({ params }: ProjectPageProps) => {
         value={readingProgress}
         sx={{
           position: "fixed",
-          top: { xs: "66px", md: 0 },
+          top: { xs: "65px", md: 0 },
           left: 0,
           right: 0,
           zIndex: 2000,
