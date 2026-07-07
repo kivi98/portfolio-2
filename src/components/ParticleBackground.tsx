@@ -23,22 +23,15 @@ const ParticleBackground: React.FC = () => {
   const createParticles = useCallback(
     (canvas: HTMLCanvasElement, mode: string) => {
       const particleConfig = {
-        count: 60,
+        count: 40,
         colors:
           mode === "dark"
-            ? ["#ffffff", "#e0e0e0", "#bdbdbd", "#910000", "#e30000", "#da2c2c"]
-            : [
-                "#212121",
-                "#424242",
-                "#757575",
-                "#b71c1c",
-                "#ef5350",
-                "#e57373",
-              ],
+            ? ["#ffffff", "#e0e0e0", "#bdbdbd", "#e30000"]
+            : ["#212121", "#424242", "#757575", "#b71c1c"],
         minSize: 1,
-        maxSize: 3,
-        minSpeed: 0.1,
-        maxSpeed: 0.6,
+        maxSize: 2.5,
+        minSpeed: 0.05,
+        maxSpeed: 0.35,
       };
 
       const particles: Particle[] = [];
@@ -57,8 +50,8 @@ const ParticleBackground: React.FC = () => {
             (Math.random() - 0.5) *
               (particleConfig.maxSpeed - particleConfig.minSpeed) +
             particleConfig.minSpeed,
-          originalOpacity: Math.random() * 0.6 + 0.2,
-          opacity: Math.random() * 0.6 + 0.2,
+          originalOpacity: Math.random() * 0.4 + 0.1,
+          opacity: Math.random() * 0.4 + 0.1,
           color:
             particleConfig.colors[
               Math.floor(Math.random() * particleConfig.colors.length)
@@ -196,36 +189,18 @@ const ParticleBackground: React.FC = () => {
   }
 
   return (
-    <>
-      <canvas
-        ref={canvasRef}
-        style={{
-          position: "fixed",
-          top: 0,
-          left: 0,
-          width: "100%",
-          height: "100%",
-          zIndex: -1,
-          pointerEvents: "none",
-        }}
-      />
-      <div
-        style={{
-          position: "fixed",
-          top: 0,
-          left: 0,
-          width: "100%",
-          height: "100%",
-          zIndex: -1,
-          pointerEvents: "none",
-          backgroundColor: "hsla(263, 100.00%, 50.00%, 0.10)",
-          //   background:
-          //     mode === "dark"
-          //       ? "linear-gradient(135deg, rgba(18, 18, 18, 0.8) 0%, rgba(30, 30, 30, 0.6) 100%)"
-          //       : "linear-gradient(135deg, rgba(250, 250, 250, 0.8) 0%, rgba(255, 255, 255, 0.6) 100%)",
-        }}
-      />
-    </>
+    <canvas
+      ref={canvasRef}
+      style={{
+        position: "fixed",
+        top: 0,
+        left: 0,
+        width: "100%",
+        height: "100%",
+        zIndex: -1,
+        pointerEvents: "none",
+      }}
+    />
   );
 };
 

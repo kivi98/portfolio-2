@@ -10,6 +10,7 @@ import "../styles/syntax-highlighting.css";
 import "../styles/mdx-typography.css";
 import ThemeProvider from "@/theme/ThemeProvider";
 import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 import HeaderBlurOverlay from "@/components/HeaderBlurOverlay";
 import ParticleBackground from "@/components/ParticleBackground";
 import Providers from "@/components/Providers";
@@ -103,6 +104,7 @@ export default function RootLayout({
             <Header />
             <HeaderBlurOverlay />
             {children}
+            <Footer />
           </ThemeProvider>
         </Providers>
       </body>

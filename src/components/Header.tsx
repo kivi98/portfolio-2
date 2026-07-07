@@ -89,9 +89,16 @@ export default function Header() {
               : theme.palette.text.secondary,
             backgroundColor: isActive
               ? theme.palette.mode === "dark"
-                ? "rgba(227, 0, 0, 0.59)"
-                : "rgba(0, 0, 0, 0.1)"
+                ? "rgba(255, 255, 255, 0.08)"
+                : "rgba(0, 0, 0, 0.06)"
               : "transparent",
+            border: isActive
+              ? `1px solid ${
+                  theme.palette.mode === "dark"
+                    ? "rgba(255, 255, 255, 0.12)"
+                    : "rgba(0, 0, 0, 0.1)"
+                }`
+              : "1px solid transparent",
             "&:hover": {
               color: theme.palette.text.primary,
               backgroundColor:

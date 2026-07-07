@@ -232,8 +232,8 @@ export function getTheme(mode: ColorMode): Theme {
             backgroundColor: mode === "dark" ? "#0A0A0A" : "#FFFFFF",
             backgroundImage:
               mode === "dark"
-                ? `radial-gradient(at 99% 97%, hsla(360, 100%, 50%, 0.15) 0px, transparent 50%),
-                   radial-gradient(at -15% 40%, hsla(359, 100%, 50%, 0.1) 0px, transparent 50%)`
+                ? `radial-gradient(ellipse 80% 50% at 50% -10%, rgba(227, 0, 0, 0.09) 0%, transparent 60%),
+                   radial-gradient(at 99% 97%, rgba(227, 0, 0, 0.07) 0px, transparent 50%)`
                 : "none", // Cleaner look for light mode
             scrollbarColor: mode === "dark" ? "#333 #0A0A0A" : "#DDD #FFF",
             "&::-webkit-scrollbar, & *::-webkit-scrollbar": {
