@@ -1,6 +1,14 @@
 "use client";
-import { Box, Grid, Paper, Typography, useTheme } from "@mui/material";
-import TwoColumnSection from "./TwoColumnSection";
+import { Box, Grid, Stack, Typography, useTheme } from "@mui/material";
+import CodeIcon from "@mui/icons-material/Code";
+import LanguageIcon from "@mui/icons-material/Language";
+import StorageIcon from "@mui/icons-material/Storage";
+import CloudQueueIcon from "@mui/icons-material/CloudQueue";
+import BuildIcon from "@mui/icons-material/Build";
+import ComputerIcon from "@mui/icons-material/Computer";
+import BoltIcon from "@mui/icons-material/Bolt";
+import SectionHeading from "@/components/SectionHeading";
+import Reveal from "@/components/Reveal";
 import SkillChip from "./SkillChip";
 import {
   languageSkills,
@@ -12,151 +20,107 @@ import {
   frameworkSkills,
 } from "@/features/skills.config";
 
+const skillCategories = [
+  {
+    title: "Programming Languages",
+    skills: languageSkills,
+    icon: <CodeIcon fontSize="small" />,
+  },
+  {
+    title: "Web Development",
+    skills: webSkills,
+    icon: <LanguageIcon fontSize="small" />,
+  },
+  {
+    title: "Databases",
+    skills: databaseSkills,
+    icon: <StorageIcon fontSize="small" />,
+  },
+  {
+    title: "Cloud",
+    skills: cloudSkills,
+    icon: <CloudQueueIcon fontSize="small" />,
+  },
+  { title: "Tools", skills: toolSkills, icon: <BuildIcon fontSize="small" /> },
+  {
+    title: "Operating Systems",
+    skills: osSkills,
+    icon: <ComputerIcon fontSize="small" />,
+  },
+  {
+    title: "Frameworks",
+    skills: frameworkSkills,
+    icon: <BoltIcon fontSize="small" />,
+  },
+];
+
 const Skills = () => {
   const theme = useTheme();
-
-  const skillCategories = [
-    { title: "Programming Languages", skills: languageSkills, icon: "💻" },
-    { title: "Web Development", skills: webSkills, icon: "🌐" },
-    { title: "Databases", skills: databaseSkills, icon: "🗄️" },
-    { title: "Cloud", skills: cloudSkills, icon: "☁️" },
-    { title: "Tools", skills: toolSkills, icon: "🛠️" },
-    { title: "Operating Systems", skills: osSkills, icon: "💾" },
-    { title: "Frameworks", skills: frameworkSkills, icon: "⚡" },
-  ];
+  const isDark = theme.palette.mode === "dark";
 
   return (
-    <TwoColumnSection
-      title={"Skills"}
-      leftComponent={
-        <Box sx={{ width: "100%" }}>
-          <Grid container spacing={3}>
-            {skillCategories.slice(0, 4).map((category, index) => (
-              <Grid item xs={12} md={6} sx={{ width: "100%" }} key={index}>
-                <Paper
-                  elevation={0}
-                  sx={{
-                    p: 3,
-                    borderRadius: "1.5rem",
-                    background:
-                      theme.palette.mode === "dark"
-                        ? `linear-gradient(135deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.3) 100%)`
-                        : theme.palette.background.paper, // White in light mode
-                    border: `1px solid ${theme.palette.mode === "dark" ? "rgba(255,255,255,0.1)" : "rgba(0,0,0,0.08)"}`,
-                    boxShadow:
-                      theme.palette.mode === "dark"
-                        ? "none"
-                        : "0 2px 8px rgba(0,0,0,0.08)",
-                    transition: "all 0.3s ease-in-out",
-                    "&:hover": {
-                      transform: "translateY(-2px)",
-                      boxShadow:
-                        theme.palette.mode === "dark"
-                          ? "0 8px 25px rgba(227,0,0,0.2)"
-                          : "0 8px 25px rgba(0,0,0,0.12)",
-                      borderColor: theme.palette.secondary.main,
-                    },
-                  }}
-                >
+    <Box sx={{ pb: { xs: 3, md: 8 } }}>
+      <Reveal>
+        <SectionHeading eyebrow="Capabilities" title="Skills" />
+      </Reveal>
+      <Grid container spacing={3}>
+        {skillCategories.map((category, index) => (
+          <Grid item xs={12} sm={6} md={4} key={category.title}>
+            <Reveal delay={(index % 3) * 0.1} sx={{ height: "100%" }}>
+              <Stack
+                spacing={2}
+                sx={{
+                  height: "100%",
+                  p: 3,
+                  borderRadius: "20px",
+                  background: isDark
+                    ? "rgba(255,255,255,0.02)"
+                    : "rgba(255,255,255,0.7)",
+                  backdropFilter: "blur(12px)",
+                  border: `1px solid ${theme.palette.divider}`,
+                  transition: "all 0.3s ease",
+                  "&:hover": {
+                    transform: "translateY(-4px)",
+                    borderColor: isDark
+                      ? "rgba(255,255,255,0.2)"
+                      : "rgba(0,0,0,0.2)",
+                  },
+                }}
+              >
+                <Stack direction="row" alignItems="center" spacing={1.5}>
                   <Box
                     sx={{
+                      width: 36,
+                      height: 36,
+                      borderRadius: "10px",
                       display: "flex",
                       alignItems: "center",
-                      mb: 2,
+                      justifyContent: "center",
+                      color: "secondary.main",
+                      background: isDark
+                        ? "rgba(227,0,0,0.1)"
+                        : "rgba(211,47,47,0.08)",
+                      border: `1px solid ${
+                        isDark ? "rgba(227,0,0,0.25)" : "rgba(211,47,47,0.2)"
+                      }`,
                     }}
                   >
-                    <Typography
-                      variant="h4"
-                      sx={{
-                        mr: 1,
-                        fontSize: "1.5rem",
-                      }}
-                    >
-                      {category.icon}
-                    </Typography>
-                    <Typography
-                      variant="h6"
-                      sx={{
-                        color: "text.main",
-                        fontWeight: "bold",
-                        fontSize: "1.1rem",
-                      }}
-                    >
-                      {category.title}
-                    </Typography>
+                    {category.icon}
                   </Box>
-                  <SkillChip itemList={category.skills} skillType="" />
-                </Paper>
-              </Grid>
-            ))}
-          </Grid>
-        </Box>
-      }
-      rightComponent={
-        <Box sx={{ width: "100%" }}>
-          <Grid container spacing={3}>
-            {skillCategories.slice(4).map((category, index) => (
-              <Grid item xs={12} md={6} sx={{ width: "100%" }} key={index}>
-                <Paper
-                  elevation={0}
-                  sx={{
-                    p: 3,
-                    borderRadius: "1.5rem",
-                    background:
-                      theme.palette.mode === "dark"
-                        ? `linear-gradient(135deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.3) 100%)`
-                        : theme.palette.background.paper, // White in light mode
-                    border: `1px solid ${theme.palette.mode === "dark" ? "rgba(255,255,255,0.1)" : "rgba(0,0,0,0.08)"}`,
-                    boxShadow:
-                      theme.palette.mode === "dark"
-                        ? "none"
-                        : "0 2px 8px rgba(0,0,0,0.08)",
-                    transition: "all 0.3s ease-in-out",
-                    "&:hover": {
-                      transform: "translateY(-2px)",
-                      boxShadow:
-                        theme.palette.mode === "dark"
-                          ? "0 8px 25px rgba(227,0,0,0.2)"
-                          : "0 8px 25px rgba(0,0,0,0.12)",
-                      borderColor: theme.palette.secondary.main,
-                    },
-                  }}
-                >
-                  <Box
-                    sx={{
-                      display: "flex",
-                      alignItems: "center",
-                      mb: 2,
-                    }}
+                  <Typography
+                    variant="h6"
+                    sx={{ fontWeight: 700, fontSize: "1rem" }}
                   >
-                    <Typography
-                      variant="h4"
-                      sx={{
-                        mr: 1,
-                        fontSize: "1.5rem",
-                      }}
-                    >
-                      {category.icon}
-                    </Typography>
-                    <Typography
-                      variant="h6"
-                      sx={{
-                        color: "text.main",
-                        fontWeight: "bold",
-                        fontSize: "1.1rem",
-                      }}
-                    >
-                      {category.title}
-                    </Typography>
-                  </Box>
-                  <SkillChip itemList={category.skills} skillType="" />
-                </Paper>
-              </Grid>
-            ))}
+                    {category.title}
+                  </Typography>
+                </Stack>
+                <SkillChip itemList={category.skills} />
+              </Stack>
+            </Reveal>
           </Grid>
-        </Box>
-      }
-    />
+        ))}
+      </Grid>
+    </Box>
   );
 };
 

@@ -6,24 +6,13 @@ import {
   Typography,
   Stack,
   Chip,
-  Avatar,
-  Button,
   Box,
   useTheme,
   IconButton,
   Tooltip,
   Fade,
 } from "@mui/material";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import {
-  CalendarToday,
-  Person,
-  Launch,
-  Bookmark,
-  BookmarkBorder,
-  ArrowForward,
-  GitHub,
-} from "@mui/icons-material";
+import { Launch, ArrowForward, GitHub } from "@mui/icons-material";
 import Image from "next/image";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
@@ -32,7 +21,6 @@ const ProjectCard = ({ project }: { project: Project | any }) => {
   const theme = useTheme();
   const router = useRouter();
   const [isHovered, setIsHovered] = useState(false);
-  const [isBookmarked, setIsBookmarked] = useState(false);
 
   // Handle both Project and Post structures
   const image =
@@ -84,12 +72,6 @@ const ProjectCard = ({ project }: { project: Project | any }) => {
     router.push(`/projects/${slug}`);
   };
 
-  const handleBookmarkClick = (e: React.MouseEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setIsBookmarked(!isBookmarked);
-  };
-
   const handleExternalLink = (e: React.MouseEvent, url: string) => {
     e.preventDefault();
     e.stopPropagation();
@@ -103,35 +85,31 @@ const ProjectCard = ({ project }: { project: Project | any }) => {
       onMouseLeave={() => setIsHovered(false)}
       sx={{
         width: "100%",
-        minWidth: { xs: 280, sm: 300 },
-        maxWidth: { xs: 400, sm: 450 },
-        borderRadius: 4,
-        boxShadow: (theme) =>
-          theme.palette.mode === "dark"
-            ? "0 8px 32px rgba(0, 0, 0, 0.3)"
-            : "0 8px 32px rgba(0, 0, 0, 0.05)",
+        borderRadius: "20px",
+        boxShadow: "none",
         display: "flex",
         flexDirection: "column",
         height: "100%",
         background: (theme) =>
           theme.palette.mode === "dark"
-            ? "rgba(30, 30, 30, 0.6)"
-            : "rgba(255,255,255,0.8)",
-        backdropFilter: "blur(20px)",
-        border: (theme) =>
-          theme.palette.mode === "dark"
-            ? "1px solid rgba(255, 255, 255, 0.08)"
-            : "1px solid rgba(255, 255, 255, 0.5)",
+            ? "rgba(255, 255, 255, 0.02)"
+            : "rgba(255,255,255,0.7)",
+        backdropFilter: "blur(12px)",
+        border: (theme) => `1px solid ${theme.palette.divider}`,
         transition: "all 0.4s cubic-bezier(0.4, 0, 0.2, 1)",
         cursor: "pointer",
         position: "relative",
         overflow: "hidden",
         "&:hover": {
-          transform: "translateY(-8px)",
+          transform: "translateY(-6px)",
+          borderColor: (theme) =>
+            theme.palette.mode === "dark"
+              ? "rgba(255, 255, 255, 0.2)"
+              : "rgba(0, 0, 0, 0.2)",
           boxShadow: (theme) =>
             theme.palette.mode === "dark"
-              ? "0 20px 40px rgba(0, 0, 0, 0.4)"
-              : "0 20px 40px rgba(0, 0, 0, 0.1)",
+              ? "0 20px 40px rgba(0, 0, 0, 0.35)"
+              : "0 20px 40px rgba(0, 0, 0, 0.08)",
           "& .project-image": {
             transform: "scale(1.05)",
           },

@@ -3,34 +3,21 @@ import { Blog, Post } from "@/types";
 import {
   Card,
   CardContent,
-  CardMedia,
   Typography,
   Stack,
-  Divider,
   Chip,
   Avatar,
-  Button,
   Box,
   useTheme,
-  IconButton,
-  Tooltip,
-  Fade,
 } from "@mui/material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import {
-  CalendarToday,
-  Person,
-  ReadMore,
-  Bookmark,
-  BookmarkBorder,
-} from "@mui/icons-material";
+import { Person, ReadMore } from "@mui/icons-material";
 import Image from "next/image";
 import { useState } from "react";
 
 const BlogCard = ({ blog }: { blog: Post | Blog }) => {
   const theme = useTheme();
   const [isHovered, setIsHovered] = useState(false);
-  const [isBookmarked, setIsBookmarked] = useState(false);
 
   // Extract excerpt from content, removing markdown syntax
   const getExcerpt = (content: string, maxLength: number = 150) => {
@@ -55,12 +42,6 @@ const BlogCard = ({ blog }: { blog: Post | Blog }) => {
       : cleanContent;
   };
 
-  const handleBookmarkClick = (e: React.MouseEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setIsBookmarked(!isBookmarked);
-  };
-
   return (
     <Card
       onMouseEnter={() => setIsHovered(true)}
@@ -69,36 +50,32 @@ const BlogCard = ({ blog }: { blog: Post | Blog }) => {
       href={`/blog/${blog.slug}`}
       sx={{
         width: "100%",
-        minWidth: { xs: 280, sm: 300 },
-        maxWidth: { xs: 400, sm: 450 },
-        borderRadius: 4,
-        boxShadow: (theme) =>
-          theme.palette.mode === "dark"
-            ? "0 8px 32px rgba(0, 0, 0, 0.3)"
-            : "0 8px 32px rgba(0, 0, 0, 0.05)",
+        borderRadius: "20px",
+        boxShadow: "none",
         display: "flex",
         flexDirection: "column",
         height: "100%",
         background: (theme) =>
           theme.palette.mode === "dark"
-            ? "rgba(30, 30, 30, 0.6)"
-            : "rgba(255,255,255,0.8)",
-        backdropFilter: "blur(20px)",
-        border: (theme) =>
-          theme.palette.mode === "dark"
-            ? "1px solid rgba(255, 255, 255, 0.08)"
-            : "1px solid rgba(255, 255, 255, 0.5)",
+            ? "rgba(255, 255, 255, 0.02)"
+            : "rgba(255,255,255,0.7)",
+        backdropFilter: "blur(12px)",
+        border: (theme) => `1px solid ${theme.palette.divider}`,
         transition: "all 0.4s cubic-bezier(0.4, 0, 0.2, 1)",
         cursor: "pointer",
         position: "relative",
         textDecoration: "none", // Ensure link underline doesn't show
         overflow: "hidden",
         "&:hover": {
-          transform: "translateY(-8px)",
+          transform: "translateY(-6px)",
+          borderColor: (theme) =>
+            theme.palette.mode === "dark"
+              ? "rgba(255, 255, 255, 0.2)"
+              : "rgba(0, 0, 0, 0.2)",
           boxShadow: (theme) =>
             theme.palette.mode === "dark"
-              ? "0 20px 40px rgba(0, 0, 0, 0.4)"
-              : "0 20px 40px rgba(0, 0, 0, 0.1)",
+              ? "0 20px 40px rgba(0, 0, 0, 0.35)"
+              : "0 20px 40px rgba(0, 0, 0, 0.08)",
           "& .blog-image": {
             transform: "scale(1.05)",
           },
@@ -136,41 +113,6 @@ const BlogCard = ({ blog }: { blog: Post | Blog }) => {
           }}
         />
 
-        {/* Bookmark button */}
-        <Fade in={isHovered}>
-          <Box
-            sx={{
-              position: "absolute",
-              top: 12,
-              right: 12,
-            }}
-          >
-            <Tooltip title={isBookmarked ? "Remove bookmark" : "Bookmark"}>
-              <IconButton
-                onClick={handleBookmarkClick}
-                sx={{
-                  background: "rgba(0, 0, 0, 0.6)",
-                  backdropFilter: "blur(8px)",
-                  color: "white",
-                  "&:hover": {
-                    background: "rgba(0, 0, 0, 0.8)",
-                    transform: "scale(1.1)",
-                  },
-                  transition: "all 0.2s ease",
-                }}
-                size="small"
-              >
-                {isBookmarked ? (
-                  <Bookmark
-                    sx={{ fontSize: 18, color: theme.palette.secondary.main }}
-                  />
-                ) : (
-                  <BookmarkBorder sx={{ fontSize: 18 }} />
-                )}
-              </IconButton>
-            </Tooltip>
-          </Box>
-        </Fade>
       </Box>
 
       <CardContent

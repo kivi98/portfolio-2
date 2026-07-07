@@ -9,7 +9,6 @@ import React, {
 } from "react";
 import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
-// import Navigation from "./components/Navigation";
 import MobileNavigation from "./components/MobileNavigation";
 import WhoAmI from "./components/WhoAmI";
 import Education from "./components/Education";
@@ -101,25 +100,6 @@ const About = () => {
 
   return (
     <>
-      {/* Navigation positioned absolutely/fixed outside the main container - DESKTOP */}
-      {/* <Box
-        sx={{
-          display: { xs: "none", md: "block" },
-          position: "fixed",
-          top: "9.4rem",
-          left: "calc(50% - 32.5% - 280px)",
-          zIndex: 1000,
-          width: 200,
-          height: "fit-content",
-        }}
-      >
-        <Navigation
-          activeSection={activeSection}
-          sectionRefs={sectionRefs}
-          scrollToSection={scrollToSection}
-        />
-      </Box> */}
-
       {/* Floating Navigation (Mobile & Desktop) */}
       <Box
         sx={{

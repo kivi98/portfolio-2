@@ -13,7 +13,7 @@ import Link from "next/link";
 import { usePosts } from "@/lib/queries";
 import { ContentCategory, PostStatus } from "@/enum";
 import ProjectCard from "@/app/projects/components/ProjectCard";
-import SectionHeading from "./SectionHeading";
+import SectionHeading from "@/components/SectionHeading";
 import Reveal from "@/components/Reveal";
 
 const FeaturedProjects = () => {

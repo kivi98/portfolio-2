@@ -88,8 +88,7 @@ const MobileNavigation: React.FC<MobileNavigationProps> = ({
             }}
             label={text}
             onClick={() => scrollToSection(ref, 200)}
-            variant={isActive ? "filled" : "outlined"}
-            color={isActive ? "secondary" : "default"}
+            variant="outlined"
             icon={
               icon === "PersonIcon" ? (
                 <PersonIcon />
@@ -114,13 +113,26 @@ const MobileNavigation: React.FC<MobileNavigationProps> = ({
             sx={{
               fontWeight: isActive ? 600 : 400,
               transition: "all 0.3s ease",
+              color: isActive ? "text.primary" : "text.secondary",
+              backgroundColor: isActive
+                ? theme.palette.mode === "dark"
+                  ? "rgba(255, 255, 255, 0.08)"
+                  : "rgba(0, 0, 0, 0.06)"
+                : "transparent",
+              borderColor: isActive
+                ? theme.palette.mode === "dark"
+                  ? "rgba(255, 255, 255, 0.2)"
+                  : "rgba(0, 0, 0, 0.2)"
+                : theme.palette.divider,
               "& .MuiChip-icon": {
                 fontSize: "1.1rem", // Reduced icon size
+                color: isActive ? theme.palette.secondary.main : "inherit",
               },
               "&:hover": {
-                backgroundColor: isActive
-                  ? "secondary.main"
-                  : "transparentLevels.3",
+                backgroundColor:
+                  theme.palette.mode === "dark"
+                    ? "rgba(255, 255, 255, 0.06)"
+                    : "rgba(0, 0, 0, 0.04)",
               },
             }}
           />

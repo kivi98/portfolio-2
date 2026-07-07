@@ -43,6 +43,7 @@ const SkillBadges = () => {
   return (
     <OneColumnSection
       title={"Skill Badges"}
+      eyebrow="Toolbox"
       sectionDescription={
         <Box
           sx={{

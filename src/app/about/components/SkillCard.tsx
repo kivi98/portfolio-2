@@ -21,86 +21,73 @@ const SkillCard = ({
   return (
     <Box
       sx={(theme) => ({
-        pt: 2,
-        px: 2.5,
-        pb: 2.5,
-        width: { xs: "calc(100% - 0px)", md: "100%" },
+        p: 3,
+        width: "100%",
         height: "100%",
         display: "flex",
         flexDirection: "column",
-        justifyContent: "space-between",
         alignItems: "stretch",
-        borderRadius: "10px",
-        backgroundColor:
+        borderRadius: "20px",
+        background:
           theme.palette.mode === "dark"
-            ? "transparentLevels.3"
-            : "background.paper", // White cards in light mode
-        boxShadow:
-          theme.palette.mode === "dark"
-            ? "0px 0px 12px rgba(0,0,0,0.3)"
-            : "0px 2px 8px rgba(0,0,0,0.08)", // Softer shadow in light mode
-        border: "1px solid",
-        borderColor:
-          theme.palette.mode === "dark" ? "divider" : "rgba(0,0,0,0.08)", // Subtle border in light mode
-        marginInline: "2rem",
+            ? "rgba(255,255,255,0.02)"
+            : "rgba(255,255,255,0.7)",
+        backdropFilter: "blur(12px)",
+        border: `1px solid ${theme.palette.divider}`,
         position: "relative",
-        transition: "transform 0.3s ease, box-shadow 0.3s ease",
-        cursor: "pointer",
+        transition: "all 0.3s ease",
         ...(zoomInAnimation && {
           "&:hover": {
-            transform: "scale(1.05)",
+            transform: "translateY(-4px)",
+            borderColor:
+              theme.palette.mode === "dark"
+                ? "rgba(255,255,255,0.2)"
+                : "rgba(0,0,0,0.2)",
             boxShadow:
               theme.palette.mode === "dark"
-                ? "0px 0px 16px rgba(227,0,0,0.3)"
-                : "0px 4px 16px rgba(0,0,0,0.12)",
+                ? "0 16px 32px rgba(0,0,0,0.3)"
+                : "0 16px 32px rgba(0,0,0,0.08)",
           },
         }),
       })}
     >
-      <Stack
-        direction={"row"}
-        sx={{ justifyContent: "space-between", alignItems: "center" }}
+      <Typography
+        variant="h6"
+        sx={{ color: "text.primary", fontWeight: 700, lineHeight: 1.35 }}
       >
-        <Typography
-          variant={"h3"}
-          sx={{
-            color: "text.primary",
-            fontWeight: "bold",
-          }}
-        >
-          {title}
-        </Typography>
-      </Stack>
-      <Divider />
+        {title}
+      </Typography>
       <Stack
-        direction={"row"}
+        direction="row"
         sx={{
           justifyContent: "space-between",
           alignItems: "center",
+          mt: 0.75,
         }}
       >
         <Typography
-          variant={"subtitle1"}
-          sx={{ color: "secondary.light", fontSize: "0.75rem !important" }}
+          variant="subtitle2"
+          sx={{
+            color: "secondary.main",
+            fontSize: "0.8rem !important",
+            fontWeight: 600,
+          }}
         >
           {subtitle}
         </Typography>
         <Typography
-          variant={"subtitle2"}
-          sx={{ color: "text.secondary", fontSize: "0.75rem !important" }}
+          variant="subtitle2"
+          sx={{ color: "text.disabled", fontSize: "0.75rem !important" }}
         >
           {date}
         </Typography>
       </Stack>
-      <Divider sx={{ mb: 2 }} />
-      <Box sx={{ flexGrow: 1, overflowY: "auto" }}>
+      <Divider sx={{ my: 1.5 }} />
+      <Box sx={{ flexGrow: 1 }}>
         {description && (
           <Typography
-            variant={"body1"}
-            sx={{
-              color: "text.secondary",
-              lineHeight: 1.6,
-            }}
+            variant="body2"
+            sx={{ color: "text.secondary", lineHeight: 1.7 }}
           >
             {description}
           </Typography>
@@ -114,15 +101,11 @@ const SkillCard = ({
               listStyle: "disc",
               "& li": {
                 color: "text.secondary",
-                mb: 1.5,
+                mb: 1.25,
                 paddingRight: 1,
-                "&:last-child": {
-                  mb: 0,
-                },
-                "& p": {
-                  margin: 0,
-                  lineHeight: 1.6,
-                },
+                fontSize: "0.875rem",
+                "&:last-child": { mb: 0 },
+                "& p": { margin: 0, lineHeight: 1.7 },
               },
             }}
           >

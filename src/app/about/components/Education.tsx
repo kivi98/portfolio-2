@@ -19,6 +19,7 @@ const Education = () => {
   return (
     <TwoColumnSection
       title={"Education"}
+      eyebrow="Learning"
       rightComponent={
         <Stack
           direction={"column"}
@@ -48,6 +49,12 @@ const Education = () => {
           height="400px"
           autoTransition={true}
           transitionInterval={3000}
+          sx={{
+            borderRadius: "20px",
+            overflow: "hidden",
+            border: "1px solid",
+            borderColor: "divider",
+          }}
         />
       }
     />

@@ -37,42 +37,32 @@ const WhoAmI = () => {
           autoTransition={true}
           transitionInterval={3000}
           sx={{
-            borderRadius: 2,
+            borderRadius: "20px",
             overflow: "hidden",
-            boxShadow: "0 8px 16px rgba(0,0,0,0.2)",
+            border: "1px solid",
+            borderColor: "divider",
           }}
           imageSx={{
             height: "auto",
-            marginTop: "-1.5rem",
           }}
         />
       }
       leftComponent={
         <Typography
           variant={"body1"}
-          sx={{
-            "&::first-letter": {
-              fontSize: "3rem",
-              fontWeight: "bold",
-              color: "secondary.main",
-              float: "left",
-              lineHeight: "1",
-              padding: "0.2rem",
-              marginRight: "0.2rem",
-              textShadow: "2px 2px 4px rgba(0,0,0,0.3)",
-            },
+          sx={(theme) => ({
             fontSize: { xs: 15, md: 17 },
-            lineHeight: 1.8,
-            color: "text.light",
-            textAlign: "justify",
-            p: 3,
-            borderRadius: 2,
-            backgroundColor: "transparentLevels.3",
-            boxShadow: "0 4px 8px rgba(0,0,0,0.1)",
-            position: "relative",
-            border: "1px solid",
-            borderColor: "transparentLevelsWhite.1",
-          }}
+            lineHeight: 1.9,
+            color: "text.secondary",
+            p: { xs: 3, md: 4 },
+            borderRadius: "20px",
+            background:
+              theme.palette.mode === "dark"
+                ? "rgba(255,255,255,0.02)"
+                : "rgba(255,255,255,0.7)",
+            backdropFilter: "blur(12px)",
+            border: `1px solid ${theme.palette.divider}`,
+          })}
         >
           I&#39;m an aspiring software engineer with a passion for crafting
           innovative solutions to real-world challenges. With experience in web,

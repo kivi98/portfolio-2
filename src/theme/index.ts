@@ -1,7 +1,4 @@
 import { createTheme, Theme } from "@mui/material/styles";
-import "@fontsource/ubuntu/400.css";
-import "@fontsource/roboto/300.css";
-import "@fontsource/open-sans/500.css";
 
 export type ColorMode = "light" | "dark";
 

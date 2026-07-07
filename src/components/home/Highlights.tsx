@@ -4,7 +4,7 @@ import { Box, Grid, Stack, Typography, useTheme } from "@mui/material";
 import CodeIcon from "@mui/icons-material/Code";
 import StorageIcon from "@mui/icons-material/Storage";
 import CloudQueueIcon from "@mui/icons-material/CloudQueue";
-import SectionHeading from "./SectionHeading";
+import SectionHeading from "@/components/SectionHeading";
 import Reveal from "@/components/Reveal";
 
 const highlights = [

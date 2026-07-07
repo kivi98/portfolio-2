@@ -32,16 +32,27 @@ export const CredlyBadgeCard: React.FC<CredlyBadgeCardProps> = ({ badge }) => {
         display: "flex",
         flexDirection: "column",
         border: "1px solid",
-        borderColor: "transparentLevelsWhite.1",
+        borderColor: "divider",
         transition: "all 0.3s ease-in-out",
         boxShadow: "none",
         "&:hover": {
-          transform: "translateY(-8px)",
-          boxShadow: 6,
+          transform: "translateY(-6px)",
+          borderColor:
+            theme.palette.mode === "dark"
+              ? "rgba(255,255,255,0.2)"
+              : "rgba(0,0,0,0.2)",
+          boxShadow:
+            theme.palette.mode === "dark"
+              ? "0 16px 32px rgba(0,0,0,0.3)"
+              : "0 16px 32px rgba(0,0,0,0.08)",
         },
         position: "relative",
-        backgroundColor: "transparentLevels.3",
-        borderRadius: 2,
+        background:
+          theme.palette.mode === "dark"
+            ? "rgba(255,255,255,0.02)"
+            : "rgba(255,255,255,0.7)",
+        backdropFilter: "blur(12px)",
+        borderRadius: "20px",
       }}
     >
       <Link

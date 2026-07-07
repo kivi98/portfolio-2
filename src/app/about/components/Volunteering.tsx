@@ -1,8 +1,8 @@
-import { Stack, Typography, Box } from "@mui/material";
-import { useState, useEffect, useRef, useCallback } from "react";
-import TwoColumnSection from "./TwoColumnSection";
+import { Grid, Typography } from "@mui/material";
+import OneColumnSection from "./OneColumnSection";
 import KImageBox from "./KImageBox";
 import SkillCard from "./SkillCard";
+import Reveal from "@/components/Reveal";
 
 const imageArray = [
   {
@@ -79,8 +79,8 @@ const skillCards = [
     date: "2023 - 2024",
     listDescription: (
       <>
-        <li style={{ color: "text.dark" }}>
-          <Typography variant={"caption"} color={"text.dark"} sx={{ p: 0 }}>
+        <li>
+          <Typography variant={"caption"} sx={{ p: 0 }}>
             Vice Chairperson (2023 - Present): Appointed as Vice Chairperson,
             leading strategic vision, program development, and mentoring to
             advance the mission of IEEE Innovation Nation Sri Lanka.
@@ -101,8 +101,8 @@ const skillCards = [
     date: "2023 - 2024",
     listDescription: (
       <>
-        <li style={{ color: "text.dark" }}>
-          <Typography variant={"caption"} color={"text.dark"} sx={{ p: 0 }}>
+        <li>
+          <Typography variant={"caption"} sx={{ p: 0 }}>
             Vice Chairperson (2023 - Present): Elected as Vice Chairperson,
             providing strategic leadership and representing member interests,
             demonstrating trust and leadership prowess.
@@ -128,8 +128,8 @@ const skillCards = [
     subtitle: "Co-Director, Community Service",
     date: "2022 - 2023",
     listDescription: (
-      <li style={{ color: "text.dark" }}>
-        <Typography variant={"caption"} color={"text.dark"} sx={{ p: 0 }}>
+      <li>
+        <Typography variant={"caption"} sx={{ p: 0 }}>
           As the Community Services Director of the Charter Rotaract Club at the
           University of Colombo School of Computing, I played a pivotal role in
           advancing the club&apos;s mission to serve the community and make a
@@ -143,8 +143,8 @@ const skillCards = [
     subtitle: "Executives Committee Member",
     date: "2022 - 2023",
     listDescription: (
-      <li style={{ color: "text.dark" }}>
-        <Typography variant={"caption"} color={"text.dark"} sx={{ p: 0 }}>
+      <li>
+        <Typography variant={"caption"} sx={{ p: 0 }}>
           Serving as an Executive Committee Member for the &quot;Pahasara&quot;
           Official Media Unit at the University of Colombo School of Computing,
           I played a vital role in the organization&apos;s mission to capture
@@ -158,8 +158,8 @@ const skillCards = [
     subtitle: "Union Committee Member/Batch Representative",
     date: "2021 - 2022",
     listDescription: (
-      <li style={{ color: "text.dark" }}>
-        <Typography variant={"caption"} color={"text.dark"} sx={{ p: 0 }}>
+      <li>
+        <Typography variant={"caption"} sx={{ p: 0 }}>
           Acted as an active member and batch representative within the student
           union, advocating for the interests and concerns of my peers,
           organizing events, and fostering a sense of community within the
@@ -171,124 +171,45 @@ const skillCards = [
 ];
 
 const Volunteering = () => {
-  const [currentCardIndex, setCurrentCardIndex] = useState(0);
-  const [isPaused, setIsPaused] = useState(false);
-  const stackRef = useRef<HTMLDivElement>(null);
-
-  const nextCard = useCallback(() => {
-    setCurrentCardIndex((prevIndex) => (prevIndex + 1) % skillCards.length);
-  }, []);
-
-  // Auto-scroll effect
-  useEffect(() => {
-    if (isPaused) return;
-
-    const interval = setInterval(() => {
-      nextCard();
-    }, 4000); // Scroll every 4 seconds
-
-    return () => clearInterval(interval);
-  }, [nextCard, isPaused]);
-
-  // Scroll to current card
-  useEffect(() => {
-    if (stackRef.current) {
-      const cardHeight = stackRef.current.scrollHeight / skillCards.length;
-      stackRef.current.scrollTo({
-        top: currentCardIndex * cardHeight,
-        behavior: "smooth",
-      });
-    }
-  }, [currentCardIndex]);
-
   return (
-    <TwoColumnSection
+    <OneColumnSection
       title={"Volunteering"}
-      rightComponent={
-        <Box
-          sx={{
-            position: "relative",
-            borderRadius: "10px",
-            overflow: "hidden",
-          }}
-        >
-          <Stack
-            ref={stackRef}
-            direction={"column"}
-            spacing={2}
-            onMouseEnter={() => setIsPaused(true)}
-            onMouseLeave={() => setIsPaused(false)}
-            onFocus={() => setIsPaused(true)}
-            onBlur={() => setIsPaused(false)}
+      eyebrow="Community"
+      sectionDescription={
+        <Reveal sx={{ width: "100%" }}>
+          <KImageBox
+            height="400px"
+            imageArray={imageArray}
+            autoTransition={true}
+            transitionInterval={3000}
             sx={{
-              alignItems: "stretch",
-              maxHeight: "65vh",
-              overflowY: "auto",
-              scrollbarWidth: "none",
-              msOverflowStyle: "none",
-              "&::-webkit-scrollbar": {
-                display: "none",
-              },
-              position: "relative",
+              borderRadius: "20px",
+              overflow: "hidden",
+              border: "1px solid",
+              borderColor: "divider",
             }}
-          >
-            {skillCards.map((card, index) => (
-              <SkillCard
-                key={index}
-                title={card.title}
-                subtitle={card.subtitle}
-                date={card.date}
-                listDescription={card.listDescription}
-              />
-            ))}
-          </Stack>
-
-          <Box
-            sx={{
-              position: "absolute",
-              right: 8,
-              top: "50%",
-              transform: "translateY(-50%)",
-              display: "flex",
-              flexDirection: "column",
-              gap: 1,
+            imageSx={{
+              objectFit: "cover",
             }}
-          >
-            {skillCards.map((_, index) => (
-              <Box
-                key={index}
-                onClick={() => setCurrentCardIndex(index)}
-                sx={{
-                  width: 8,
-                  height: 8,
-                  borderRadius: "50%",
-                  backgroundColor:
-                    index === currentCardIndex
-                      ? "primary.main"
-                      : "rgba(0, 0, 0, 0.3)",
-                  cursor: "pointer",
-                  "&:hover": {
-                    backgroundColor:
-                      index === currentCardIndex
-                        ? "primary.main"
-                        : "rgba(0, 0, 0, 0.6)",
-                  },
-                }}
-              />
-            ))}
-          </Box>
-        </Box>
+          />
+        </Reveal>
       }
-      leftComponent={
-        <KImageBox
-          height="540px"
-          imageArray={imageArray}
-          autoTransition={true}
-          transitionInterval={3000}
-          imageSx={{
-            objectFit: "cover",
-          }}
-        />
+      sectionBody={
+        <Grid container spacing={3}>
+          {skillCards.map((card, index) => (
+            <Grid item xs={12} md={6} key={index}>
+              <Reveal delay={(index % 2) * 0.1} sx={{ height: "100%" }}>
+                <SkillCard
+                  title={card.title}
+                  subtitle={card.subtitle}
+                  date={card.date}
+                  listDescription={card.listDescription}
+                  zoomInAnimation
+                />
+              </Reveal>
+            </Grid>
+          ))}
+        </Grid>
       }
     />
   );

@@ -1,46 +1,7 @@
-import { Box, Stack } from "@mui/material";
-import { useState, useEffect, useRef, useCallback } from "react";
-import TwoColumnSection from "./TwoColumnSection";
-import KImageBox from "./KImageBox";
+import { Grid } from "@mui/material";
+import OneColumnSection from "./OneColumnSection";
 import SkillCard from "./SkillCard";
-
-const imageArray = [
-  {
-    id: 1,
-    src: "/certifications/cert-1.jpeg",
-    alt: "cert-1",
-  },
-  {
-    id: 2,
-    src: "/certifications/cert-2.png",
-    alt: "cert-1",
-  },
-  {
-    id: 3,
-    src: "/certifications/cert-3.png",
-    alt: "cert-1",
-  },
-  {
-    id: 4,
-    src: "/certifications/cert-4.png",
-    alt: "cert-1",
-  },
-  {
-    id: 5,
-    src: "/certifications/cert-5.png",
-    alt: "cert-1",
-  },
-  {
-    id: 6,
-    src: "/certifications/cert-6.png",
-    alt: "cert-1",
-  },
-  {
-    id: 7,
-    src: "/certifications/cert-7.png",
-    alt: "cert-1",
-  },
-];
+import Reveal from "@/components/Reveal";
 
 const skillCards = [
   {
@@ -123,128 +84,26 @@ const skillCards = [
 ];
 
 const Certifications = () => {
-  const [currentCardIndex, setCurrentCardIndex] = useState(0);
-  const [isPaused, setIsPaused] = useState(false);
-  const stackRef = useRef<HTMLDivElement>(null);
-
-  const nextCard = useCallback(() => {
-    setCurrentCardIndex((prevIndex) => (prevIndex + 1) % skillCards.length);
-  }, []);
-
-  // Auto-scroll effect
-  useEffect(() => {
-    if (isPaused) return;
-
-    const interval = setInterval(() => {
-      nextCard();
-    }, 4000); // Scroll every 4 seconds
-
-    return () => clearInterval(interval);
-  }, [nextCard, isPaused]);
-
-  // Scroll to current card
-  useEffect(() => {
-    if (stackRef.current) {
-      const cardHeight = stackRef.current.scrollHeight / skillCards.length;
-      stackRef.current.scrollTo({
-        top: currentCardIndex * cardHeight,
-        behavior: "smooth",
-      });
-    }
-  }, [currentCardIndex]);
-
   return (
-    <TwoColumnSection
+    <OneColumnSection
       title={"Certifications"}
-      rightComponent={
-        <KImageBox
-          height="540px"
-          imageArray={imageArray}
-          autoTransition={true}
-          transitionInterval={3000}
-          imageSx={{
-            objectFit: "contain",
-          }}
-        />
-      }
-      leftComponent={
-        <Box
-          sx={{
-            position: "relative",
-            borderRadius: "10px",
-            overflow: "hidden",
-          }}
-        >
-          <Stack
-            ref={stackRef}
-            direction={"column"}
-            spacing={2}
-            onMouseEnter={() => setIsPaused(true)}
-            onMouseLeave={() => setIsPaused(false)}
-            onFocus={() => setIsPaused(true)}
-            onBlur={() => setIsPaused(false)}
-            sx={{
-              alignItems: "stretch",
-              maxHeight: "65vh",
-              overflowY: "auto",
-              scrollbarWidth: "none", // Firefox
-              msOverflowStyle: "none", // IE and Edge
-              "&::-webkit-scrollbar": {
-                display: "none", // Chrome, Safari, Opera
-              },
-              position: "relative",
-            }}
-          >
-            {skillCards.map((card, index) => (
-              <SkillCard
-                key={index}
-                title={card.title}
-                subtitle={card.subtitle}
-                date={card.date}
-                description={card.description}
-              />
-            ))}
-          </Stack>
-
-          {skillCards.length > 1 && (
-            <>
-              <Box
-                sx={{
-                  position: "absolute",
-                  right: 8,
-                  top: "50%",
-                  transform: "translateY(-50%)",
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: 1,
-                }}
-              >
-                {skillCards.map((_, index) => (
-                  <Box
-                    key={index}
-                    onClick={() => setCurrentCardIndex(index)}
-                    sx={{
-                      width: 8,
-                      height: 8,
-                      borderRadius: "50%",
-                      backgroundColor:
-                        index === currentCardIndex
-                          ? "primary.main"
-                          : "rgba(0, 0, 0, 0.3)",
-                      cursor: "pointer",
-                      "&:hover": {
-                        backgroundColor:
-                          index === currentCardIndex
-                            ? "primary.main"
-                            : "rgba(0, 0, 0, 0.6)",
-                      },
-                    }}
-                  />
-                ))}
-              </Box>
-            </>
-          )}
-        </Box>
+      eyebrow="Credentials"
+      sectionBody={
+        <Grid container spacing={3}>
+          {skillCards.map((card, index) => (
+            <Grid item xs={12} sm={6} md={4} key={index}>
+              <Reveal delay={(index % 3) * 0.1} sx={{ height: "100%" }}>
+                <SkillCard
+                  title={card.title}
+                  subtitle={card.subtitle}
+                  date={card.date}
+                  description={card.description}
+                  zoomInAnimation
+                />
+              </Reveal>
+            </Grid>
+          ))}
+        </Grid>
       }
     />
   );

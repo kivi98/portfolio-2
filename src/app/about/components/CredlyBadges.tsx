@@ -25,15 +25,7 @@ const CredlyBadges: React.FC = () => {
 
   const renderContent = () => {
     if (isLoading) {
-      return (
-        // <Grid container spacing={3}>
-        //   {[1, 2, 3, 4, 5, 6].map((item) => (
-        //     <Grid item xs={12} sm={6} md={4} key={item}>
-        <CredlyBadgeCardSkeleton />
-        // {/*    </Grid>*/}
-        // {/*  ))}*/}
-        // {/*</Grid>*/}
-      );
+      return <CredlyBadgeCardSkeleton />;
     }
 
     if (isError) {
@@ -58,6 +50,7 @@ const CredlyBadges: React.FC = () => {
   return (
     <OneColumnSection
       title="Credly Badges"
+      eyebrow="Verified"
       sectionDescription={
         <Box
           sx={{
