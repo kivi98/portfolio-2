@@ -50,7 +50,7 @@ const Education = () => {
           autoTransition={true}
           transitionInterval={3000}
           sx={{
-            borderRadius: "20px",
+            borderRadius: "3px",
             overflow: "hidden",
             border: "1px solid",
             borderColor: "divider",

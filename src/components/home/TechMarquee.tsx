@@ -10,7 +10,6 @@ import { allSkills } from "@/features/skills.config";
  */
 const TechMarquee = () => {
   const theme = useTheme();
-  const isDark = theme.palette.mode === "dark";
 
   const renderChips = (ariaHidden: boolean) =>
     allSkills.map((skill) => (
@@ -21,29 +20,24 @@ const TechMarquee = () => {
         alignItems="center"
         spacing={1}
         sx={{
-          px: 2.5,
-          py: 1,
-          borderRadius: "50px",
+          px: 2,
+          py: 0.9,
+          borderRadius: "2px",
           border: `1px solid ${theme.palette.divider}`,
-          background: isDark ? "rgba(255,255,255,0.03)" : "rgba(0,0,0,0.02)",
+          background: "transparent",
           whiteSpace: "nowrap",
           flexShrink: 0,
-          transition: "border-color 0.2s",
-          "&:hover": { borderColor: skill.color },
+          transition: "border-color 0.2s, color 0.2s",
+          color: "text.secondary",
+          "&:hover": {
+            borderColor: theme.palette.text.primary,
+            color: theme.palette.text.primary,
+          },
         }}
       >
-        <Box
-          sx={{
-            width: 8,
-            height: 8,
-            borderRadius: "50%",
-            backgroundColor: skill.color,
-            flexShrink: 0,
-          }}
-        />
         <Typography
-          variant="body2"
-          sx={{ fontWeight: 600, color: "text.secondary" }}
+          variant="overline"
+          sx={{ color: "inherit", lineHeight: 1 }}
         >
           {skill.label}
         </Typography>
@@ -51,14 +45,17 @@ const TechMarquee = () => {
     ));
 
   return (
-    <Box sx={{ py: { xs: 4, md: 6 } }}>
+    <Box
+      sx={{
+        py: { xs: 4, md: 6 },
+        borderTop: `1px solid ${theme.palette.divider}`,
+      }}
+    >
       <Typography
         variant="overline"
         sx={{
           display: "block",
-          textAlign: "center",
           color: "text.disabled",
-          letterSpacing: 2,
           mb: 3,
         }}
       >

@@ -61,22 +61,19 @@ const socialLinks = [
 
 const inputSx = {
   "& .MuiInputBase-root": {
-    borderRadius: "14px",
-    backdropFilter: "blur(8px)",
+    borderRadius: "2px",
   },
 };
 
 const Contact = () => {
   const theme = useTheme();
-  const isDark = theme.palette.mode === "dark";
 
   const cardSx = {
-    background: isDark ? "rgba(255,255,255,0.02)" : "rgba(255,255,255,0.7)",
-    backdropFilter: "blur(12px)",
+    background: theme.palette.background.paper,
     border: `1px solid ${theme.palette.divider}`,
-    borderRadius: "20px",
+    borderRadius: "3px",
     boxShadow: "none",
-    transition: "all 0.3s ease",
+    transition: "border-color 0.3s ease, transform 0.3s ease",
   };
 
   const [formData, setFormData] = useState<ContactFormData>({
@@ -183,9 +180,7 @@ const Contact = () => {
                     ...cardSx,
                     "&:hover": {
                       transform: "translateY(-3px)",
-                      borderColor: isDark
-                        ? "rgba(255,255,255,0.2)"
-                        : "rgba(0,0,0,0.2)",
+                      borderColor: theme.palette.text.primary,
                     },
                   }}
                 >
@@ -233,19 +228,15 @@ const Contact = () => {
                       sx={{
                         width: 50,
                         height: 50,
-                        borderRadius: "14px",
+                        borderRadius: "2px",
                         color: "text.secondary",
                         border: `1px solid ${theme.palette.divider}`,
-                        background: isDark
-                          ? "rgba(255,255,255,0.02)"
-                          : "rgba(255,255,255,0.7)",
+                        background: theme.palette.background.paper,
                         transition: "all 0.3s ease",
                         "&:hover": {
                           color: "text.primary",
                           transform: "translateY(-3px)",
-                          borderColor: isDark
-                            ? "rgba(255,255,255,0.25)"
-                            : "rgba(0,0,0,0.25)",
+                          borderColor: theme.palette.text.primary,
                         },
                       }}
                     >
@@ -336,14 +327,11 @@ const Contact = () => {
                       sx={{
                         px: 4,
                         py: 1.4,
-                        borderRadius: "50px",
-                        fontWeight: 700,
+                        fontWeight: 600,
                         textTransform: "none",
-                        fontSize: "1rem",
-                        transition: "all 0.3s ease",
-                        "&:hover": {
-                          transform: "translateY(-2px)",
-                        },
+                        fontSize: "0.95rem",
+                        transition: "opacity 0.2s ease",
+                        "&:hover": { opacity: 0.9 },
                       }}
                     >
                       {isSubmitting ? "Sending..." : "Send Message"}

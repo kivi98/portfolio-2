@@ -1,10 +1,5 @@
 import type { Metadata } from "next";
-import {
-  Outfit,
-  Plus_Jakarta_Sans,
-  JetBrains_Mono,
-  Playfair_Display,
-} from "next/font/google";
+import { Fraunces, Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import "../styles/syntax-highlighting.css";
 import "../styles/mdx-typography.css";
@@ -12,32 +7,26 @@ import ThemeProvider from "@/theme/ThemeProvider";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import HeaderBlurOverlay from "@/components/HeaderBlurOverlay";
-import ParticleBackground from "@/components/ParticleBackground";
 import Providers from "@/components/Providers";
 
-// Canva-style display font for headings
-const outfit = Outfit({
-  variable: "--font-outfit",
+// Editorial serif display — the signature voice for headings.
+const fraunces = Fraunces({
+  variable: "--font-serif",
+  subsets: ["latin"],
+  display: "swap",
+  style: ["normal", "italic"],
+});
+
+// Clean grotesque for body copy and UI.
+const inter = Inter({
+  variable: "--font-sans",
   subsets: ["latin"],
   display: "swap",
 });
 
-// Modern sans-serif for body text
-const plusJakartaSans = Plus_Jakarta_Sans({
-  variable: "--font-plus-jakarta",
-  subsets: ["latin"],
-  display: "swap",
-});
-
+// Mono utility face — labels, section numbers, code.
 const jetbrainsMono = JetBrains_Mono({
-  variable: "--font-jetbrains-mono",
-  subsets: ["latin"],
-  display: "swap",
-});
-
-// Elegant serif for headings/names
-const playfairDisplay = Playfair_Display({
-  variable: "--font-playfair-display",
+  variable: "--font-mono",
   subsets: ["latin"],
   display: "swap",
 });
@@ -82,7 +71,7 @@ export const metadata: Metadata = {
       { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
     ],
     other: [
-      { rel: "mask-icon", url: "/safari-pinned-tab.svg", color: "#E30000" },
+      { rel: "mask-icon", url: "/safari-pinned-tab.svg", color: "#C2410C" },
     ],
   },
   manifest: "/site.webmanifest",
@@ -96,11 +85,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${outfit.variable} ${plusJakartaSans.variable} ${jetbrainsMono.variable} ${playfairDisplay.variable}`}
+        className={`${fraunces.variable} ${inter.variable} ${jetbrainsMono.variable}`}
       >
         <Providers>
           <ThemeProvider>
-            <ParticleBackground />
             <Header />
             <HeaderBlurOverlay />
             {children}

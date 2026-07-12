@@ -72,18 +72,13 @@ const Skills = () => {
                 sx={{
                   height: "100%",
                   p: 3,
-                  borderRadius: "20px",
-                  background: isDark
-                    ? "rgba(255,255,255,0.02)"
-                    : "rgba(255,255,255,0.7)",
-                  backdropFilter: "blur(12px)",
+                  borderRadius: "3px",
+                  background: theme.palette.background.paper,
                   border: `1px solid ${theme.palette.divider}`,
-                  transition: "all 0.3s ease",
+                  transition: "border-color 0.3s ease, transform 0.3s ease",
                   "&:hover": {
                     transform: "translateY(-4px)",
-                    borderColor: isDark
-                      ? "rgba(255,255,255,0.2)"
-                      : "rgba(0,0,0,0.2)",
+                    borderColor: theme.palette.text.primary,
                   },
                 }}
               >
@@ -92,16 +87,16 @@ const Skills = () => {
                     sx={{
                       width: 36,
                       height: 36,
-                      borderRadius: "10px",
+                      borderRadius: "2px",
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
                       color: "secondary.main",
                       background: isDark
-                        ? "rgba(227,0,0,0.1)"
-                        : "rgba(211,47,47,0.08)",
+                        ? "rgba(228,96,46,0.12)"
+                        : "rgba(194,65,12,0.08)",
                       border: `1px solid ${
-                        isDark ? "rgba(227,0,0,0.25)" : "rgba(211,47,47,0.2)"
+                        isDark ? "rgba(228,96,46,0.28)" : "rgba(194,65,12,0.2)"
                       }`,
                     }}
                   >

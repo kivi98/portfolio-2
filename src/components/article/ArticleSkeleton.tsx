@@ -28,7 +28,7 @@ const ArticleSkeleton = () => (
     </Stack>
     <Skeleton
       variant="rounded"
-      sx={{ borderRadius: "20px", height: { xs: 300, md: 460 }, mb: 6 }}
+      sx={{ borderRadius: "3px", height: { xs: 300, md: 460 }, mb: 6 }}
     />
     <Box
       sx={{
@@ -45,7 +45,7 @@ const ArticleSkeleton = () => (
       <Skeleton
         variant="rounded"
         height={280}
-        sx={{ borderRadius: "20px", display: { xs: "none", lg: "block" } }}
+        sx={{ borderRadius: "3px", display: { xs: "none", lg: "block" } }}
       />
     </Box>
   </Container>

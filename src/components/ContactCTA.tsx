@@ -1,131 +1,109 @@
 "use client";
 
 import React from "react";
-import {
-  Box,
-  Typography,
-  Stack,
-  Button,
-  useTheme,
-  Divider,
-} from "@mui/material";
-import EmailIcon from "@mui/icons-material/Email";
-import PhoneIcon from "@mui/icons-material/Phone";
-import SendIcon from "@mui/icons-material/Send";
+import { Box, Typography, Stack, Button } from "@mui/material";
+import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import Link from "next/link";
 
-const ContactCTA = () => {
-  const theme = useTheme();
+const DETAILS = [
+  { label: "Email", value: "kiviamarakoon@gmail.com", href: "mailto:kiviamarakoon@gmail.com" },
+  { label: "Phone", value: "+94 71 932 0164", href: "tel:+94719320164" },
+];
 
+const ContactCTA = () => {
   return (
     <Box
+      component="section"
       sx={{
         width: "100%",
-        // mt: 8,
-        pt: 8,
-        pb: 4,
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        textAlign: "center",
-        borderTop: `1px solid ${theme.palette.divider}`,
+        pt: { xs: 6, md: 9 },
+        pb: { xs: 2, md: 4 },
+        borderTop: (theme) => `1px solid ${theme.palette.divider}`,
       }}
     >
-      <Typography
-        variant="h3"
-        sx={{
-          fontWeight: 800,
-          fontSize: { xs: "2rem", md: "3rem" },
-          background:
-            theme.palette.mode === "dark"
-              ? "linear-gradient(135deg, #FFF 0%, #AAA 100%)"
-              : "linear-gradient(135deg, #333 0%, #666 100%)",
-          WebkitBackgroundClip: "text",
-          WebkitTextFillColor: "transparent",
-          mb: 3,
-        }}
-      >
-        Ready to Collaborate?
+      <Typography variant="overline" sx={{ color: "secondary.main" }}>
+        03 — Contact
       </Typography>
 
       <Typography
-        variant="h6"
-        color="text.secondary"
-        sx={{ mb: 6, maxWidth: "700px", fontWeight: 400 }}
-      >
-        I&apos;m always open to discussing new projects, creative ideas, or
-        opportunities to be part of your visions. Let&apos;s create something
-        amazing together.
-      </Typography>
-
-      {/* Button first, then details below for a cleaner hierarchy */}
-      <Button
-        component={Link}
-        href="/contact"
-        variant="contained"
-        color="secondary"
-        size="large"
-        endIcon={<SendIcon />}
+        variant="h2"
         sx={{
-          borderRadius: "50px",
-          px: 5,
-          py: 1.5,
-          fontWeight: 700,
-          textTransform: "none",
-          fontSize: "1.1rem",
-          mb: 6,
-          boxShadow: theme.shadows[4],
-          "&:hover": {
-            boxShadow: theme.shadows[8],
-            transform: "translateY(-2px)",
-          },
-          transition: "all 0.2s ease-in-out",
+          mt: 2,
+          fontSize: { xs: "2.2rem", md: "3.25rem" },
+          maxWidth: 720,
         }}
       >
-        Get in Touch
-      </Button>
+        Let&apos;s build something{" "}
+        <Box
+          component="em"
+          sx={{ color: "secondary.main", fontStyle: "italic" }}
+        >
+          worth shipping.
+        </Box>
+      </Typography>
 
-      {/* Contact Details - Minimalist Row */}
+      <Typography
+        variant="body1"
+        sx={{ mt: 3, maxWidth: 560, color: "text.secondary" }}
+      >
+        I&apos;m open to new projects, collaborations and opportunities to be
+        part of your team. Tell me what you&apos;re working on.
+      </Typography>
+
       <Stack
-        direction={{ xs: "column", sm: "row" }}
-        spacing={{ xs: 3, sm: 6 }}
-        alignItems="center"
-        justifyContent="center"
+        direction={{ xs: "column", md: "row" }}
+        spacing={{ xs: 4, md: 6 }}
+        alignItems={{ xs: "flex-start", md: "center" }}
+        sx={{ mt: { xs: 5, md: 6 } }}
       >
-        <Stack direction="row" alignItems="center" spacing={1.5}>
-          <EmailIcon color="secondary" sx={{ fontSize: "1.5rem" }} />
-          <Typography
-            variant="body1"
-            fontWeight={500}
-            color="text.primary"
-            sx={{
-              "&:hover": { color: "secondary.main" },
-              transition: "color 0.2s",
-            }}
-          >
-            kiviamarakoon@gmail.com
-          </Typography>
-        </Stack>
+        <Button
+          component={Link}
+          href="/contact"
+          disableRipple
+          endIcon={<ArrowForwardIcon />}
+          sx={{
+            backgroundColor: "primary.main",
+            color: "primary.contrastText",
+            px: 3.5,
+            py: 1.4,
+            fontWeight: 600,
+            fontSize: "0.95rem",
+            transition: "opacity 0.2s ease",
+            "&:hover": { backgroundColor: "primary.main", opacity: 0.85 },
+          }}
+        >
+          Start a conversation
+        </Button>
 
-        <Divider
-          orientation="vertical"
-          flexItem
-          sx={{ display: { xs: "none", sm: "block" } }}
-        />
-
-        <Stack direction="row" alignItems="center" spacing={1.5}>
-          <PhoneIcon color="secondary" sx={{ fontSize: "1.5rem" }} />
-          <Typography
-            variant="body1"
-            fontWeight={500}
-            color="text.primary"
-            sx={{
-              "&:hover": { color: "secondary.main" },
-              transition: "color 0.2s",
-            }}
-          >
-            +94 71 932 0164
-          </Typography>
+        <Stack
+          direction={{ xs: "column", sm: "row" }}
+          spacing={{ xs: 2, sm: 5 }}
+        >
+          {DETAILS.map((d) => (
+            <Box key={d.label}>
+              <Typography
+                variant="overline"
+                sx={{ color: "text.disabled", display: "block" }}
+              >
+                {d.label}
+              </Typography>
+              <Typography
+                component="a"
+                href={d.href}
+                sx={{
+                  mt: 0.5,
+                  display: "inline-block",
+                  fontWeight: 500,
+                  color: "text.primary",
+                  borderBottom: "1px solid transparent",
+                  transition: "border-color 0.2s",
+                  "&:hover": { borderBottomColor: "text.primary" },
+                }}
+              >
+                {d.value}
+              </Typography>
+            </Box>
+          ))}
         </Stack>
       </Stack>
     </Box>

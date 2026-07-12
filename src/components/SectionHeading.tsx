@@ -6,50 +6,78 @@ interface SectionHeadingProps {
   eyebrow: string;
   title: string;
   subtitle?: string;
+  /** Editorial section number, e.g. "01". Rendered in rust before the eyebrow. */
+  index?: string;
   align?: "center" | "left";
 }
 
+/**
+ * Editorial section opener: a hairline rule, a mono label row
+ * (optional rust section number + eyebrow) and a serif display title.
+ */
 const SectionHeading: React.FC<SectionHeadingProps> = ({
   eyebrow,
   title,
   subtitle,
-  align = "center",
+  index,
+  align = "left",
 }) => (
   <Box
     sx={{
       textAlign: align,
       mb: { xs: 4, md: 6 },
+      pt: { xs: 2.5, md: 3 },
+      borderTop: (theme) => `1px solid ${theme.palette.divider}`,
       display: "flex",
       flexDirection: "column",
       alignItems: align === "center" ? "center" : "flex-start",
     }}
   >
-    <Typography
-      variant="overline"
+    <Box
       sx={{
-        color: "secondary.main",
-        fontWeight: 700,
-        letterSpacing: 2,
-        fontSize: "0.75rem",
+        display: "flex",
+        alignItems: "baseline",
+        gap: 1.25,
+        justifyContent: align === "center" ? "center" : "flex-start",
       }}
     >
-      {eyebrow}
-    </Typography>
+      {index && (
+        <Typography
+          variant="overline"
+          component="span"
+          sx={{ color: "secondary.main" }}
+        >
+          {index}
+        </Typography>
+      )}
+      <Typography
+        variant="overline"
+        component="span"
+        sx={{ color: "text.secondary" }}
+      >
+        {eyebrow}
+      </Typography>
+    </Box>
+
     <Typography
       variant="h2"
       sx={{
-        fontSize: { xs: "1.8rem", md: "2.4rem" },
-        fontWeight: 700,
-        letterSpacing: "-0.02em",
-        mt: 1,
+        fontSize: { xs: "1.9rem", md: "2.5rem" },
+        mt: 1.5,
+        maxWidth: 720,
       }}
     >
       {title}
     </Typography>
+
     {subtitle && (
       <Typography
         variant="body1"
-        sx={{ color: "text.secondary", mt: 1.5, maxWidth: 560 }}
+        sx={{
+          color: "text.secondary",
+          mt: 2,
+          maxWidth: 560,
+        }}
       >
         {subtitle}
       </Typography>

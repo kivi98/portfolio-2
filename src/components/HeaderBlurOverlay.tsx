@@ -23,8 +23,8 @@ const HeaderBlurOverlay: React.FC = () => {
         pointerEvents: "none", // Allow clicks to pass through
         background:
           theme.palette.mode === "dark"
-            ? "linear-gradient(to bottom, rgba(10, 10, 10, 0.95) 0%, rgba(10, 10, 10, 0.7) 40%, rgba(10, 10, 10, 0.3) 70%, transparent 100%)"
-            : "linear-gradient(to bottom, rgba(243, 244, 246, 0.95) 0%, rgba(243, 244, 246, 0.7) 40%, rgba(243, 244, 246, 0.3) 70%, transparent 100%)",
+            ? "linear-gradient(to bottom, rgba(20, 17, 15, 0.95) 0%, rgba(20, 17, 15, 0.7) 40%, rgba(20, 17, 15, 0.3) 70%, transparent 100%)"
+            : "linear-gradient(to bottom, rgba(244, 239, 231, 0.95) 0%, rgba(244, 239, 231, 0.7) 40%, rgba(244, 239, 231, 0.3) 70%, transparent 100%)",
         backdropFilter: "blur(8px) saturate(120%)",
         WebkitBackdropFilter: "blur(8px) saturate(120%)",
         maskImage:

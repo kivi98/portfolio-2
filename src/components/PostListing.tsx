@@ -64,7 +64,7 @@ const PostListing: React.FC<PostListingProps> = ({
   return (
     <Container maxWidth="lg" sx={{ minHeight: "100vh", pb: { xs: 6, md: 10 } }}>
       <PageHero eyebrow={eyebrow} title={title} subtitle={subtitle}>
-        <Stack alignItems="center">
+        <Stack alignItems="flex-start">
           <TextField
             name={`${eyebrow.toLowerCase()}-search`}
             placeholder={searchPlaceholder}
@@ -84,13 +84,9 @@ const PostListing: React.FC<PostListingProps> = ({
             sx={{
               width: { xs: "100%", sm: 380 },
               "& .MuiInputBase-root": {
-                borderRadius: "50px",
+                borderRadius: "2px",
                 px: 2,
-                backdropFilter: "blur(8px)",
-                background: (theme) =>
-                  theme.palette.mode === "dark"
-                    ? "rgba(255,255,255,0.03)"
-                    : "rgba(0,0,0,0.02)",
+                background: (theme) => theme.palette.background.paper,
               },
               "& .MuiOutlinedInput-notchedOutline": {
                 borderColor: "divider",
@@ -106,12 +102,9 @@ const PostListing: React.FC<PostListingProps> = ({
             textAlign: "center",
             py: 8,
             px: 4,
-            borderRadius: "20px",
+            borderRadius: "3px",
             border: (theme) => `1px solid ${theme.palette.divider}`,
-            background: (theme) =>
-              theme.palette.mode === "dark"
-                ? "rgba(255,255,255,0.02)"
-                : "rgba(255,255,255,0.7)",
+            background: (theme) => theme.palette.background.paper,
           }}
         >
           <Typography variant="h6" sx={{ fontWeight: 700, mb: 1 }}>
@@ -146,7 +139,7 @@ const PostListing: React.FC<PostListingProps> = ({
                     <Skeleton
                       variant="rounded"
                       height={220}
-                      sx={{ borderRadius: "20px" }}
+                      sx={{ borderRadius: "3px" }}
                     />
                     <Skeleton variant="text" width="60%" />
                     <Skeleton variant="text" width="90%" />
@@ -169,7 +162,7 @@ const PostListing: React.FC<PostListingProps> = ({
                 color="secondary"
                 sx={{
                   "& .MuiPaginationItem-root": {
-                    borderRadius: "50px",
+                    borderRadius: "2px",
                   },
                 }}
               />

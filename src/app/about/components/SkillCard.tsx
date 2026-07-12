@@ -27,26 +27,15 @@ const SkillCard = ({
         display: "flex",
         flexDirection: "column",
         alignItems: "stretch",
-        borderRadius: "20px",
-        background:
-          theme.palette.mode === "dark"
-            ? "rgba(255,255,255,0.02)"
-            : "rgba(255,255,255,0.7)",
-        backdropFilter: "blur(12px)",
+        borderRadius: "3px",
+        background: theme.palette.background.paper,
         border: `1px solid ${theme.palette.divider}`,
         position: "relative",
-        transition: "all 0.3s ease",
+        transition: "border-color 0.3s ease, transform 0.3s ease",
         ...(zoomInAnimation && {
           "&:hover": {
             transform: "translateY(-4px)",
-            borderColor:
-              theme.palette.mode === "dark"
-                ? "rgba(255,255,255,0.2)"
-                : "rgba(0,0,0,0.2)",
-            boxShadow:
-              theme.palette.mode === "dark"
-                ? "0 16px 32px rgba(0,0,0,0.3)"
-                : "0 16px 32px rgba(0,0,0,0.08)",
+            borderColor: theme.palette.text.primary,
           },
         }),
       })}

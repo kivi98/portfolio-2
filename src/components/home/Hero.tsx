@@ -1,278 +1,235 @@
 "use client";
-import React, { useEffect, useMemo, useState } from "react";
+import React from "react";
 import {
-  Avatar,
   Box,
   Button,
-  Chip,
   IconButton,
   Stack,
   Tooltip,
   Typography,
-  useTheme,
 } from "@mui/material";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
-import EmailIcon from "@mui/icons-material/Email";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import Link from "next/link";
-import me from "@/public/my-images/me.svg";
+import { PAGE_TOP_PADDING } from "@/components/layoutConstants";
 
-const ROLES = [
-  "web applications.",
-  "scalable APIs.",
-  "cloud solutions.",
-  "digital experiences.",
+const META = [
+  { label: "Role", value: "Full-stack Engineer" },
+  { label: "Focus", value: "Web · APIs · Cloud" },
+  { label: "Based in", value: "Colombo, Sri Lanka" },
 ];
 
-const TYPING_SPEED = 80;
-const DELETING_SPEED = 45;
-const PAUSE_DURATION = 1800;
-
-function useTypewriter(words: string[]) {
-  const [text, setText] = useState("");
-  const [index, setIndex] = useState(0);
-  const [deleting, setDeleting] = useState(false);
-
-  useEffect(() => {
-    const word = words[index];
-    let timeout: NodeJS.Timeout;
-
-    if (!deleting && text === word) {
-      timeout = setTimeout(() => setDeleting(true), PAUSE_DURATION);
-    } else if (deleting && text === "") {
-      setDeleting(false);
-      setIndex((prev) => (prev + 1) % words.length);
-    } else {
-      timeout = setTimeout(
-        () => {
-          setText(
-            deleting
-              ? word.slice(0, text.length - 1)
-              : word.slice(0, text.length + 1),
-          );
-        },
-        deleting ? DELETING_SPEED : TYPING_SPEED,
-      );
-    }
-    return () => clearTimeout(timeout);
-  }, [text, deleting, index, words]);
-
-  return text;
-}
-
 const Hero = () => {
-  const theme = useTheme();
-  const isDark = theme.palette.mode === "dark";
-  const words = useMemo(() => ROLES, []);
-  const typed = useTypewriter(words);
-
   return (
     <Box
+      component="section"
       sx={{
-        minHeight: { xs: "calc(100svh - 64px)", md: "92vh" },
+        pt: PAGE_TOP_PADDING,
+        pb: { xs: 6, md: 9 },
         display: "flex",
         flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
-        textAlign: "center",
-        pt: { xs: "96px", md: "120px" },
-        pb: { xs: 6, md: 8 },
-        position: "relative",
       }}
     >
-      <Chip
-        icon={
+      {/* Mono kicker row — masthead metadata */}
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          pb: { xs: 2.5, md: 3 },
+          borderBottom: (theme) => `1px solid ${theme.palette.divider}`,
+        }}
+      >
+        <Typography variant="overline" sx={{ color: "text.secondary" }}>
+          Software Engineer
+        </Typography>
+        <Stack direction="row" alignItems="center" spacing={1}>
           <Box
             sx={{
-              width: 8,
-              height: 8,
+              width: 7,
+              height: 7,
               borderRadius: "50%",
-              backgroundColor: "#22C55E",
-              animation: "pulse-dot 2s ease-in-out infinite",
-              ml: "4px !important",
+              backgroundColor: "secondary.main",
+              animation: "pulse-dot 2.4s ease-in-out infinite",
             }}
           />
-        }
-        label="Open to new opportunities"
-        sx={{
-          mb: 4,
-          px: 1,
-          height: 32,
-          fontSize: "0.8rem",
-          fontWeight: 600,
-          letterSpacing: 0.3,
-          color: "text.secondary",
-          background: isDark ? "rgba(255,255,255,0.04)" : "rgba(0,0,0,0.03)",
-          border: `1px solid ${theme.palette.divider}`,
-          backdropFilter: "blur(8px)",
-        }}
-      />
+          <Typography
+            variant="overline"
+            sx={{ color: "text.secondary", display: { xs: "none", sm: "block" } }}
+          >
+            Open to opportunities
+          </Typography>
+        </Stack>
+      </Box>
 
-      <Avatar
-        src={me.src}
-        alt="Kivi Amarakoon"
-        sx={{
-          width: 96,
-          height: 96,
-          mb: 3,
-          background: theme.palette.background.paper,
-          boxShadow: isDark
-            ? "0 0 0 1px rgba(255,255,255,0.1), 0 0 40px rgba(227,0,0,0.25)"
-            : "0 0 0 1px rgba(0,0,0,0.08), 0 12px 32px rgba(0,0,0,0.12)",
-        }}
-      />
+      {/* Masthead */}
+      <Box className="reveal is-visible" sx={{ pt: { xs: 4, md: 6 } }}>
+        <Typography
+          variant="h1"
+          sx={{
+            fontSize: { xs: "3.4rem", sm: "5rem", md: "7rem", lg: "8rem" },
+            lineHeight: 0.95,
+            letterSpacing: "-0.035em",
+            fontWeight: 500,
+          }}
+        >
+          Kivi
+          <br />
+          Amarakoon
+          <Box component="span" sx={{ color: "secondary.main" }}>
+            .
+          </Box>
+        </Typography>
+      </Box>
 
+      {/* Subhead statement */}
       <Typography
-        variant="h1"
+        className="reveal is-visible"
         sx={{
-          fontSize: { xs: "2.4rem", sm: "3.4rem", md: "4.2rem" },
-          fontWeight: 700,
-          letterSpacing: "-0.03em",
-          lineHeight: 1.1,
-          maxWidth: 900,
-          background: isDark
-            ? "linear-gradient(180deg, #FFFFFF 0%, #A3A3A3 100%)"
-            : "linear-gradient(180deg, #111827 0%, #4B5563 100%)",
-          WebkitBackgroundClip: "text",
-          WebkitTextFillColor: "transparent",
-        }}
-      >
-        Hi, I&apos;m Kivi.
-        <br />
-        Software engineer crafting
-      </Typography>
-
-      <Typography
-        component="span"
-        sx={{
-          fontFamily: "var(--font-outfit), sans-serif",
-          fontSize: { xs: "2.4rem", sm: "3.4rem", md: "4.2rem" },
-          fontWeight: 700,
-          letterSpacing: "-0.03em",
-          lineHeight: 1.15,
-          minHeight: { xs: "3rem", sm: "4.2rem", md: "5rem" },
-          background: "linear-gradient(135deg, #FF3B3B 0%, #B30000 100%)",
-          WebkitBackgroundClip: "text",
-          WebkitTextFillColor: "transparent",
-          "&::after": {
-            content: '"|"',
-            WebkitTextFillColor: isDark ? "#666" : "#AAA",
-            fontWeight: 300,
-            marginLeft: "4px",
-            animation: "blink-caret 1s step-end infinite",
-          },
-          "@keyframes blink-caret": {
-            "0%, 100%": { opacity: 1 },
-            "50%": { opacity: 0 },
-          },
-        }}
-      >
-        {typed}
-      </Typography>
-
-      <Typography
-        variant="body1"
-        sx={{
-          mt: 3,
-          maxWidth: 620,
-          color: "text.secondary",
-          fontSize: { xs: "1rem", md: "1.125rem" },
-          lineHeight: 1.8,
-          px: 2,
+          fontFamily: "var(--font-serif), serif",
+          fontSize: { xs: "1.35rem", md: "1.75rem" },
+          lineHeight: 1.5,
+          fontWeight: 400,
+          color: "text.primary",
+          maxWidth: 720,
+          mt: { xs: 4, md: 5 },
         }}
       >
         I design and build user-friendly products end to end — from clean,
-        accessible interfaces to reliable backends. Passionate about
-        continuous learning and solving complex problems with simple, elegant
-        code.
+        accessible interfaces to{" "}
+        <Box
+          component="em"
+          sx={{ color: "secondary.main", fontStyle: "italic" }}
+        >
+          reliable
+        </Box>{" "}
+        backends, with a bias for simple, elegant solutions.
       </Typography>
 
+      {/* Meta definition grid */}
+      <Box
+        sx={{
+          mt: { xs: 5, md: 7 },
+          display: "grid",
+          gridTemplateColumns: { xs: "1fr", sm: "repeat(3, 1fr)" },
+          borderTop: (theme) => `1px solid ${theme.palette.divider}`,
+        }}
+      >
+        {META.map((item) => (
+          <Box
+            key={item.label}
+            sx={{
+              py: 2.5,
+              px: { xs: 0, sm: 3 },
+              "&:first-of-type": { pl: 0 },
+              borderBottom: {
+                xs: (theme) => `1px solid ${theme.palette.divider}`,
+                sm: "none",
+              },
+              borderRight: {
+                xs: "none",
+                sm: (theme) => `1px solid ${theme.palette.divider}`,
+              },
+              "&:last-of-type": { borderRight: "none" },
+            }}
+          >
+            <Typography
+              variant="overline"
+              sx={{ color: "text.disabled", display: "block" }}
+            >
+              {item.label}
+            </Typography>
+            <Typography
+              variant="h6"
+              sx={{ mt: 0.75, fontSize: "1.05rem", fontWeight: 500 }}
+            >
+              {item.value}
+            </Typography>
+          </Box>
+        ))}
+      </Box>
+
+      {/* Actions */}
       <Stack
         direction={{ xs: "column", sm: "row" }}
-        spacing={2}
-        sx={{ mt: 5, width: { xs: "100%", sm: "auto" }, px: { xs: 3, sm: 0 } }}
+        spacing={{ xs: 2, sm: 3 }}
+        alignItems={{ xs: "stretch", sm: "center" }}
+        sx={{ mt: { xs: 5, md: 6 } }}
       >
         <Button
           component={Link}
           href="/projects"
+          disableRipple
           endIcon={<ArrowForwardIcon />}
           sx={{
-            backgroundColor: "secondary.main",
-            color: "#fff",
-            borderRadius: "50px",
-            px: 4,
+            backgroundColor: "primary.main",
+            color: "primary.contrastText",
+            px: 3.5,
             py: 1.4,
-            fontWeight: 700,
+            fontWeight: 600,
             fontSize: "0.95rem",
-            boxShadow: "0 8px 24px rgba(227, 0, 0, 0.35)",
-            transition: "all 0.3s ease",
-            "&:hover": {
-              backgroundColor: "secondary.light",
-              transform: "translateY(-2px)",
-              boxShadow: "0 12px 32px rgba(227, 0, 0, 0.45)",
-            },
+            transition: "opacity 0.2s ease",
+            "&:hover": { backgroundColor: "primary.main", opacity: 0.85 },
           }}
         >
-          View my work
+          View selected work
         </Button>
+
         <Button
           component={Link}
           href="/contact"
-          endIcon={<EmailIcon />}
+          disableRipple
           sx={{
             color: "text.primary",
-            borderRadius: "50px",
-            px: 4,
-            py: 1.4,
-            fontWeight: 700,
+            px: 0,
+            fontWeight: 600,
             fontSize: "0.95rem",
-            border: `1px solid ${theme.palette.divider}`,
-            background: isDark ? "rgba(255,255,255,0.03)" : "rgba(0,0,0,0.02)",
-            backdropFilter: "blur(8px)",
-            transition: "all 0.3s ease",
+            borderRadius: 0,
+            borderBottom: "1px solid transparent",
             "&:hover": {
-              borderColor: "text.secondary",
-              background: isDark ? "rgba(255,255,255,0.06)" : "rgba(0,0,0,0.05)",
-              transform: "translateY(-2px)",
+              backgroundColor: "transparent",
+              borderBottomColor: "text.primary",
             },
           }}
         >
-          Get in touch
+          Get in touch →
         </Button>
-      </Stack>
 
-      <Stack direction="row" spacing={1} sx={{ mt: 4 }}>
-        <Tooltip title="GitHub">
-          <IconButton
-            component="a"
-            href="https://github.com/kivi98"
-            target="_blank"
-            rel="noopener noreferrer"
-            sx={{
-              color: "text.secondary",
-              transition: "all 0.2s",
-              "&:hover": { color: "text.primary", transform: "translateY(-2px)" },
-            }}
-          >
-            <GitHubIcon />
-          </IconButton>
-        </Tooltip>
-        <Tooltip title="LinkedIn">
-          <IconButton
-            component="a"
-            href="https://linkedin.com/in/kivi-amarakoon-543a84195"
-            target="_blank"
-            rel="noopener noreferrer"
-            sx={{
-              color: "text.secondary",
-              transition: "all 0.2s",
-              "&:hover": { color: "#0a66c2", transform: "translateY(-2px)" },
-            }}
-          >
-            <LinkedInIcon />
-          </IconButton>
-        </Tooltip>
+        <Box sx={{ flexGrow: 1 }} />
+
+        <Stack direction="row" spacing={0.5}>
+          <Tooltip title="GitHub">
+            <IconButton
+              component="a"
+              href="https://github.com/kivi98"
+              target="_blank"
+              rel="noopener noreferrer"
+              sx={{
+                color: "text.secondary",
+                borderRadius: 0,
+                "&:hover": { color: "text.primary" },
+              }}
+            >
+              <GitHubIcon fontSize="small" />
+            </IconButton>
+          </Tooltip>
+          <Tooltip title="LinkedIn">
+            <IconButton
+              component="a"
+              href="https://linkedin.com/in/kivi-amarakoon-543a84195"
+              target="_blank"
+              rel="noopener noreferrer"
+              sx={{
+                color: "text.secondary",
+                borderRadius: 0,
+                "&:hover": { color: "text.primary" },
+              }}
+            >
+              <LinkedInIcon fontSize="small" />
+            </IconButton>
+          </Tooltip>
+        </Stack>
       </Stack>
     </Box>
   );

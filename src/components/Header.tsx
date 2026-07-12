@@ -20,8 +20,6 @@ import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import { useThemeMode } from "@/theme/ThemeProvider";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
-import Image from "next/image";
-import logo from "@/public/logo/logo.png";
 
 const navLinks = [
   { label: "Home", href: "/" },
@@ -75,36 +73,29 @@ export default function Header() {
           href={link.href}
           color="inherit"
           onClick={onClick}
+          disableRipple
           sx={{
-            fontWeight: 500,
-            fontSize: "0.95rem",
-            textTransform: "none",
+            fontFamily: "var(--font-mono), monospace",
+            fontWeight: 600,
+            fontSize: "0.72rem",
+            letterSpacing: "0.14em",
+            textTransform: "uppercase",
             position: "relative",
-            borderRadius: "50px", // Full pill
-            px: 2.5,
+            borderRadius: 0,
+            px: { xs: 1, md: 0 },
             py: 0.75,
-            transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
+            minWidth: "auto",
+            transition: "color 0.2s ease",
             color: isActive
               ? theme.palette.text.primary
               : theme.palette.text.secondary,
-            backgroundColor: isActive
-              ? theme.palette.mode === "dark"
-                ? "rgba(255, 255, 255, 0.08)"
-                : "rgba(0, 0, 0, 0.06)"
-              : "transparent",
-            border: isActive
-              ? `1px solid ${
-                  theme.palette.mode === "dark"
-                    ? "rgba(255, 255, 255, 0.12)"
-                    : "rgba(0, 0, 0, 0.1)"
-                }`
-              : "1px solid transparent",
+            backgroundColor: "transparent",
+            borderBottom: `1px solid ${
+              isActive ? theme.palette.secondary.main : "transparent"
+            }`,
             "&:hover": {
+              backgroundColor: "transparent",
               color: theme.palette.text.primary,
-              backgroundColor:
-                theme.palette.mode === "dark"
-                  ? "rgba(255, 255, 255, 0.05)"
-                  : "rgba(0, 0, 0, 0.03)",
             },
           }}
         >
@@ -120,26 +111,17 @@ export default function Header() {
       sx={{
         background:
           theme.palette.mode === "light"
-            ? "rgba(255, 255, 255, 0.6)"
-            : "rgba(18, 18, 18, 0.6)",
-        boxShadow:
-          theme.palette.mode === "light"
-            ? "0 8px 32px 0 rgba(31, 38, 135, 0.07)"
-            : "0 8px 32px 0 rgba(0, 0, 0, 0.3)",
+            ? "rgba(244, 239, 231, 0.8)"
+            : "rgba(20, 17, 15, 0.8)",
+        boxShadow: "none",
         zIndex: 1201,
-        maxWidth: { xs: "100%", md: "90%", lg: "1100px" },
-        margin: { xs: 0, md: "24px auto 0 auto" },
-        borderRadius: { xs: 0, md: "24px" },
         left: 0,
         right: 0,
-        top: { xs: 0, md: "0" }, // Keep tight to top or add small gap
-        backdropFilter: "blur(12px) saturate(180%)",
-        WebkitBackdropFilter: "blur(12px) saturate(180%)",
-        border:
-          theme.palette.mode === "light"
-            ? "1px solid rgba(255, 255, 255, 0.4)"
-            : "1px solid rgba(255, 255, 255, 0.05)",
-        transition: "all 0.3s ease",
+        top: 0,
+        backdropFilter: "blur(12px) saturate(140%)",
+        WebkitBackdropFilter: "blur(12px) saturate(140%)",
+        borderBottom: `1px solid ${theme.palette.divider}`,
+        transition: "background 0.3s ease",
       }}
     >
       <Toolbar
@@ -147,70 +129,52 @@ export default function Header() {
           display: "flex",
           justifyContent: "space-between",
           minHeight: { xs: 64, sm: 72 },
-          px: { xs: 2, md: 3 },
+          maxWidth: "1200px",
+          width: "100%",
+          mx: "auto",
+          px: { xs: 2.5, md: 3 },
         }}
       >
         {/* Logo and Title */}
         <Stack
           direction="row"
           alignItems="center"
-          spacing={1.5}
           component={Link}
           href="/"
           sx={{
             textDecoration: "none",
             color: "inherit",
             cursor: "pointer",
-            "&:hover .logo-container": {
-              transform: "rotate(10deg)",
-            },
           }}
         >
-          <Box
-            className="logo-container"
-            sx={{
-              backgroundColor:
-                theme.palette.mode === "dark" ? "#fff" : "transparent",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              borderRadius: "50%",
-              p: 0.5,
-              width: 40,
-              height: 40,
-              boxShadow: "0 2px 10px rgba(0,0,0,0.1)",
-              transition: "transform 0.4s ease",
-            }}
-          >
-            <Image src={logo} alt="logo" width={32} height={32} />
-          </Box>
           <Typography
             variant="h6"
             sx={{
-              fontWeight: 700,
-              letterSpacing: -0.5,
-              fontSize: { xs: 18, sm: 20 },
+              fontFamily: "var(--font-serif), serif",
+              fontWeight: 600,
+              letterSpacing: "-0.01em",
+              fontSize: { xs: 19, sm: 21 },
               color: theme.palette.text.primary,
-              // Removed Times New Roman per plan
-              fontFamily: "inherit",
             }}
           >
             Kivi Amarakoon
+            <Box component="span" sx={{ color: "secondary.main" }}>
+              .
+            </Box>
           </Typography>
         </Stack>
 
         {/* Desktop Navigation */}
         {!isMobile && (
-          <Stack direction="row" alignItems="center" spacing={1}>
+          <Stack direction="row" alignItems="center" spacing={3}>
             {renderNavButtons()}
 
             <Divider
               orientation="vertical"
               flexItem
               sx={{
-                height: 24,
+                height: 20,
                 alignSelf: "center",
-                mx: 1.5,
                 borderColor: theme.palette.divider,
               }}
             />
@@ -318,8 +282,8 @@ export default function Header() {
                     p: 2,
                     background:
                       theme.palette.mode === "light"
-                        ? "rgba(255, 255, 255, 0.95)"
-                        : "rgba(18, 18, 18, 0.95)",
+                        ? "rgba(244, 239, 231, 0.97)"
+                        : "rgba(20, 17, 15, 0.97)",
                     backdropFilter: "blur(20px)",
                     borderBottom: `1px solid ${theme.palette.divider}`,
                     boxShadow: "0 10px 40px rgba(0,0,0,0.1)",

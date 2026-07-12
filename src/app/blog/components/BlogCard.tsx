@@ -50,34 +50,23 @@ const BlogCard = ({ blog }: { blog: Post | Blog }) => {
       href={`/blog/${blog.slug}`}
       sx={{
         width: "100%",
-        borderRadius: "20px",
+        borderRadius: "3px",
         boxShadow: "none",
         display: "flex",
         flexDirection: "column",
         height: "100%",
-        background: (theme) =>
-          theme.palette.mode === "dark"
-            ? "rgba(255, 255, 255, 0.02)"
-            : "rgba(255,255,255,0.7)",
-        backdropFilter: "blur(12px)",
+        background: (theme) => theme.palette.background.paper,
         border: (theme) => `1px solid ${theme.palette.divider}`,
-        transition: "all 0.4s cubic-bezier(0.4, 0, 0.2, 1)",
+        transition: "border-color 0.3s ease, transform 0.3s ease",
         cursor: "pointer",
         position: "relative",
         textDecoration: "none", // Ensure link underline doesn't show
         overflow: "hidden",
         "&:hover": {
-          transform: "translateY(-6px)",
-          borderColor: (theme) =>
-            theme.palette.mode === "dark"
-              ? "rgba(255, 255, 255, 0.2)"
-              : "rgba(0, 0, 0, 0.2)",
-          boxShadow: (theme) =>
-            theme.palette.mode === "dark"
-              ? "0 20px 40px rgba(0, 0, 0, 0.35)"
-              : "0 20px 40px rgba(0, 0, 0, 0.08)",
+          transform: "translateY(-4px)",
+          borderColor: (theme) => theme.palette.text.primary,
           "& .blog-image": {
-            transform: "scale(1.05)",
+            transform: "scale(1.04)",
           },
         },
       }}
@@ -108,8 +97,8 @@ const BlogCard = ({ blog }: { blog: Post | Blog }) => {
             right: 0,
             bottom: 0,
             background:
-              "linear-gradient(to bottom, transparent 50%, rgba(0,0,0,0.6) 100%)",
-            opacity: 0.8,
+              "linear-gradient(to bottom, transparent 60%, rgba(0,0,0,0.35) 100%)",
+            opacity: 0.7,
           }}
         />
 
@@ -145,11 +134,10 @@ const BlogCard = ({ blog }: { blog: Post | Blog }) => {
           </Typography>
 
           <Typography
-            variant="h6"
-            fontWeight={700}
+            variant="h5"
             sx={{
-              fontSize: "1.1rem",
-              lineHeight: 1.3,
+              fontSize: "1.35rem",
+              lineHeight: 1.25,
               color: theme.palette.text.primary,
               display: "-webkit-box",
               WebkitLineClamp: 2,
@@ -234,14 +222,13 @@ const BlogCard = ({ blog }: { blog: Post | Blog }) => {
                 label={tagName}
                 size="small"
                 sx={{
-                  fontSize: "0.7rem",
+                  fontSize: "0.68rem",
                   height: 24,
-                  fontWeight: 600,
-                  borderRadius: "6px",
-                  background:
-                    theme.palette.mode === "dark"
-                      ? "rgba(255,255,255,0.05)"
-                      : "rgba(0,0,0,0.05)",
+                  fontWeight: 500,
+                  borderRadius: "2px",
+                  fontFamily: "var(--font-mono), monospace",
+                  border: `1px solid ${theme.palette.divider}`,
+                  background: "transparent",
                   color: theme.palette.text.secondary,
                 }}
               />

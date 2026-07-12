@@ -7,7 +7,6 @@ import {
   Typography,
   IconButton,
   Tooltip,
-  useTheme,
 } from "@mui/material";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
@@ -41,97 +40,114 @@ const socials = [
 ];
 
 const Footer = () => {
-  const theme = useTheme();
-  const isDark = theme.palette.mode === "dark";
-
   return (
     <Box
       component="footer"
       sx={{
-        borderTop: `1px solid ${theme.palette.divider}`,
-        background: isDark ? "rgba(10, 10, 10, 0.6)" : "rgba(255,255,255,0.6)",
-        backdropFilter: "blur(12px)",
+        borderTop: (theme) => `1px solid ${theme.palette.divider}`,
+        backgroundColor: "background.default",
         mt: "auto",
       }}
     >
-      <Container maxWidth="lg" sx={{ py: { xs: 4, md: 5 } }}>
+      <Container maxWidth="lg" sx={{ py: { xs: 6, md: 8 } }}>
         <Stack
           direction={{ xs: "column", md: "row" }}
-          spacing={{ xs: 3, md: 4 }}
-          alignItems={{ xs: "center", md: "center" }}
+          spacing={{ xs: 4, md: 4 }}
           justifyContent="space-between"
+          alignItems={{ xs: "flex-start", md: "flex-end" }}
         >
-          <Stack spacing={0.5} alignItems={{ xs: "center", md: "flex-start" }}>
+          <Box>
             <Typography
-              variant="h6"
-              sx={{ fontWeight: 700, letterSpacing: -0.5 }}
+              variant="h4"
+              sx={{ fontSize: { xs: "1.6rem", md: "2rem" } }}
             >
               Kivi Amarakoon
+              <Box component="span" sx={{ color: "secondary.main" }}>
+                .
+              </Box>
             </Typography>
-            <Typography variant="body2" color="text.secondary">
-              Software engineer — building the future, one line of code at a
-              time.
+            <Typography
+              variant="body2"
+              color="text.secondary"
+              sx={{ mt: 1, maxWidth: 360 }}
+            >
+              Software engineer building reliable products, from interface to
+              infrastructure.
             </Typography>
-          </Stack>
+          </Box>
 
-          <Stack
-            direction="row"
-            spacing={{ xs: 2, sm: 3 }}
-            flexWrap="wrap"
-            justifyContent="center"
-          >
-            {navLinks.map((link) => (
-              <Typography
-                key={link.href}
-                component={Link}
-                href={link.href}
-                variant="body2"
-                sx={{
-                  color: "text.secondary",
-                  transition: "color 0.2s",
-                  "&:hover": { color: "text.primary" },
-                }}
-              >
-                {link.label}
-              </Typography>
-            ))}
-          </Stack>
-
-          <Stack direction="row" spacing={0.5}>
-            {socials.map((social) => (
-              <Tooltip key={social.title} title={social.title}>
-                <IconButton
-                  component="a"
-                  href={social.href}
-                  target={social.href.startsWith("http") ? "_blank" : undefined}
-                  rel="noopener noreferrer"
-                  size="small"
+          <Stack spacing={2} alignItems={{ xs: "flex-start", md: "flex-end" }}>
+            <Stack
+              direction="row"
+              spacing={3}
+              flexWrap="wrap"
+              justifyContent={{ xs: "flex-start", md: "flex-end" }}
+            >
+              {navLinks.map((link) => (
+                <Typography
+                  key={link.href}
+                  component={Link}
+                  href={link.href}
+                  variant="overline"
                   sx={{
                     color: "text.secondary",
-                    border: `1px solid ${theme.palette.divider}`,
-                    borderRadius: "10px",
-                    transition: "all 0.2s",
-                    "&:hover": {
-                      color: "text.primary",
-                      transform: "translateY(-2px)",
-                      borderColor: "text.secondary",
-                    },
+                    transition: "color 0.2s",
+                    "&:hover": { color: "text.primary" },
                   }}
                 >
-                  {social.icon}
-                </IconButton>
-              </Tooltip>
-            ))}
+                  {link.label}
+                </Typography>
+              ))}
+            </Stack>
+
+            <Stack direction="row" spacing={0.5}>
+              {socials.map((social) => (
+                <Tooltip key={social.title} title={social.title}>
+                  <IconButton
+                    component="a"
+                    href={social.href}
+                    target={
+                      social.href.startsWith("http") ? "_blank" : undefined
+                    }
+                    rel="noopener noreferrer"
+                    size="small"
+                    disableRipple
+                    sx={{
+                      color: "text.secondary",
+                      border: (theme) => `1px solid ${theme.palette.divider}`,
+                      borderRadius: "2px",
+                      transition: "all 0.2s",
+                      "&:hover": {
+                        color: "text.primary",
+                        borderColor: "text.primary",
+                      },
+                    }}
+                  >
+                    {social.icon}
+                  </IconButton>
+                </Tooltip>
+              ))}
+            </Stack>
           </Stack>
         </Stack>
 
-        <Typography
-          variant="caption"
-          color="text.disabled"
-          sx={{ display: "block", textAlign: "center", mt: 4 }}
+        <Stack
+          direction={{ xs: "column", sm: "row" }}
+          justifyContent="space-between"
+          spacing={1}
+          sx={{
+            mt: { xs: 5, md: 7 },
+            pt: 3,
+            borderTop: (theme) => `1px solid ${theme.palette.divider}`,
+          }}
         >
-          © {new Date().getFullYear()} Kivi Amarakoon. Crafted with Next.js.
-        </Typography>
+          <Typography variant="caption" color="text.disabled">
+            © {new Date().getFullYear()} Kivi Amarakoon
+          </Typography>
+          <Typography variant="caption" color="text.disabled">
+            Designed & built with Next.js
+          </Typography>
+        </Stack>
       </Container>
     </Box>
   );

@@ -13,8 +13,9 @@ interface PageHeroProps {
 }
 
 /**
- * Standard page opener: overline eyebrow + large heading + subtitle,
- * centered, with the fixed-header clearance baked in.
+ * Editorial page opener: a mono eyebrow, a large serif display title and an
+ * optional subtitle, left-aligned and anchored by a hairline rule with the
+ * fixed-header clearance baked in.
  */
 const PageHero: React.FC<PageHeroProps> = ({
   eyebrow,
@@ -26,45 +27,20 @@ const PageHero: React.FC<PageHeroProps> = ({
     sx={{
       pt: PAGE_TOP_PADDING,
       pb: { xs: 4, md: 6 },
-      display: "flex",
-      flexDirection: "column",
-      alignItems: "center",
-      textAlign: "center",
+      mb: { xs: 4, md: 6 },
+      borderBottom: (theme) => `1px solid ${theme.palette.divider}`,
     }}
   >
-    <Reveal
-      sx={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        width: "100%",
-      }}
-    >
-      <Typography
-        variant="overline"
-        sx={{
-          color: "secondary.main",
-          fontWeight: 700,
-          letterSpacing: 2,
-          fontSize: "0.75rem",
-        }}
-      >
+    <Reveal>
+      <Typography variant="overline" sx={{ color: "secondary.main" }}>
         {eyebrow}
       </Typography>
       <Typography
         variant="h1"
         sx={{
-          fontSize: { xs: "2.2rem", sm: "2.8rem", md: "3.4rem" },
-          fontWeight: 700,
-          letterSpacing: "-0.03em",
-          lineHeight: 1.15,
-          mt: 1,
-          background: (theme) =>
-            theme.palette.mode === "dark"
-              ? "linear-gradient(180deg, #FFFFFF 0%, #A3A3A3 100%)"
-              : "linear-gradient(180deg, #111827 0%, #4B5563 100%)",
-          WebkitBackgroundClip: "text",
-          WebkitTextFillColor: "transparent",
+          fontSize: { xs: "2.6rem", sm: "3.4rem", md: "4.25rem" },
+          mt: 1.5,
+          maxWidth: 900,
         }}
       >
         {title}
@@ -74,11 +50,9 @@ const PageHero: React.FC<PageHeroProps> = ({
           variant="body1"
           sx={{
             color: "text.secondary",
-            mt: 2,
-            maxWidth: 640,
-            fontSize: { xs: "1rem", md: "1.1rem" },
-            lineHeight: 1.7,
-            px: 2,
+            mt: 2.5,
+            maxWidth: 620,
+            fontSize: { xs: "1rem", md: "1.125rem" },
           }}
         >
           {subtitle}

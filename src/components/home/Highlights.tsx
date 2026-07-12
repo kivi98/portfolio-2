@@ -30,64 +30,56 @@ const highlights = [
 
 const Highlights = () => {
   const theme = useTheme();
-  const isDark = theme.palette.mode === "dark";
 
   return (
     <Box sx={{ py: { xs: 6, md: 10 } }}>
       <Reveal>
         <SectionHeading
+          index="01"
           eyebrow="What I do"
           title="Turning ideas into products"
           subtitle="From first sketch to production deployment, I cover the whole journey."
         />
       </Reveal>
-      <Grid container spacing={3}>
+      <Grid container spacing={0}>
         {highlights.map((item, i) => (
           <Grid item xs={12} md={4} key={item.title}>
             <Reveal delay={i * 0.12} sx={{ height: "100%" }}>
               <Stack
-                spacing={2}
+                spacing={2.5}
                 sx={{
                   height: "100%",
-                  p: 4,
-                  borderRadius: "20px",
-                  border: `1px solid ${theme.palette.divider}`,
-                  background: isDark
-                    ? "rgba(255,255,255,0.02)"
-                    : "rgba(255,255,255,0.7)",
-                  backdropFilter: "blur(12px)",
-                  transition: "all 0.3s ease",
+                  p: { xs: 3, md: 4 },
+                  borderTop: `1px solid ${theme.palette.divider}`,
+                  borderLeft: {
+                    xs: "none",
+                    md:
+                      i === 0
+                        ? "none"
+                        : `1px solid ${theme.palette.divider}`,
+                  },
+                  transition: "background-color 0.3s ease",
                   "&:hover": {
-                    transform: "translateY(-6px)",
-                    borderColor: isDark
-                      ? "rgba(227,0,0,0.4)"
-                      : "rgba(211,47,47,0.4)",
-                    boxShadow: isDark
-                      ? "0 20px 40px rgba(0,0,0,0.4)"
-                      : "0 20px 40px rgba(0,0,0,0.08)",
+                    backgroundColor:
+                      theme.palette.mode === "dark"
+                        ? "rgba(244,239,231,0.03)"
+                        : "rgba(27,23,18,0.03)",
                   },
                 }}
               >
-                <Box
-                  sx={{
-                    width: 48,
-                    height: 48,
-                    borderRadius: "14px",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    color: "secondary.main",
-                    background: isDark
-                      ? "rgba(227,0,0,0.1)"
-                      : "rgba(211,47,47,0.08)",
-                    border: `1px solid ${
-                      isDark ? "rgba(227,0,0,0.25)" : "rgba(211,47,47,0.2)"
-                    }`,
-                  }}
+                <Stack
+                  direction="row"
+                  alignItems="center"
+                  justifyContent="space-between"
                 >
-                  {item.icon}
-                </Box>
-                <Typography variant="h6" sx={{ fontWeight: 700 }}>
+                  <Box sx={{ color: "secondary.main", display: "flex" }}>
+                    {item.icon}
+                  </Box>
+                  <Typography variant="overline" sx={{ color: "text.disabled" }}>
+                    {`0${i + 1}`}
+                  </Typography>
+                </Stack>
+                <Typography variant="h5" sx={{ fontSize: "1.3rem" }}>
                   {item.title}
                 </Typography>
                 <Typography

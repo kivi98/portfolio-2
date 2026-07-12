@@ -25,10 +25,9 @@ interface ArticleStatusCardProps {
 }
 
 const pillButton = {
-  borderRadius: "50px",
   px: 3,
   py: 1,
-  fontWeight: 700,
+  fontWeight: 600,
   textTransform: "none" as const,
 };
 
@@ -44,7 +43,6 @@ const ArticleStatusCard: React.FC<ArticleStatusCardProps> = ({
 }) => {
   const router = useRouter();
   const theme = useTheme();
-  const isDark = theme.palette.mode === "dark";
 
   return (
     <Container
@@ -54,10 +52,9 @@ const ArticleStatusCard: React.FC<ArticleStatusCardProps> = ({
       <Box
         sx={{
           p: { xs: 4, md: 6 },
-          borderRadius: "20px",
+          borderRadius: "3px",
           border: `1px solid ${theme.palette.divider}`,
-          background: isDark ? "rgba(255,255,255,0.02)" : "rgba(255,255,255,0.7)",
-          backdropFilter: "blur(12px)",
+          background: theme.palette.background.paper,
           textAlign: "center",
           maxWidth: 640,
           mx: "auto",

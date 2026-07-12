@@ -37,7 +37,7 @@ const WhoAmI = () => {
           autoTransition={true}
           transitionInterval={3000}
           sx={{
-            borderRadius: "20px",
+            borderRadius: "3px",
             overflow: "hidden",
             border: "1px solid",
             borderColor: "divider",
@@ -55,12 +55,8 @@ const WhoAmI = () => {
             lineHeight: 1.9,
             color: "text.secondary",
             p: { xs: 3, md: 4 },
-            borderRadius: "20px",
-            background:
-              theme.palette.mode === "dark"
-                ? "rgba(255,255,255,0.02)"
-                : "rgba(255,255,255,0.7)",
-            backdropFilter: "blur(12px)",
+            borderRadius: "3px",
+            background: theme.palette.background.paper,
             border: `1px solid ${theme.palette.divider}`,
           })}
         >

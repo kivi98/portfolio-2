@@ -35,6 +35,7 @@ const FeaturedProjects = () => {
     <Box sx={{ py: { xs: 6, md: 10 } }}>
       <Reveal>
         <SectionHeading
+          index="02"
           eyebrow="Selected work"
           title="Featured projects"
           subtitle="A few things I've designed and built recently."
@@ -71,23 +72,21 @@ const FeaturedProjects = () => {
               </Grid>
             ))}
       </Grid>
-      <Stack alignItems="center" sx={{ mt: 5 }}>
+      <Stack alignItems="flex-start" sx={{ mt: 5 }}>
         <Button
           component={Link}
           href="/projects"
+          disableRipple
           endIcon={<ArrowForwardIcon />}
           sx={{
             color: "text.primary",
-            borderRadius: "50px",
-            px: 4,
-            py: 1.2,
-            fontWeight: 700,
-            border: (theme) => `1px solid ${theme.palette.divider}`,
-            transition: "all 0.3s ease",
+            px: 0,
+            fontWeight: 600,
+            borderRadius: 0,
+            borderBottom: "1px solid transparent",
             "&:hover": {
-              borderColor: "secondary.main",
-              color: "secondary.main",
-              transform: "translateY(-2px)",
+              backgroundColor: "transparent",
+              borderBottomColor: "text.primary",
             },
           }}
         >

@@ -2,6 +2,15 @@ import { createTheme, Theme } from "@mui/material/styles";
 
 export type ColorMode = "light" | "dark";
 
+/**
+ * v3 — "Warm editorial" direction.
+ * Magazine-like: a confident serif display (Fraunces) paired with a clean
+ * grotesque body (Inter) and a mono utility face (JetBrains Mono) for labels
+ * and section numbers. Warm paper / ink surfaces, a single restrained rust
+ * accent, hairline rules and generous whitespace. No glassmorphism, no glow,
+ * no gradient-clipped text.
+ */
+
 const commonSettings = {
   spacing: 8,
   breakpoints: {
@@ -13,42 +22,51 @@ const commonSettings = {
       xl: 1920,
     },
   },
+  shape: {
+    borderRadius: 3,
+  },
 };
 
 const darkPalette = {
   mode: "dark" as const,
   primary: {
-    dark: "#0D0D0D",
-    dark2: "#252525",
-    main: "#292929",
-    light: "#303030",
-    light2: "#404040",
-    light3: "#505050",
-    lighter: "#8C8C8C",
-    lighter2: "#BDBDBD",
-    lighter3: "#E0E0E0",
+    // In dark mode the "primary" ink is warm paper (used for solid buttons).
+    main: "#F4EFE7",
+    light: "#FFFFFF",
+    dark: "#14110F",
+    contrastText: "#14110F",
+    // Legacy neutral ramp — retinted warm so older components stay on-system.
+    dark2: "#1C1815",
+    light2: "#2A251F",
+    light3: "#39332B",
+    lighter: "#7A7267",
+    lighter2: "#A79D90",
+    lighter3: "#D8D0C4",
   },
   secondary: {
-    main: "#910000",
-    light: "#E30000",
-    dark: "#590000",
-    other: "#DA2C2C",
+    // Rust — the one accent. Brighter in dark so it reads on warm ink.
+    main: "#E4602E",
+    light: "#F2794A",
+    dark: "#B8461E",
+    other: "#D98324",
+    contrastText: "#14110F",
   },
   background: {
-    default: "#121212",
-    paper: "#1E1E1E",
+    default: "#14110F", // warm ink
+    paper: "#1C1815", // surface (cards)
   },
+  divider: "rgba(244,239,231,0.13)",
   text: {
-    primary: "#F5F5F5",
-    secondary: "#b6b6b6",
-    disabled: "#8C8C8C",
-    main: "#F5F5F5",
-    dark: "#b6b6b6",
+    primary: "#F4EFE7",
+    secondary: "#A79D90",
+    disabled: "#7A7267",
+    main: "#F4EFE7",
+    dark: "#A79D90",
     light: "#FFFFFF",
   },
   common: {
     white: "#FFFFFF",
-    lite: "#e7e7e7",
+    lite: "#F4EFE7",
   },
   transparentLevels: {
     1: "rgba(0,0,0,0.1)",
@@ -62,163 +80,196 @@ const darkPalette = {
     9: "rgba(0,0,0,0.9)",
   },
   transparentLevelsWhite: {
-    1: "rgba(255,255,255,0.1)",
-    2: "rgba(255,255,255,0.2)",
-    3: "rgba(255,255,255,0.3)",
-    4: "rgba(255,255,255,0.4)",
-    5: "rgba(255,255,255,0.5)",
-    6: "rgba(255,255,255,0.6)",
-    7: "rgba(255,255,255,0.7)",
-    8: "rgba(255,255,255,0.8)",
-    9: "rgba(255,255,255,0.9)",
+    1: "rgba(244,239,231,0.06)",
+    2: "rgba(244,239,231,0.1)",
+    3: "rgba(244,239,231,0.16)",
+    4: "rgba(244,239,231,0.22)",
+    5: "rgba(244,239,231,0.3)",
+    6: "rgba(244,239,231,0.4)",
+    7: "rgba(244,239,231,0.55)",
+    8: "rgba(244,239,231,0.7)",
+    9: "rgba(244,239,231,0.85)",
   },
   transparentLevelsRed: {
-    1: "rgba(255,0,0,0.1)",
-    2: "rgba(255,0,0,0.2)",
-    3: "rgba(255,0,0,0.3)",
-    4: "rgba(255,0,0,0.4)",
-    5: "rgba(255,0,0,0.5)",
-    6: "rgba(255,0,0,0.6)",
-    7: "rgba(255,0,0,0.7)",
-    8: "rgba(255,0,0,0.8)",
-    9: "rgba(255,0,0,0.9)",
+    1: "rgba(228,96,46,0.1)",
+    2: "rgba(228,96,46,0.2)",
+    3: "rgba(228,96,46,0.3)",
+    4: "rgba(228,96,46,0.4)",
+    5: "rgba(228,96,46,0.5)",
+    6: "rgba(228,96,46,0.6)",
+    7: "rgba(228,96,46,0.7)",
+    8: "rgba(228,96,46,0.8)",
+    9: "rgba(228,96,46,0.9)",
   },
 };
 
 const lightPalette = {
   mode: "light" as const,
   primary: {
-    main: "#171717", // Strong dark for primary actions
-    light: "#404040",
+    main: "#1B1712", // warm ink — solid buttons / primary actions
+    light: "#3A332B",
     dark: "#000000",
-    contrastText: "#FFFFFF",
-    // Preserving legacy keys just in case, mapped to new logic
-    dark2: "#262626",
-    light2: "#525252",
-    light3: "#737373",
-    lighter: "#A3A3A3",
-    lighter2: "#D4D4D4",
-    lighter3: "#E5E5E5",
+    contrastText: "#F4EFE7",
+    dark2: "#241E17",
+    light2: "#4A4238",
+    light3: "#6F6559",
+    lighter: "#9C9284",
+    lighter2: "#CFC6B8",
+    lighter3: "#E7E0D3",
   },
   secondary: {
-    main: "#D32F2F", // Refined red
-    light: "#EF5350",
-    dark: "#C62828",
+    main: "#C2410C", // rust
+    light: "#DA5A2A",
+    dark: "#9A3009",
+    other: "#B45309",
     contrastText: "#FFFFFF",
-    other: "#E57373", // Keeping legacy key
   },
   background: {
-    default: "#F3F4F6", // Light Gray for background to contrast with white cards
-    paper: "#FFFFFF", // Pure White for cards
+    default: "#F4EFE7", // warm paper
+    paper: "#FCFAF5", // slightly lighter surface for cards
   },
+  divider: "rgba(27,23,18,0.12)",
   text: {
-    primary: "#111827", // Cool gray 900
-    secondary: "#4B5563", // Cool gray 600
-    disabled: "#9CA3AF", // Cool gray 400
-    // Legacy keys
-    main: "#111827",
-    dark: "#374151",
-    light: "#000000", // Dark text for "light" key in light mode (counter-intuitive but usage based)
+    primary: "#1B1712", // warm near-black ink
+    secondary: "#6F6559", // warm taupe
+    disabled: "#A99E90",
+    main: "#1B1712",
+    dark: "#4A4238",
+    light: "#000000",
   },
   common: {
     white: "#FFFFFF",
-    lite: "#F3F4F6",
+    lite: "#F4EFE7",
   },
-  // In Light Mode, 'transparentLevels' (used for backgrounds) should be White to create glass effect on gray BG
   transparentLevels: {
-    1: "rgba(255,255,255,0.4)",
-    2: "rgba(255,255,255,0.5)",
-    3: "rgba(255,255,255,0.6)",
-    4: "rgba(255,255,255,0.7)",
-    5: "rgba(255,255,255,0.8)",
-    6: "rgba(255,255,255,0.9)",
-    7: "rgba(255,255,255,0.95)",
-    8: "rgba(255,255,255,0.98)",
-    9: "rgba(255,255,255,1.0)",
+    1: "rgba(252,250,245,0.4)",
+    2: "rgba(252,250,245,0.5)",
+    3: "rgba(252,250,245,0.6)",
+    4: "rgba(252,250,245,0.7)",
+    5: "rgba(252,250,245,0.8)",
+    6: "rgba(252,250,245,0.9)",
+    7: "rgba(252,250,245,0.95)",
+    8: "rgba(252,250,245,0.98)",
+    9: "rgba(252,250,245,1.0)",
   },
-  // In Light Mode, 'transparentLevelsWhite' (used for borders often) should be Dark to be visible
   transparentLevelsWhite: {
-    1: "rgba(0,0,0,0.05)",
-    2: "rgba(0,0,0,0.1)",
-    3: "rgba(0,0,0,0.15)",
-    4: "rgba(0,0,0,0.2)",
-    5: "rgba(0,0,0,0.3)",
-    6: "rgba(0,0,0,0.4)",
-    7: "rgba(0,0,0,0.5)",
-    8: "rgba(0,0,0,0.6)",
-    9: "rgba(0,0,0,0.7)",
+    1: "rgba(27,23,18,0.05)",
+    2: "rgba(27,23,18,0.09)",
+    3: "rgba(27,23,18,0.14)",
+    4: "rgba(27,23,18,0.2)",
+    5: "rgba(27,23,18,0.3)",
+    6: "rgba(27,23,18,0.4)",
+    7: "rgba(27,23,18,0.5)",
+    8: "rgba(27,23,18,0.6)",
+    9: "rgba(27,23,18,0.7)",
   },
-  transparentLevelsRed: { ...darkPalette.transparentLevelsRed },
+  transparentLevelsRed: {
+    1: "rgba(194,65,12,0.08)",
+    2: "rgba(194,65,12,0.16)",
+    3: "rgba(194,65,12,0.24)",
+    4: "rgba(194,65,12,0.32)",
+    5: "rgba(194,65,12,0.4)",
+    6: "rgba(194,65,12,0.5)",
+    7: "rgba(194,65,12,0.6)",
+    8: "rgba(194,65,12,0.7)",
+    9: "rgba(194,65,12,0.8)",
+  },
 };
 
+const SERIF = "var(--font-serif), Georgia, 'Times New Roman', serif";
+const SANS =
+  "var(--font-sans), -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif";
+const MONO = "var(--font-mono), 'SFMono-Regular', Menlo, monospace";
+
 export function getTheme(mode: ColorMode): Theme {
+  const isDark = mode === "dark";
   return createTheme({
-    palette: mode === "dark" ? darkPalette : lightPalette,
+    palette: isDark ? darkPalette : lightPalette,
     typography: {
-      fontFamily: "var(--font-plus-jakarta), sans-serif",
+      fontFamily: SANS,
+      // Serif display scale — Fraunces. Tight, high-contrast, editorial.
       h1: {
-        fontFamily: "var(--font-outfit), sans-serif",
-        fontSize: "2.5rem",
-        fontWeight: 700,
-        lineHeight: 1.2,
+        fontFamily: SERIF,
+        fontSize: "3rem",
+        fontWeight: 500,
+        lineHeight: 1.04,
+        letterSpacing: "-0.02em",
       },
       h2: {
-        fontFamily: "var(--font-outfit), sans-serif",
-        fontSize: "2rem",
-        fontWeight: 600,
-        lineHeight: 1.3,
+        fontFamily: SERIF,
+        fontSize: "2.25rem",
+        fontWeight: 500,
+        lineHeight: 1.1,
+        letterSpacing: "-0.02em",
       },
       h3: {
-        fontFamily: "var(--font-outfit), sans-serif",
-        fontSize: "1.75rem",
-        fontWeight: 600,
-        lineHeight: 1.3,
-        "@media (max-width: 600px)": { fontSize: "1.5rem" },
+        fontFamily: SERIF,
+        fontSize: "1.875rem",
+        fontWeight: 500,
+        lineHeight: 1.15,
+        letterSpacing: "-0.01em",
+        "@media (max-width: 600px)": { fontSize: "1.6rem" },
       },
       h4: {
-        fontFamily: "var(--font-outfit), sans-serif",
+        fontFamily: SERIF,
         fontSize: "1.5rem",
         fontWeight: 500,
-        lineHeight: 1.4,
+        lineHeight: 1.2,
+        letterSpacing: "-0.01em",
       },
       h5: {
-        fontFamily: "var(--font-outfit), sans-serif",
+        fontFamily: SERIF,
         fontSize: "1.25rem",
         fontWeight: 500,
+        lineHeight: 1.25,
       },
       h6: {
-        fontFamily: "var(--font-outfit), sans-serif",
-        fontSize: "1rem",
+        fontFamily: SERIF,
+        fontSize: "1.05rem",
         fontWeight: 600,
+        lineHeight: 1.3,
       },
       body1: {
-        fontSize: "1rem",
-        lineHeight: 1.6,
-        color: mode === "dark" ? "#D1D5DB" : "#374151",
+        fontSize: "1.0625rem",
+        lineHeight: 1.7,
+        letterSpacing: "0.003em",
+        color: isDark ? "#C9C0B3" : "#4A4238",
       },
       body2: {
-        fontSize: "0.875rem",
-        lineHeight: 1.6,
-        color: mode === "dark" ? "#9CA3AF" : "#6B7280",
+        fontSize: "0.9375rem",
+        lineHeight: 1.65,
+        color: isDark ? "#A79D90" : "#6F6559",
       },
       subtitle1: {
         fontSize: "1rem",
         fontWeight: 500,
-        color: mode === "dark" ? "#F3F4F6" : "#111827",
+        color: isDark ? "#F4EFE7" : "#1B1712",
       },
       subtitle2: {
         fontSize: "0.875rem",
         fontWeight: 500,
-        color: mode === "dark" ? "#D1D5DB" : "#374151",
+        color: isDark ? "#C9C0B3" : "#4A4238",
       },
       button: {
-        fontFamily: "var(--font-plus-jakarta), sans-serif",
+        fontFamily: SANS,
         fontWeight: 600,
+        letterSpacing: "0.01em",
         textTransform: "none",
       },
+      // Editorial utility label — mono, spaced, uppercase.
+      overline: {
+        fontFamily: MONO,
+        fontSize: "0.7rem",
+        fontWeight: 600,
+        letterSpacing: "0.18em",
+        textTransform: "uppercase",
+        lineHeight: 1.6,
+      },
       caption: {
-        fontSize: "0.75rem",
-        color: mode === "dark" ? "#9CA3AF" : "#6B7280",
+        fontFamily: MONO,
+        fontSize: "0.72rem",
+        letterSpacing: "0.04em",
+        color: isDark ? "#A79D90" : "#6F6559",
       },
     },
     ...commonSettings,
@@ -226,34 +277,36 @@ export function getTheme(mode: ColorMode): Theme {
       MuiCssBaseline: {
         styleOverrides: {
           body: {
-            backgroundColor: mode === "dark" ? "#0A0A0A" : "#FFFFFF",
-            backgroundImage:
-              mode === "dark"
-                ? `radial-gradient(ellipse 80% 50% at 50% -10%, rgba(227, 0, 0, 0.09) 0%, transparent 60%),
-                   radial-gradient(at 99% 97%, rgba(227, 0, 0, 0.07) 0px, transparent 50%)`
-                : "none", // Cleaner look for light mode
-            scrollbarColor: mode === "dark" ? "#333 #0A0A0A" : "#DDD #FFF",
+            backgroundColor: isDark ? "#14110F" : "#F4EFE7",
+            scrollbarColor: isDark ? "#39332B #14110F" : "#D8CFBF #F4EFE7",
             "&::-webkit-scrollbar, & *::-webkit-scrollbar": {
               backgroundColor: "transparent",
-              width: "8px",
+              width: "10px",
             },
             "&::-webkit-scrollbar-thumb, & *::-webkit-scrollbar-thumb": {
-              borderRadius: "8px",
-              backgroundColor: mode === "dark" ? "#333" : "#DDD",
+              borderRadius: "0px",
+              backgroundColor: isDark ? "#39332B" : "#D8CFBF",
               minHeight: "24px",
             },
-            "&::-webkit-scrollbar-thumb:focus, & *::-webkit-scrollbar-thumb:focus":
+            "&::-webkit-scrollbar-thumb:hover, & *::-webkit-scrollbar-thumb:hover":
               {
-                backgroundColor: mode === "dark" ? "#555" : "#AAA",
+                backgroundColor: isDark ? "#4A4238" : "#C0B6A3",
               },
+            "::selection": {
+              backgroundColor: isDark
+                ? "rgba(228,96,46,0.3)"
+                : "rgba(194,65,12,0.18)",
+            },
           },
         },
       },
       MuiButton: {
         styleOverrides: {
           root: {
-            borderRadius: "8px",
+            borderRadius: "2px",
             boxShadow: "none",
+            paddingTop: 10,
+            paddingBottom: 10,
             "&:hover": {
               boxShadow: "none",
             },
@@ -263,7 +316,16 @@ export function getTheme(mode: ColorMode): Theme {
       MuiPaper: {
         styleOverrides: {
           root: {
-            backgroundImage: "none", // Remove default MUI dark mode overlay
+            backgroundImage: "none",
+          },
+        },
+      },
+      MuiDivider: {
+        styleOverrides: {
+          root: {
+            borderColor: isDark
+              ? "rgba(244,239,231,0.13)"
+              : "rgba(27,23,18,0.12)",
           },
         },
       },

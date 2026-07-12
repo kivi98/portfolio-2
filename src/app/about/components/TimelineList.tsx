@@ -33,7 +33,9 @@ const TimelineList = ({ items, activeIndex = 0 }: TimelineListProps) => (
                     : "rgba(0,0,0,0.2)",
               boxShadow:
                 index === activeIndex
-                  ? "0 0 0 4px rgba(227,0,0,0.15)"
+                  ? theme.palette.mode === "dark"
+                    ? "0 0 0 4px rgba(228,96,46,0.2)"
+                    : "0 0 0 4px rgba(194,65,12,0.16)"
                   : "none",
             })}
           />

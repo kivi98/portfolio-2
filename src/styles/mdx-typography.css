@@ -163,7 +163,7 @@
   position: relative;
   margin: 2rem 0;
   padding: 1.5rem 2rem 1.5rem 3rem;
-  background: rgba(227, 0, 0, 0.03);
+  background: rgba(194, 65, 12, 0.03);
   border-left: 4px solid #e30000;
   border-radius: 0 8px 8px 0;
   font-style: italic;
@@ -172,7 +172,7 @@
 }
 
 [data-mui-color-scheme="dark"] .mdx-content blockquote {
-  background: rgba(227, 0, 0, 0.08);
+  background: rgba(194, 65, 12, 0.08);
 }
 
 .mdx-content blockquote::before {
@@ -215,7 +215,7 @@
 
 .mdx-content a:hover {
   /* border-bottom-color: #e30000;
-  background: rgba(227, 0, 0, 0.05);
+  background: rgba(194, 65, 12, 0.05);
   padding: 2px 4px;
   border-radius: 4px;
   margin: -2px -4px; */
@@ -235,8 +235,8 @@
   color: inherit;
   background: linear-gradient(
     135deg,
-    rgba(227, 0, 0, 0.1),
-    rgba(227, 0, 0, 0.05)
+    rgba(194, 65, 12, 0.1),
+    rgba(194, 65, 12, 0.05)
   );
   padding: 2px 4px;
   border-radius: 3px;
@@ -250,20 +250,20 @@
 
 /* Code styling enhancements */
 .mdx-content :not(pre) > code {
-  background: rgba(227, 0, 0, 0.08) !important;
+  background: rgba(194, 65, 12, 0.08) !important;
   color: #c41e3a !important;
   padding: 3px 6px !important;
   border-radius: 4px !important;
   font-family: "Fira Code", "Consolas", "Monaco", monospace !important;
   font-size: 0.9em !important;
   font-weight: 500 !important;
-  border: 1px solid rgba(227, 0, 0, 0.2) !important;
+  border: 1px solid rgba(194, 65, 12, 0.2) !important;
 }
 
 [data-mui-color-scheme="dark"] .mdx-content :not(pre) > code {
-  background: rgba(227, 0, 0, 0.15) !important;
+  background: rgba(194, 65, 12, 0.15) !important;
   color: #ff6b84 !important;
-  border-color: rgba(227, 0, 0, 0.3) !important;
+  border-color: rgba(194, 65, 12, 0.3) !important;
 }
 
 /* Pre and code blocks */
@@ -297,16 +297,16 @@
 }
 
 .mdx-content th {
-  background: rgba(227, 0, 0, 0.05);
+  background: rgba(194, 65, 12, 0.05);
   font-weight: 700;
   text-align: left;
   padding: 12px 16px;
-  border-bottom: 2px solid rgba(227, 0, 0, 0.1);
+  border-bottom: 2px solid rgba(194, 65, 12, 0.1);
 }
 
 [data-mui-color-scheme="dark"] .mdx-content th {
-  background: rgba(227, 0, 0, 0.1);
-  border-bottom-color: rgba(227, 0, 0, 0.2);
+  background: rgba(194, 65, 12, 0.1);
+  border-bottom-color: rgba(194, 65, 12, 0.2);
 }
 
 .mdx-content td {
@@ -448,26 +448,26 @@
 /* Details and summary */
 .mdx-content details {
   margin: 1.5rem 0;
-  border: 1px solid rgba(227, 0, 0, 0.2);
+  border: 1px solid rgba(194, 65, 12, 0.2);
   border-radius: 8px;
   overflow: hidden;
 }
 
 .mdx-content summary {
   padding: 1rem;
-  background: rgba(227, 0, 0, 0.05);
+  background: rgba(194, 65, 12, 0.05);
   cursor: pointer;
   font-weight: 600;
-  border-bottom: 1px solid rgba(227, 0, 0, 0.1);
+  border-bottom: 1px solid rgba(194, 65, 12, 0.1);
   transition: background 0.2s ease;
 }
 
 .mdx-content summary:hover {
-  background: rgba(227, 0, 0, 0.08);
+  background: rgba(194, 65, 12, 0.08);
 }
 
 .mdx-content details[open] summary {
-  border-bottom: 1px solid rgba(227, 0, 0, 0.2);
+  border-bottom: 1px solid rgba(194, 65, 12, 0.2);
 }
 
 .mdx-content details > *:not(summary) {
