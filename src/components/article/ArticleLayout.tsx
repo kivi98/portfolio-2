@@ -555,6 +555,10 @@ const ArticleLayout: React.FC<ArticleLayoutProps> = ({
             gridTemplateColumns: { xs: "1fr", lg: "1fr 300px" },
             gap: 4,
             alignItems: "start",
+            // Grid tracks must be allowed to shrink below their content's
+            // intrinsic width, otherwise a wide table/code block stretches
+            // the whole column past the viewport instead of scrolling.
+            minWidth: 0,
           }}
         >
           <Paper
@@ -562,6 +566,11 @@ const ArticleLayout: React.FC<ArticleLayoutProps> = ({
             sx={{
               p: { xs: 3, sm: 4, md: 5 },
               minHeight: "60vh",
+              // Same reason — clamp the content column to its grid track so
+              // wide MDX blocks scroll inside, not overflow the page.
+              minWidth: 0,
+              maxWidth: "100%",
+              overflow: "hidden",
               ...glassPanel(theme.palette.mode),
             }}
           >

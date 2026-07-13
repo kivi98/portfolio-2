@@ -34,6 +34,23 @@ export const MdxRenderer: React.FC<MdxRendererProps> = ({
     <Box
       className={`mdx-content ${className || ""}`}
       sx={{
+        // Keep the content from ever forcing the column wider than its
+        // container: shrink to fit, and break long unbreakable strings
+        // (URLs, tokens) instead of overflowing horizontally.
+        minWidth: 0,
+        maxWidth: "100%",
+        overflowWrap: "break-word",
+        wordBreak: "break-word",
+        // Genuinely wide blocks scroll inside their own box rather than
+        // stretching the article: tables, code, and display math.
+        "& .MuiTableContainer-root": {
+          maxWidth: "100%",
+          overflowX: "auto",
+        },
+        "& pre": {
+          maxWidth: "100%",
+          overflowX: "auto",
+        },
         // Global styles for the rendered content
         "& .hljs": {
           background:
@@ -48,6 +65,11 @@ export const MdxRenderer: React.FC<MdxRendererProps> = ({
         },
         "& .katex-display": {
           margin: `${theme.spacing(2)} 0`,
+          // Wide display math scrolls inside its box instead of overflowing.
+          maxWidth: "100%",
+          overflowX: "auto",
+          overflowY: "hidden",
+          paddingBottom: "4px",
         },
         // Fix anchor-wrapped headings to preserve heading color
         "& a.anchor": {

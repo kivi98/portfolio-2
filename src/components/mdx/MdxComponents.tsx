@@ -110,9 +110,14 @@ const StyledTable = styled(TableContainer)(({ theme }) => ({
   marginBottom: theme.spacing(2),
   borderRadius: theme.spacing(2),
   border: `1px solid ${theme.palette.divider}`,
+  // The container is the scroll viewport; keep it bounded to its parent so
+  // the wide table (minWidth 650) scrolls horizontally within it on mobile.
+  display: "block",
+  width: "100%",
+  maxWidth: "100%",
+  overflowX: "auto",
   "& .MuiTable-root": {
     minWidth: 650,
-    overflowX: "auto",
   },
   "& .MuiTableHead-root": {
     backgroundColor:
