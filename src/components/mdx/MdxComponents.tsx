@@ -108,7 +108,7 @@ const StyledBlockquote = styled("blockquote")(({ theme }) => ({
 const StyledTable = styled(TableContainer)(({ theme }) => ({
   marginTop: theme.spacing(2),
   marginBottom: theme.spacing(2),
-  borderRadius: theme.spacing(2),
+  borderRadius: "3px",
   border: `1px solid ${theme.palette.divider}`,
   // The container is the scroll viewport; keep it bounded to its parent so
   // the wide table (minWidth 650) scrolls horizontally within it on mobile.

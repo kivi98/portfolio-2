@@ -1,6 +1,8 @@
+"use client";
 import { Box } from "@mui/material";
 import OneColumnSection from "./OneColumnSection";
 import SkillIcon from "./SkillIcon";
+import CollapsibleItems from "./CollapsibleItems";
 
 const SkillBadges = () => {
   const skillsConfig = [
@@ -45,24 +47,32 @@ const SkillBadges = () => {
       title={"Skill Badges"}
       eyebrow="Toolbox"
       sectionDescription={
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            flexWrap: "wrap",
-            gap: 2,
-            maxWidth: "100%",
-          }}
+        <CollapsibleItems
+          items={skillsConfig}
+          initialCount={18}
+          moreLabel={(n) => `Show ${n} more`}
         >
-          {skillsConfig.map((skill, index) => (
-            <SkillIcon
-              key={index}
-              image={skill.image}
-              placeholderText={skill.name}
-            />
-          ))}
-        </Box>
+          {(visible) => (
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                flexWrap: "wrap",
+                gap: 2,
+                maxWidth: "100%",
+              }}
+            >
+              {visible.map((skill) => (
+                <SkillIcon
+                  key={skill.name}
+                  image={skill.image}
+                  placeholderText={skill.name}
+                />
+              ))}
+            </Box>
+          )}
+        </CollapsibleItems>
       }
     />
   );

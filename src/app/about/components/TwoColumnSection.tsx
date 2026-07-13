@@ -29,7 +29,7 @@ const TwoColumnSection = ({
           <SectionHeading eyebrow={eyebrow} title={title} />
         </Reveal>
       )}
-      <Grid container spacing={{ xs: 2, md: 5 }} alignItems="center">
+      <Grid container spacing={{ xs: 2, md: 5 }} alignItems="stretch">
         <Grid item xs={12} md={6}>
           <Box
             sx={{

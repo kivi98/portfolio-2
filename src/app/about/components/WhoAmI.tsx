@@ -32,7 +32,7 @@ const WhoAmI = () => {
       title={"Who Am I"}
       rightComponent={
         <KImageBox
-          height="540px"
+          height={{ xs: "420px", md: "100%" }}
           imageArray={imageArray}
           autoTransition={true}
           transitionInterval={3000}
@@ -41,9 +41,12 @@ const WhoAmI = () => {
             overflow: "hidden",
             border: "1px solid",
             borderColor: "divider",
+            minHeight: { md: "480px" },
           }}
           imageSx={{
-            height: "auto",
+            height: "100%",
+            objectFit: "cover",
+            objectPosition: "center 20%",
           }}
         />
       }
@@ -54,6 +57,10 @@ const WhoAmI = () => {
             fontSize: { xs: 15, md: 17 },
             lineHeight: 1.9,
             color: "text.secondary",
+            height: "100%",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
             p: { xs: 3, md: 4 },
             borderRadius: "3px",
             background: theme.palette.background.paper,

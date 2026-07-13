@@ -1,12 +1,13 @@
 import { Box, SxProps, Theme } from "@mui/material";
+import type { ResponsiveStyleValue } from "@mui/system";
 import { ImageItem } from "@/types";
 import CustomCarousel from "./CustomCarousel";
 
 interface KImageBoxProps {
   src?: string;
   alt?: string;
-  height?: number | string;
-  width?: number | string;
+  height?: ResponsiveStyleValue<number | string>;
+  width?: ResponsiveStyleValue<number | string>;
   imageArray?: ImageItem[];
   sx?: SxProps<Theme>;
   autoTransition?: boolean;

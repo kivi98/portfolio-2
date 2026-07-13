@@ -287,7 +287,9 @@ export default function Header() {
                     backdropFilter: "blur(20px)",
                     borderBottom: `1px solid ${theme.palette.divider}`,
                     boxShadow: "0 10px 40px rgba(0,0,0,0.1)",
-                    zIndex: 1199,
+                    // Above the About page's sticky section nav (z 1201) so the
+                    // dropdown's first item (Home) isn't covered by it.
+                    zIndex: 1300,
                     animation: "slideDown 0.3s ease-out forwards",
                     "@keyframes slideDown": {
                       "0%": { opacity: 0, transform: "translateY(-10px)" },

@@ -1,6 +1,8 @@
+"use client";
 import { Grid } from "@mui/material";
 import OneColumnSection from "./OneColumnSection";
 import SkillCard from "./SkillCard";
+import CollapsibleItems from "./CollapsibleItems";
 import Reveal from "@/components/Reveal";
 
 const skillCards = [
@@ -89,21 +91,29 @@ const Certifications = () => {
       title={"Certifications"}
       eyebrow="Credentials"
       sectionBody={
-        <Grid container spacing={3}>
-          {skillCards.map((card, index) => (
-            <Grid item xs={12} sm={6} md={4} key={index}>
-              <Reveal delay={(index % 3) * 0.1} sx={{ height: "100%" }}>
-                <SkillCard
-                  title={card.title}
-                  subtitle={card.subtitle}
-                  date={card.date}
-                  description={card.description}
-                  zoomInAnimation
-                />
-              </Reveal>
+        <CollapsibleItems
+          items={skillCards}
+          initialCount={6}
+          moreLabel={(n) => `Show ${n} more`}
+        >
+          {(visible) => (
+            <Grid container spacing={3}>
+              {visible.map((card, index) => (
+                <Grid item xs={12} sm={6} md={4} key={card.title}>
+                  <Reveal delay={(index % 3) * 0.1} sx={{ height: "100%" }}>
+                    <SkillCard
+                      title={card.title}
+                      subtitle={card.subtitle}
+                      date={card.date}
+                      description={card.description}
+                      zoomInAnimation
+                    />
+                  </Reveal>
+                </Grid>
+              ))}
             </Grid>
-          ))}
-        </Grid>
+          )}
+        </CollapsibleItems>
       }
     />
   );

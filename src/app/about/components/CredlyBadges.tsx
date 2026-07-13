@@ -11,6 +11,7 @@ import {
   CredlyBadgesEmpty,
 } from "./CredlyBadgeCard";
 import OneColumnSection from "./OneColumnSection";
+import CollapsibleItems from "./CollapsibleItems";
 
 const CREDLY_USERNAME =
   process.env.NEXT_PUBLIC_CREDLY_USERNAME || "kivi-amarakoon-arachchi";
@@ -37,13 +38,21 @@ const CredlyBadges: React.FC = () => {
     }
 
     return (
-      <Grid container spacing={3}>
-        {badges.map((badge: CredlyBadgeDisplay) => (
-          <Grid item xs={12} sm={6} md={4} key={badge.id}>
-            <CredlyBadgeCard badge={badge} />
+      <CollapsibleItems
+        items={badges}
+        initialCount={6}
+        moreLabel={(n) => `Show ${n} more badges`}
+      >
+        {(visible) => (
+          <Grid container spacing={3}>
+            {visible.map((badge: CredlyBadgeDisplay) => (
+              <Grid item xs={12} sm={6} md={4} key={badge.id}>
+                <CredlyBadgeCard badge={badge} />
+              </Grid>
+            ))}
           </Grid>
-        ))}
-      </Grid>
+        )}
+      </CollapsibleItems>
     );
   };
 

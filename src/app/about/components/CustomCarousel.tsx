@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { Box, IconButton, SxProps, Theme } from "@mui/material";
+import type { ResponsiveStyleValue } from "@mui/system";
 import { ChevronLeft, ChevronRight } from "@mui/icons-material";
 import { ImageItem } from "@/types";
 
 interface CustomCarouselProps {
   images: ImageItem[];
-  height?: number | string;
-  width?: number | string;
+  height?: ResponsiveStyleValue<number | string>;
+  width?: ResponsiveStyleValue<number | string>;
   sx?: SxProps<Theme>;
   autoTransition?: boolean;
   transitionInterval?: number; // in milliseconds
-  imageHeight?: number | string;
+  imageHeight?: ResponsiveStyleValue<number | string>;
   imageSx?: SxProps<Theme>;
 }
 
