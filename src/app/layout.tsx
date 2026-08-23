@@ -32,6 +32,11 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
+  // Required so the Open Graph / Twitter image paths below resolve to absolute
+  // URLs — social scrapers reject relative ones.
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_SITE_URL ?? "https://kiviamarakoon.me",
+  ),
   title: "Kivi Amarakoon",
   description:
     "Software Engineer, Developer, and Designer. Explore my projects, skills, and experience in web development and software engineering.",
@@ -54,12 +59,21 @@ export const metadata: Metadata = {
       "Software Engineer, Developer, and Designer. Explore my projects, skills, and experience in web development and software engineering.",
     type: "website",
     locale: "en_US",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Kivi Amarakoon — Software Engineer",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Kivi Amarakoon - Portfolio",
     description:
       "Software Engineer, Developer, and Designer. Explore my projects, skills, and experience in web development and software engineering.",
+    images: ["/og-image.png"],
   },
   icons: {
     icon: [

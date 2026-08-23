@@ -200,7 +200,10 @@ const ArticleLayout: React.FC<ArticleLayoutProps> = ({
     setHasLiked(true);
     setLikeCount((prev) => prev + 1);
     const likedPosts = JSON.parse(localStorage.getItem("liked_posts") || "[]");
-    localStorage.setItem("liked_posts", JSON.stringify([...likedPosts, post.id]));
+    localStorage.setItem(
+      "liked_posts",
+      JSON.stringify([...likedPosts, post.id]),
+    );
     addLikeMutation.mutate({ id: post.id, likes: 1 });
   };
 
@@ -211,7 +214,10 @@ const ArticleLayout: React.FC<ArticleLayoutProps> = ({
     }
   };
 
-  const renderTag = (tag: string | { id?: number; name: string }, index: number) => {
+  const renderTag = (
+    tag: string | { id?: number; name: string },
+    index: number,
+  ) => {
     const tagName = typeof tag === "string" ? tag : tag.name;
     const tagKey = typeof tag === "string" ? tag : tag.id;
     return (
@@ -424,9 +430,14 @@ const ArticleLayout: React.FC<ArticleLayoutProps> = ({
           >
             <Stack direction="row" alignItems="center" spacing={2}>
               <Avatar
-                src="/my-images/me.jpeg"
+                src="/my-images/kivi-avatar.webp"
                 alt={authorName}
-                sx={{ width: 44, height: 44 }}
+                sx={{
+                  width: 44,
+                  height: 44,
+                  backgroundColor: "background.paper",
+                  border: (theme) => `1px solid ${theme.palette.divider}`,
+                }}
               />
               <Box sx={{ textAlign: "left" }}>
                 <Typography variant="subtitle1" fontWeight={600}>
@@ -454,7 +465,9 @@ const ArticleLayout: React.FC<ArticleLayoutProps> = ({
             >
               {post.createdAt && (
                 <Stack direction="row" alignItems="center" spacing={1}>
-                  <CalendarToday sx={{ fontSize: 16, color: "text.disabled" }} />
+                  <CalendarToday
+                    sx={{ fontSize: 16, color: "text.disabled" }}
+                  />
                   <Typography variant="body2" color="text.secondary">
                     {new Date(post.createdAt).toLocaleDateString("en-US", {
                       year: "numeric",

@@ -25,6 +25,7 @@ import { contactFormSchema, ContactFormData } from "@/lib/schemas";
 import axios from "axios";
 import PageHero from "@/components/PageHero";
 import Reveal from "@/components/Reveal";
+import IdentityByline from "@/components/IdentityByline";
 
 const contactDetails = [
   {
@@ -170,6 +171,18 @@ const Contact = () => {
             >
               Let&apos;s Connect
             </Typography>
+          </Reveal>
+
+          <Reveal delay={0.05}>
+            <Box
+              sx={{
+                mb: 3,
+                pb: 3,
+                borderBottom: `1px solid ${theme.palette.divider}`,
+              }}
+            >
+              <IdentityByline />
+            </Box>
           </Reveal>
 
           <Stack spacing={2.5}>

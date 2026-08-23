@@ -12,6 +12,7 @@ import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import Link from "next/link";
+import Image from "next/image";
 import { PAGE_TOP_PADDING } from "@/components/layoutConstants";
 
 const META = [
@@ -56,56 +57,129 @@ const Hero = () => {
           />
           <Typography
             variant="overline"
-            sx={{ color: "text.secondary", display: { xs: "none", sm: "block" } }}
+            sx={{
+              color: "text.secondary",
+              display: { xs: "none", sm: "block" },
+            }}
           >
             Open to opportunities
           </Typography>
         </Stack>
       </Box>
 
-      {/* Masthead */}
-      <Box className="reveal is-visible" sx={{ pt: { xs: 4, md: 6 } }}>
-        <Typography
-          variant="h1"
-          sx={{
-            fontSize: { xs: "3.4rem", sm: "5rem", md: "7rem", lg: "8rem" },
-            lineHeight: 0.95,
-            letterSpacing: "-0.035em",
-            fontWeight: 500,
-          }}
-        >
-          Kivi
-          <br />
-          Amarakoon
-          <Box component="span" sx={{ color: "secondary.main" }}>
-            .
-          </Box>
-        </Typography>
-      </Box>
-
-      {/* Subhead statement */}
-      <Typography
-        className="reveal is-visible"
+      {/* Masthead + portrait — the display type and the figure share a
+          two-column measure at md+, stacking on small screens. */}
+      <Box
         sx={{
-          fontFamily: "var(--font-serif), serif",
-          fontSize: { xs: "1.35rem", md: "1.75rem" },
-          lineHeight: 1.5,
-          fontWeight: 400,
-          color: "text.primary",
-          maxWidth: 720,
-          mt: { xs: 4, md: 5 },
+          pt: { xs: 4, md: 6 },
+          display: "grid",
+          gridTemplateColumns: { xs: "1fr", md: "1fr 260px", lg: "1fr 310px" },
+          columnGap: { md: 6, lg: 8 },
+          alignItems: "end",
         }}
       >
-        I design and build user-friendly products end to end — from clean,
-        accessible interfaces to{" "}
+        <Box className="reveal is-visible">
+          <Typography
+            variant="h1"
+            sx={{
+              fontSize: { xs: "3.4rem", sm: "5rem", md: "5.2rem", lg: "7rem" },
+              lineHeight: 0.95,
+              letterSpacing: "-0.035em",
+              fontWeight: 500,
+            }}
+          >
+            Kivi
+            <br />
+            Amarakoon
+            <Box component="span" sx={{ color: "secondary.main" }}>
+              .
+            </Box>
+          </Typography>
+
+          {/* Subhead statement */}
+          <Typography
+            className="reveal is-visible"
+            sx={{
+              fontFamily: "var(--font-serif), serif",
+              fontSize: { xs: "1.35rem", md: "1.75rem" },
+              lineHeight: 1.5,
+              fontWeight: 400,
+              color: "text.primary",
+              maxWidth: 720,
+              mt: { xs: 4, md: 5 },
+            }}
+          >
+            I design and build user-friendly products end to end — from clean,
+            accessible interfaces to{" "}
+            <Box
+              component="em"
+              sx={{ color: "secondary.main", fontStyle: "italic" }}
+            >
+              reliable
+            </Box>{" "}
+            backends, with a bias for simple, elegant solutions.
+          </Typography>
+        </Box>
+
+        {/* Portrait plate — the cutout stands on a warm panel and breaks out
+            over its top edge, an editorial figure rather than a framed photo. */}
         <Box
-          component="em"
-          sx={{ color: "secondary.main", fontStyle: "italic" }}
+          className="reveal is-visible"
+          sx={{
+            position: "relative",
+            justifySelf: { xs: "center", md: "stretch" },
+            width: "100%",
+            maxWidth: { xs: 260, sm: 300, md: "none" },
+            mt: { xs: 6, md: 0 },
+          }}
         >
-          reliable
-        </Box>{" "}
-        backends, with a bias for simple, elegant solutions.
-      </Typography>
+          {/* Warm panel sitting behind the lower portion of the figure */}
+          <Box
+            aria-hidden
+            sx={{
+              position: "absolute",
+              left: 0,
+              right: 0,
+              bottom: 0,
+              top: { xs: "22%", md: "26%" },
+              backgroundColor: "background.paper",
+              border: (theme) => `1px solid ${theme.palette.divider}`,
+              borderRadius: "3px",
+            }}
+          />
+          {/* Rust hairline marking the panel's top edge */}
+          <Box
+            aria-hidden
+            sx={{
+              position: "absolute",
+              left: 0,
+              width: { xs: 48, md: 64 },
+              top: { xs: "22%", md: "26%" },
+              height: "2px",
+              backgroundColor: "secondary.main",
+            }}
+          />
+          <Box
+            sx={{
+              position: "relative",
+              width: "100%",
+              // Cap the figure at md+ so the portrait column stays close in
+              // height to the type column instead of towering over it.
+              aspectRatio: { xs: "826 / 1500", md: "auto" },
+              height: { md: 440, lg: 540 },
+            }}
+          >
+            <Image
+              src="/my-images/kivi-portrait.webp"
+              alt="Kivi Amarakoon"
+              fill
+              priority
+              sizes="(max-width: 600px) 260px, (max-width: 1200px) 260px, 310px"
+              style={{ objectFit: "contain", objectPosition: "bottom" }}
+            />
+          </Box>
+        </Box>
+      </Box>
 
       {/* Meta definition grid */}
       <Box

@@ -1,6 +1,7 @@
-import { Typography } from "@mui/material";
+import { Box, Divider, Typography } from "@mui/material";
 import TwoColumnSection from "./TwoColumnSection";
 import KImageBox from "./KImageBox";
+import IdentityByline from "@/components/IdentityByline";
 import { ImageItem } from "@/types";
 
 const WhoAmI = () => {
@@ -51,12 +52,8 @@ const WhoAmI = () => {
         />
       }
       leftComponent={
-        <Typography
-          variant={"body1"}
+        <Box
           sx={(theme) => ({
-            fontSize: { xs: 15, md: 17 },
-            lineHeight: 1.9,
-            color: "text.secondary",
             height: "100%",
             display: "flex",
             flexDirection: "column",
@@ -67,24 +64,35 @@ const WhoAmI = () => {
             border: `1px solid ${theme.palette.divider}`,
           })}
         >
-          I&#39;m an aspiring software engineer with a passion for crafting
-          innovative solutions to real-world challenges. With experience in web,
-          mobile, and enterprise-level development, I enjoy building
-          user-centered software using modern tools like React, .NET, and Clean
-          Architecture.
-          <br />
-          <br />
-          Currently pursuing an MSc in Computer Science at the University of Sri
-          Jayawardenapura, I&apos;m eager to deepen my knowledge in areas like
-          AI, Software Architecture, and Networking. Whether it&#39;s creating
-          efficient systems or experimenting with the latest technologies,
-          I&apos;m committed to continuous learning and growth.
-          <br />
-          <br />
-          In essence, I&apos;m just an ordinary student with extraordinary
-          dreams—determined to grow into an expert in software engineering, one
-          line of code at a time.
-        </Typography>
+          <IdentityByline />
+          <Divider sx={{ my: { xs: 2.5, md: 3 } }} />
+          <Typography
+            variant={"body1"}
+            sx={{
+              fontSize: { xs: 15, md: 17 },
+              lineHeight: 1.9,
+              color: "text.secondary",
+            }}
+          >
+            I&#39;m an aspiring software engineer with a passion for crafting
+            innovative solutions to real-world challenges. With experience in
+            web, mobile, and enterprise-level development, I enjoy building
+            user-centered software using modern tools like React, .NET, and
+            Clean Architecture.
+            <br />
+            <br />
+            Currently pursuing an MSc in Computer Science at the University of
+            Sri Jayawardenapura, I&apos;m eager to deepen my knowledge in areas
+            like AI, Software Architecture, and Networking. Whether it&#39;s
+            creating efficient systems or experimenting with the latest
+            technologies, I&apos;m committed to continuous learning and growth.
+            <br />
+            <br />
+            In essence, I&apos;m just an ordinary student with extraordinary
+            dreams—determined to grow into an expert in software engineering,
+            one line of code at a time.
+          </Typography>
+        </Box>
       }
     />
   );
