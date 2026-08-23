@@ -20,6 +20,7 @@ import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import { useThemeMode } from "@/theme/ThemeProvider";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
+import { KiwiToggle } from "@/components/kiwi";
 
 const navLinks = [
   { label: "Home", href: "/" },
@@ -179,7 +180,8 @@ export default function Header() {
               }}
             />
 
-            <Stack direction="row" spacing={0.5}>
+            <Stack direction="row" spacing={0.5} alignItems="center">
+              <KiwiToggle />
               <Tooltip title="GitHub">
                 <IconButton
                   component="a"
@@ -245,6 +247,7 @@ export default function Header() {
             ref={mobileMenuRef}
             sx={{ display: "flex", alignItems: "center" }}
           >
+            <KiwiToggle />
             <IconButton
               onClick={toggleColorMode}
               sx={{

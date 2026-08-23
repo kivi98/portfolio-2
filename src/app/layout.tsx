@@ -8,6 +8,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import HeaderBlurOverlay from "@/components/HeaderBlurOverlay";
 import Providers from "@/components/Providers";
+import { KiwiProvider, KiwiGuide } from "@/components/kiwi";
 
 // Editorial serif display — the signature voice for headings.
 const fraunces = Fraunces({
@@ -103,10 +104,14 @@ export default function RootLayout({
       >
         <Providers>
           <ThemeProvider>
-            <Header />
-            <HeaderBlurOverlay />
-            {children}
-            <Footer />
+            <KiwiProvider>
+              <Header />
+              <HeaderBlurOverlay />
+              {children}
+              <Footer />
+              {/* Opt-in pixel guide — see src/components/kiwi. */}
+              <KiwiGuide />
+            </KiwiProvider>
           </ThemeProvider>
         </Providers>
       </body>

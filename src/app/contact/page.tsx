@@ -26,6 +26,7 @@ import axios from "axios";
 import PageHero from "@/components/PageHero";
 import Reveal from "@/components/Reveal";
 import IdentityByline from "@/components/IdentityByline";
+import { sayKiwi } from "@/components/kiwi";
 
 const contactDetails = [
   {
@@ -137,6 +138,8 @@ const Contact = () => {
         severity: "success",
         message: "Message sent! I'll get back to you soon.",
       });
+      // The kiwi guide celebrates too, if the visitor has it switched on.
+      sayKiwi("Sent. I'll make sure he reads it.", { celebrate: true });
       setFormData({ name: "", email: "", subject: "", message: "" });
     } catch (error) {
       setSubmitStatus({

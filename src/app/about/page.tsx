@@ -67,6 +67,22 @@ const About = () => {
     [],
   );
 
+  // Lines for the optional pixel guide, keyed by section. Inert when it's off.
+  const kiwiHints: Record<string, string> = useMemo(
+    () => ({
+      "Who Am I": "Start here — this is the part written by a human.",
+      Education: "Formal schooling. The interesting bits are further down.",
+      Certifications:
+        "Certificates. Collapsed by default, because there are a lot.",
+      Credly: "These badges are verifiable — they link back to the issuer.",
+      Skills: "Skills, grouped by what they're actually for.",
+      "Skill Badges": "More badges. I did warn you.",
+      Volunteering: "Unpaid work that mattered.",
+      Experience: "The employment record. Newest role first.",
+    }),
+    [],
+  );
+
   const scrollToSection = useCallback(
     (ref: React.RefObject<HTMLDivElement | null>, offset = 0) => {
       if (ref.current) {
@@ -146,6 +162,7 @@ const About = () => {
               <Box
                 key={id}
                 ref={ref}
+                data-kiwi-hint={kiwiHints[text]}
                 sx={{ width: "100%", mb: { xs: 4, md: 6 } }}
               >
                 {Component && <Component />}
